@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace VehicleTracker.Model
+{
+    public partial class VehicleEmissiontTest
+    {
+        public VehicleEmissiontTest()
+        {
+            InverseParent = new HashSet<VehicleEmissiontTest>();
+        }
+
+        public long Id { get; set; }
+        public long? ParentId { get; set; }
+        public long VehicleId { get; set; }
+        public DateTime NextEmissiontTestDate { get; set; }
+        public DateTime? ActualEmissiontTestDate { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public long CreatedBy { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public long UpdatedBy { get; set; }
+        public bool IsActive { get; set; }
+
+        public virtual VehicleEmissiontTest Parent { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+        public virtual ICollection<VehicleEmissiontTest> InverseParent { get; set; }
+    }
+}

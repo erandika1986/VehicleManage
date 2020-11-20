@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card border-0" style="margin-top: 10px;">
+        <div class="card-header">Fitness Report Table</div>
+        <div class="card-body" style="overflow-x: auto;">
+          <table class="table" style="table-layout: fixed;">
+            <thead>
+              <tr>
+                <th style="overflow:hidden;width:120px;">
+                  <button class="btn btn-dark btn-sm" (click)="addOrEdit(0,false)"><span class="fa fa-plus"></span> Add
+                    New</button>
+                </th>
+                <th style="overflow:hidden;width:100px;">Id</th>
+                <th style="overflow:hidden;width:100px;">Vehicle Id</th>
+                <th style="overflow:hidden;width:200px;">Next Fitness Report Date</th>
+                <th style="overflow:hidden;width:200px;">Actual Fitness Report Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of vehicleFR; let i = index">
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="delete(v.id, i)" [disabled]="i!=0"><span
+                      class="fa fa-trash"></span></button>
+                  <button class="btn btn-primary btn-sm ml-2" (click)="addOrEdit(v.id, true)"><span
+                      class="fa fa-eye"></span></button>
+                </td>
+                <td>{{v.id}}</td>
+                <td>{{v.vehicleId}}</td>
+                <td>{{v.nextFitnessReportDate | date}}</td>
+                <td>{{v.actualFitnessReportDate | date}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br>
+      <div class="row m-1">
+        <ngb-pagination [collectionSize]="totalRecordCount" [(page)]="currentPage" [pageSize]="pageSize" [maxSize]="8"
+          (pageChange)="onPageChange()" aria-label="Default pagination">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

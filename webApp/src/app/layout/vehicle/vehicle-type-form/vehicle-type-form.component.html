@@ -1,0 +1,267 @@
+<div class="container-fluid" style="padding: 10px;">
+  <div class="row">
+    <div class="col">
+      <div class="card border-0">
+        <div class="card-header">
+          {{vehicleTypeId === 0 ? "Vehicle Type Details : New" : "Edit Existing Vehicle Type Details"}}
+        </div>
+        <div class="card-body">
+          <form [formGroup]="vehicleTypeRegisterForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="name" class="col-sm-6 col-form-label">Name</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="fuelType" class="col-sm-6 col-form-label">Fuel Type</label>
+                  <div class="col-sm-6">
+                    <select id="fuelType" class="form-control" formControlName="fuelType">
+                      <option *ngFor="let ft of masterData?.fuelTypes" [value]="ft.id">{{ft.name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="fuelFilterChangeMilage" class="col-sm-6 col-form-label">Fuel Filter Milage (Km)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="fuelFilterChangeMilage"
+                      formControlName="fuelFilterChangeMilage">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="fuelFilterNumber" class="col-sm-6 col-form-label">Fuel Filter Number</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="fuelFilterNumber" formControlName="fuelFilterNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="chbHasDifferentialOil" class="col-sm-6 col-form-label">Has Differential Oil </label>
+                  <div class="col-sm-6">
+                    <input type="checkbox" formControlName="hasDifferentialOil" id="chbHasDifferentialOil" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+
+              </div>
+            </div>
+
+            <div class="row" *ngIf="hasDifferentialOil">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="differentialOilChangeMilage" class="col-sm-6 col-form-label">Differential Oil Milage
+                    (Km)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="differentialOilChangeMilage"
+                      formControlName="differentialOilChangeMilage">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+
+                <div class="form-group row">
+                  <label for="differentialOilNumber" class="col-sm-6 col-form-label">Differential Oil Number</label>
+                  <div class="col-sm-6">
+                    <select id="differentialOilNumber" class="form-control" formControlName="differentialOilId">
+                      <option *ngFor="let doc of masterData?.differentialOilTypes" [value]="doc.id">{{doc.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="gearBoxChangeMilage" class="col-sm-6 col-form-label">Gear Box Milage (Km)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="gearBoxChangeMilage"
+                      formControlName="gearBoxChangeMilage">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="gearBoxOilNumber" class="col-sm-6 col-form-label">Gear Box Oil Number</label>
+                  <div class="col-sm-6">
+                    <select id="gearBoxOilNumber" class="form-control" formControlName="gearBoxOilId">
+                      <option *ngFor="let gbo of masterData?.gearBoxOilTypes" [value]="gbo.id">{{gbo.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="engineOilChangeMilage" class="col-sm-6 col-form-label">Engine Oil Milage (Km)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="engineOilChangeMilage"
+                      formControlName="engineOilChangeMilage">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="engineOilNumber" class="col-sm-6 col-form-label">Engine Oil Number</label>
+                  <div class="col-sm-6">
+                    <select id="engineOilNumber" class="form-control" formControlName="engineOilId">
+                      <option *ngFor="let eoc of masterData?.engineOilTypes" [value]="eoc.id">{{eoc.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="breakOilCodes" class="col-sm-6 col-form-label">Break Oil Type</label>
+                  <div class="col-sm-6">
+                    <select id="breakOilCodes" class="form-control" formControlName="breakOilId">
+                      <option *ngFor="let bot of masterData?.breakOilTypes" [value]="bot.id">{{bot.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="engineCoolant" class="col-sm-6 col-form-label">Engine Coolant Type</label>
+                  <div class="col-sm-6">
+                    <select id="engineCoolant" class="form-control" formControlName="engineCoolantId">
+                      <option *ngFor="let ecc of masterData?.coolantsTypes" [value]="ecc.id">{{ecc.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="powerSteeringOilType" class="col-sm-6 col-form-label">Power Steering Oil</label>
+                  <div class="col-sm-6">
+                    <select id="powerSteeringOilType" class="form-control" formControlName="powerSteeringOilId">
+                      <option *ngFor="let pso of masterData?.powerSteeringOilTypes" [value]="pso.id">{{pso.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="insuranceAge" class="col-sm-6 col-form-label">Insurance Age (months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="insuranceAge" formControlName="insuranceAge">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="emitionTestAge" class="col-sm-6 col-form-label">Emition Test Age (months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="emitionTestAge" formControlName="emitionTestAge">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="revenueLicenceAge" class="col-sm-6 col-form-label">Revenue Licence Age(months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="revenueLicenceAge"
+                      formControlName="revenueLicenceAge">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="airCleanerAge" class="col-sm-6 col-form-label">Air Cleaner Age (months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="airCleanerAge" formControlName="airCleanerAge">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="chbHasGreeceNiple" class="col-sm-6 col-form-label">Has Greece Niple </label>
+                  <div class="col-sm-6">
+                    <input type="checkbox" formControlName="hasGreeceNipple" id="chbHasGreeceNiple" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" *ngIf="hasGreeceNipple">
+                <div class="form-group row">
+                  <label for="greeceNipleAge" class="col-sm-6 col-form-label">Greece Niple Age (months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="greeceNipleAge" formControlName="greeceNipleAge">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row">
+                  <label for="chbHasFitnessReport" class="col-sm-6 col-form-label">Has Fitness Report</label>
+                  <div class="col-sm-6">
+                    <input type="checkbox" formControlName="hasFitnessReport" id="chbHasFitnessReport" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6" *ngIf="hasFitnessReport">
+                <div class="form-group row">
+                  <label for="fitnessReportAge" class="col-sm-6 col-form-label">Fitness Report Age (months)</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" id="fitnessReportAge" formControlName="fitnessReportAge">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <div>
+              <button class="btn btn-primary btn-md" type="submit"><span class="fa fa-database"></span> Save Data</button>
+              <button class="btn btn-danger btn-md ml-2" type="button"
+                (click)="modal.close('Ok Close')"><span class="fa fa-window-close"></span> Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

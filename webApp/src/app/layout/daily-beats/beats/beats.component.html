@@ -1,0 +1,74 @@
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card border-0">
+        <div class="card-header">
+          Vehicle Daily Beats
+        </div>
+        <div class="card-body">
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="vehicleNo" class="col-sm-4 col-form-label">Vehicle No</label>
+      <div class="col-sm-8">
+
+        <select class="form-control" id="vehicleNo" name="vehicleNo" [(ngModel)]='selectedVehicle'
+          (ngModelChange)='vehicleOnChanged($event)'>
+          <option *ngFor='let item of activeVehicles' [ngValue]="item">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="route" class="col-sm-4 col-form-label">Route</label>
+      <div class="col-sm-8">
+        <select class="form-control" id="route" name="route" [(ngModel)]='selectedRoute'
+          (ngModelChange)='routeOnChanged($event)'>
+          <option *ngFor='let item of activeRoutes' [ngValue]="item">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="fromdate" class="col-sm-4 col-form-label">From Date</label>
+      <div class="col-sm-8">
+
+        <div class="input-group">
+          <input type="text" class="form-control" ngbDatepicker [(ngModel)]="fromDate" id="fromdate" name="fromdate"
+            #fromdate="ngbDatepicker" (change)="fromDateOnChange()">
+          <button class="input-group-addon" (click)="fromdate.toggle()" type="button">
+            <span class="fa fa-calendar"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group row">
+      <label for="toDate" class="col-sm-4 col-form-label">To Date</label>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <input type="text" class="form-control" ngbDatepicker [(ngModel)]="toDate" id="todate" name="todate"
+            #todate="ngbDatepicker" (change)="toDateOnChange()">
+          <button class="input-group-addon" (click)="todate.toggle()" type="button">
+            <span class="fa fa-calendar"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleTracker.Model\VehicleTracker.Model.csproj" />
+    <ProjectReference Include="..\VehicleTracker.ViewModel\VehicleTracker.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

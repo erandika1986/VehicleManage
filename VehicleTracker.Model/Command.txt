@@ -1,0 +1,3 @@
+﻿Scaffold-DbContext "Server=DESKTOP-4B3H53F;Database=VMDB;Trusted_Connection=True;User Id=sa;Password=1qaz2wsx@;" Microsoft.EntityFrameworkCore.SqlServer -Force
+
+Scaffold-DbContext "Server=DESKTOP-FE7O8EP\SQLEXPRESS;Database=VMDB;Trusted_Connection=True;User Id=sa1;Password=123;" Microsoft.EntityFrameworkCore.SqlServer -Force

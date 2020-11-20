@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">All Routes</div>
+        <div class="card-body" style="overflow-x: auto;">
+          <table class="table" style="table-layout: fixed;">
+            <thead>
+              <tr>
+                <th style="overflow:hidden;width:200px;">
+                  <button class="btn btn-success btn-sm" (click)="edit(0,0)">Add New</button>
+                </th>
+                <th style="overflow:hidden;width:100px;">Id</th>
+                <th style="overflow:hidden;width:200px;">Route Code</th>
+                <th style="overflow:hidden;width:300px;">Start From</th>
+                <th style="overflow:hidden;width:300px;">EndFrom</th>
+                <th style="overflow:hidden;width:200px;">Total Distance</th>
+                <th style="overflow:hidden;width:200px;">Is Active</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of rowData; let i = index">
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="delete(item,i)">Delete</button>
+                  <button class="btn btn-primary btn-sm" style="margin-left: 1%;"
+                    (click)="edit(item.id,i)">Edit</button>
+                </td>
+                <td>{{item.id}}</td>
+                <td>{{item.routeCode}}</td>
+                <td>{{item.startFrom}}</td>
+                <td>{{item.endFrom}}</td>
+                <td>{{item.totalDistance}}</td>
+                <td>{{item.isActive}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
+
+      </div>
+
+      <br>
+      <div class="row m-1">
+        <ngb-pagination [collectionSize]="totalRecordCount" [(page)]="currentPage" [pageSize]="pageSize" [maxSize]="8"
+          (pageChange)="onPageChange()" aria-label="Default pagination">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <app-vehicle-detail></app-vehicle-detail> -->
