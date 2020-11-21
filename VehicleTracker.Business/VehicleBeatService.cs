@@ -77,7 +77,7 @@ namespace VehicleTracker.Business
             return response;
         }
 
-        public PaginatedItemsViewModel<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters)
+        public List<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters)
         {
 
             var startDate = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 0, 0, 0);
@@ -86,25 +86,26 @@ namespace VehicleTracker.Business
 
             var query = _uow.DailyVehicleBeat.GetAll().Where(t => t.Date>= startDate && t.Date<=endDate && t.IsActive==true).OrderByDescending(t=>t.Vehicle.RegistrationNo);
 
-            int totalRecordCount = 0;
-            double totalPages = 0;
-            int totalPageCount = 0;
+            //int totalRecordCount = 0;
+            //double totalPages = 0;
+            //int totalPageCount = 0;
             var data = new List<DailyVehicleBeatViewModel>();
 
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / filters.PageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            //totalRecordCount = query.Count();
+            //totalPages = (double)totalRecordCount / filters.PageSize;
+            //totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var pageData = query.Skip((filters.CurrentPage - 1) * filters.PageSize).Take(filters.PageSize).ToList();
+            //var pageData = query.Skip((filters.CurrentPage - 1) * filters.PageSize).Take(filters.PageSize).ToList();
+            var pageData = query.ToList();
 
             pageData.ForEach(p =>
             {
                 data.Add(p.ToVm());
             });
 
-            var response = new PaginatedItemsViewModel<DailyVehicleBeatViewModel>(filters.CurrentPage, filters.PageSize, totalPageCount, totalRecordCount, data);
+            //var response = new PaginatedItemsViewModel<DailyVehicleBeatViewModel>(filters.CurrentPage, filters.PageSize, totalPageCount, totalRecordCount, data);
 
-            return response;
+            return data;
 
         }
 

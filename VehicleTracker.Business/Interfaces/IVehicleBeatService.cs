@@ -13,7 +13,7 @@ namespace VehicleTracker.Business.Interfaces
         Task<ResponseViewModel> UpdateNewVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName);
         DailyVehicleBeatViewModel GetVehicleBeatRecordById(long id);
         Task<ResponseViewModel> DeleteSelectedBeatRecord(long id, string userName);
-        PaginatedItemsViewModel<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters);
+        List<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters);
         VehicleBeatMasterDataViewModel GetMasterData();
 
     }

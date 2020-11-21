@@ -20,8 +20,8 @@ export class DailyBeatService {
       get<VehicleBeatMasterDataModel>(environment.apiUrl + 'VehicleDailyBeat' + "/getMasterData");
   }
 
-  getAllVehicleBeatRecord(filter: VehicleBeatFilterModel): Observable<VehicleDailyBeatPaginatedItemsModel> {
-    return this.httpClient.post<VehicleDailyBeatPaginatedItemsModel>(environment.apiUrl + 'VehicleDailyBeat/getAllVehicleBeatRecord', filter);
+  getAllVehicleBeatRecord(filter: VehicleBeatFilterModel): Observable<DailyVehicleBeatModel[]> {
+    return this.httpClient.post<DailyVehicleBeatModel[]>(environment.apiUrl + 'VehicleDailyBeat/getAllVehicleBeatRecord', filter);
   }
 
   getVehicleBeatRecordById(id: number): Observable<DailyVehicleBeatModel> {
