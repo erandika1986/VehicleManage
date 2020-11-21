@@ -18,6 +18,7 @@ namespace System
             model.VehicleId = vm.VehicleId;
             model.RouteId = vm.RouteId;
             model.Date = vm.Date;
+            model.Status = (int)vm.Status;
             model.StartingMilage = vm.StartingMilage;
             model.EndMilage = vm.EndMilage;
             model.CreatedOn = DateTime.UtcNow; 
@@ -38,7 +39,9 @@ namespace System
             vm.VehicleId = model.VehicleId;
             vm.RouteId = model.RouteId;
             vm.Date = model.Date;
-            vm.StartingMilage = model.StartingMilage;
+            vm.StartingMilage = model.StartingMilage.HasValue?model.StartingMilage.Value:0;
+            vm.EndMilage = model.EndMilage.HasValue ? model.EndMilage.Value : 0;
+            vm.Status = (DailyBeatStatus)model.Status;
             vm.EndMilage = model.EndMilage;
             vm.CreatedOn = model.CreatedOn;
             vm.CreatedBy = model.CreatedBy;

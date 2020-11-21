@@ -7,12 +7,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DailyBeatRoutingModule } from './daily-beat-routing.module';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [BeatsComponent],
   imports: [
     CommonModule,
     DailyBeatRoutingModule,
+    CalendarModule,
     NgbModule,
     MatDialogModule,
     FormsModule,

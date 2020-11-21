@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VehicleTracker.Model;
 
 namespace VehicleTracker.ViewModel.VehicleBeat
 {
@@ -12,6 +13,7 @@ namespace VehicleTracker.ViewModel.VehicleBeat
         public DateTime Date { get; set; }
         public decimal StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }
+        public DailyBeatStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }

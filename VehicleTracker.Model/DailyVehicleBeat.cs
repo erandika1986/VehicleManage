@@ -9,8 +9,9 @@ namespace VehicleTracker.Model
         public long VehicleId { get; set; }
         public long RouteId { get; set; }
         public DateTime Date { get; set; }
-        public decimal StartingMilage { get; set; }
+        public decimal? StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }
+        public int Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }

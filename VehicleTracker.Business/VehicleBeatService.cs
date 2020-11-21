@@ -79,17 +79,12 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters)
         {
-            var query = _uow.DailyVehicleBeat.GetAll().Where(t => t.Date >= filters.FromDate && t.Date <= filters.ToDate && t.IsActive==true).OrderByDescending(t=>t.Date);
 
-            if(filters.SelectedVehicleId>0)
-            {
-                query = query.Where(t=>t.VehicleId==filters.SelectedVehicleId).OrderByDescending(t => t.Date);
-            }
+            var startDate = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 0, 0, 0);
 
-            if(filters.SelectedRouteId>0)
-            {
-                query = query.Where(t => t.VehicleId == filters.SelectedRouteId).OrderByDescending(t => t.Date);
-            }
+            var endDate = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 23, 59, 59);
+
+            var query = _uow.DailyVehicleBeat.GetAll().Where(t => t.Date>= startDate && t.Date<=endDate && t.IsActive==true).OrderByDescending(t=>t.Vehicle.RegistrationNo);
 
             int totalRecordCount = 0;
             double totalPages = 0;
