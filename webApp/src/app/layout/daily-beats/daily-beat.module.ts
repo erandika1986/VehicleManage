@@ -11,6 +11,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 @NgModule({
   declarations: [BeatsComponent],
@@ -20,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
     CalendarModule,
     DialogModule,
     TableModule,
+    ConfirmDialogModule,
     NgbModule,
     MatDialogModule,
     FormsModule,

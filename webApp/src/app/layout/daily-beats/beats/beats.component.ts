@@ -7,11 +7,14 @@ import { PrimeNGConfig } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'primeng/api';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-beats',
   templateUrl: './beats.component.html',
-  styleUrls: ['./beats.component.scss']
+  styleUrls: ['./beats.component.scss'],
+  providers: [ConfirmationService]
 })
 export class BeatsComponent implements OnInit {
 
@@ -26,8 +29,11 @@ export class BeatsComponent implements OnInit {
   routes: DropDownModel[];
   statuses: DropDownModel[];
 
+  msgs: Message[] = [];
+
   constructor(private beatService: DailyBeatService,
     private primengConfig: PrimeNGConfig,
+    private confirmationService: ConfirmationService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService) {
@@ -78,7 +84,8 @@ export class BeatsComponent implements OnInit {
   getVehicleBeatDetailForSelectedDate() {
 
     let filter: VehicleBeatFilterModel = new VehicleBeatFilterModel();
-    filter.date = this.selectedData;
+    filter.date = this.selectedData.getFullYear() + '-' + (this.selectedData.getMonth() + 1) + '-' + this.selectedData.getDate();
+    //let dateStrToSend = this.selectedData.getFullYear() + '-' + (this.selectedData.getMonth() + 1) + '-' + this.selectedData.getDate();
 
     this.beatService.getAllVehicleBeatRecord(filter)
       .subscribe(response => {
@@ -106,6 +113,12 @@ export class BeatsComponent implements OnInit {
       });
   }
 
+  dateFilterChanged() {
+
+    this.spinner.show();
+    this.getVehicleBeatDetailForSelectedDate();
+  }
+
   addNew() {
     this.displayModal = true;
     this.selectDailyBeat = new DailyVehicleBeatModel();
@@ -128,8 +141,34 @@ export class BeatsComponent implements OnInit {
     this.dailyBeatForm.get('vehicleId').setValue(this.selectDailyBeat.vehicleId);
   }
 
-  delete(item: DailyVehicleBeatModel, index: number) {
+  delete(item: DailyVehicleBeatModel) {
 
+    console.log(item);
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.spinner.show();
+        this.beatService.delete(item.id)
+          .subscribe(response => {
+            this.spinner.hide();
+            if (response.isSuccess) {
+              this.toastr.success(response.message, "Success");
+              this.getVehicleBeatDetailForSelectedDate();
+            }
+            else {
+              this.toastr.error(response.message, "Error");
+            }
+          }, error => {
+            this.spinner.hide();
+          });
+      },
+      reject: () => {
+
+      }
+    });
   }
 
   edit(item: DailyVehicleBeatModel) {
@@ -157,6 +196,12 @@ export class BeatsComponent implements OnInit {
         this.spinner.hide();
         this.displayModal = false;
         this.getVehicleBeatDetailForSelectedDate();
+        if (response.isSuccess) {
+          this.toastr.success(response.message, "Success");
+        }
+        else {
+          this.toastr.error(response.message, "Error");
+        }
       }, error => {
         this.spinner.hide();
       })

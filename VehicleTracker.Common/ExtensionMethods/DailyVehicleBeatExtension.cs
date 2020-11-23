@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VehicleTracker.Common;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Vehicle;
 using VehicleTracker.ViewModel.VehicleBeat;
@@ -46,6 +47,7 @@ namespace System
             vm.StartingMilage = model.StartingMilage.HasValue?model.StartingMilage.Value:0;
             vm.EndMilage = model.EndMilage.HasValue ? model.EndMilage.Value : 0;
             vm.Status = (DailyBeatStatus)model.Status;
+            vm.StatusInText = EnumHelper.GetEnumDescription(vm.Status);
             vm.EndMilage = model.EndMilage;
             vm.CreatedOn = model.CreatedOn;
             vm.CreatedBy = model.CreatedBy;

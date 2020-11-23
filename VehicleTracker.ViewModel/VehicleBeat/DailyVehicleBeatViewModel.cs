@@ -18,6 +18,7 @@ namespace VehicleTracker.ViewModel.VehicleBeat
         public decimal StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }
         public DailyBeatStatus Status { get; set; }
+        public string StatusInText { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }

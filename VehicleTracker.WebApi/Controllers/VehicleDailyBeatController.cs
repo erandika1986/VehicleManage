@@ -26,7 +26,8 @@ namespace VehicleTracker.WebApi.Controllers
         [HttpPost("getAllVehicleBeatRecord")]
         public ActionResult Post(VehicleBeatFilterViewModel filters)
         {
-            var response = _vehicleBeatService.GetAllVehicleBeatRecord(filters);
+            var userName = IdentityHelper.GetUsername();
+            var response = _vehicleBeatService.GetAllVehicleBeatRecord(filters, userName);
             return Ok(response);
         }
 

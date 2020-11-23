@@ -7,7 +7,7 @@ namespace VehicleTracker.ViewModel.VehicleBeat
 {
     public class VehicleBeatFilterViewModel
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         //public long SelectedRouteId { get; set; }
         //public long SelectedVehicleId { get; set; }
         //public DateTime FromDate { get; set; }

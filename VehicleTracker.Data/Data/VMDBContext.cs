@@ -183,6 +183,8 @@ namespace VehicleTracker.Data
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 
+                entity.Property(e => e.TimeZone).HasMaxLength(500);
+
                 entity.Property(e => e.Username).HasMaxLength(150);
             });
 

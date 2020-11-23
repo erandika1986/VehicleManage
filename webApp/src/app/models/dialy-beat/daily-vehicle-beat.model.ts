@@ -10,6 +10,7 @@ export class DailyVehicleBeatModel {
     startingMilage: number;
     endMilage: number;
     status: number;
+    statusInText: string;
     createdOn?: Date;
     updatedOn?: Date;
     isActive: boolean;

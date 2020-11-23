@@ -1,3 +1,4 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 <div class="container-fluid" style="min-height: 600px !important;">
 
   <div class="row">
@@ -11,9 +12,9 @@
             <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
           </div>
           <div class="form-group mx-sm-3 mb-2">
-            <p-calendar inputId="basic" [(ngModel)]="selectedData"></p-calendar>
+            <p-calendar inputId="basic" [(ngModel)]="selectedData" (onSelect)="dateFilterChanged()"></p-calendar>
           </div>
-          <button type="button" class="btn btn-primary mb-2">Search</button>
+
         </div>
 
 
@@ -44,7 +45,7 @@
               <tr>
                 <td>
                   <!-- <button class="btn btn-danger btn-sm" (click)="delete(item, i)">Delete</button> -->
-                  <button class="btn btn-danger btn-sm" (click)="delete(beat, i)">
+                  <button class="btn btn-danger btn-sm" (click)="delete(beat)">
                     <span class="fa fa-trash"></span>
                   </button>
                   <button class="btn btn-primary btn-sm ml-2" (click)="edit(beat)"><span class="fa fa-pencil"></span>
@@ -56,7 +57,7 @@
                 <td>{{beat.vehicleNumber}}</td>
                 <td>{{beat.route}}</td>
                 <td>{{beat.date | date}}</td>
-                <td>{{beat.status}}</td>
+                <td>{{beat.statusInText}}</td>
                 <td>{{beat.createdOn | date}}</td>
               </tr>
             </ng-template>
@@ -161,3 +162,6 @@
     <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
   </ng-template>
 </p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000">
+</p-confirmDialog>

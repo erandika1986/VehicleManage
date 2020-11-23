@@ -59,7 +59,7 @@ namespace VehicleTracker.Business
                     await _uow.CommitAsync();
 
                     response.IsSuccess = true;
-                    response.Message = "Selected Vehicle Beat record has been deleted successfully.";
+                    response.Message = "Selected Vehicle Beat record has been updated successfully.";
                 }
 
 
@@ -102,14 +102,20 @@ namespace VehicleTracker.Business
             return response;
         }
 
-        public List<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters)
+        public List<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters, string userName)
         {
 
-            var startDate = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 0, 0, 0);
+            var user = _userService.GetUserByUsername(userName);
+            var splitedDate = filters.Date.Split('-');
+            var filterDate = new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]),0,0,0);
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById(user.TimeZone);
+            //TimeZoneInfo.ConvertTimeFromUtc(new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 0, 0, 0), cstZone); ;DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, cstZone);
 
-            var endDate = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 23, 59, 59);
+            var startDate =  new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]), 0, 0, 0);
 
-            var query = _uow.DailyVehicleBeat.GetAll().Where(t => t.Date>= startDate && t.Date<=endDate && t.IsActive==true).OrderByDescending(t=>t.Vehicle.RegistrationNo);
+            var endDate = new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]), 23, 59, 59);
+
+            var query = _uow.DailyVehicleBeat.GetAll().Where(t => TimeZoneInfo.ConvertTimeFromUtc(t.Date, cstZone )>= startDate && TimeZoneInfo.ConvertTimeFromUtc(t.Date, cstZone) <= endDate && t.IsActive==true).OrderByDescending(t=>t.Vehicle.RegistrationNo);
 
             //int totalRecordCount = 0;
             //double totalPages = 0;
@@ -125,7 +131,11 @@ namespace VehicleTracker.Business
 
             pageData.ForEach(p =>
             {
-                data.Add(p.ToVm());
+                var vm = p.ToVm();
+                vm.Date = TimeZoneInfo.ConvertTimeFromUtc(vm.Date, cstZone);
+                vm.CreatedOn = TimeZoneInfo.ConvertTimeFromUtc(vm.CreatedOn, cstZone);
+                vm.UpdatedOn = TimeZoneInfo.ConvertTimeFromUtc(vm.UpdatedOn, cstZone);
+                data.Add(vm);
             });
 
             //var response = new PaginatedItemsViewModel<DailyVehicleBeatViewModel>(filters.CurrentPage, filters.PageSize, totalPageCount, totalRecordCount, data);
