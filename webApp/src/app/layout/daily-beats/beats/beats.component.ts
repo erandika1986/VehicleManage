@@ -5,6 +5,8 @@ import { VehicleBeatFilterModel } from 'src/app/models/dialy-beat/vehicle-beat-f
 import { DailyVehicleBeatModel } from 'src/app/models/dialy-beat/daily-vehicle-beat.model';
 import { PrimeNGConfig } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-beats',
@@ -24,7 +26,11 @@ export class BeatsComponent implements OnInit {
   routes: DropDownModel[];
   statuses: DropDownModel[];
 
-  constructor(private beatService: DailyBeatService, private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder) {
+  constructor(private beatService: DailyBeatService,
+    private primengConfig: PrimeNGConfig,
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) {
     this.beats = [];
     this.vehicles = [];
     this.routes = [];
@@ -53,6 +59,8 @@ export class BeatsComponent implements OnInit {
   }
 
   getMasterData() {
+
+    this.spinner.show();
     this.beatService.getMasterData()
       .subscribe(response => {
 
@@ -63,7 +71,7 @@ export class BeatsComponent implements OnInit {
         this.getVehicleBeatDetailForSelectedDate();
 
       }, error => {
-
+        this.spinner.hide();
       });
   }
 
@@ -76,23 +84,25 @@ export class BeatsComponent implements OnInit {
       .subscribe(response => {
 
         this.beats = response;
+        this.spinner.hide();
 
       }, error => {
-
+        this.spinner.hide();
       });
   }
 
 
 
   getDailyBeatById(id: number) {
+    this.spinner.show();
     this.beatService.getVehicleBeatRecordById(id)
       .subscribe(response => {
 
         this.displayModal = true;
         this.selectDailyBeat = response;
-
+        this.spinner.hide();
       }, error => {
-
+        this.spinner.hide();
       });
   }
 
@@ -109,11 +119,11 @@ export class BeatsComponent implements OnInit {
     this.selectDailyBeat.vehicleId = this.vehicles[0].id;
 
     //this.dailyBeatForm.get('id').setValue(response.id);
-    this.dailyBeatForm.get('date').setValue(this.selectDailyBeat.date);
-    //this.dailyBeatForm.get('endMilage').setValue(response.id);
-    this.dailyBeatForm.get('isActive').setValue(this.selectDailyBeat.isActive);
+    this.dailyBeatForm.get('date').setValue(this.selectedData);
+    this.dailyBeatForm.get('endMilage').setValue(this.selectDailyBeat.endMilage);
+    this.dailyBeatForm.get('isActive').setValue(true);
     this.dailyBeatForm.get('routeId').setValue(this.selectDailyBeat.routeId);
-    //this.dailyBeatForm.get('startingMilage').setValue(response.id);
+    this.dailyBeatForm.get('startingMilage').setValue(this.selectDailyBeat.startingMilage);
     this.dailyBeatForm.get('status').setValue(this.selectDailyBeat.status);
     this.dailyBeatForm.get('vehicleId').setValue(this.selectDailyBeat.vehicleId);
   }
@@ -141,11 +151,14 @@ export class BeatsComponent implements OnInit {
   }
 
   saveDailyBeat() {
+    this.spinner.show();
     this.beatService.saveDailyVehicleBeatRecord(this.dailyBeatForm.getRawValue())
       .subscribe(response => {
-
+        this.spinner.hide();
+        this.displayModal = false;
+        this.getVehicleBeatDetailForSelectedDate();
       }, error => {
-
+        this.spinner.hide();
       })
   }
 
