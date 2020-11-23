@@ -37,7 +37,11 @@ namespace System
 
             vm.Id = model.Id;
             vm.VehicleId = model.VehicleId;
+            vm.VehicleNumber = model.Vehicle.RegistrationNo;
+
             vm.RouteId = model.RouteId;
+            vm.Route = model.Route.RouteCode;
+
             vm.Date = model.Date;
             vm.StartingMilage = model.StartingMilage.HasValue?model.StartingMilage.Value:0;
             vm.EndMilage = model.EndMilage.HasValue ? model.EndMilage.Value : 0;

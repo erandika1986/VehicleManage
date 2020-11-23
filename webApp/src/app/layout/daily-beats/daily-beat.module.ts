@@ -8,6 +8,8 @@ import { DailyBeatRoutingModule } from './daily-beat-routing.module';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { CalendarModule } from 'primeng/calendar';
     CommonModule,
     DailyBeatRoutingModule,
     CalendarModule,
+    DialogModule,
+    TableModule,
     NgbModule,
     MatDialogModule,
     FormsModule,

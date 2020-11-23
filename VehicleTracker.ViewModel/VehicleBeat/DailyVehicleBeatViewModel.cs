@@ -9,7 +9,11 @@ namespace VehicleTracker.ViewModel.VehicleBeat
     {
         public long Id { get; set; }
         public long VehicleId { get; set; }
+        public string VehicleNumber { get; set; }
+
         public long RouteId { get; set; }
+        public string Route { get; set; }
+
         public DateTime Date { get; set; }
         public decimal StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }

@@ -35,17 +35,17 @@ namespace VehicleTracker.WebApi.Controllers
         public async Task<ActionResult> Post([FromBody] DailyVehicleBeatViewModel vm)
         {
             var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleBeatService.AddNewVehicleBeatRecord(vm, userName);
+            var response = await _vehicleBeatService.SaveDailyVehicleBeatRecord(vm, userName);
             return Ok(response);
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Put([FromBody] DailyVehicleBeatViewModel vm)
-        {
-            var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleBeatService.UpdateNewVehicleBeatRecord(vm, userName);
-            return Ok(response);
-        }
+        //[HttpPut]
+       // public async Task<ActionResult> Put([FromBody] DailyVehicleBeatViewModel vm)
+        //{
+         //   var userName = IdentityHelper.GetUsername();
+          //  var response = await _vehicleBeatService.UpdateNewVehicleBeatRecord(vm, userName);
+         //   return Ok(response);
+       // }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(long id)

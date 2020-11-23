@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Common;
 using VehicleTracker.Data;
+using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Common;
 using VehicleTracker.ViewModel.VehicleBeat;
 
@@ -20,24 +22,47 @@ namespace VehicleTracker.Business
             this._userService = userService;
         }
 
-        public async Task<ResponseViewModel> AddNewVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName)
+        public async Task<ResponseViewModel> SaveDailyVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
             try
             {
                 var user = _userService.GetUserByUsername(userName);
+                if(vm.Id==0)
+                {
+                    var model = vm.ToModel();
+                    model.CreatedBy = user.Id;
+                    model.UpdatedBy = user.Id;
 
-                var model = vm.ToModel();
-                model.CreatedBy = user.Id;
-                model.UpdatedBy = user.Id;
+                    _uow.DailyVehicleBeat.Add(model);
 
-                _uow.DailyVehicleBeat.Add(model);
+                    await _uow.CommitAsync();
 
-                await _uow.CommitAsync();
+                    response.IsSuccess = true;
+                    response.Message = "New Vehicle Beat record has been added successfully.";
+                }
+                else
+                {
+                    var model = _uow.DailyVehicleBeat.GetAll().FirstOrDefault(t => t.Id == vm.Id);
+                    model.StartingMilage = vm.StartingMilage;
+                    model.EndMilage = vm.EndMilage;
+                    model.Status = (int)vm.Status;
+                    model.VehicleId = vm.VehicleId;
+                    model.RouteId = vm.RouteId;
+                    model.EndMilage = vm.EndMilage;
+                    model.UpdatedBy = user.Id;
+                    model.UpdatedOn = DateTime.UtcNow;
 
-                response.IsSuccess = true;
-                response.Message = "New Vehicle Beat record has been added successfully.";
+                    _uow.DailyVehicleBeat.Update(model);
+
+                    await _uow.CommitAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = "Selected Vehicle Beat record has been deleted successfully.";
+                }
+
+
             }
             catch(Exception ex)
             {
@@ -115,6 +140,11 @@ namespace VehicleTracker.Business
             response.Vehicles = _uow.Vehicle.GetAll().Where(t => t.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = v.RegistrationNo }).ToList();
             response.Routes = _uow.Route.GetAll().Where(t => t.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = string.Format("{0} - ({1} to {2})", v.RouteCode,v.StartFrom,v.EndFrom)}).ToList();
 
+            foreach (DailyBeatStatus suit in (DailyBeatStatus[])Enum.GetValues(typeof(DailyBeatStatus)))
+            {
+                response.Status.Add(new DropDownViewModal() { Id = (int)suit, Name = EnumHelper.GetEnumDescription(suit) });
+            }
+
             return response;
         }
 
@@ -127,35 +157,5 @@ namespace VehicleTracker.Business
             return vm;
         }
 
-        public async Task<ResponseViewModel> UpdateNewVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName)
-        {
-            var response = new ResponseViewModel();
-
-            try
-            {
-                var user = _userService.GetUserByUsername(userName);
-
-                var model = _uow.DailyVehicleBeat.GetAll().FirstOrDefault(t => t.Id == vm.Id);
-                model.VehicleId = vm.VehicleId;
-                model.RouteId = vm.RouteId;
-                model.EndMilage = vm.EndMilage;
-                model.UpdatedBy = user.Id;
-                model.UpdatedOn = DateTime.UtcNow;
-
-                _uow.DailyVehicleBeat.Update(model);
-
-                await _uow.CommitAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Selected Vehicle Beat record has been deleted successfully.";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Error has been occured.Please try again";
-            }
-
-            return response;
-        }
     }
 }

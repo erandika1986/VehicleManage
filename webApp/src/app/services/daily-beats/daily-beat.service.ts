@@ -29,14 +29,9 @@ export class DailyBeatService {
       get<DailyVehicleBeatModel>(environment.apiUrl + 'VehicleDailyBeat' + "/" + id);
   }
 
-  addNew(vm: DailyVehicleBeatModel): Observable<ResponseModel> {
+  saveDailyVehicleBeatRecord(vm: DailyVehicleBeatModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'VehicleDailyBeat', vm);
-  }
-
-  update(vm: DailyVehicleBeatModel): Observable<ResponseModel> {
-    return this.httpClient.
-      put<ResponseModel>(environment.apiUrl + 'VehicleDailyBeat', vm);
   }
 
   delete(id: number): Observable<ResponseModel> {

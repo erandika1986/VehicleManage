@@ -9,8 +9,7 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IVehicleBeatService
     {
-        Task<ResponseViewModel> AddNewVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName);
-        Task<ResponseViewModel> UpdateNewVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName);
+        Task<ResponseViewModel> SaveDailyVehicleBeatRecord(DailyVehicleBeatViewModel vm, string userName);
         DailyVehicleBeatViewModel GetVehicleBeatRecordById(long id);
         Task<ResponseViewModel> DeleteSelectedBeatRecord(long id, string userName);
         List<DailyVehicleBeatViewModel> GetAllVehicleBeatRecord(VehicleBeatFilterViewModel filters);
