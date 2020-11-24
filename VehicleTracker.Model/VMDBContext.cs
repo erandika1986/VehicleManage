@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using VehicleTracker.Model;
 
-namespace VehicleTracker.Data
+namespace VehicleTracker.Model
 {
     public partial class VMDBContext : DbContext
     {

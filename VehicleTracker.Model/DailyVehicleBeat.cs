@@ -5,6 +5,11 @@ namespace VehicleTracker.Model
 {
     public partial class DailyVehicleBeat
     {
+        public DailyVehicleBeat()
+        {
+            DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrders>();
+        }
+
         public long Id { get; set; }
         public long VehicleId { get; set; }
         public long RouteId { get; set; }
@@ -22,5 +27,6 @@ namespace VehicleTracker.Model
         public virtual Route Route { get; set; }
         public virtual User UpdatedByNavigation { get; set; }
         public virtual Vehicle Vehicle { get; set; }
+        public virtual ICollection<DailyVehicleBeatOrders> DailyVehicleBeatOrders { get; set; }
     }
 }

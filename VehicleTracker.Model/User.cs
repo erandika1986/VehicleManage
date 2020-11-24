@@ -7,8 +7,18 @@ namespace VehicleTracker.Model
     {
         public User()
         {
+            ClientCreatedBy = new HashSet<Client>();
+            ClientUpdatedBy = new HashSet<Client>();
+            CustomerProductPriceCreatedBy = new HashSet<CustomerProductPrice>();
+            CustomerProductPriceUpdatedBy = new HashSet<CustomerProductPrice>();
             DailyVehicleBeatCreatedByNavigation = new HashSet<DailyVehicleBeat>();
             DailyVehicleBeatUpdatedByNavigation = new HashSet<DailyVehicleBeat>();
+            OrderCreatedBy = new HashSet<Order>();
+            OrderUpdatedBy = new HashSet<Order>();
+            ProductCreatedBy = new HashSet<Product>();
+            ProductInventoryCreatedBy = new HashSet<ProductInventory>();
+            ProductInventoryUdatedBy = new HashSet<ProductInventory>();
+            ProductUpdatedBy = new HashSet<Product>();
             UserRole = new HashSet<UserRole>();
             VehicleAirCleanerCreatedByNavigation = new HashSet<VehicleAirCleaner>();
             VehicleAirCleanerUpdatedByNavigation = new HashSet<VehicleAirCleaner>();
@@ -40,8 +50,18 @@ namespace VehicleTracker.Model
         public string TimeZone { get; set; }
         public bool? IsActive { get; set; }
 
+        public virtual ICollection<Client> ClientCreatedBy { get; set; }
+        public virtual ICollection<Client> ClientUpdatedBy { get; set; }
+        public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBy { get; set; }
+        public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBy { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigation { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigation { get; set; }
+        public virtual ICollection<Order> OrderCreatedBy { get; set; }
+        public virtual ICollection<Order> OrderUpdatedBy { get; set; }
+        public virtual ICollection<Product> ProductCreatedBy { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventoryCreatedBy { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventoryUdatedBy { get; set; }
+        public virtual ICollection<Product> ProductUpdatedBy { get; set; }
         public virtual ICollection<UserRole> UserRole { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerCreatedByNavigation { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerUpdatedByNavigation { get; set; }

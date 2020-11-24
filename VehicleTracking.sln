@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.Model", "VehicleTracker.Model\VehicleTracker.Model.csproj", "{C5180C64-D84F-4CED-ABDD-42B7FD126E45}"
 EndProject
@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.Common", "Ve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.WebApi", "VehicleTracker.WebApi\VehicleTracker.WebApi.csproj", "{460E1817-FCC3-4B2D-9E79-A440C7EEBB54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Data.Contract", "VehicleTracker.Data.Contract\VehicleTracker.Data.Contract.csproj", "{D3773744-2EF0-4936-9007-151ADD5614E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.Data.Contract", "VehicleTracker.Data.Contract\VehicleTracker.Data.Contract.csproj", "{D3773744-2EF0-4936-9007-151ADD5614E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Infrastructure", "VehicleTracker.Infrastructure\VehicleTracker.Infrastructure.csproj", "{5797B30C-D0B0-4885-95A5-28E07C7B7BAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.Infrastructure", "VehicleTracker.Infrastructure\VehicleTracker.Infrastructure.csproj", "{5797B30C-D0B0-4885-95A5-28E07C7B7BAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.NotificationService", "VehicleTracker.NotificationService\VehicleTracker.NotificationService.csproj", "{263DCBA3-7245-497F-B9B3-548E6EF27289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{5797B30C-D0B0-4885-95A5-28E07C7B7BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5797B30C-D0B0-4885-95A5-28E07C7B7BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5797B30C-D0B0-4885-95A5-28E07C7B7BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

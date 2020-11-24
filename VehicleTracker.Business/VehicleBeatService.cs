@@ -106,10 +106,12 @@ namespace VehicleTracker.Business
         {
 
             var user = _userService.GetUserByUsername(userName);
+
             var splitedDate = filters.Date.Split('-');
+
             var filterDate = new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]),0,0,0);
+
             TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById(user.TimeZone);
-            //TimeZoneInfo.ConvertTimeFromUtc(new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day, 0, 0, 0), cstZone); ;DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, cstZone);
 
             var startDate =  new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]), 0, 0, 0);
 
@@ -117,16 +119,8 @@ namespace VehicleTracker.Business
 
             var query = _uow.DailyVehicleBeat.GetAll().Where(t => TimeZoneInfo.ConvertTimeFromUtc(t.Date, cstZone )>= startDate && TimeZoneInfo.ConvertTimeFromUtc(t.Date, cstZone) <= endDate && t.IsActive==true).OrderByDescending(t=>t.Vehicle.RegistrationNo);
 
-            //int totalRecordCount = 0;
-            //double totalPages = 0;
-            //int totalPageCount = 0;
             var data = new List<DailyVehicleBeatViewModel>();
 
-            //totalRecordCount = query.Count();
-            //totalPages = (double)totalRecordCount / filters.PageSize;
-            //totalPageCount = (int)Math.Ceiling(totalPages);
-
-            //var pageData = query.Skip((filters.CurrentPage - 1) * filters.PageSize).Take(filters.PageSize).ToList();
             var pageData = query.ToList();
 
             pageData.ForEach(p =>
@@ -137,8 +131,6 @@ namespace VehicleTracker.Business
                 vm.UpdatedOn = TimeZoneInfo.ConvertTimeFromUtc(vm.UpdatedOn, cstZone);
                 data.Add(vm);
             });
-
-            //var response = new PaginatedItemsViewModel<DailyVehicleBeatViewModel>(filters.CurrentPage, filters.PageSize, totalPageCount, totalRecordCount, data);
 
             return data;
 

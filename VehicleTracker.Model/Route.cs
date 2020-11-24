@@ -7,6 +7,7 @@ namespace VehicleTracker.Model
     {
         public Route()
         {
+            Client = new HashSet<Client>();
             DailyVehicleBeat = new HashSet<DailyVehicleBeat>();
         }
 
@@ -17,6 +18,7 @@ namespace VehicleTracker.Model
         public decimal? TotalDistance { get; set; }
         public bool? IsActive { get; set; }
 
+        public virtual ICollection<Client> Client { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeat { get; set; }
     }
 }
