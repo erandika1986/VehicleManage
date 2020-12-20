@@ -13,15 +13,14 @@ namespace VehicleTracker.Business
     {
 
         #region Member variable
-
-        private readonly IVMDBUow _uow;
+        private readonly VMDBContext _db;
         private readonly IUserService _userService;
 
         #endregion
 
-        public RouteService(IVMDBUow uow, IUserService userService)
+        public RouteService(VMDBContext db, IUserService userService)
         {
-            this._uow = uow;
+            this._db = db;
             this._userService = userService;
         }
 
@@ -32,9 +31,9 @@ namespace VehicleTracker.Business
             {
                 var model = vm.ToModel();
 
-                _uow.Route.Add(model);
+                _db.Route.Add(model);
 
-                await _uow.CommitAsync();
+                await _db.SaveChangesAsync();
 
                 response.Id = model.Id;
                 response.IsSuccess = true;
@@ -54,13 +53,13 @@ namespace VehicleTracker.Business
             var response = new ResponseViewModel();
             try
             {
-                var route = _uow.Route.GetAll().FirstOrDefault(t => t.Id == id);
+                var route = _db.Route.FirstOrDefault(t => t.Id == id);
 
                 route.IsActive = false;
 
-                _uow.Route.Update(route);
+                _db.Route.Update(route);
 
-                await _uow.CommitAsync();
+                await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
                 response.Message = "Selected route has been deleted successfully.";
@@ -76,7 +75,7 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<RouteViewModel> GetAllRoutes(int pageSize, int currentPage)
         {
-            var query = _uow.Route.GetAll().Where(t=>t.IsActive==true).OrderBy(t => t.RouteCode);
+            var query = _db.Route.Where(t=>t.IsActive==true).OrderBy(t => t.RouteCode);
 
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -102,26 +101,25 @@ namespace VehicleTracker.Business
 
         public RouteViewModel GetRouteById(long id)
         {
-            var route = _uow.Route.GetAll().FirstOrDefault(t => t.Id == id).ToVm();
+            var route = _db.Route.FirstOrDefault(t => t.Id == id).ToVm();
 
             return route;
         }
-
         public async Task<ResponseViewModel> UpdateRoute(RouteViewModel vm)
         {
             var response = new ResponseViewModel();
             try
             {
-                var route = _uow.Route.GetAll().FirstOrDefault(t => t.Id == vm.Id);
+                var route = _db.Route.FirstOrDefault(t => t.Id == vm.Id);
 
                 route.RouteCode = vm.RouteCode;
                 route.StartFrom = vm.StartFrom;
                 route.EndFrom = vm.EndFrom;
                 route.TotalDistance = vm.TotalDistance;
 
-                _uow.Route.Update(route);
+                _db.Route.Update(route);
 
-                await _uow.CommitAsync();
+                await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
                 response.Message = "Route details has been updated successfully";
