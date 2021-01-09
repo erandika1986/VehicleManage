@@ -19,9 +19,10 @@ namespace VehicleTracker.Business
 
         #endregion
 
-        public ProductService()
+        public ProductService(VMDBContext db, IUserService userService)
         {
-
+            this._db = db;
+            this._userService = userService;
         }
 
         public async Task<ResponseViewModel> DeleteProduct(int id, string userName)
@@ -89,10 +90,7 @@ namespace VehicleTracker.Business
 
         public ProductViewModel GetProductById(long id)
         {
-
-
             var product = _db.Product.FirstOrDefault(x => x.Id == id);
-
 
             return product.ToVm();
         }

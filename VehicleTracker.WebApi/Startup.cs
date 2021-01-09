@@ -55,7 +55,7 @@ namespace VehicleTracker.WebApi
             services.AddScoped<IVehicleGearBoxOilMilageService, VehicleGearBoxOilMilageService>();
             services.AddScoped<IVehicleBeatService, VehicleBeatService>();
             services.AddScoped<ICustomerService, CustomerService>();
-
+            services.AddScoped<ISupplierService, SupplierService>();
             services
                 .AddCustomMVC(Configuration)
                 .AddCustomDbContext(Configuration)

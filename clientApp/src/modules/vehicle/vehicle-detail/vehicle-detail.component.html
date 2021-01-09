@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <app-vehicle-form></app-vehicle-form>
+    </div>
+  </div>
+  <br>
+  <div class="row" *ngIf="vehicleId !== 0">
+    <div class="col">
+      <div class="card border-0" style="margin-top: 10px;">
+        <div class="card-body">
+
+          <mat-tab-group>
+            <mat-tab label="Differential Oil Change Milage">
+              <div>
+                <br>
+                <app-next-differential-oil-change-milage-details>
+                </app-next-differential-oil-change-milage-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Fitness Report">
+              <div>
+                <br>
+                <app-next-fitness-report-details>
+                </app-next-fitness-report-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Greece Niple">
+              <div>
+                <br>
+                <app-next-greece-niple-details></app-next-greece-niple-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Vehicle Insurance">
+              <div>
+                <br>
+                <app-next-insurence-renewal-details></app-next-insurence-renewal-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Revenue Licence">
+              <div>
+                <br>
+                <app-next-revenue-licence-details></app-next-revenue-licence-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Emission Test">
+              <div>
+                <br>
+                <app-next-emission-test-details></app-next-emission-test-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Air Cleaner">
+              <div>
+                <br>
+                <app-next-air-cleaner-details></app-next-air-cleaner-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Engine Oil Milage">
+              <div>
+                <br>
+                <app-next-engine-oil-milage-details></app-next-engine-oil-milage-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Fuel Filter Milage">
+              <div>
+                <br>
+                <app-next-fuel-filter-milage-details></app-next-fuel-filter-milage-details>
+              </div>
+            </mat-tab>
+            <mat-tab label="Gear Box Oil Milage">
+              <div>
+                <br>
+                <app-next-gear-box-oil-milage-details></app-next-gear-box-oil-milage-details>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

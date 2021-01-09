@@ -1,0 +1,87 @@
+<div class="container-fluid" style="padding: 10px;">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">{{header}}</div>
+        <div class="card-body">
+          <form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group row">
+              <label for="txtRouteCode" class="col-sm-4 col-form-label">Route Code</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtRouteCode" formControlName="routeCode">
+                <div class="alert alert-danger" style="margin-top: 1px;" *ngIf="routeCode.touched && routeCode.invalid">
+                  Route Code is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="txtStartFrom" class="col-sm-4 col-form-label">Start From</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtStartFrom" formControlName="startFrom">
+                <div class="alert alert-danger" style="margin-top: 1px;" *ngIf="startFrom.touched && startFrom.invalid">
+                  Route start location is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="txtEndFrom" class="col-sm-4 col-form-label">End From</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtEndFrom" formControlName="endFrom">
+                <div class="alert alert-danger" style="margin-top: 1px;" *ngIf="endFrom.touched && endFrom.invalid">
+                  Route end location is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="txtTotalDistance" class="col-sm-4 col-form-label">Total Distance</label>
+              <div class="col-sm-8">
+                <input type="number" class="form-control" id="txtTotalDistance" formControlName="totalDistance">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="ddlIsActive" class="col-sm-4 col-form-label">Is Active</label>
+              <div class="col-sm-8">
+                <select id="isActive" class="form-control" formControlName="isActive">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <br>
+            <div>
+              <button class="btn btn-success btn-md" type="submit" [disabled]="routeForm.invalid">Save</button>
+              <button class="btn btn-secondary btn-md" type="button" style="margin-left: 1%;"
+                (click)="modal.close('Ok Click')">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

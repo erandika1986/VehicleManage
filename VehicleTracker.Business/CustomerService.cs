@@ -45,8 +45,6 @@ namespace VehicleTracker.Business
                 response.IsSuccess = true;
                 response.Message = "New Client has been saved.";
 
-
-
             }
             catch(Exception ex)
             {
