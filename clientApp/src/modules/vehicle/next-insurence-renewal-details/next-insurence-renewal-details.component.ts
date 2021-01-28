@@ -4,11 +4,11 @@ import {
   NextInsurenceRenewalDetailsFormComponent
 } from './next-insurence-renewal-details-form/next-insurence-renewal-details-form.component';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
-import { VehicleInsuranceModel } from 'src/app/models/vehicle/vehicle-insurance.model';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { VehicleInsuranceService } from 'src/app/services/vehicle/vehicle-insurance.service';
+import { VehicleInsuranceModel } from 'models/vehicle/vehicle-insurance.model';
+import { VehicleInsuranceService } from 'services/vehicle/vehicle-insurance.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
 
 @Component({
   selector: 'app-next-insurence-renewal-details',

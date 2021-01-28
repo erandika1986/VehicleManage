@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleGearBoxOilMilageModel } from 'src/app/models/vehicle/vehicle-gear-box-oil-milage.model';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleGearBoxOilChangeMilageService } from 'src/app/services/vehicle/vehicle-gear-box-oil-change-milage.service';
+import { VehicleGearBoxOilMilageModel } from 'models/vehicle/vehicle-gear-box-oil-milage.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleGearBoxOilChangeMilageService } from 'services/vehicle/vehicle-gear-box-oil-change-milage.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-gear-box-oil-milage-details-form',
@@ -33,7 +33,7 @@ export class NextGearBoxOilMilageDetailsFormComponent implements OnInit {
 
   gocm = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleGOCMService: VehicleGearBoxOilChangeMilageService,
     private formBuilder: FormBuilder,
@@ -81,7 +81,7 @@ export class NextGearBoxOilMilageDetailsFormComponent implements OnInit {
     });
   }
 
-  onChangeGBOM(event) {
+  onChangeGBOM(event:any) {
 
     if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
       event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" ||

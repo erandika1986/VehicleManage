@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleEmissionTestModel } from 'src/app/models/vehicle/vehicle-emission-test.model';
-import { VehicleEmissionTestService } from 'src/app/services/vehicle/vehicle-emission-test.service';
+import { VehicleEmissionTestModel } from 'models/vehicle/vehicle-emission-test.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleEmissionTestService } from 'services/vehicle/vehicle-emission-test.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-emission-test-details-form',
@@ -33,7 +33,7 @@ export class NextEmissionTestDetailsFormComponent implements OnInit {
 
   etd = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleETServices: VehicleEmissionTestService,
     private formBuilder: FormBuilder,

@@ -4,7 +4,7 @@ export class VehicleBeatFilterModel {
     //FromDate: Date;
     //ToDate: Date;
     //routeId: number;
-    date: string;
+    date: string="";
 
     //pageSize: number;
     //currentPage: number;

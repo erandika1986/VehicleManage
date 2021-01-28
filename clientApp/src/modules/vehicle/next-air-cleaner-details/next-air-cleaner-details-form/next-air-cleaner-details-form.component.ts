@@ -21,19 +21,19 @@ export class NextAirCleanerDetailsFormComponent implements OnInit {
   totalRecordCount = 0;
   isReadOnly: boolean = false;
 
-  isSuccess: boolean;
-  message: string;
+  isSuccess: boolean=false;
+  message: string="";
 
-  vehicleAC: VehicleAirCleanerModel;
+  vehicleAC: VehicleAirCleanerModel = new VehicleAirCleanerModel();
 
   form: FormGroup;
 
-  vehicle: VehicleModel;
-  vehicleType: VehicleTypeModel;
+  vehicle: VehicleModel= new VehicleModel();
+  vehicleType: VehicleTypeModel = new VehicleTypeModel();;
 
   acrm = 0;
 
-  @Input() public data;
+  @Input() public data:any={};
 
   constructor(private vehicleACRMService: VehicleAirCleanerReplaceMilageService,
     private formBuilder: FormBuilder,
@@ -41,7 +41,22 @@ export class NextAirCleanerDetailsFormComponent implements OnInit {
     private vehicleMessageService: VehicleMessageService,
     public modal: NgbActiveModal,
     private vehicleService: VehicleService
-  ) { }
+  ) { 
+
+    console.log('setForm');
+    this.form = this.formBuilder.group({
+      id: [0],
+      vehicleId: [0],
+      actualAirCleanerReplaceMilage: [null],
+      nextAirCleanerReplaceMilage: [null],
+      createdBy: [0],
+      updatedBy: [0],
+      createdOn: [null],
+      updatedOn: [null],
+      isActive: [true],
+      registrationNo: ['']
+    });
+  }
 
   ngOnInit() {
     this.setForm();
@@ -69,7 +84,7 @@ export class NextAirCleanerDetailsFormComponent implements OnInit {
     });
   }
 
-  onChangeACRM(event) {
+  onChangeACRM(event:any) {
 
     if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
       event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" ||

@@ -5,5 +5,5 @@ import { VehicleRevenueLicenceModel } from './vehicle-revenue-licence.model';
 @Injectable()
 export class VehicleRLPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleRevenueLicenceModel[];
+    data: VehicleRevenueLicenceModel[]=[];
 }

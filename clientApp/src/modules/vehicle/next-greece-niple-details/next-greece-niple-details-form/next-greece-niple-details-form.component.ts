@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleGreeceNipleModel } from 'src/app/models/vehicle/vehicle-greece-niple';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleGreeceNipleService } from 'src/app/services/vehicle/vehicle-greece-niple.service';
+import { VehicleGreeceNipleModel } from 'models/vehicle/vehicle-greece-niple';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleGreeceNipleService } from 'services/vehicle/vehicle-greece-niple.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-greece-niple-details-form',
@@ -34,7 +34,7 @@ export class NextGreeceNipleDetailsFormComponent implements OnInit {
   gnd = 0;
 
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleGNServices: VehicleGreeceNipleService,
     private formBuilder: FormBuilder,

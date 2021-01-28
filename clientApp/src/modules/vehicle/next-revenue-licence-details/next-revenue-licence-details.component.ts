@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NextRevenueLicenceDetailsFormComponent } from './next-revenue-licence-details-form/next-revenue-licence-details-form.component';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { Subscription } from 'rxjs';
-import { VehicleRevenueLicenceModel } from 'src/app/models/vehicle/vehicle-revenue-licence.model';
-import { VehicleRevenueLicenceService } from 'src/app/services/vehicle/vehicle-revenue-licence.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VehicleRevenueLicenceModel } from 'models/vehicle/vehicle-revenue-licence.model';
+import { VehicleRevenueLicenceService } from 'services/vehicle/vehicle-revenue-licence.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
 
 @Component({
   selector: 'app-next-revenue-licence-details',

@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleFuelFilterMilageModel } from 'src/app/models/vehicle/vehicle-fuel-filter-milage.model';
-import { VehicleFuelFilterChangeMilageService } from 'src/app/services/vehicle/vehicle-fuel-filter-change-milage.service';
+import { VehicleFuelFilterMilageModel } from 'models/vehicle/vehicle-fuel-filter-milage.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleFuelFilterChangeMilageService } from 'services/vehicle/vehicle-fuel-filter-change-milage.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-fuel-filter-milage-details-form',
@@ -33,7 +33,7 @@ export class NextFuelFilterMilageDetailsFormComponent implements OnInit {
 
   ffm = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleFFMService: VehicleFuelFilterChangeMilageService,
     private formBuilder: FormBuilder,
@@ -81,7 +81,7 @@ export class NextFuelFilterMilageDetailsFormComponent implements OnInit {
     });
   }
 
-  onChangeFFM(event) {
+  onChangeFFM(event:any) {
 
     if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
       event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" ||

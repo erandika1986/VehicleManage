@@ -5,5 +5,5 @@ import { VehicleGreeceNipleModel } from './vehicle-greece-niple';
 @Injectable()
 export class VehicleGNPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleGreeceNipleModel[];
+    data: VehicleGreeceNipleModel[]=[];
 }

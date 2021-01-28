@@ -3,13 +3,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   NextFuelFilterMilageDetailsFormComponent
 } from './next-fuel-filter-milage-details-form/next-fuel-filter-milage-details-form.component';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
-import { VehicleFuelFilterMilageModel } from 'src/app/models/vehicle/vehicle-fuel-filter-milage.model';
 import { Subscription } from 'rxjs';
-import { VehicleFuelFilterChangeMilageService } from 'src/app/services/vehicle/vehicle-fuel-filter-change-milage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VehicleFuelFilterMilageModel } from 'models/vehicle/vehicle-fuel-filter-milage.model';
+import { VehicleFuelFilterChangeMilageService } from 'services/vehicle/vehicle-fuel-filter-change-milage.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
 
 @Component({
   selector: 'app-next-fuel-filter-milage-details',

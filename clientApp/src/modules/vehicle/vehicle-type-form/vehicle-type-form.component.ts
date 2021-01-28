@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { DropDownModel } from 'src/app/models/common/drop-down.modal';
 import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleTypeMasterDataModel } from 'src/app/models/vehicle/vehicle-type-master-data.model';
+import { VehicleTypeMasterDataModel } from 'models/vehicle/vehicle-type-master-data.model';
+import { DropDownModel } from 'models/common/drop-down.modal';
+import { VehicleService } from 'services/vehicle/vehicle.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
 
 @Component({
   selector: 'app-vehicle-type-form',
@@ -29,7 +29,7 @@ export class VehicleTypeFormComponent implements OnInit {
 
   vehicleType: VehicleTypeModel;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleServices: VehicleService,
     private formBuilder: FormBuilder,
@@ -98,7 +98,7 @@ export class VehicleTypeFormComponent implements OnInit {
     });
   }
 
-  getVehicleTypeById(id) {
+  getVehicleTypeById(id:number) {
     this.vehicleServices.getVehicleTypeById(id).subscribe(res => {
       this.vehicleType = res;
       this.vehicleTypeRegisterForm.setValue(res);

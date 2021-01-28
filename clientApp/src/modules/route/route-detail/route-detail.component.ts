@@ -13,8 +13,8 @@ import { RouteMessageService } from 'services/route/route-message.service';
 })
 export class RouteDetailComponent implements OnInit {
 
-  @Input() public routeId;
-  @Input() public header;
+  @Input() public routeId=0;
+  @Input() public header="";
   routeForm: FormGroup;
 
   constructor(
@@ -24,7 +24,16 @@ export class RouteDetailComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService,
     private routeMessageService: RouteMessageService
-  ) { }
+  ) {
+    this.routeForm = this.formBuilder.group({
+      id: [this.routeId],
+      routeCode: ['', Validators.required],
+      startFrom: ['', Validators.required],
+      endFrom: ['', Validators.required],
+      totalDistance: [0, Validators.required],
+      isActive: [true, Validators.required],
+    });
+   }
 
   ngOnInit() {
     this.setForm();

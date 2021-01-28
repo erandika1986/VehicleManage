@@ -8,6 +8,7 @@ import { Message } from 'primeng/api';
 import { DailyVehicleBeatModel } from 'models/dialy-beat/daily-vehicle-beat.model';
 import { DropDownModel } from 'models/common/drop-down.modal';
 import { DailyBeatService } from 'services/daily-beats/daily-beat.service';
+import { VehicleBeatFilterModel } from 'models/dialy-beat/vehicle-beat-filter.model';
 
 @Component({
   selector: 'app-beats',
@@ -19,7 +20,7 @@ export class BeatsComponent implements OnInit {
 
   selectedData: Date;
   beats: DailyVehicleBeatModel[];
-  displayModal: boolean;
+  displayModal: boolean=false;
 
   dailyBeatForm: FormGroup;
   selectDailyBeat: DailyVehicleBeatModel;
@@ -43,9 +44,7 @@ export class BeatsComponent implements OnInit {
 
     this.selectedData = new Date();
     this.selectDailyBeat = new DailyVehicleBeatModel();
-  }
 
-  ngOnInit() {
     this.primengConfig.ripple = true;
 
 
@@ -59,6 +58,9 @@ export class BeatsComponent implements OnInit {
       status: [0],
       vehicleId: [0],
     });
+  }
+
+  ngOnInit() {
 
     this.getMasterData();
   }

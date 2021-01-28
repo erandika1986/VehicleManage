@@ -5,5 +5,5 @@ import { VehicleEngineOilMilageModel } from './vehicle-engine-oil-milage.model';
 @Injectable()
 export class VehicleEOCMPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleEngineOilMilageModel[];
+    data: VehicleEngineOilMilageModel[]=[];
 }

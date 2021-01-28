@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleRevenueLicenceModel } from 'src/app/models/vehicle/vehicle-revenue-licence.model';
-import { VehicleRevenueLicenceService } from 'src/app/services/vehicle/vehicle-revenue-licence.service';
+import { VehicleRevenueLicenceModel } from 'models/vehicle/vehicle-revenue-licence.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleRevenueLicenceService } from 'services/vehicle/vehicle-revenue-licence.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-revenue-licence-details-form',
@@ -32,7 +32,7 @@ export class NextRevenueLicenceDetailsFormComponent implements OnInit {
 
   rld = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleRLServices: VehicleRevenueLicenceService,
     private formBuilder: FormBuilder,

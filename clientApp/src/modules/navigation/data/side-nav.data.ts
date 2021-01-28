@@ -79,13 +79,13 @@ export const sideNavItems: SideNavItems = {
     vehicleTypes: {
         icon: 'chart-area',
         text: 'Vehicle Types',
-        link: '/charts',
+        link: '/vehicle/vehicle-type',
     },
 
     vehicle: {
         icon: 'chart-area',
         text: 'Vehicle',
-        link: '/charts',
+        link: '/vehicle/vehicles',
     },
 
     route: {

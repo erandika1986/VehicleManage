@@ -1,4 +1,4 @@
 export class DialogData {
-    header: string;
-    message: string;
+    header: string="";
+    message: string="";
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { RoutePaginatedItemsModel } from 'src/app/models/route/route-paginated-items.model';
-import { RouteModel } from 'src/app/models/route/route.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
+import { RoutePaginatedItemsModel } from 'models/route/route-paginated-items.model';
+import { environment } from 'environments/environment';
+import { RouteModel } from 'models/route/route.model';
+import { ResponseModel } from 'models/common/response.model';
 
 @Injectable({
   providedIn: 'root'

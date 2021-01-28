@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleTypePaginatedItemsModel } from 'src/app/models/vehicle/vehicle-type-paginated.items.model';
-import { environment } from 'src/environments/environment';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
-import { VehicleTypeMasterDataModel } from 'src/app/models/vehicle/vehicle-type-master-data.model';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehiclePaginatedItemsModel } from 'src/app/models/vehicle/vehicle-paginated.items.model';
-import { VehicleMasterDataModel } from 'src/app/models/vehicle/vehicle-master-data.model';
-import { VehicleResponseModel } from 'src/app/models/vehicle/vehicle-response.model';
+import { VehicleTypeMasterDataModel } from 'models/vehicle/vehicle-type-master-data.model';
+import { environment } from 'environments/environment';
+import { VehicleTypePaginatedItemsModel } from 'models/vehicle/vehicle-type-paginated.items.model';
+import { VehicleMasterDataModel } from 'models/vehicle/vehicle-master-data.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { ResponseModel } from 'models/common/response.model';
+import { VehiclePaginatedItemsModel } from 'models/vehicle/vehicle-paginated.items.model';
+import { VehicleResponseModel } from 'models/vehicle/vehicle-response.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
 
 @Injectable({
   providedIn: 'root'

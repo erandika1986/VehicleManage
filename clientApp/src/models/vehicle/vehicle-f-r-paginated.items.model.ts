@@ -5,5 +5,5 @@ import { VehicleFitnessReportModel } from './vehicle-fitness-report.model';
 @Injectable()
 export class VehicleFRPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleFitnessReportModel[];
+    data: VehicleFitnessReportModel[]=[];
 }

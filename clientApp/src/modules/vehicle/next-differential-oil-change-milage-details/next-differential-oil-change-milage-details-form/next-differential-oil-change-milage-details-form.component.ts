@@ -33,7 +33,7 @@ export class NextDifferentialOilChangeMilageDetailsFormComponent implements OnIn
 
   docm = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleDOCMService: VehicleDifferentialOilChangeMilageService,
     private formBuilder: FormBuilder,
@@ -82,7 +82,7 @@ export class NextDifferentialOilChangeMilageDetailsFormComponent implements OnIn
     });
   }
 
-  onChangeNDOCM(event) {
+  onChangeNDOCM(event:any) {
     if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
       event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" ||
       event.key === "8" || event.key === "9" || event.key === "Backspace" || event.key === "Delete") {

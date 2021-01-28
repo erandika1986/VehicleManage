@@ -38,7 +38,7 @@
         },
         "resolveJsonModule": true,
         "sourceMap": true,
-        "strict": true,
+        "strict": false,
         "target": "es2015",
         "typeRoots": [
             "node_modules/@types",

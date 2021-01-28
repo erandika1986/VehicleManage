@@ -12,15 +12,15 @@ import { VehicleDifferentialOilChangeMilageModel } from './vehicle-differential-
 import { User } from '../user/user.model';
 
 export class VehicleModel {
-    id: number;
-    registrationNo: string;
-    vehicelType: number;
-    productionYear: number;
-    initialOdometerReading: number;
-    isActive: boolean;
+    id: number=0;
+    registrationNo: string="";
+    vehicelType: number=0;
+    productionYear: number=0;
+    initialOdometerReading: number=0;
+    isActive: boolean=false;
 
     // For table view
-    vehicelTypeName: string;
+    vehicelTypeName: string="";
 
     // hasDifferentialOil: boolean;
     // nextDifferentialOilChangeMilageDetails: VehicleDifferentialOilChangeMilageModel;

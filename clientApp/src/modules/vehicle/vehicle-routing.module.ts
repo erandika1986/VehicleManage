@@ -4,6 +4,7 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { VehicleTypesComponent } from './vehicle-types/vehicle-types.component';
 
+
 const routes: Routes = [
     {
         path: 'vehicles',

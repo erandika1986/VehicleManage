@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { VehicleResponseModel } from 'src/app/models/vehicle/vehicle-response.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
-import { VehicleEmissionTestModel } from 'src/app/models/vehicle/vehicle-emission-test.model';
-import { VehicleETPaginatedItemsModel } from 'src/app/models/vehicle/vehicle-e-t-paginated.items.model';
+import { VehicleETPaginatedItemsModel } from 'models/vehicle/vehicle-e-t-paginated.items.model';
+import { environment } from 'environments/environment';
+import { VehicleResponseModel } from 'models/vehicle/vehicle-response.model';
+import { VehicleEmissionTestModel } from 'models/vehicle/vehicle-emission-test.model';
+import { ResponseModel } from 'models/common/response.model';
 
 @Injectable({
   providedIn: 'root'

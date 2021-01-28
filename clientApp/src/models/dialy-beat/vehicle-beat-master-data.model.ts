@@ -1,7 +1,7 @@
 import { DropDownModel } from '../common/drop-down.modal';
 
 export class VehicleBeatMasterDataModel {
-    vehicles: DropDownModel[];
-    routes: DropDownModel[];
-    status: DropDownModel[];
+    vehicles: DropDownModel[]=[];
+    routes: DropDownModel[]=[];
+    status: DropDownModel[]=[];
 }

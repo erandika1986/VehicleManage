@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { DialogData } from 'src/app/models/common/dialog-data';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from 'models/common/dialog-data';
 
 @Component({
     selector: 'dialog-overview-example-dialog',

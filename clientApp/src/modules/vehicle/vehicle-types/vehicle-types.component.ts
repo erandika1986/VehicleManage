@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { VehicleTypeFormComponent } from '../vehicle-type-form/vehicle-type-form.component';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DialogData } from 'src/app/models/common/dialog-data';
-import { ConfirmationDialog } from 'src/app/shared/confirmation-dialog/confirmation-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleService } from 'services/vehicle/vehicle.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { DialogData } from 'models/common/dialog-data';
+import { ConfirmationDialog } from 'shared/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-vehicle-types',

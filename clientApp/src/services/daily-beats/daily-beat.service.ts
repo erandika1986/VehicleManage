@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { VehicleDailyBeatPaginatedItemsModel } from 'src/app/models/dialy-beat/vehicle-daily-beat-paginated-items.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { VehicleBeatFilterModel } from 'src/app/models/dialy-beat/vehicle-beat-filter.model';
 import { HttpClient } from '@angular/common/http';
-import { DailyVehicleBeatModel } from 'src/app/models/dialy-beat/daily-vehicle-beat.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
-import { VehicleBeatMasterDataModel } from 'src/app/models/dialy-beat/vehicle-beat-master-data.model';
+import { VehicleBeatMasterDataModel } from 'models/dialy-beat/vehicle-beat-master-data.model';
+import { environment } from 'environments/environment';
+import { VehicleBeatFilterModel } from 'models/dialy-beat/vehicle-beat-filter.model';
+import { DailyVehicleBeatModel } from 'models/dialy-beat/daily-vehicle-beat.model';
+import { ResponseModel } from 'models/common/response.model';
 
 @Injectable({
   providedIn: 'root'

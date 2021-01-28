@@ -5,5 +5,5 @@ import { VehicleEmissionTestModel } from './vehicle-emission-test.model';
 @Injectable()
 export class VehicleETPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleEmissionTestModel[];
+    data: VehicleEmissionTestModel[]=[];
 }

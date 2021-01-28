@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { VehicleDifferentialOilChangeMilageModel } from 'src/app/models/vehicle/vehicle-differential-oil-change-milage.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
 import { Observable } from 'rxjs';
-import { VehicleResponseModel } from 'src/app/models/vehicle/vehicle-response.model';
-import { VehicleDOCMPaginatedItemsModel } from 'src/app/models/vehicle/vehicle-d-o-c-m-paginated.items.model';
+import { VehicleDOCMPaginatedItemsModel } from 'models/vehicle/vehicle-d-o-c-m-paginated.items.model';
+import { environment } from 'environments/environment';
+import { VehicleDifferentialOilChangeMilageModel } from 'models/vehicle/vehicle-differential-oil-change-milage.model';
+import { VehicleResponseModel } from 'models/vehicle/vehicle-response.model';
+import { ResponseModel } from 'models/common/response.model';
 
 @Injectable({
   providedIn: 'root'

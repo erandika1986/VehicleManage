@@ -5,5 +5,5 @@ import { VehicleInsuranceModel } from './vehicle-insurance.model';
 @Injectable()
 export class VehicleIPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleInsuranceModel[];
+    data: VehicleInsuranceModel[]=[];
 }

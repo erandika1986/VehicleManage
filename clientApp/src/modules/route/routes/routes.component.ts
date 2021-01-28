@@ -25,8 +25,8 @@ export class RoutesComponent implements OnInit {
   totalPageCount: number = 0;
   currentPage: number = 1;
   pageSize: number = 2;
-  dataContainer: RoutePaginatedItemsModel;
-  rowData: RouteModel[];
+  dataContainer: RoutePaginatedItemsModel = new RoutePaginatedItemsModel();
+  rowData: RouteModel[]=[];
 
 
   subscription: Subscription;

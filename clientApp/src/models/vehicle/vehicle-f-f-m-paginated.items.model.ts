@@ -5,5 +5,5 @@ import { VehicleFuelFilterMilageModel } from './vehicle-fuel-filter-milage.model
 @Injectable()
 export class VehicleFFMPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleFuelFilterMilageModel[];
+    data: VehicleFuelFilterMilageModel[]=[];
 }

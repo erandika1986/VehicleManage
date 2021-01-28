@@ -5,5 +5,5 @@ import { VehicleDifferentialOilChangeMilageModel } from './vehicle-differential-
 @Injectable()
 export class VehicleDOCMPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleDifferentialOilChangeMilageModel[];
+    data: VehicleDifferentialOilChangeMilageModel[]=[];
 }

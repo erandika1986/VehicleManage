@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { VehicleService } from '../services/vehicle/vehicle.service';
-import { resolve } from 'url';
+
 
 @Injectable()
 export class VahicleRegNoValidator {

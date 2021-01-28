@@ -5,5 +5,5 @@ import { RouteModel } from './route.model';
 @Injectable()
 export class RoutePaginatedItemsModel extends PaginatedItemsModel {
 
-    data: RouteModel[];
+    data: RouteModel[]=[];
 }

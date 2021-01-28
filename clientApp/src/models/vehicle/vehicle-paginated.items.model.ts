@@ -5,5 +5,5 @@ import { VehicleModel } from './vehicle.model';
 @Injectable()
 export class VehiclePaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleModel[];
+    data: VehicleModel[]=[];
 }

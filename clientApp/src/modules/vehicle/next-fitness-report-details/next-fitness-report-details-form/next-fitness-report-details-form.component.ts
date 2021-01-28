@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleFitnessReportModel } from 'src/app/models/vehicle/vehicle-fitness-report.model';
-import { VehicleFitnessReportService } from 'src/app/services/vehicle/vehicle-fitness-report.service';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
+import { VehicleFitnessReportModel } from 'models/vehicle/vehicle-fitness-report.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleFitnessReportService } from 'services/vehicle/vehicle-fitness-report.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-fitness-report-details-form',
@@ -33,7 +33,7 @@ export class NextFitnessReportDetailsFormComponent implements OnInit {
 
   frd = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleFRServices: VehicleFitnessReportService,
     private formBuilder: FormBuilder,

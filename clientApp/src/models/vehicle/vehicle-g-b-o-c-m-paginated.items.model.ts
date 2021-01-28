@@ -5,5 +5,5 @@ import { VehicleGearBoxOilMilageModel } from './vehicle-gear-box-oil-milage.mode
 @Injectable()
 export class VehicleGBOCMPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleGearBoxOilMilageModel[];
+    data: VehicleGearBoxOilMilageModel[]=[];
 }

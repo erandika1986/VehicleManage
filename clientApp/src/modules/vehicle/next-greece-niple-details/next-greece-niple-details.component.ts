@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NextGreeceNipleDetailsFormComponent } from './next-greece-niple-details-form/next-greece-niple-details-form.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
-import { VehicleGreeceNipleModel } from 'src/app/models/vehicle/vehicle-greece-niple';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { VehicleGreeceNipleService } from 'src/app/services/vehicle/vehicle-greece-niple.service';
+import { VehicleGreeceNipleModel } from 'models/vehicle/vehicle-greece-niple';
+import { VehicleGreeceNipleService } from 'services/vehicle/vehicle-greece-niple.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
 
 @Component({
   selector: 'app-next-greece-niple-details',

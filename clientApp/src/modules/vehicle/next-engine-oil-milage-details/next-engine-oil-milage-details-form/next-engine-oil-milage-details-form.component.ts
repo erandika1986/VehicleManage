@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleEngineOilMilageModel } from 'src/app/models/vehicle/vehicle-engine-oil-milage.model';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleEngineOilChangeMilageService } from 'src/app/services/vehicle/vehicle-engine-oil-change-milage.service';
+import { VehicleEngineOilMilageModel } from 'models/vehicle/vehicle-engine-oil-milage.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleEngineOilChangeMilageService } from 'services/vehicle/vehicle-engine-oil-change-milage.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-engine-oil-milage-details-form',
@@ -33,7 +33,7 @@ export class NextEngineOilMilageDetailsFormComponent implements OnInit {
 
   eom = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleEOMService: VehicleEngineOilChangeMilageService,
     private formBuilder: FormBuilder,
@@ -70,7 +70,7 @@ export class NextEngineOilMilageDetailsFormComponent implements OnInit {
     });
   }
 
-  onChangeEOM(event) {
+  onChangeEOM(event:any) {
 
     if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
       event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" ||

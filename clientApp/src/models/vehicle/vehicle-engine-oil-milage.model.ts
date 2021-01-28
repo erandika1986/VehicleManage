@@ -1,6 +1,6 @@
 import { VehicleCommonModel } from './vehicle-common.model';
 
 export class VehicleEngineOilMilageModel extends VehicleCommonModel {
-    nextOilChangeMilage: number;
-    actualOilChangeMilage: number;
+    nextOilChangeMilage: number=0;
+    actualOilChangeMilage: number=0;
 }

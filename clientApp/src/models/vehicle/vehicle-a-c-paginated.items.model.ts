@@ -5,5 +5,5 @@ import { VehicleAirCleanerModel } from './vehicle-air-cleaner.model';
 @Injectable()
 export class VehicleACRMPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: VehicleAirCleanerModel[];
+    data: VehicleAirCleanerModel[]=[];
 }

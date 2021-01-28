@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { VehicleTypeModel } from 'src/app/models/vehicle/vehicle-type.model';
-import { VehicleModel } from 'src/app/models/vehicle/vehicle.model';
-import { VehicleInsuranceModel } from 'src/app/models/vehicle/vehicle-insurance.model';
-import { VehicleInsuranceService } from 'src/app/services/vehicle/vehicle-insurance.service';
+import { VehicleInsuranceModel } from 'models/vehicle/vehicle-insurance.model';
+import { VehicleModel } from 'models/vehicle/vehicle.model';
+import { VehicleTypeModel } from 'models/vehicle/vehicle-type.model';
+import { VehicleInsuranceService } from 'services/vehicle/vehicle-insurance.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
+import { VehicleService } from 'services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-next-insurence-renewal-details-form',
@@ -33,7 +33,7 @@ export class NextInsurenceRenewalDetailsFormComponent implements OnInit {
 
   vid = 0;
 
-  @Input() public data;
+  @Input() public data:any;
 
   constructor(private vehicleIServices: VehicleInsuranceService,
     private formBuilder: FormBuilder,

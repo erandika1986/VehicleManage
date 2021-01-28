@@ -5,5 +5,5 @@ import { DailyVehicleBeatModel } from './daily-vehicle-beat.model';
 @Injectable()
 export class VehicleDailyBeatPaginatedItemsModel extends PaginatedItemsModel {
 
-    data: DailyVehicleBeatModel[];
+    data: DailyVehicleBeatModel[]=[];
 }

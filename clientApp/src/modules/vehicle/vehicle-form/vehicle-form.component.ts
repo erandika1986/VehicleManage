@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { DropDownModel } from 'src/app/models/common/drop-down.modal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { VahicleRegNoValidator } from 'src/app/validators/vehicle-reg-no.validator';
+import { DropDownModel } from 'models/common/drop-down.modal';
+import { VehicleService } from 'services/vehicle/vehicle.service';
+import { VahicleRegNoValidator } from 'validators/vehicle-reg-no.validator';
 
 @Component({
   selector: 'app-vehicle-form',

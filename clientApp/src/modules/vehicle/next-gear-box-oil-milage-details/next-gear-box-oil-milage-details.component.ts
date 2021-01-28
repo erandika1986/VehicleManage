@@ -4,11 +4,11 @@ import {
   NextGearBoxOilMilageDetailsFormComponent
 } from './next-gear-box-oil-milage-details-form/next-gear-box-oil-milage-details-form.component';
 import { ToastrService } from 'ngx-toastr';
-import { VehicleMessageService } from 'src/app/services/vehicle/vehicle-message.service';
 import { Subscription } from 'rxjs';
-import { VehicleGearBoxOilMilageModel } from 'src/app/models/vehicle/vehicle-gear-box-oil-milage.model';
-import { VehicleGearBoxOilChangeMilageService } from 'src/app/services/vehicle/vehicle-gear-box-oil-change-milage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VehicleGearBoxOilMilageModel } from 'models/vehicle/vehicle-gear-box-oil-milage.model';
+import { VehicleGearBoxOilChangeMilageService } from 'services/vehicle/vehicle-gear-box-oil-change-milage.service';
+import { VehicleMessageService } from 'services/vehicle/vehicle-message.service';
 
 @Component({
   selector: 'app-next-gear-box-oil-milage-details',

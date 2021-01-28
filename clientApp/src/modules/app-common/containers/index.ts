@@ -1,1 +1,1 @@
-export const containers = [];
+export const containers:any[] = [];
