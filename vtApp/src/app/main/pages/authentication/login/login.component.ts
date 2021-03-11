@@ -3,16 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { Router } from '@angular/router';
+import { CustomAuthService } from 'app/services/account/custom-auth.service';
 
 @Component({
-    selector     : 'login',
-    templateUrl  : './login.component.html',
-    styleUrls    : ['./login.component.scss'],
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class LoginComponent implements OnInit
-{
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
     /**
@@ -23,19 +25,22 @@ export class LoginComponent implements OnInit
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
-    )
-    {
+        private _formBuilder: FormBuilder,
+        private _loginService: CustomAuthService,
+        private _fuseProgressBarService: FuseProgressBarService,
+        public _router: Router,
+        //private spinner: NgxSpinnerService
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -52,11 +57,27 @@ export class LoginComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
+            username: ['', [Validators.required]],
+            password: ['', Validators.required],
+            isRemember: [false]
         });
+    }
+
+
+    login() {
+        this._fuseProgressBarService.show();
+        this._loginService.login(this.loginForm.value)
+            .subscribe(response => {
+                this._fuseProgressBarService.hide();
+                localStorage.setItem('currentUser', JSON.stringify(response));
+                localStorage.setItem('IsLoggedInUser', 'true');
+                this._router.navigate(['/apps']);
+
+
+            }, error => {
+                this._fuseProgressBarService.hide();
+            });
     }
 }

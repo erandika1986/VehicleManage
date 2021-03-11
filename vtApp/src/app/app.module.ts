@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -20,43 +20,43 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
+import { AuthGuard } from './guard/auth.guard';
+import { CustomAuthService } from './services/account/custom-auth.service';
+import { AuthInterceptorService } from './services/account/auth-interceptor.service';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const appRoutes: Routes = [
     {
-        path        : 'apps',
-        loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule)
+        path: '',
+        redirectTo: 'apps',
+        pathMatch: 'full'
     },
     {
-        path        : 'pages',
+        path: 'apps',
+        loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'pages',
         loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
-    },
-    {
-        path        : 'ui',
-        loadChildren: () => import('./main/ui/ui.module').then(m => m.UIModule)
-    },
-    {
-        path        : 'documentation',
-        loadChildren: () => import('./main/documentation/documentation.module').then(m => m.DocumentationModule)
-    },
-    {
-        path      : '**',
-        redirectTo: 'apps/dashboards/analytics'
     }
+
 ];
 
 @NgModule({
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
 
         TranslateModule.forRoot(),
         InMemoryWebApiModule.forRoot(FakeDbService, {
-            delay             : 0,
+            delay: 0,
             passThruUnknownUrl: true
         }),
 
@@ -78,10 +78,20 @@ const appRoutes: Routes = [
         LayoutModule,
         AppStoreModule
     ],
-    bootstrap   : [
+    providers:
+        [
+            AuthGuard,
+            CustomAuthService,
+            { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+            { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+            {
+                provide: LocationStrategy,
+                useClass: HashLocationStrategy
+            }
+        ],
+    bootstrap: [
         AppComponent
     ]
 })
-export class AppModule
-{
+export class AppModule {
 }

@@ -119,7 +119,7 @@ namespace VehicleTracker.Business
 
             return response;
         }
-        public PaginatedItemsViewModel<VehicleTypeViewModel> GetAllVehicleTypes(int pageSize, int currentPage)
+        public List<VehicleTypeViewModel> GetAllVehicleTypes()
         {
             var query = _uow.VehicleType.GetAll().OrderBy(t=>t.Name);
 
@@ -128,21 +128,19 @@ namespace VehicleTracker.Business
             int totalPageCount = 0;
             var data = new List<VehicleTypeViewModel>();
 
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var pageData = query.Skip((currentPage - 1)* pageSize).Take(pageSize).OrderBy(t => t.Name).ToList();
+
+            var pageData = query.OrderBy(t => t.Name).ToList();
 
             pageData.ForEach(p =>
             {
                 data.Add(p.ToVm());
             });
 
-            var response = new PaginatedItemsViewModel<VehicleTypeViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
+            //var response = new PaginatedItemsViewModel<VehicleTypeViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
 
 
-            return response;
+            return data;
 
         }
         public VehicleTypeViewModel GetVehicleTypeById(long id)

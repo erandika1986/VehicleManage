@@ -13,7 +13,7 @@ namespace VehicleTracker.Business
         Task<ResponseViewModel> AddNewVehicleType(VehicleTypeViewModel vm);
         Task<ResponseViewModel> UpdateVehicleType(VehicleTypeViewModel vm);
         Task<ResponseViewModel> DeleteVehicleType(long id);
-        PaginatedItemsViewModel<VehicleTypeViewModel> GetAllVehicleTypes(int pageSize, int currentPage);
+        List<VehicleTypeViewModel> GetAllVehicleTypes();
         VehicleTypeViewModel GetVehicleTypeById(long id);
 
         VehicleMasterDataViewModel GetVehicleMasterData();

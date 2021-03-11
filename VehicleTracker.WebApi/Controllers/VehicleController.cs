@@ -59,10 +59,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("getAllVehicleTypes/{pageSize:int}/{currentPage:int}")]
-        public IActionResult GetAllVehicleTypes(int pageSize, int currentPage)
+        [Route("getAllVehicleTypes")]
+        public IActionResult GetAllVehicleTypes()
         {
-            var response = this._vehicleService.GetAllVehicleTypes(pageSize, currentPage);
+            var response = this._vehicleService.GetAllVehicleTypes();
             return Ok(response);
         }
 

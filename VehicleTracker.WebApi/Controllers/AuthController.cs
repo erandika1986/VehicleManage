@@ -50,14 +50,14 @@ namespace VehicleTracker.WebApi.Controllers
         {
             if (model == null)
             {
-                return Unauthorized();
+                return Unauthorized(new { ErrorMessage = "Login failed.Please enter your password and username." });
             }
 
             var user = _userService.GetUserByUsername(model.Username);
 
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized(new { ErrorMessage="Login failed.Invalid username has entered."});
             }
             else
             {
@@ -94,11 +94,18 @@ namespace VehicleTracker.WebApi.Controllers
                     );
 
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                    return Ok(new { Token = tokenString });
+                    return Ok(new 
+                    { 
+                        Token = tokenString,
+                        FirstName = user.FirstName,
+                        Email = user.Email,
+                        ProfilePic="",
+                        Role = user.UserRole.FirstOrDefault().Role.Name
+                    });
                 }
                 else
                 {
-                    return Unauthorized();
+                    return Unauthorized(new { ErrorMessage = "Login failed.Invalid password has entered." });
                 }
             }
         }
