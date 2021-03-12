@@ -16,59 +16,53 @@ export const navigation: FuseNavigation[] = [
                 icon: 'dashboard',
                 children: [
                     {
-                        id: 'analytics',
-                        title: 'Analytics',
+                        id: 'inventory-dashboard',
+                        title: 'Inventory',
                         type: 'item',
-                        url: '/apps/dashboards/analytics'
+                        url: '/dashbaord/inventory-dashboard/i-dashboard'
                     },
                     {
-                        id: 'project',
-                        title: 'Project',
+                        id: 'sales-dashboard',
+                        title: 'Sales',
                         type: 'item',
-                        url: '/apps/dashboards/project'
+                        url: '/dashbaord/sales-dashboard/s-dashboard'
+                    },
+                    {
+                        id: 'vehicle-dashboard',
+                        title: 'Vehicle',
+                        type: 'item',
+                        url: '/dashbaord/vehicle-dashboard/v-dashboard'
                     }
                 ]
             },
         ]
     },
     {
-        id: 'vehicles',
-        title: 'Vehicles Tracking',
+        id: 'core-business',
+        title: 'Business',
         type: 'group',
         icon: 'pages',
         children: [
             {
-                id: 'authentication',
-                title: 'Authentication',
-                type: 'collapsable',
-                icon: 'lock',
-                badge: {
-                    title: '10',
-                    bg: '#525e8a',
-                    fg: '#FFFFFF'
-                },
-                children: [
-                    {
-                        id: 'login',
-                        title: 'Login',
-                        type: 'item',
-                        url: '/pages/auth/login'
-                    },
-                    {
-                        id: 'login-v2',
-                        title: 'Login v2',
-                        type: 'item',
-                        url: '/pages/auth/login-2'
-                    }
-
-                ]
-            },
-            {
-                id: 'coming-soon',
-                title: 'Coming Soon',
+                id: 'daily-beats',
+                title: 'Daily Beats',
                 type: 'item',
                 icon: 'alarm',
-                url: '/pages/coming-soon'
+                url: '/vehicle-tracking/daily-beats/list'
+            },
+            {
+                id: 'sale-order',
+                title: 'Sales Order',
+                type: 'item',
+                icon: 'alarm',
+                url: '/vehicle-tracking/daily-beats/list'
+            },
+            {
+                id: 'inventory',
+                title: 'Product Inventory',
+                type: 'item',
+                icon: 'alarm',
+                url: '/vehicle-tracking/daily-beats/list'
             }
         ]
     },
@@ -172,49 +166,49 @@ export const navigation: FuseNavigation[] = [
                         id: 'vehicle-types',
                         title: 'Vehicle Types',
                         type: 'item',
-                        url: '/apps/vehicle-types/list'
+                        url: '/admin/vehicle-types/list'
                     },
                     {
                         id: 'vehicle',
                         title: 'Vehicle',
                         type: 'item',
-                        url: '/apps/vehicle/list'
+                        url: '/admin/vehicle/list'
                     },
                     {
                         id: 'route',
                         title: 'Vehicle Routes',
                         type: 'item',
-                        url: '/apps/routes/list'
+                        url: '/admin/routes/list'
                     },
                     {
                         id: 'engine-oil',
                         title: 'Engine Oil',
                         type: 'item',
-                        url: '/apps/engine-oil/list'
+                        url: '/admin/engine-oil/list'
                     },
                     {
                         id: 'gear-box-oil',
                         title: 'Gear Box Oil',
                         type: 'item',
-                        url: '/apps/gear-box-oil/list'
+                        url: '/admin/gear-box-oil/list'
                     },
                     {
                         id: 'break-oil',
                         title: 'Break Oil',
                         type: 'item',
-                        url: '/apps/break-oil/list'
+                        url: '/admin/break-oil/list'
                     },
                     {
                         id: 'differential-oil',
                         title: 'Differential Oil',
                         type: 'item',
-                        url: '/apps/differential-oil/list'
+                        url: '/admin/differential-oil/list'
                     },
                     {
                         id: 'engine-coolant',
                         title: 'Engine Coolant',
                         type: 'item',
-                        url: '/apps/engine-coolant/list'
+                        url: '/admin/engine-coolant/list'
                     }
 
                 ]
@@ -229,19 +223,19 @@ export const navigation: FuseNavigation[] = [
                         id: 'product-category',
                         title: 'Product Category',
                         type: 'item',
-                        url: '/apps/product-category/list'
+                        url: '/admin/product-category/list'
                     },
                     {
                         id: 'product-sub-category',
                         title: 'Product Sub Category',
                         type: 'item',
-                        url: '/apps/product-sub-category/list'
+                        url: '/admin/product-sub-category/list'
                     },
                     {
                         id: 'product',
                         title: 'Product',
                         type: 'item',
-                        url: '/apps/product/list'
+                        url: '/admin/product/list'
                     },
 
                 ]
@@ -256,19 +250,19 @@ export const navigation: FuseNavigation[] = [
                         id: 'client',
                         title: 'Client',
                         type: 'item',
-                        url: '/apps/client/list'
+                        url: '/admin/client/list'
                     },
                     {
                         id: 'supplier',
                         title: 'Supplier',
                         type: 'item',
-                        url: '/apps/supplier/list'
+                        url: '/admin/supplier/list'
                     },
                     {
                         id: 'wharehouse',
                         title: 'Wharehouse',
                         type: 'item',
-                        url: '/apps/wharehouse/list'
+                        url: '/admin/wharehouse/list'
                     }
 
                 ]

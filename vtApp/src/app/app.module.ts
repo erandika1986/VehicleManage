@@ -29,12 +29,37 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'apps',
+        redirectTo: 'admin',
         pathMatch: 'full'
     },
     {
         path: 'apps',
         loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./main/admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'vehicle-tracking',
+        loadChildren: () => import('./main/vehicle-tracking/vehicle-tracking.module').then(m => m.VehicleTrackingModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'dashbaord',
+        loadChildren: () => import('./main/dashbaord/dashbaord.module').then(m => m.DashbaordModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'inventory',
+        loadChildren: () => import('./main/inventory/inventory.module').then(m => m.InventoryModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'order',
+        loadChildren: () => import('./main/order/order.module').then(m => m.OrderModule),
         canActivate: [AuthGuard]
     },
     {
