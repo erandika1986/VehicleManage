@@ -56,6 +56,7 @@ namespace VehicleTracker.WebApi
             services.AddScoped<IVehicleBeatService, VehicleBeatService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IMasterDataCodeSevice, MasterDataCodeSevice>();
             services
                 .AddCustomMVC(Configuration)
                 .AddCustomDbContext(Configuration)

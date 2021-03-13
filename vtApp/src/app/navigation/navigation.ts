@@ -38,8 +38,8 @@ export const navigation: FuseNavigation[] = [
         ]
     },
     {
-        id: 'core-business',
-        title: 'Business',
+        id: 'vehicle',
+        title: 'Vehicle',
         type: 'group',
         icon: 'pages',
         children: [
@@ -49,104 +49,44 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'alarm',
                 url: '/vehicle-tracking/daily-beats/list'
-            },
+            }
+        ]
+    },
+    {
+        id: 'sales',
+        title: 'Sales',
+        type: 'group',
+        icon: 'pages',
+        children: [
             {
                 id: 'sale-order',
                 title: 'Sales Order',
                 type: 'item',
                 icon: 'alarm',
                 url: '/vehicle-tracking/daily-beats/list'
-            },
-            {
-                id: 'inventory',
-                title: 'Product Inventory',
-                type: 'item',
-                icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
             }
         ]
     },
-
-    {
-        id: 'orders',
-        title: 'Orders',
-        type: 'group',
-        icon: 'pages',
-        children: [
-            {
-                id: 'authentication',
-                title: 'Authentication',
-                type: 'collapsable',
-                icon: 'lock',
-                badge: {
-                    title: '10',
-                    bg: '#525e8a',
-                    fg: '#FFFFFF'
-                },
-                children: [
-                    {
-                        id: 'login',
-                        title: 'Login',
-                        type: 'item',
-                        url: '/pages/auth/login'
-                    },
-                    {
-                        id: 'login-v2',
-                        title: 'Login v2',
-                        type: 'item',
-                        url: '/pages/auth/login-2'
-                    }
-
-                ]
-            },
-            {
-                id: 'coming-soon',
-                title: 'Coming Soon',
-                type: 'item',
-                icon: 'alarm',
-                url: '/pages/coming-soon'
-            }
-        ]
-    },
-
     {
         id: 'inventory',
         title: 'Inventory',
         type: 'group',
         icon: 'pages',
         children: [
-            {
-                id: 'authentication',
-                title: 'Authentication',
-                type: 'collapsable',
-                icon: 'lock',
-                badge: {
-                    title: '10',
-                    bg: '#525e8a',
-                    fg: '#FFFFFF'
-                },
-                children: [
-                    {
-                        id: 'login',
-                        title: 'Login',
-                        type: 'item',
-                        url: '/pages/auth/login'
-                    },
-                    {
-                        id: 'login-v2',
-                        title: 'Login v2',
-                        type: 'item',
-                        url: '/pages/auth/login-2'
-                    }
 
-                ]
-            },
             {
-                id: 'coming-soon',
-                title: 'Coming Soon',
+                id: 'inventory',
+                title: 'Product Inventory',
                 type: 'item',
                 icon: 'alarm',
-                url: '/pages/coming-soon'
+                url: '/vehicle-tracking/daily-beats/list'
+            },
+            {
+                id: 'purchase-order',
+                title: 'Purchase Orders',
+                type: 'item',
+                icon: 'alarm',
+                url: '/vehicle-tracking/daily-beats/list'
             }
         ]
     },
