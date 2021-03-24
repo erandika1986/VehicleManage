@@ -32,7 +32,7 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpGet("getAllCodesForSelectedCodeType/{type:long}")]
+        [HttpGet("getAllCodesForSelectedCodeType/{type:int}")]
         [ProducesResponseType(typeof(List<CodeViewModel>), (int)HttpStatusCode.OK)]
         public IActionResult GetAllCodesForSelectedCodeType(int type)
         {

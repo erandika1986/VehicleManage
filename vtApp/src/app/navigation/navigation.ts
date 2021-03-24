@@ -121,6 +121,12 @@ export const navigation: FuseNavigation[] = [
                         url: '/admin/routes/list'
                     },
                     {
+                        id: 'code',
+                        title: 'Master Data Codes',
+                        type: 'item',
+                        url: '/admin/code/list'
+                    },
+                    {
                         id: 'engine-oil',
                         title: 'Engine Oil',
                         type: 'item',

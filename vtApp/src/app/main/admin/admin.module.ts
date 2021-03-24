@@ -47,8 +47,12 @@ const routes = [
     loadChildren: () => import('./product-sub-category/product-sub-category.module').then(m => m.ProductSubCategoryModule)
   },
   {
-    path: 'engine-oil',
-    loadChildren: () => import('./engine-oil/engine-oil.module').then(m => m.EngineOilModule)
+    path: 'product-sub-category',
+    loadChildren: () => import('./product-sub-category/product-sub-category.module').then(m => m.ProductSubCategoryModule)
+  },
+  {
+    path: 'code',
+    loadChildren: () => import('./code/code.module').then(m => m.CodeModule)
   }
   ,
   {

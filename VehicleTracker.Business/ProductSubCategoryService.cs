@@ -40,7 +40,7 @@ namespace VehicleTracker.Business
                 await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Product category has been deleted.";
+                response.Message = "Product sub category has been deleted.";
             }
             catch (Exception ex)
             {

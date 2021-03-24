@@ -1,0 +1,23 @@
+<form class="center mat-card p-24 pb-10 pr-24 custom" fxLayout="column" fxFlex="1 0 auto" name="form"
+    [formGroup]="filterForm">
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+
+
+        <mat-form-field appearance="outline" class="pr-sm-8 pr-4 custome-wrapper" fxFlex="1 0 20" fxFlex.xs="100">
+            <mat-label>Code Type</mat-label>
+            <mat-select formControlName="selectedCodeType" (selectionChange)="dropdownFilterChanged()">
+                <mat-option *ngFor="let item of codeTypes" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+    </div>
+
+
+
+
+</form>
