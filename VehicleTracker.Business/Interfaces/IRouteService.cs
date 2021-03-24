@@ -9,11 +9,10 @@ namespace VehicleTracker.Business
 {
     public interface IRouteService
     {
-        Task<RouteResponseViewModel> AddNewRoute(RouteViewModel vm);
-        Task<ResponseViewModel> UpdateRoute(RouteViewModel vm);
+        Task<RouteResponseViewModel> SaveRoute(RouteViewModel vm);
         Task<ResponseViewModel> DeleteRoute(long id);
         RouteViewModel GetRouteById(long id);
-        PaginatedItemsViewModel<RouteViewModel> GetAllRoutes(int pageSize, int currentPage);
+        List<RouteViewModel> GetAllRoutes();
 
     }
 }

@@ -54,23 +54,7 @@ const routes = [
     path: 'code',
     loadChildren: () => import('./code/code.module').then(m => m.CodeModule)
   }
-  ,
-  {
-    path: 'gear-box-oil',
-    loadChildren: () => import('./gear-box-oil/gear-box-oil.module').then(m => m.GearBoxOilModule)
-  },
-  {
-    path: 'break-oil',
-    loadChildren: () => import('./break-oil/break-oil.module').then(m => m.BreakOilModule)
-  },
-  {
-    path: 'differential-oil',
-    loadChildren: () => import('./differential-oil/differential-oil.module').then(m => m.DifferentialOilModule)
-  },
-  {
-    path: 'engine-coolant',
-    loadChildren: () => import('./engine-coolant/engine-coolant.module').then(m => m.EngineCoolantModule)
-  }
+
 ];
 
 @NgModule({

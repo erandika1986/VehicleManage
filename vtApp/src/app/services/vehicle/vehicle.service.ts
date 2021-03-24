@@ -18,46 +18,10 @@ export class VehicleService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // Master data Related method
-  getVehicleTypeMasterData(): Observable<VehicleTypeMasterDataModel> {
-    return this.httpClient.
-      get<VehicleTypeMasterDataModel>(environment.apiUrl + 'Vehicle/getVehicleTypeMasterData');
-  }
-
-  // Get Vehicle Types
-  getAllVehicleTypes(pageSize: number, currentPage: number): Observable<VehicleTypePaginatedItemsModel> {
-    return this.httpClient.
-      get<VehicleTypePaginatedItemsModel>(environment.apiUrl + 'Vehicle/getAllVehicleTypes/' + pageSize + '/' + currentPage);
-  }
-
   // Get Vehicle Master Data
   getVehicleMasterData(): Observable<VehicleMasterDataModel> {
     return this.httpClient.
       get<VehicleMasterDataModel>(environment.apiUrl + 'Vehicle/getVehicleMasterData');
-  }
-
-  // Add new Vehicle Type
-  addNewVehicleType(vehicleTypeModel: VehicleTypeModel): Observable<ResponseModel> {
-    return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'Vehicle/addNewVehicleType', vehicleTypeModel);
-  }
-
-  // Get Vehicle Type By Id
-  getVehicleTypeById(id: number): Observable<VehicleTypeModel> {
-    return this.httpClient.
-      get<VehicleTypeModel>(environment.apiUrl + 'Vehicle/getVehicleTypeById/' + id);
-  }
-
-  // Update Existing Vehicle Type
-  updateVehicleType(vehicleTypeModel: VehicleTypeModel): Observable<ResponseModel> {
-    return this.httpClient.
-      put<ResponseModel>(environment.apiUrl + 'Vehicle/updateVehicleType', vehicleTypeModel);
-  }
-
-  // Delete Existing Vehicle Type
-  deleteVehicleType(id: number): Observable<ResponseModel> {
-    return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'Vehicle/deleteVehicleType/' + id);
   }
 
   // get vehicles

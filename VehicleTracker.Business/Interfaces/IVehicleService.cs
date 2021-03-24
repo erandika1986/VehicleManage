@@ -9,12 +9,7 @@ namespace VehicleTracker.Business
 {
     public interface IVehicleService
     {
-        VehicleTypeMasterDataViewModel GetVehicleTypeMasterData();
-        Task<ResponseViewModel> AddNewVehicleType(VehicleTypeViewModel vm);
-        Task<ResponseViewModel> UpdateVehicleType(VehicleTypeViewModel vm);
-        Task<ResponseViewModel> DeleteVehicleType(long id);
-        List<VehicleTypeViewModel> GetAllVehicleTypes();
-        VehicleTypeViewModel GetVehicleTypeById(long id);
+
 
         VehicleMasterDataViewModel GetVehicleMasterData();
         Task<VehicleResponseViewModel> AddNewVehicle(VehicleViewModel vm,string userName);

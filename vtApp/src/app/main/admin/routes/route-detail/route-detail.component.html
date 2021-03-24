@@ -1,1 +1,67 @@
-<p>route-detail works!</p>
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-16 pb-0 m-0" fusePerfectScrollbar>
+
+        <form name="routeForm" [formGroup]="routeForm" class="event-form w-100-p" fxLayout="column" fxFlex>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>ID</mat-label>
+                <input matInput name="id" formControlName="id">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Route Code</mat-label>
+                <input matInput name="routeCode" formControlName="routeCode" required>
+                <mat-error>Route code is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Start Location</mat-label>
+                <input matInput name="startFrom" formControlName="startFrom" required>
+                <mat-error>Start location required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>End Location</mat-label>
+                <input matInput name="endFrom" formControlName="endFrom" required>
+                <mat-error>End location is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Rotal Distance</mat-label>
+                <input matInput name="totalDistance" formControlName="totalDistance" required>
+                <mat-error>Route total Distance is required!</mat-error>
+            </mat-form-field>
+
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action ==='edit'" mat-button color="primary" class="mr-8"
+            (click)="matDialogRef.close(['delete',routeForm])" aria-label="Delete" matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button color="primary" class="save-button"
+            (click)="matDialogRef.close(routeForm)" [disabled]="routeForm.invalid" aria-label="ADD">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button color="primary" class="save-button"
+            (click)="matDialogRef.close(['save', routeForm])" [disabled]="routeForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

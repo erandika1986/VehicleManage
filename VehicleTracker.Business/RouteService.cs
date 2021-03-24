@@ -24,20 +24,40 @@ namespace VehicleTracker.Business
             this._userService = userService;
         }
 
-        public async Task<RouteResponseViewModel> AddNewRoute(RouteViewModel vm)
+        public async Task<RouteResponseViewModel> SaveRoute(RouteViewModel vm)
         {
             var response = new RouteResponseViewModel();
             try
             {
-                var model = vm.ToModel();
+                var route = _db.Route.FirstOrDefault(t => t.Id == vm.Id);
 
-                _db.Route.Add(model);
+                if(route==null)
+                {
+                    var model = vm.ToModel();
 
-                await _db.SaveChangesAsync();
+                    _db.Route.Add(model);
 
-                response.Id = model.Id;
-                response.IsSuccess = true;
-                response.Message = "New Route has been added successfully";
+                    await _db.SaveChangesAsync();
+
+                    response.Id = model.Id;
+                    response.IsSuccess = true;
+                    response.Message = "New Route has been added successfully";
+                }
+                else
+                {
+                    route.RouteCode = vm.RouteCode;
+                    route.StartFrom = vm.StartFrom;
+                    route.EndFrom = vm.EndFrom;
+                    route.TotalDistance = vm.TotalDistance;
+
+                    _db.Route.Update(route);
+
+                    await _db.SaveChangesAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = "Route details has been updated successfully";
+                }
+
             }
             catch(Exception ex)
             {
@@ -73,30 +93,24 @@ namespace VehicleTracker.Business
             return response;
         }
 
-        public PaginatedItemsViewModel<RouteViewModel> GetAllRoutes(int pageSize, int currentPage)
+        public List<RouteViewModel> GetAllRoutes()
         {
             var query = _db.Route.Where(t=>t.IsActive==true).OrderBy(t => t.RouteCode);
 
-            int totalRecordCount = 0;
-            double totalPages = 0;
-            int totalPageCount = 0;
             var data = new List<RouteViewModel>();
 
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderBy(t => t.RouteCode).ToList();
+            var pageData = query.ToList();
 
             pageData.ForEach(p =>
             {
                 data.Add(p.ToVm());
             });
 
-            var response = new PaginatedItemsViewModel<RouteViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
 
 
-            return response;
+
+            return data;
         }
 
         public RouteViewModel GetRouteById(long id)
@@ -105,32 +119,6 @@ namespace VehicleTracker.Business
 
             return route;
         }
-        public async Task<ResponseViewModel> UpdateRoute(RouteViewModel vm)
-        {
-            var response = new ResponseViewModel();
-            try
-            {
-                var route = _db.Route.FirstOrDefault(t => t.Id == vm.Id);
 
-                route.RouteCode = vm.RouteCode;
-                route.StartFrom = vm.StartFrom;
-                route.EndFrom = vm.EndFrom;
-                route.TotalDistance = vm.TotalDistance;
-
-                _db.Route.Update(route);
-
-                await _db.SaveChangesAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Route details has been updated successfully";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Error has been occured while updating the route. Please try again.";
-            }
-
-            return response;
-        }
     }
 }

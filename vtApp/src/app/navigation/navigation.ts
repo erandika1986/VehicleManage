@@ -116,7 +116,7 @@ export const navigation: FuseNavigation[] = [
                     },
                     {
                         id: 'route',
-                        title: 'Vehicle Routes',
+                        title: 'Routes',
                         type: 'item',
                         url: '/admin/routes/list'
                     },
@@ -125,36 +125,6 @@ export const navigation: FuseNavigation[] = [
                         title: 'Master Data Codes',
                         type: 'item',
                         url: '/admin/code/list'
-                    },
-                    {
-                        id: 'engine-oil',
-                        title: 'Engine Oil',
-                        type: 'item',
-                        url: '/admin/engine-oil/list'
-                    },
-                    {
-                        id: 'gear-box-oil',
-                        title: 'Gear Box Oil',
-                        type: 'item',
-                        url: '/admin/gear-box-oil/list'
-                    },
-                    {
-                        id: 'break-oil',
-                        title: 'Break Oil',
-                        type: 'item',
-                        url: '/admin/break-oil/list'
-                    },
-                    {
-                        id: 'differential-oil',
-                        title: 'Differential Oil',
-                        type: 'item',
-                        url: '/admin/differential-oil/list'
-                    },
-                    {
-                        id: 'engine-coolant',
-                        title: 'Engine Coolant',
-                        type: 'item',
-                        url: '/admin/engine-coolant/list'
                     }
 
                 ]

@@ -25,58 +25,9 @@ namespace VehicleTracker.WebApi.Controllers
             this._vehicleService = vehicleService;
         }
 
-        [HttpGet]
-        [Route("getVehicleTypeMasterData")]
-        public IActionResult GetVehicleTypeMasterData()
-        {
-            var response = _vehicleService.GetVehicleTypeMasterData();
 
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [Route("addNewVehicleType")]
-        public async Task<IActionResult> AddNewVehicalType(VehicleTypeViewModel vehicleTypeViewModel)
-        {
-           var response = await _vehicleService.AddNewVehicleType(vehicleTypeViewModel);
-            return Ok(response);
-        }
-
-        [HttpPut]
-        [Route("updateVehicleType")]
-        public async Task<IActionResult> UpdateVehicleType(VehicleTypeViewModel vehicleViewModel)
-        {
-            var response = await this._vehicleService.UpdateVehicleType(vehicleViewModel);
-            return Ok(response);
-        }
-
-        [HttpDelete]
-        [Route("deleteVehicleType/{id:int}")]
-        public async Task<IActionResult> DeleteVehicleType(long id)
-        {
-            var response = await this._vehicleService.DeleteVehicleType(id);
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [Route("getAllVehicleTypes")]
-        public IActionResult GetAllVehicleTypes()
-        {
-            var response = this._vehicleService.GetAllVehicleTypes();
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [Route("getVehicleTypeById/{id:int}")]
-        public IActionResult GetVehicleTypeById(long id)
-        {
-            var response = this._vehicleService.GetVehicleTypeById(id);
-            return Ok(response);
-        }
 
         //Vehical control methods
-
-
         [HttpGet]
         [Route("getVehicleMasterData")]
         public IActionResult GetVehicleMasterData()

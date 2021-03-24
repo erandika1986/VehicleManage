@@ -23,10 +23,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         // GET api/Route/15/2
-        [HttpGet("{pageSize:int}/{currentPage:int}")]
-        public ActionResult Get(int pageSize, int currentPage)
+        [HttpGet]
+        public ActionResult Get()
         {
-            var response = _routeService.GetAllRoutes(pageSize, currentPage);
+            var response = _routeService.GetAllRoutes();
             return Ok(response);
         }
 
@@ -42,17 +42,10 @@ namespace VehicleTracker.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] RouteViewModel vm)
         {
-            var response =await _routeService.AddNewRoute(vm);
+            var response =await _routeService.SaveRoute(vm);
             return Ok(response);
         }
 
-        // PUT api/Route
-        [HttpPut]
-        public async Task<ActionResult> Put([FromBody] RouteViewModel vm)
-        {
-            var response = await _routeService.UpdateRoute(vm);
-            return Ok(response);
-        }
 
         // DELETE api/Route/5
         [HttpDelete("{id}")]

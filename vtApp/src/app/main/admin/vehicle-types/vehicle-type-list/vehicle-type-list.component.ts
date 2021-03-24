@@ -1,10 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { VehicleTypeService } from 'app/services/vehicle/vehicle-type.service';
 
 @Component({
   selector: 'vehicle-type-list',
@@ -15,9 +19,14 @@ import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-b
 })
 export class VehicleTypeListComponent implements OnInit, AfterViewInit {
 
-  totalNumberOfRecords: number;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   dataSource = new MatTableDataSource([]);
+
+
+  dialogRef: any;
+  confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   displayedColumns = ["buttons", "id", "name", "engineOilChangeMilage", "fuelFilterChangeMilage", "gearBoxChangeMilage", "differentialOilChangeMilage", "engineOilNumber", "fuelFilterNumber", "gearBoxOilNumber", "differentialOilNumber", "airCleanerAge", "greeceNipleAge", "insuranceAge", "fitnessReportAge", "emitionTestAge", "revenueLicenceAge", "fuelTypeName"];
 
@@ -30,7 +39,10 @@ export class VehicleTypeListComponent implements OnInit, AfterViewInit {
   constructor(
     private _route: ActivatedRoute,
     private _fuseProgressBarService: FuseProgressBarService,
-    public _router: Router
+    public _router: Router,
+    private _matDialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private _vehicleTypeService: VehicleTypeService
   ) { }
 
   ngOnInit(): void {

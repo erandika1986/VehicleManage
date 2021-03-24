@@ -14,9 +14,9 @@ export class RouteService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getAllRoutes(pageSize: number, currentPage: number): Observable<RoutePaginatedItemsModel> {
+  getAllRoutes(): Observable<RouteModel[]> {
     return this.httpClient.
-      get<RoutePaginatedItemsModel>(environment.apiUrl + 'Route' + "/" + pageSize + "/" + currentPage);
+      get<RouteModel[]>(environment.apiUrl + 'Route');
   }
 
   getRouteById(id: number): Observable<RouteModel> {
@@ -24,15 +24,12 @@ export class RouteService {
       get<RouteModel>(environment.apiUrl + 'Route' + "/" + id);
   }
 
-  addNewRoute(vm: RouteModel): Observable<ResponseModel> {
+  saveRoute(vm: RouteModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Route', vm);
   }
 
-  updateRoute(vm: RouteModel): Observable<ResponseModel> {
-    return this.httpClient.
-      put<ResponseModel>(environment.apiUrl + 'Route', vm);
-  }
+
 
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
