@@ -27,11 +27,6 @@ export class RouteListComponent implements OnInit {
 
   dataSource = new MatTableDataSource([]);
 
-  id: number;
-  routeCode: string;
-  startFrom: string;
-  endFrom: string;
-  totalDistance: number;
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

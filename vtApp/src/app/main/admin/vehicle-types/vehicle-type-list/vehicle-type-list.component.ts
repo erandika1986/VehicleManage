@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { VehicleTypeModel } from 'app/models/vehicle/vehicle-type.model';
 import { VehicleTypeService } from 'app/services/vehicle/vehicle-type.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class VehicleTypeListComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadVehicleTypes();
   }
 
   ngAfterViewInit() {
@@ -56,9 +58,29 @@ export class VehicleTypeListComponent implements OnInit, AfterViewInit {
 
   }
 
-  loadVehicleTypes() {
+  editVehicleType(item: VehicleTypeModel) {
 
   }
+
+  deleteVehicleType(item: VehicleTypeModel) {
+
+  }
+
+
+
+  loadVehicleTypes() {
+    this._fuseProgressBarService.show();
+    this._vehicleTypeService.getAllVehicleTypes()
+      .subscribe(response => {
+        this._fuseProgressBarService.hide();
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }, error => {
+        this._fuseProgressBarService.hide();
+      })
+  }
+
 
 
   applyFilter(filterValue: string) {
