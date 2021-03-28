@@ -73,6 +73,8 @@ export class VehicleTypeListComponent implements OnInit, AfterViewInit {
     this._vehicleTypeService.getAllVehicleTypes()
       .subscribe(response => {
         this._fuseProgressBarService.hide();
+        console.log(response);
+
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

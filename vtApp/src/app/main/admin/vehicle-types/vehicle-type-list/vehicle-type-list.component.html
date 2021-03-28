@@ -26,7 +26,7 @@
             <div class="search-wrapper mx-32 mx-md-0">
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input #input (keyup)="applyFilter($event.target.value)" placeholder="Search for Route">
+                    <input #input (keyup)="applyFilter($event.target.value)" placeholder="Search for Vehcile Type">
                 </div>
             </div>
             <!-- / SEARCH -->
@@ -41,7 +41,8 @@
         <!-- / HEADER -->
 
         <!-- CONTENT CARD -->
-        <div class="content-card">
+
+        <div class="content-card ">
 
             <mat-table class="products-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
                 fusePerfectScrollbar>
