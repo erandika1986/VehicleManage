@@ -37,7 +37,7 @@
             </div>
             <!-- / APP TITLE -->
 
-            <button mat-raised-button class="save-product-button"
+            <button mat-raised-button class="save-product-button" [disabled]="vehicleTypeForm.invalid" (click)="saveVahicleType()"
                 >
                 <span>SAVE</span>
             </button>
@@ -96,6 +96,42 @@
                                     </mat-form-field>
                                 </div>
 
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Insurance Age (months)</mat-label>
+                                        <input type="number" matInput placeholder="Insurance Age" name="InsuranceAge"
+                                            formControlName="insuranceAge">
+
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Emition Test Age (months)</mat-label>
+                                        <input type="number" matInput placeholder="Emition Test Age" name="EmitionTestAge"
+                                            formControlName="emitionTestAge">
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Revenue Licence Age(months)</mat-label>
+                                        <input type="number" matInput placeholder="Revenue Licence Age" name="RevenueLicenceAge"
+                                            formControlName="revenueLicenceAge">
+
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Air Cleaner Age (months)</mat-label>
+                                        <input type="number" matInput placeholder="Air Cleaner Age" name="Air Cleaner Age"
+                                            formControlName="airCleanerAge">
+
+                                    </mat-form-field>
+                                </div>
+
+
+
 
                                 <div fxLayout="row" fxLayoutAlign="space-between">
 
@@ -106,7 +142,7 @@
 
                                     </div>
 
-                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48" *ngIf="hasGreeceNipple">
                                         <mat-label>Greece Niple Age (months)</mat-label>
                                         <input matInput placeholder="Greece Niple Age" name="GreeceNipleAge"
                                             formControlName="greeceNipleAge">
@@ -123,7 +159,7 @@
 
                                     </div>
 
-                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48" *ngIf="hasFitnessReport">
                                         <mat-label>Fitness Report Age (months)</mat-label>
                                         <input matInput placeholder="Fitness Report Age" name="GreeceNipleAge"
                                             formControlName="fitnessReportAge">
@@ -132,14 +168,130 @@
                                 </div>
 
 
+                                <div fxLayout="row" fxLayoutAlign="space-between">
 
+                                    <div appearance="outline" fxFlex="48" class="pr-4" style="margin-bottom: 10px;">
+                                        <mat-slide-toggle formControlName="hasDifferentialOil">
+                                            Has Differential Oil
+                                        </mat-slide-toggle>
+
+                                    </div>
+
+
+                                </div>
 
                             </div>
 
 
                         </mat-tab> 
 
+                        <mat-tab label="Vehicle Oil Codes">
 
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="hasDifferentialOil">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Differential Oil Milage (Km)</mat-label>
+                                        <input type="number" matInput placeholder="Differential Oil Milage" name="DifferentialOilMilage"
+                                            formControlName="differentialOilChangeMilage">
+                                    </mat-form-field>
+    
+    
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Differential Oil Number</mat-label>
+                                        <mat-select formControlName="differentialOilId">
+                                            <mat-option *ngFor="let item of differentialOilTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Gear Box Milage (Km)</mat-label>
+                                        <input type="number" matInput placeholder="Gear Box Milage" name="GearBoxMilage"
+                                            formControlName="gearBoxChangeMilage">
+                                    </mat-form-field>
+    
+    
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Gear Box Oil Number</mat-label>
+                                        <mat-select formControlName="gearBoxOilId">
+                                            <mat-option *ngFor="let item of gearBoxOilTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Engine Oil Milage (Km)</mat-label>
+                                        <input type="number" matInput placeholder="Engine Oil Milage" name="EngineOilMilage"
+                                            formControlName="engineOilChangeMilage">
+                                    </mat-form-field>
+    
+    
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Engine Oil Number</mat-label>
+                                        <mat-select formControlName="engineOilId">
+                                            <mat-option *ngFor="let item of engineOilTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Break Oil Type</mat-label>
+                                        <mat-select formControlName="breakOilId">
+                                            <mat-option *ngFor="let item of breakOilTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+    
+    
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Engine Coolant Type</mat-label>
+                                        <mat-select formControlName="engineCoolantId">
+                                            <mat-option *ngFor="let item of engineCoolantTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+   
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Power Steering Oil</mat-label>
+                                        <mat-select formControlName="powerSteeringOilId">
+                                            <mat-option *ngFor="let item of powerSteeringOilTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+    
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </mat-tab>
 
 
 
