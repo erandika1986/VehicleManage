@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -39,5 +39,7 @@ namespace VehicleTracker.ViewModel.Vehicle
         public string GearBoxOilNumber { get; set; }
         public string DifferentialOilNumber { get; set; }
         public string EngineOilNumber { get; set; }
-    }
+
+        public string ImageUrl { get; set; }
+  }
 }

@@ -55,11 +55,11 @@ export class VehicleTypeListComponent implements OnInit, AfterViewInit {
   }
 
   addNewVehicleType() {
-
+    this._router.navigate(['admin/vehicle-types/list/' + 0 ]);
   }
 
   editVehicleType(item: VehicleTypeModel) {
-
+    this._router.navigate(['admin/vehicle-types/list/' + item.id ]);
   }
 
   deleteVehicleType(item: VehicleTypeModel) {

@@ -1,1 +1,159 @@
-<p>vehicle-type-detail works!</p>
+<div id="vehicleTypeDetail" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="''">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="equipment-image mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="vehicleType && vehicleType.imageUrl" [src]="vehicleType.imageUrl">
+                    <img *ngIf="!vehicleType || !vehicleType.imageUrl" [src]="'assets/images/ecommerce/truck_1-512.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{vehicleType?.name}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        New Vehcile Type
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Vehicle Type Detail</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button"
+                >
+                <span>SAVE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="vehcileForm" [formGroup]="vehicleTypeForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                         <mat-tab label="Vehcile Type Basic Details">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Vehicle Type Name</mat-label>
+                                        <input matInput placeholder="Vehicle Type Name" name="Equipment Name"
+                                            formControlName="name">
+                                    </mat-form-field>
+
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Fuel Type</mat-label>
+                                        <mat-select formControlName="fuelType">
+                                            <mat-option *ngFor="let item of fuelTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+
+                                    </mat-form-field>
+
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Fuel Filter Milage (Km)</mat-label>
+                                        <input type="number" matInput placeholder="Fuel Filter Milage" name="FuelFilterMilage"
+                                            formControlName="fuelFilterChangeMilage">
+
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Fuel Filter Number</mat-label>
+                                        <input matInput placeholder="Fuel Filter Number" name="FuelFilterNumber"
+                                            formControlName="fuelFilterNumber">
+
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <div appearance="outline" fxFlex="48" class="pr-4" style="margin-bottom: 10px;">
+                                        <mat-slide-toggle formControlName="hasGreeceNipple">
+                                            Has Greece Niple
+                                        </mat-slide-toggle>
+
+                                    </div>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Greece Niple Age (months)</mat-label>
+                                        <input matInput placeholder="Greece Niple Age" name="GreeceNipleAge"
+                                            formControlName="greeceNipleAge">
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <div appearance="outline" fxFlex="48" class="pr-4" style="margin-bottom: 10px;">
+                                        <mat-slide-toggle formControlName="hasFitnessReport">
+                                            Has Fitness Report
+                                        </mat-slide-toggle>
+
+                                    </div>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Fitness Report Age (months)</mat-label>
+                                        <input matInput placeholder="Fitness Report Age" name="GreeceNipleAge"
+                                            formControlName="fitnessReportAge">
+
+                                    </mat-form-field>
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </mat-tab> 
+
+
+
+
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

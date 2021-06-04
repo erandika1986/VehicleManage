@@ -29,6 +29,6 @@ export class VehicleTypeModel {
     differentialOilNumber: string;
     engineOilNumber: string;
 
-
+    imageUrl:string;
 
 }
