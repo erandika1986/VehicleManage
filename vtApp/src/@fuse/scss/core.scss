@@ -2,6 +2,7 @@
 // to the core Fuse and Angular Material mixins
 
 // ngx-datatable
+@use '~@angular/material' as mat;
 @import '~@swimlane/ngx-datatable/themes/material';
 
 // Perfect scrollbar
@@ -14,7 +15,7 @@
 @import "theme";
 
 // Include core Angular Material styles
-@include mat-core();
+@include mat.core();
 
 // Partials
 @import "partials/normalize";

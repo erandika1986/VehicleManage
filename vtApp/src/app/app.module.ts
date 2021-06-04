@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TranslateModule } from '@ngx-translate/core';
+import {MatDialogModule} from '@angular/material/dialog';
 import 'hammerjs';
 
 import { FuseModule } from '@fuse/fuse.module';
@@ -101,7 +102,8 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        AppStoreModule
+        AppStoreModule,
+        MatDialogModule
     ],
     providers:
         [
