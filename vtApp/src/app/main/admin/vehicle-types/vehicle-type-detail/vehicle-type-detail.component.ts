@@ -170,8 +170,10 @@ export class VehicleTypeDetailComponent implements OnInit {
 
   saveVahicleType()
   {
+    this._fuseProgressBarService.show();
     this.vehicleTypeService.saveVehicleType(this.vehicleTypeForm.getRawValue())
       .subscribe(response=>{
+        this._fuseProgressBarService.hide();
         if (response.isSuccess) {
           this._snackBar.open(response.message, 'Success', {
             duration: 2500,

@@ -24,6 +24,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from 'app/shared/shared.module';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const routes: Routes = [
   {
@@ -62,12 +64,14 @@ const routes: Routes = [
     MatSortModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTooltipModule,
     MatTabsModule,
     CommonModule,
     MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
     MatMenuModule,
+    MatToolbarModule,
     MatSlideToggleModule,
     SharedModule
   ]

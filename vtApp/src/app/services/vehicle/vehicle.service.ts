@@ -25,9 +25,9 @@ export class VehicleService {
   }
 
   // get vehicles
-  getAllVehicles(pageSize: number, currentPage: number): Observable<VehiclePaginatedItemsModel> {
+  getAllVehicles(pageSize: number, currentPage: number,sortBy:string,sortDirection:string,searchText:string): Observable<VehiclePaginatedItemsModel> {
     return this.httpClient.
-      get<VehiclePaginatedItemsModel>(environment.apiUrl + 'Vehicle/getAllVehicles/' + pageSize + '/' + currentPage);
+      get<VehiclePaginatedItemsModel>(environment.apiUrl + 'Vehicle/getAllVehicles/' + pageSize + '/' + currentPage +'/'+sortBy+'/'+sortDirection+'/'+searchText);
   }
 
   // add new vehicle

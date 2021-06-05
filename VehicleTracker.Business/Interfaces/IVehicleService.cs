@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace VehicleTracker.Business
         Task<VehicleResponseViewModel> AddNewVehicle(VehicleViewModel vm,string userName);
         Task<ResponseViewModel> UpdateVehicle(VehicleViewModel vm, string userName);
         Task<ResponseViewModel> DeleteVehicle(long id);
-        PaginatedItemsViewModel<VehicleViewModel> GetAllVehicles(int pageSize, int currentPage,string searchText);
+        PaginatedItemsViewModel<VehicleViewModel> GetAllVehicles(int pageSize, int currentPage, string sortBy, string sortDirection, string searchText);
         VehicleViewModel GetVehicleById(long id);
 
         Task<ResponseViewModel> AddNewVehicleAirCleanerRecord(VehicleAirCleanerViewModel vm, string userName);

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -63,10 +63,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("getAllVehicles/{pageSize:int}/{currentPage:int}")]
-        public IActionResult GetAllVehicles(int pageSize, int currentPage)
+        [Route("getAllVehicles/{pageSize:int}/{currentPage:int}/{sortBy}/{sortDirection}/{searchText?}")]
+        public IActionResult GetAllVehicles(int pageSize, int currentPage,string sortBy,string sortDirection,string searchText)
         {
-            var response = this._vehicleService.GetAllVehicles(pageSize, currentPage, "");
+            var response = this._vehicleService.GetAllVehicles(pageSize, currentPage, sortBy, sortDirection, searchText);
             return Ok(response);
         }
 

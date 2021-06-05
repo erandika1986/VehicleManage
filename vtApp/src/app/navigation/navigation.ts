@@ -103,16 +103,16 @@ export const navigation: FuseNavigation[] = [
                 icon: 'lock',
                 children: [
                     {
-                        id: 'vehicle-types',
-                        title: 'Vehicle Types',
-                        type: 'item',
-                        url: '/admin/vehicle-types/list'
-                    },
-                    {
                         id: 'vehicle',
                         title: 'Vehicle',
                         type: 'item',
                         url: '/admin/vehicle/list'
+                    },
+                    {
+                        id: 'vehicle-types',
+                        title: 'Vehicle Types',
+                        type: 'item',
+                        url: '/admin/vehicle-types/list'
                     },
                     {
                         id: 'route',
