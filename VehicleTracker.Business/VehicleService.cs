@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.ViewModel.Common.Enums;
 using VehicleTracker.Common;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace VehicleTracker.Business
 {
@@ -16,11 +18,15 @@ namespace VehicleTracker.Business
   {
     private readonly IVMDBUow _uow;
     private readonly IUserService _userService;
+    private readonly IConfiguration config;
+    private readonly ILogger<VehicleService> logger;
 
-    public VehicleService(IVMDBUow uow, IUserService userService)
+    public VehicleService(IVMDBUow uow, IUserService userService, IConfiguration config, ILogger<VehicleService> logger)
     {
       this._uow = uow;
       this._userService = userService;
+      this.config = config;
+      this.logger = logger;
     }
 
 
@@ -46,72 +52,52 @@ namespace VehicleTracker.Business
 
       return masterData;
     }
-    public async Task<VehicleResponseViewModel> AddNewVehicle(VehicleViewModel vm, string userName)
+    public async Task<VehicleResponseViewModel> SaveVehicle(VehicleViewModel vm, string userName)
     {
       var response = new VehicleResponseViewModel();
       try
       {
-        if (IsVehicleAlreadyExists(vm.RegistrationNo).IsSuccess)
-        {
-          response.IsSuccess = false;
-          response.Message = "Vehcile already registered with system.";
-
-          return response;
-        }
-
         var user = _userService.GetUserByUsername(userName);
+        var vehicle = _uow.Vehicle.GetAll().FirstOrDefault(t => t.Id == vm.Id);
+        if(vehicle==null)
+        {
+          if (IsVehicleAlreadyExists(vm.RegistrationNo).IsSuccess)
+          {
+            response.IsSuccess = false;
+            response.Message = "Vehcile already registered with system.";
 
-        var vt = vm.ToModel();
-        vt.UpdatedBy = user.Id;
-        vt.CreatedBy = user.Id;
-        vt.CreatedOn = DateTime.UtcNow;
-        vt.UpdatedOn = DateTime.UtcNow;
+            return response;
+          }
 
-        _uow.Vehicle.Add(vt);
-        await _uow.CommitAsync();
 
-        //vm.NextAirCleanerDetails.VehicleId = vt.Id;
-        //await AddNewVehicleAirCleanerRecord(vm.NextAirCleanerDetails, userName);
+          var vt = vm.ToModel();
+          vt.UpdatedBy = user.Id;
+          vt.CreatedBy = user.Id;
+          vt.CreatedOn = DateTime.UtcNow;
+          vt.UpdatedOn = DateTime.UtcNow;
 
-        //if(vm.HasDifferentialOil)
-        //{
-        //    vm.NextDifferentialOilChangeMilageDetails.VehicleId = vt.Id;
-        //    await AddNewVehicleDifferentialOilChangeMilageRecord(vm.NextDifferentialOilChangeMilageDetails, userName);
-        //}
+          _uow.Vehicle.Add(vt);
+          await _uow.CommitAsync();
+          response.Id = vt.Id;
 
-        //if (vm.HasFitnessReport)
-        //{
-        //    vm.NextFitnessReportDetails.VehicleId = vt.Id;
-        //    await AddNewVehicleFitnessReportRecord(vm.NextFitnessReportDetails, userName);
-        //}
+          response.IsSuccess = true;
+          response.Message = "New Vehicle has been added.";
+        }
+        else
+        {
+          vehicle.UpdatedOn = DateTime.UtcNow;
+          vehicle.UpdatedBy = user.Id;
+          vehicle.ProductionYear = vm.ProductionYear;
+          vehicle.InitialOdometerReading = vm.InitialOdometerReading;
+          vehicle.IsActive = vm.IsActive;
 
-        //if (vm.HasGreeceNipple)
-        //{
-        //    vm.NextGreeceNipleDetails.VehicleId = vt.Id;
-        //    await AddNewVehicleGreeceNipleRecord(vm.NextGreeceNipleDetails, userName);
-        //}
 
-        //vm.NextEmissionTestDetails.VehicleId = vt.Id;
-        //await AddNewVehicleEmissionTestRecord(vm.NextEmissionTestDetails, userName);
+          _uow.Vehicle.Update(vehicle);
+          await _uow.CommitAsync();
 
-        //vm.NextEngineOilMilageDetails.VehicleId = vt.Id;
-        //await AddNewVehicleEngineOilMilageRecord(vm.NextEngineOilMilageDetails, userName);
-
-        //vm.NextFuelFilterMilageDetails.VehicleId = vt.Id;
-        //await AddNewVehicleFuelFilterMilageRecord(vm.NextFuelFilterMilageDetails, userName);
-
-        //vm.NextGearBoxOilMilageDetails.VehicleId = vt.Id;
-        //await AddNewVehicleGearBoxOilMilageRecord(vm.NextGearBoxOilMilageDetails, userName);
-
-        //vm.NextInsurenceRenewalDetails.VehicleId = vt.Id;
-        //await AddNewVehicleInsuranceRecord(vm.NextInsurenceRenewalDetails, userName);
-
-        //vm.NextRevenueLicenceDetails.VehicleId = vt.Id;
-        //await AddNewVehicleRevenueLicenceRecord(vm.NextRevenueLicenceDetails, userName);
-
-        response.Id = vt.Id;
-        response.IsSuccess = true;
-        response.Message = "New Vehicle has been added.";
+          response.IsSuccess = true;
+          response.Message = "Vehicle detail has been updated.";
+        }
       }
       catch (Exception ex)
       {
@@ -122,6 +108,7 @@ namespace VehicleTracker.Business
 
       return response;
     }
+
     public async Task<ResponseViewModel> DeleteVehicle(long id)
     {
       var response = new ResponseViewModel();
@@ -253,35 +240,7 @@ namespace VehicleTracker.Business
 
       return vehicle;
     }
-    public async Task<ResponseViewModel> UpdateVehicle(VehicleViewModel vm, string userName)
-    {
-      var response = new ResponseViewModel();
-      try
-      {
-        var user = _userService.GetUserByUsername(userName);
-        var vehicle = _uow.Vehicle.GetAll().FirstOrDefault(t => t.Id == vm.Id);
-        vehicle.UpdatedOn = DateTime.UtcNow;
-        vehicle.UpdatedBy = user.Id;
-        vehicle.ProductionYear = vm.ProductionYear;
-        vehicle.InitialOdometerReading = vm.InitialOdometerReading;
-        vehicle.IsActive = vm.IsActive;
 
-
-        _uow.Vehicle.Update(vehicle);
-        await _uow.CommitAsync();
-
-        response.IsSuccess = true;
-        response.Message = "Vehicle detail has been updated.";
-      }
-      catch (Exception ex)
-      {
-        response.IsSuccess = false;
-        response.Message = "Operation failed.Please try again.";
-      }
-
-
-      return response;
-    }
     public async Task<ResponseViewModel> AddNewVehicleAirCleanerRecord(VehicleAirCleanerViewModel vm, string userName)
     {
       var response = new ResponseViewModel();

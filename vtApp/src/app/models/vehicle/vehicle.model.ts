@@ -18,9 +18,12 @@ export class VehicleModel {
     productionYear: number;
     initialOdometerReading: number;
     isActive: boolean;
-
+    imageUrl:string;
     // For table view
     vehicelTypeName: string;
+    hasDifferentialOil:boolean;
+    hasFitnessReport:boolean;
+    hasGreeceNipple:boolean;
 
     // hasDifferentialOil: boolean;
     // nextDifferentialOilChangeMilageDetails: VehicleDifferentialOilChangeMilageModel;

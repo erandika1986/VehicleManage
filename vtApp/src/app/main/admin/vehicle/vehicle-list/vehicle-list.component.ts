@@ -16,7 +16,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-vehicle-list',
+  selector: 'vehicle-list',
   templateUrl: './vehicle-list.component.html',
   styleUrls: ['./vehicle-list.component.scss'],
   animations: fuseAnimations,
@@ -78,7 +78,7 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
     this._router.navigate(['admin/vehicle/list/' + item.id ]);
   }
 
-  deleteVehicleType(item: VehicleModel) {
+  deleteVehicle(item: VehicleModel) {
 
   }
 

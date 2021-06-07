@@ -37,22 +37,15 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("addNewVehicle")]
+        [Route("saveVehicle")]
         public async Task<IActionResult> AddNewVehical(VehicleViewModel vehicleViewModel)
         {
             var userName = IdentityHelper.GetUsername();
-            var response = await this._vehicleService.AddNewVehicle(vehicleViewModel, userName);
+            var response = await this._vehicleService.SaveVehicle(vehicleViewModel, userName);
             return Ok(response);
         }
 
-        [HttpPut]
-        [Route("updateVehicle")]
-        public async Task<IActionResult> UpdateVehicle(VehicleViewModel vehicleViewModel)
-        {
-            var userName = IdentityHelper.GetUsername();
-            var response = await this._vehicleService.UpdateVehicle(vehicleViewModel, userName);
-            return Ok(response);
-        }
+
 
         [HttpDelete]
         [Route("deleteVehicle/{id:int}")]

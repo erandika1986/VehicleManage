@@ -2,20 +2,15 @@
 @import "src/@fuse/scss/fuse";
 
 route-list {
-
     #assets {
-
         .top-bg {
-
-            @include media-breakpoint('lt-md') {
+            @include media-breakpoint("lt-md") {
                 height: 256px;
             }
         }
 
         > .center {
-
             > .header {
-
                 .search-wrapper {
                     width: 100%;
                     max-width: 480px;
@@ -23,7 +18,7 @@ route-list {
                     overflow: hidden;
                     @include mat.elevation(1);
 
-                    @include media-breakpoint('xs') {
+                    @include media-breakpoint("xs") {
                         width: 100%;
                     }
 
@@ -45,7 +40,7 @@ route-list {
                     }
                 }
 
-                @include media-breakpoint('lt-md') {
+                @include media-breakpoint("lt-md") {
                     padding: 8px 0;
                     height: 192px !important;
                     min-height: 192px !important;
@@ -57,7 +52,7 @@ route-list {
 
     .products-table {
         flex: 1 1 auto;
-        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         overflow: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -68,7 +63,7 @@ route-list {
         .product {
             position: relative;
             cursor: pointer;
-            height: 64px;
+            height: 54px;
         }
 
         .mat-cell {
@@ -77,8 +72,6 @@ route-list {
             align-items: center;
         }
 
-
-    
         .mat-column-id {
             flex: 0 0 10%;
             text-align: center;
@@ -87,70 +80,70 @@ route-list {
             flex: 0 1 10%;
             text-align: center;
         }
-        .mat-column-thumbnailURL{
+        .mat-column-thumbnailURL {
             flex: 0 0 7%;
             text-align: center;
-         }
-         .mat-header-thumbnailURL{
+        }
+        .mat-header-thumbnailURL {
             flex: 0 0 7%;
             text-align: center;
-         }
-         .mat-column-name{
+        }
+        .mat-column-name {
             flex: 0 0 15%;
             text-align: center;
-         }
-         .mat-header-name{
+        }
+        .mat-header-name {
             flex: 0 0 15%;
             text-align: center;
-         }
+        }
 
-         .mat-column-model{
+        .mat-column-model {
             flex: 0 0 25%;
             text-align: center;
-         }
+        }
 
-         .mat-header-model{
+        .mat-header-model {
             flex: 0 0 25%;
             text-align: center;
-         }
+        }
 
-         .mat-column-year{
+        .mat-column-year {
             flex: 0 0 12%;
             text-align: center;
-         }
+        }
 
-         .mat-header-year{
+        .mat-header-year {
             flex: 0 0 12%;
             text-align: center;
-         }
+        }
 
-         .mat-column-number{
+        .mat-column-number {
             flex: 0 0 18%;
             text-align: center;
-         }
+        }
 
-         .mat-header-number{
+        .mat-header-number {
             flex: 0 0 18%;
             text-align: center;
-         }
+        }
 
-         .mat-column-status{
+        .mat-column-status {
             flex: 0 0 10%;
             text-align: center;
-         }
-         .mat-header-status{
+        }
+        .mat-header-status {
             flex: 0 0 10%;
             text-align: center;
-         }
+        }
 
-         .mat-column-buttons{
+        .mat-column-buttons {
             flex: 0 0 4%;
             text-align: center;
-         }
-         .mat-header-buttons{
+        }
+        .mat-header-buttons {
             flex: 0 0 4%;
             text-align: center;
-         }
+        }
         .mat-column-image {
             flex: 0 1 7%;
             text-align: center;
@@ -158,7 +151,7 @@ route-list {
             .product-image {
                 width: 52px;
                 height: 52px;
-                border: 1px solid rgba(0, 0, 0, .12);
+                border: 1px solid rgba(0, 0, 0, 0.12);
             }
         }
 
@@ -198,8 +191,6 @@ route-list {
     }
 }
 
-
-
 .mat-column-id {
     flex: 0 0 15%;
     text-align: center !important;
@@ -222,8 +213,6 @@ route-list {
 }
 
 .mat-column-buttons {
-    flex: 0 0 16% ;
+    flex: 0 0 16%;
     border-bottom-style: none !important;
 }
-
-

@@ -1,8 +1,7 @@
-@use '~@angular/material' as mat;
 @import "src/@fuse/scss/fuse";
 
-app-vehicle-list {
-    #assets {
+vehicle-list {
+    #vehicles {
         .top-bg {
             @include media-breakpoint("lt-md") {
                 height: 256px;
@@ -16,7 +15,7 @@ app-vehicle-list {
                     max-width: 480px;
                     border-radius: 28px;
                     overflow: hidden;
-                    @include mat.elevation(1);
+                    //@include mat-elevation(1);
 
                     @include media-breakpoint("xs") {
                         width: 100%;
@@ -63,7 +62,7 @@ app-vehicle-list {
         .product {
             position: relative;
             cursor: pointer;
-            height: 64px;
+            height: 54px;
         }
 
         .mat-cell {
@@ -73,60 +72,28 @@ app-vehicle-list {
         }
 
         .mat-column-buttons {
-            flex: 0 0 4%;
-            text-align: center;
-        }
-        .mat-header-buttons {
-            flex: 0 0 4%;
-            text-align: center;
+            flex: 0 1 10%;
+            align-items: center !important;
         }
 
-        .quantity-indicator {
-            display: inline-block;
-            vertical-align: middle;
-            width: 8px;
-            height: 8px;
-            border-radius: 4px;
-            margin-right: 8px;
-
-            & + span {
-                display: inline-block;
-                vertical-align: middle;
-            }
+        .mat-column-registrationNo {
+            flex: 0 1 20%;
         }
 
-        .active-icon {
-            border-radius: 50%;
+        .mat-column-vehicelTypeName {
+            flex: 0 1 20%;
+        }
+
+        .mat-column-initialOdometerReading {
+            flex: 0 1 20%;
+        }
+
+        .mat-column-productionYear {
+            flex: 0 1 20%;
+        }
+
+        .mat-column-isActive {
+            flex: 0 1 10%;
         }
     }
-}
-
-.mat-row,
-.mat-header-row {
-    background: white;
-}
-
-.mat-column-registrationNo {
-    flex: 0 0 20%;
-}
-
-.mat-column-vehicelTypeName {
-    flex: 0 0 20%;
-}
-
-.mat-column-initialOdometerReading {
-    flex: 0 0 20%;
-}
-
-.mat-column-productionYear {
-    flex: 0 0 20%;
-}
-
-.mat-column-isActive {
-    flex: 0 0 10%;
-}
-
-.mat-column-buttons {
-    flex: 0 0 10%;
-    border-bottom-style: none !important;
 }

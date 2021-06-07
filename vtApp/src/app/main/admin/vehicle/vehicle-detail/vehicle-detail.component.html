@@ -1,1 +1,206 @@
-<p>vehicle-detail works!</p>
+<div id="vehicleDetail" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" (click)="back()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="equipment-image mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="vehicle && vehicle.imageUrl" [src]="vehicle.imageUrl">
+                    <img *ngIf="!vehicle || !vehicle.imageUrl" [src]="'assets/images/ecommerce/truck_1-512.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{vehicle?.registrationNo}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        New Vehcile
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Vehicle Detail</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="vehcileForm" [formGroup]="vehicleForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                         <mat-tab label="Basic Details">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Registration No</mat-label>
+                                        <input matInput placeholder="Registration No" name="RegistrationNo"
+                                            formControlName="registrationNo">
+                                    </mat-form-field>
+
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Initial Odometer Reading</mat-label>
+                                        <input type="number" matInput placeholder="Initial Odometer Reading" name="InitialOdometerReading"
+                                            formControlName="initialOdometerReading">
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Vehicel Type</mat-label>
+                                        <mat-select formControlName="vehicelType">
+                                            <mat-option *ngFor="let item of vehicleTypes" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Production Year</mat-label>
+                                        <mat-select formControlName="productionYear">
+                                            <mat-option *ngFor="let item of productionYears" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+
+                                    </mat-form-field>
+
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="48">
+                                        <mat-label>Is Active</mat-label>
+                                        <mat-select formControlName="isActive">
+                                            <mat-option *ngFor="let item of statuses" [value]="item.id">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+
+                                    </mat-form-field>
+
+                                </div>
+
+
+                                <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+                                    <button  mat-raised-button color="primary" class="save-button"
+                                          aria-label="SAVE" [disabled]="vehicleForm.invalid" (click)="saveVehicle()">
+                                        SAVE
+                                    </button>
+                            
+                                </div>
+                            </div>
+
+                        </mat-tab> 
+
+                        <mat-tab label="Insurance">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Revenue Licence">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Emission Test">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Fitness Report" *ngIf="vehicle.hasFitnessReport">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Air Cleaner">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Engine Oil">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Fuel Filter">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Gear Box Oil">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Differential Oil" *ngIf="vehicle.hasDifferentialOil">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Greece Niple" *ngIf="vehicle.hasGreeceNipple">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

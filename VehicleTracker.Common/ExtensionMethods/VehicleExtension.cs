@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -41,6 +41,9 @@ namespace System
             vm.InitialOdometerReading = model.InitialOdometerReading;
             vm.VehicelTypeName = model.VehicelType.Name;
             vm.IsActive = model.IsActive;
+            vm.HasDifferentialOil = model.VehicelType.HasDifferentialOil;
+            vm.HasFitnessReport = model.VehicelType.HasFitnessReport;
+            vm.HasGreeceNipple = model.VehicelType.HasGreeceNipple;
             //vm.CreatedOn = model.CreatedOn;
             //vm.UpdatedOn = model.UpdatedOn;
             //vm.HasFitnessReport = model.HasFitnessReport;

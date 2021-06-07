@@ -12,8 +12,7 @@ namespace VehicleTracker.Business
 
 
         VehicleMasterDataViewModel GetVehicleMasterData();
-        Task<VehicleResponseViewModel> AddNewVehicle(VehicleViewModel vm,string userName);
-        Task<ResponseViewModel> UpdateVehicle(VehicleViewModel vm, string userName);
+        Task<VehicleResponseViewModel> SaveVehicle(VehicleViewModel vm,string userName);
         Task<ResponseViewModel> DeleteVehicle(long id);
         PaginatedItemsViewModel<VehicleViewModel> GetAllVehicles(int pageSize, int currentPage, string sortBy, string sortDirection, string searchText);
         VehicleViewModel GetVehicleById(long id);

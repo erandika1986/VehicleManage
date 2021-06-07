@@ -30,10 +30,10 @@ export class VehicleService {
       get<VehiclePaginatedItemsModel>(environment.apiUrl + 'Vehicle/getAllVehicles/' + pageSize + '/' + currentPage +'/'+sortBy+'/'+sortDirection+'/'+searchText);
   }
 
-  // add new vehicle
-  addNewVehicle(vehicleModel: VehicleModel): Observable<VehicleResponseModel> {
+  // save vehicle
+  saveVehicle(vehicleModel: VehicleModel): Observable<VehicleResponseModel> {
     return this.httpClient.
-      post<VehicleResponseModel>(environment.apiUrl + 'Vehicle/addNewVehicle', vehicleModel);
+      post<VehicleResponseModel>(environment.apiUrl + 'Vehicle/saveVehicle', vehicleModel);
   }
 
   // get vehicle by id
@@ -42,11 +42,7 @@ export class VehicleService {
       get<VehicleModel>(environment.apiUrl + 'Vehicle/getVehicleById/' + id);
   }
 
-  // update existing vehicle
-  updateVehicle(vehicleModel: VehicleModel): Observable<ResponseModel> {
-    return this.httpClient.
-      put<ResponseModel>(environment.apiUrl + 'Vehicle/updateVehicle', vehicleModel);
-  }
+
 
   // delete existing vehicle
   deleteVehicle(id: number): Observable<ResponseModel> {

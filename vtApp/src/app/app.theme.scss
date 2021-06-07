@@ -72,7 +72,7 @@ $typography: mat.define-typography-config(
     $body-2: mat.define-typography-level(14px, 24px, 600),
     $button: mat.define-typography-level(14px, 14px, 600),
     $input: mat.define-typography-level(16px, 1.125, 400)
-        // line-height must be unitless !!!,,,,,,,,,,
+        // line-height must be unitless !!!,,,,,,,,,,,,,,,,,,,
 );
 
 // Setup the typography
@@ -83,6 +83,7 @@ $typography: mat.define-typography-config(
 // -----------------------------------------------------------------------------------------------------
 
 // Import app and page component themes here to enable theming for them
+@import "src/app/main/admin/vehicle/vehicle-list/vehicle-list.theme";
 
 @import "src/app/layout/components/chat-panel/chat-panel.theme";
 @import "src/app/layout/components/toolbar/toolbar.theme";
@@ -103,6 +104,7 @@ $typography: mat.define-typography-config(
     @include toolbar-theme($theme);
 
     // Apps
+    @include vehicle-list-theme($theme);
 
     // Pages
     @include login-theme($theme);
