@@ -130,8 +130,11 @@ export class VehicleDetailComponent implements OnInit {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
           });
-
-          this._location.back();
+          if(this.vehicleId==0)
+          {
+            this.vehicleId = response.id;
+            this.getVehicleDetail();
+          }
         }
         else
         {
@@ -149,5 +152,17 @@ export class VehicleDetailComponent implements OnInit {
           verticalPosition: this.verticalPosition,
         });
       })
+  }
+
+  get hasDifferentialOil() {
+    return this.vehicle && this.vehicle.hasDifferentialOil?this.vehicle.hasDifferentialOil:false;
+  }
+
+  get hasFitnessReport() {
+    return this.vehicle && this.vehicle.hasFitnessReport?this.vehicle.hasFitnessReport:false;
+  }
+
+  get hasGreeceNipple() {
+    return this.vehicle && this.vehicle.hasGreeceNipple?this.vehicle.hasGreeceNipple:false;
   }
 }

@@ -15,21 +15,21 @@ export class VehicleInsuranceService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleI(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleIPaginatedItemsModel> {
+  getAllVehicleInsuranceDetails(vehicleId: number): Observable<VehicleInsuranceModel[]> {
     return this.httpClient.
-      get<VehicleIPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleInsurance/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleInsuranceModel[]>
+      (environment.apiUrl + 'VehicleInsurance/getAllVehicleInsurance/' + vehicleId);
   }
 
   // add new
-  addNewVehicleI(model: VehicleInsuranceModel): Observable<VehicleResponseModel> {
+  addNewVehicleInsuranceRecord(model: VehicleInsuranceModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
       (environment.apiUrl + 'VehicleInsurance', model);
   }
 
   // get by id
-  getVehicleIById(id: number): Observable<VehicleInsuranceModel> {
+  getVehicleInsuranceRecordById(id: number): Observable<VehicleInsuranceModel> {
     return this.httpClient.
       get<VehicleInsuranceModel>
       (environment.apiUrl + 'VehicleInsurance/' + id);
@@ -37,13 +37,13 @@ export class VehicleInsuranceService {
 
 
   // delete existing record
-  deleteVehicleI(id: number): Observable<ResponseModel> {
+  deleteVehicleInsuranceRecord(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'VehicleInsurance/' + id);
   }
 
   // get
-  getLatestRecordForVehicle(vehicleId: number): Observable<VehicleInsuranceModel> {
+  getLatestRecordForVehicleInsurance(vehicleId: number): Observable<VehicleInsuranceModel> {
     return this.httpClient.
       get<VehicleInsuranceModel>
       (environment.apiUrl + 'VehicleInsurance/getLatestRecordForVehicle/' + vehicleId);

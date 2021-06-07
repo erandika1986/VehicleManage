@@ -19,23 +19,12 @@ export class VehicleModel {
     initialOdometerReading: number;
     isActive: boolean;
     imageUrl:string;
+    
     // For table view
     vehicelTypeName: string;
     hasDifferentialOil:boolean;
     hasFitnessReport:boolean;
     hasGreeceNipple:boolean;
 
-    // hasDifferentialOil: boolean;
-    // nextDifferentialOilChangeMilageDetails: VehicleDifferentialOilChangeMilageModel;
-    // hasFitnessReport: boolean;
-    // nextFitnessReportDetails: VehicleFitnessReportModel;
-    // hasGreeceNipple: boolean;
-    // nextGreeceNipleDetails: VehicleGreeceNipleModel;
-    // nextInsurenceRenewalDetails: VehicleInsuranceModel;
-    // nextRevenueLicenceDetails: VehicleRevenueLicenceModel;
-    // nextEmissionTestDetails: VehicleEmissionTestModel;
-    // nextAirCleanerDetails: VehicleAirCleanerModel;
-    // nextEngineOilMilageDetails: VehicleEngineOilMilageModel;
-    // nextFuelFilterMilageDetails: VehicleFuelFilterMilageModel;
-    // nextGearBoxOilMilageDetails: VehicleGearBoxOilMilageModel;
+
 }

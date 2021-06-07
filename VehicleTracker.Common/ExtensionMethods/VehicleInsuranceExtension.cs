@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -31,6 +31,7 @@ namespace System
 
             vm.Id = model.Id;
             vm.VehicleId = model.VehicleId;
+      
             vm.NextInsuranceDate = model.NextInsuranceDate;
             vm.ActualInsuranceDate = model.ActualInsuranceDate;
             vm.CreatedOn = model.CreatedOn;

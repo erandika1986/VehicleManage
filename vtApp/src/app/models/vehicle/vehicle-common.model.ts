@@ -6,6 +6,4 @@ export class VehicleCommonModel {
     updatedOn: Date;
     updatedBy: number;
     isActive: boolean;
-
-    registrationNo: string;
 }
