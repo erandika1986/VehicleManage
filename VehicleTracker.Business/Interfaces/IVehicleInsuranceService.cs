@@ -9,7 +9,7 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IVehicleInsuranceService
     {
-        Task<VehicleResponseViewModel> AddNewVehicleInsurance(VehicleInsuranceViewModel vm, string userName);
+        Task<VehicleResponseViewModel> SaveVehicleInsurance(VehicleInsuranceViewModel vm, string userName);
         //Task<VehicleResponseViewModel> UpdateVehicleInsurance(VehicleInsuranceViewModel vm, string userName);
         Task<VehicleResponseViewModel> DeleteVehicleInsurance(long id, string userName);
         List<VehicleInsuranceViewModel> GetAllVehicleInsurance(int vehicleId);

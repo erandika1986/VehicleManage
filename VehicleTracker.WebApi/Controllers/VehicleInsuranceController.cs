@@ -46,7 +46,7 @@ namespace VehicleTracker.WebApi.Controllers
     public async Task<ActionResult> AddNewVehicleInsurance([FromBody] VehicleInsuranceViewModel vm)
     {
       var userName = IdentityHelper.GetUsername();
-      var response = await _vehicleInsuranceService.AddNewVehicleInsurance(vm, userName);
+      var response = await _vehicleInsuranceService.SaveVehicleInsurance(vm, userName);
       return Ok(response);
     }
 

@@ -40,7 +40,7 @@
 
 
             <div class="button-row">
-                <button mat-raised-button class="green">
+                <button mat-raised-button class="green" (click)="add()">
                     <mat-icon class="s-16 mr-sm-4">add</mat-icon>
                 </button>
 
@@ -53,7 +53,7 @@
 
             <div class="button-row">
                 <button mat-raised-button class="primary">
-                    <mat-icon class="s-16 mr-sm-4">remove_red_eye</mat-icon>
+                    <mat-icon class="s-16 mr-sm-4" (click)="view(item)">remove_red_eye</mat-icon>
                 </button>
                 <button mat-raised-button class="orange" (click)="edit(item)">
                     <mat-icon class="s-16 mr-sm-4">edit</mat-icon>

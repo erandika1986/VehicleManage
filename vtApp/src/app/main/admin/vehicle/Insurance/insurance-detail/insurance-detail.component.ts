@@ -45,8 +45,7 @@ export class InsuranceDetailComponent implements OnInit {
 
     let insuranceDate =new Date();
     let validTillDate= new Date();
-
-    console.log(this.insurance.insuranceYear);
+    validTillDate.setDate(insuranceDate.getDate()+365);
 
     if(this.insurance.id>0)
     {

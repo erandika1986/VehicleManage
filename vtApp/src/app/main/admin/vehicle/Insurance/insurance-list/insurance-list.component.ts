@@ -149,4 +149,46 @@ export class InsuranceListComponent implements OnInit, AfterViewInit,OnChanges  
       });
   }
 
+  view(item:VehicleInsuranceModel)
+  {
+    console.log(item);
+    
+    this.dialogRef = this._matDialog.open(InsuranceDetailComponent, {
+      panelClass: 'insurance-detail-form-dialog',
+      data: {
+        insurance: item,
+        action: "edit",
+        totalNoOfRecords:this.totalNumberOfRecords,
+        isReadOnly:true
+      }
+    });
+
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+        const actionType: string = response[0];
+        const formData: FormGroup = response[1];
+        switch (actionType) {
+          /**
+           * Save
+           */
+          case 'save':
+
+
+
+            break;
+          /**
+           * Delete
+           */
+          case 'delete':
+
+
+
+            break;
+        }
+      });
+  }
+
 }

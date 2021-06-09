@@ -50,18 +50,18 @@
 
     <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
 
-        <button *ngIf="action ==='edit'" mat-button color="primary" class="mr-8"
+        <button *ngIf="action ==='edit' && !isReadOnly" mat-button color="primary" class="mr-8"
             (click)="matDialogRef.close(['delete',insuranceForm])" aria-label="Delete" matTooltip="Delete">
             DELETE
         </button>
 
         <button *ngIf="action !== 'edit'" mat-button color="primary" class="save-button"
-            (click)="matDialogRef.close(insuranceForm)" [disabled]="insuranceForm.invalid" aria-label="ADD">
+            (click)="matDialogRef.close(insuranceForm)" [disabled]="insuranceForm.invalid || isReadOnly" aria-label="ADD">
             ADD
         </button>
 
         <button *ngIf="action === 'edit'" mat-button color="primary" class="save-button"
-            (click)="matDialogRef.close(['save', insuranceForm])" [disabled]="insuranceForm.invalid" aria-label="SAVE">
+            (click)="matDialogRef.close(['save', insuranceForm])" [disabled]="insuranceForm.invalid || isReadOnly" aria-label="SAVE">
             SAVE
         </button>
 

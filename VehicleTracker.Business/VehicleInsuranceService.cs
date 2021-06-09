@@ -28,18 +28,30 @@ namespace VehicleTracker.Business
       this.logger = logger;
     }
 
-    public async Task<VehicleResponseViewModel> AddNewVehicleInsurance(VehicleInsuranceViewModel vm, string userName)
+    public async Task<VehicleResponseViewModel> SaveVehicleInsurance(VehicleInsuranceViewModel vm, string userName)
     {
       var response = new VehicleResponseViewModel();
       try
       {
         var user = _userService.GetUserByUsername(userName);
+        var model = _uow.VehicleInsurance.GetAll().FirstOrDefault(x => x.Id == vm.Id);
+        if(model==null)
+        {
+          model = vm.ToModel();
+          model.CreatedBy = user.Id;
+          model.UpdatedBy = user.Id;
+          _uow.VehicleInsurance.Add(model);
+        }
+        else
+        {
+          model.InsuranceDate = new DateTime(vm.InsuranceYear, vm.InsuranceMonth, vm.InsuranceDay, 0, 0, 0);
+          model.ValidTill = new DateTime(vm.ValidTillYear, vm.ValidTillMonth, vm.ValidTillDay, 0, 0, 0);
+          model.UpdatedBy = user.Id;
+          model.UpdatedOn = DateTime.UtcNow;
 
-        var model = vm.ToModel();
-        model.CreatedBy = user.Id;
-        model.UpdatedBy = user.Id;
+          _uow.VehicleInsurance.Update(model);
+        }
 
-        _uow.VehicleInsurance.Add(model);
         await _uow.CommitAsync();
 
         response.IsSuccess = true;
