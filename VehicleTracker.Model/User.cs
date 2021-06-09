@@ -19,6 +19,10 @@ namespace VehicleTracker.Model
             ProductInventoryCreatedBy = new HashSet<ProductInventory>();
             ProductInventoryUdatedBy = new HashSet<ProductInventory>();
             ProductUpdatedBy = new HashSet<Product>();
+            PurchaseOrderCreatedBy = new HashSet<PurchaseOrder>();
+            PurchaseOrderUpdatedBy = new HashSet<PurchaseOrder>();
+            SupplierCreatedBy = new HashSet<Supplier>();
+            SupplierUpdatedBy = new HashSet<Supplier>();
             UserRole = new HashSet<UserRole>();
             VehicleAirCleanerCreatedByNavigation = new HashSet<VehicleAirCleaner>();
             VehicleAirCleanerUpdatedByNavigation = new HashSet<VehicleAirCleaner>();
@@ -38,6 +42,9 @@ namespace VehicleTracker.Model
             VehicleInsuranceUpdatedByNavigation = new HashSet<VehicleInsurance>();
             VehicleRevenueLicenceCreatedByNavigation = new HashSet<VehicleRevenueLicence>();
             VehicleRevenueLicenceUpdatedByNavigation = new HashSet<VehicleRevenueLicence>();
+            WharehouseCreatedBy = new HashSet<Wharehouse>();
+            WharehouseManager = new HashSet<Wharehouse>();
+            WharehouseUpdatedBy = new HashSet<Wharehouse>();
         }
 
         public long Id { get; set; }
@@ -62,6 +69,10 @@ namespace VehicleTracker.Model
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBy { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryUdatedBy { get; set; }
         public virtual ICollection<Product> ProductUpdatedBy { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBy { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBy { get; set; }
+        public virtual ICollection<Supplier> SupplierCreatedBy { get; set; }
+        public virtual ICollection<Supplier> SupplierUpdatedBy { get; set; }
         public virtual ICollection<UserRole> UserRole { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerCreatedByNavigation { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerUpdatedByNavigation { get; set; }
@@ -81,5 +92,8 @@ namespace VehicleTracker.Model
         public virtual ICollection<VehicleInsurance> VehicleInsuranceUpdatedByNavigation { get; set; }
         public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceCreatedByNavigation { get; set; }
         public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceUpdatedByNavigation { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseCreatedBy { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseManager { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseUpdatedBy { get; set; }
     }
 }

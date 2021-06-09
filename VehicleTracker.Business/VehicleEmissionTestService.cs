@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,31 +29,11 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                VehicleEmissiontTest lastRecord = null;
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
-                if (vm.ActualEmissiontTestDate.HasValue)
-                {
-                    lastRecord = _uow.VehicleEmissiontTest.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualEmissiontTestDate.HasValue == false);
-                    lastRecord.ActualEmissiontTestDate = vm.ActualEmissiontTestDate.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleEmissiontTest.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleEmissiontTest()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextEmissiontTestDate = vm.NextEmissiontTestDate,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
-
-                _uow.VehicleEmissiontTest.Add(model);
+        _uow.VehicleEmissiontTest.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -77,12 +57,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleEmissiontTest.GetAll().FirstOrDefault(t => t.Id == id);
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualEmissiontTestDate = (DateTime?)null;
-                    vt.UpdatedBy = user.Id;
-                    vt.UpdatedOn = DateTime.UtcNow;
-                }
 
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;

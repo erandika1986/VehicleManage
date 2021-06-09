@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,29 +28,10 @@ namespace VehicleTracker.Business
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                VehicleFitnessReport lastRecord = null;
-                if (vm.ActualFitnessReportDate.HasValue)
-                {
-                    lastRecord = _uow.VehicleFitnessReport.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive==true && t.ActualFitnessReportDate.HasValue == false);
-                    lastRecord.ActualFitnessReportDate = vm.ActualFitnessReportDate.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleFitnessReport.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleFitnessReport()
-                {
-                    IsActive = true,
-                     VehicleId=vm.VehicleId,
-                    NextFitnessReportDate = vm.NextFitnessReportDate,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
-                _uow.VehicleFitnessReport.Add(model);
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
+        _uow.VehicleFitnessReport.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -75,12 +56,6 @@ namespace VehicleTracker.Business
 
                 var vt = _uow.VehicleFitnessReport.GetAll().FirstOrDefault(t => t.Id == id);
 
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualFitnessReportDate = (DateTime?)null;
-                    vt.Parent.UpdatedBy = user.Id;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                }
 
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;

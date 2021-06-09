@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,31 +29,11 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                VehicleEngineOilMilage lastRecord = null;
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
-                if (vm.ActualOilChangeMilage.HasValue)
-                {
-                    lastRecord = _uow.VehicleEngineOilMilage.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualOilChangeMilage.HasValue == false);
-                    lastRecord.ActualOilChangeMilage = vm.ActualOilChangeMilage.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleEngineOilMilage.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleEngineOilMilage()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextOilChangeMilage = vm.NextOilChangeMilage,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
-
-                _uow.VehicleEngineOilMilage.Add(model);
+        _uow.VehicleEngineOilMilage.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -77,12 +57,7 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleEngineOilMilage.GetAll().FirstOrDefault(t => t.Id == id);
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualOilChangeMilage = (decimal?)null;
-                    vt.Parent.UpdatedBy = user.Id;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                }
+
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;
                 vt.UpdatedOn = DateTime.UtcNow;

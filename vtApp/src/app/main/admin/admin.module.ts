@@ -61,7 +61,7 @@ const routes = [
   declarations: [],
   imports: [
     RouterModule.forChild(routes),
-    FuseSharedModule
+    //FuseSharedModule
   ]
 })
 export class AdminModule { }

@@ -122,7 +122,7 @@
 
                         <mat-tab label="Insurance" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <insurance-list  [vehicleId]="vehicleId"></insurance-list>
+                                <insurance-list  [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></insurance-list>
                             </div>
 
                         </mat-tab>

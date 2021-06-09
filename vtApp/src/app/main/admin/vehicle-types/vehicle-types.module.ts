@@ -26,6 +26,7 @@ import { VehicleTypeListComponent } from './vehicle-type-list/vehicle-type-list.
 import { VehicleTypeDetailComponent } from './vehicle-type-detail/vehicle-type-detail.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialModule } from 'app/MaterialModule';
 
 const routes: Routes = [
   {
@@ -51,29 +52,11 @@ const routes: Routes = [
   declarations: [VehicleTypeListComponent, VehicleTypeDetailComponent],
   imports: [
     RouterModule.forChild(routes),
-
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatTabsModule,
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatSlideToggleModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class VehicleTypesModule { }

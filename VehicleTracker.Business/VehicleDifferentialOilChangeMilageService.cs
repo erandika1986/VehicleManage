@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,33 +28,13 @@ namespace VehicleTracker.Business
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                VehicleDifferentialOilChangeMilage lastRecord = null;
-                if (vm.ActualDifferentialOilChangeMilage != 0)
-                {
-                    lastRecord = _uow.VehicleDifferentialOilChangeMilage.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive==true && 
-                    t.ActualDifferentialOilChangeMilage.HasValue == false);
-                    if (lastRecord != null)
-                    {
-                        lastRecord.ActualDifferentialOilChangeMilage = vm.ActualDifferentialOilChangeMilage;
-                        lastRecord.UpdatedBy = user.Id;
-                        lastRecord.UpdatedOn = DateTime.UtcNow;
 
-                        _uow.VehicleDifferentialOilChangeMilage.Update(lastRecord);
-                        await _uow.CommitAsync();
-                    }
-                }
 
-                var model = new VehicleDifferentialOilChangeMilage()
-                {
-                    CreatedOn = DateTime.UtcNow,
-                    IsActive = true,
-                    NextDifferentialOilChangeMilage = vm.NextDifferentialOilChangeMilage,
-                    UpdatedOn = DateTime.UtcNow,
-                    VehicleId = vm.VehicleId,
-                    CreatedBy = user.Id,
-                    UpdatedBy = user.Id,
-                    ParentId = lastRecord !=null? lastRecord.Id : (long?)null
-                };
+        var model = vm.ToModel();
+
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
+
 
                 _uow.VehicleDifferentialOilChangeMilage.Add(model);
                 await _uow.CommitAsync();
@@ -80,13 +60,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleDifferentialOilChangeMilage.GetAll().FirstOrDefault(t => t.Id == id);
-
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualDifferentialOilChangeMilage = (decimal?)null;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                    vt.Parent.UpdatedBy = user.Id;
-                }
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;
                 vt.UpdatedOn = DateTime.UtcNow;

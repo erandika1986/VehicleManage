@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,31 +29,11 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                VehicleFuelFilterMilage lastRecord = null;
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
-                if (vm.ActualFuelFilterChangeMilage.HasValue)
-                {
-                    lastRecord = _uow.VehicleFuelFilterMilage.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualFuelFilterChangeMilage.HasValue == false);
-                    lastRecord.ActualFuelFilterChangeMilage = vm.ActualFuelFilterChangeMilage.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleFuelFilterMilage.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleFuelFilterMilage()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextFuelFilterChangeMilage = vm.NextFuelFilterChangeMilage,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
-
-                _uow.VehicleFuelFilterMilage.Add(model);
+        _uow.VehicleFuelFilterMilage.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -77,12 +57,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleFuelFilterMilage.GetAll().FirstOrDefault(t => t.Id == id);
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualFuelFilterChangeMilage = (decimal?)null;
-                    vt.Parent.UpdatedBy = user.Id;
-                    vt.Parent.UpdatedOn= DateTime.UtcNow;
-                }
 
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,8 +8,9 @@ namespace VehicleTracker.ViewModel.Vehicle
     {
         public long Id { get; set; }
         public long VehicleId { get; set; }
-        public decimal NextOilChangeMilage { get; set; }
-        public decimal? ActualOilChangeMilage { get; set; }
+    public decimal OilChangeMilage { get; set; }
+    public decimal NextOilChangeMilage { get; set; }
+
         public DateTime? CreatedOn { get; set; }
         public long CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }

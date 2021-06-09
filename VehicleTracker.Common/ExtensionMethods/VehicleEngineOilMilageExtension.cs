@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -16,7 +16,7 @@ namespace System
             model.Id = vm.Id;
             model.VehicleId = vm.VehicleId;
             model.NextOilChangeMilage = vm.NextOilChangeMilage;
-            model.ActualOilChangeMilage = vm.ActualOilChangeMilage;
+            model.OilChangeMilage = vm.OilChangeMilage;
             model.CreatedOn = DateTime.UtcNow;
             model.UpdatedOn = DateTime.UtcNow;
             model.IsActive = vm.IsActive;
@@ -32,7 +32,7 @@ namespace System
             vm.Id = model.Id;
             vm.VehicleId = model.VehicleId;
             vm.NextOilChangeMilage = model.NextOilChangeMilage;
-            vm.ActualOilChangeMilage = model.ActualOilChangeMilage;
+            vm.OilChangeMilage = model.OilChangeMilage;
             vm.CreatedOn = model.CreatedOn;
             vm.UpdatedOn = model.UpdatedOn;
             vm.IsActive = model.IsActive;

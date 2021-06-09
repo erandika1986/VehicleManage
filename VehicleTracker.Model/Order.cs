@@ -14,6 +14,7 @@ namespace VehicleTracker.Model
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
+        public DateTime? DeliveredDate { get; set; }
         public int OwnerId { get; set; }
         public int Status { get; set; }
         public long CreatedById { get; set; }

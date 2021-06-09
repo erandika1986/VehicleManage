@@ -26,6 +26,7 @@ import { CustomAuthService } from './services/account/custom-auth.service';
 import { AuthInterceptorService } from './services/account/auth-interceptor.service';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MaterialModule } from './MaterialModule';
 
 const appRoutes: Routes = [
     {
@@ -103,7 +104,7 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
         AppStoreModule,
-        MatDialogModule
+        MaterialModule
     ],
     providers:
         [

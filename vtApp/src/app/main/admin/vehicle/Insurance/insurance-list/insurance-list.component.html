@@ -14,28 +14,39 @@
 </ng-container>
 
 <!-- Name nextInsuranceDate -->
-<ng-container matColumnDef="nextInsuranceDate">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Next Insurance Date</mat-header-cell>
+<ng-container matColumnDef="insuranceDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Insurance Date</mat-header-cell>
     <mat-cell *matCellDef="let item">
         <p class="text-truncate">
-            {{item.nextInsuranceDate | date}}
+            {{item.insuranceDate}}
         </p>
     </mat-cell>
 </ng-container>
 
 <!-- Name Column -->
-<ng-container matColumnDef="actualInsuranceDate">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Actual Insurance Date</mat-header-cell>
+<ng-container matColumnDef="validTill">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Valid Till</mat-header-cell>
     <mat-cell *matCellDef="let item">
         <p class="text-truncate">
-            {{item.actualInsuranceDate | date}}
+            {{item.validTill}}
         </p>
     </mat-cell>
 </ng-container>
 
 <!-- Buttons Column -->
 <ng-container matColumnDef="buttons">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>
+        <div fxFlex="row" fxLayoutAlign="center center">
+
+
+            <div class="button-row">
+                <button mat-raised-button class="green">
+                    <mat-icon class="s-16 mr-sm-4">add</mat-icon>
+                </button>
+
+              </div>
+        </div>
+    </mat-header-cell>
     <mat-cell *matCellDef="let item">
         <div fxFlex="row" fxLayoutAlign="center center">
 
@@ -44,7 +55,7 @@
                 <button mat-raised-button class="primary">
                     <mat-icon class="s-16 mr-sm-4">remove_red_eye</mat-icon>
                 </button>
-                <button mat-raised-button class="orange">
+                <button mat-raised-button class="orange" (click)="edit(item)">
                     <mat-icon class="s-16 mr-sm-4">edit</mat-icon>
                 </button>
                 <button mat-raised-button class="red">

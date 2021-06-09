@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,28 +29,9 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                VehicleAirCleaner lastRecord = null;
-                if (vm.ActualAirCleanerReplaceMilage.HasValue)
-                {
-                    lastRecord = _uow.VehicleAirCleaner.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualAirCleanerReplaceMilage.HasValue == false);
-                    lastRecord.ActualAirCleanerReplaceMilage = vm.ActualAirCleanerReplaceMilage.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleAirCleaner.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleAirCleaner()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextAirCleanerReplaceMilage = vm.NextAirCleanerReplaceMilage,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
                 _uow.VehicleAirCleaner.Add(model);
                 await _uow.CommitAsync();
@@ -77,13 +58,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleAirCleaner.GetAll().FirstOrDefault(t => t.Id == id);
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualAirCleanerReplaceMilage = (decimal?)null;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                    vt.Parent.UpdatedBy = user.Id;
-                }
-
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;
                 vt.UpdatedOn = DateTime.UtcNow;

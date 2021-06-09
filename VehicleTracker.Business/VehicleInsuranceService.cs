@@ -34,29 +34,10 @@ namespace VehicleTracker.Business
       try
       {
         var user = _userService.GetUserByUsername(userName);
-        VehicleInsurance lastRecord = null;
 
-        if (vm.ActualInsuranceDate.HasValue)
-        {
-          lastRecord = _uow.VehicleInsurance.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualInsuranceDate.HasValue == false);
-          lastRecord.ActualInsuranceDate = vm.ActualInsuranceDate.Value;
-          lastRecord.UpdatedOn = DateTime.UtcNow;
-          lastRecord.UpdatedBy = user.Id;
-
-          _uow.VehicleInsurance.Update(lastRecord);
-          await _uow.CommitAsync();
-        }
-        var model = new VehicleInsurance()
-        {
-          IsActive = true,
-          VehicleId = vm.VehicleId,
-          NextInsuranceDate = vm.NextInsuranceDate,
-          ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-          CreatedBy = user.Id,
-          CreatedOn = DateTime.UtcNow,
-          UpdatedBy = user.Id,
-          UpdatedOn = DateTime.UtcNow
-        };
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
         _uow.VehicleInsurance.Add(model);
         await _uow.CommitAsync();
@@ -82,12 +63,6 @@ namespace VehicleTracker.Business
         var user = _userService.GetUserByUsername(userName);
 
         var vt = _uow.VehicleInsurance.GetAll().FirstOrDefault(t => t.Id == id);
-        if (vt.ParentId.HasValue)
-        {
-          vt.Parent.ActualInsuranceDate = (DateTime?)null;
-          vt.Parent.UpdatedBy = user.Id;
-          vt.Parent.UpdatedOn = DateTime.UtcNow;
-        }
         vt.UpdatedBy = user.Id;
         vt.IsActive = false;
         vt.UpdatedOn = DateTime.UtcNow;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -16,7 +16,7 @@ namespace System
             model.Id = vm.Id;
             model.VehicleId = vm.VehicleId;
             model.NextGreeceNipleReplaceDate = vm.NextGreeceNipleReplaceDate;
-            model.ActualGreeceNipleReplaceDate = vm.ActualGreeceNipleReplaceDatee;
+            model.GreeceNipleReplaceDate = vm.GreeceNipleReplaceDate;
             model.CreatedOn = DateTime.UtcNow;
             model.UpdatedOn = DateTime.UtcNow;
             model.IsActive = vm.IsActive;
@@ -32,7 +32,7 @@ namespace System
             vm.Id = model.Id;
             vm.VehicleId = model.VehicleId;
             vm.NextGreeceNipleReplaceDate = model.NextGreeceNipleReplaceDate;
-            vm.ActualGreeceNipleReplaceDatee = model.ActualGreeceNipleReplaceDate;
+            vm.GreeceNipleReplaceDate = model.GreeceNipleReplaceDate;
             vm.CreatedOn = model.CreatedOn;
             vm.UpdatedOn = model.UpdatedOn;
             vm.IsActive = model.IsActive;

@@ -46,6 +46,9 @@ import { DifferentialOilListComponent } from './differential-oil/differential-oi
 import { DifferentialOilDetailComponent } from './differential-oil/differential-oil-detail/differential-oil-detail.component';
 import { AirCleanerListComponent } from './air-cleaner/air-cleaner-list/air-cleaner-list.component';
 import { AirCleanerDetailComponent } from './air-cleaner/air-cleaner-detail/air-cleaner-detail.component';
+import { VehicleInsuranceService } from 'app/services/vehicle/vehicle-insurance.service';
+import { MaterialModule } from 'app/MaterialModule';
+
 
 const routes: Routes = [
   {
@@ -72,28 +75,20 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
 
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatTabsModule,
+    
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatSlideToggleModule,
-    SharedModule
+    //FuseSharedModule,
+    FuseWidgetModule,
+    MaterialModule
+  ],
+  providers: [
+    VehicleInsuranceService
+
+  ],
+  entryComponents: [
+    InsuranceDetailComponent
   ]
 })
 export class VehicleModule { }

@@ -27,6 +27,7 @@ import { RouteDetailComponent } from './route-detail/route-detail.component';
 import { RouteService } from 'app/services/route/route.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialModule } from 'app/MaterialModule';
 
 const routes: Routes = [
   {
@@ -52,29 +53,11 @@ const routes: Routes = [
   declarations: [RouteListComponent, RouteDetailComponent],
   imports: [
     RouterModule.forChild(routes),
-
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatTabsModule,
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatSlideToggleModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ],
   providers: [
     RouteService

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,31 +29,11 @@ namespace VehicleTracker.Business
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                VehicleRevenueLicence lastRecord = null;
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
-                if (vm.ActualRevenueLicenceDate.HasValue)
-                {
-                    lastRecord = _uow.VehicleRevenueLicence.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive == true && t.ActualRevenueLicenceDate.HasValue == false);
-                    lastRecord.ActualRevenueLicenceDate = vm.ActualRevenueLicenceDate.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
-
-                    _uow.VehicleRevenueLicence.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleRevenueLicence()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextRevenueLicenceDate = vm.NextRevenueLicenceDate,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
-
-                _uow.VehicleRevenueLicence.Add(model);
+        _uow.VehicleRevenueLicence.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -77,12 +57,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleRevenueLicence.GetAll().FirstOrDefault(t => t.Id == id);
-                if (vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualRevenueLicenceDate = (DateTime?)null;
-                    vt.Parent.UpdatedBy = user.Id;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                }
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;
                 vt.UpdatedOn = DateTime.UtcNow;

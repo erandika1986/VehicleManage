@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,31 +28,13 @@ namespace VehicleTracker.Business
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                VehicleGreeceNiple lastRecord = null;
 
-                if(vm.ActualGreeceNipleReplaceDatee.HasValue)
-                {
-                    lastRecord = _uow.VehicleGreeceNiple.GetAll().FirstOrDefault(t => t.VehicleId == vm.VehicleId && t.IsActive==true && t.ActualGreeceNipleReplaceDate.HasValue == false);
-                    lastRecord.ActualGreeceNipleReplaceDate = vm.ActualGreeceNipleReplaceDatee.Value;
-                    lastRecord.UpdatedOn = DateTime.UtcNow;
-                    lastRecord.UpdatedBy = user.Id;
 
-                    _uow.VehicleGreeceNiple.Update(lastRecord);
-                    await _uow.CommitAsync();
-                }
-                var model = new VehicleGreeceNiple()
-                {
-                    IsActive = true,
-                    VehicleId = vm.VehicleId,
-                    NextGreeceNipleReplaceDate = vm.NextGreeceNipleReplaceDate,
-                    ParentId = lastRecord == null ? (long?)null : lastRecord.Id,
-                    CreatedBy = user.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedBy = user.Id,
-                    UpdatedOn = DateTime.UtcNow
-                };
+        var model = vm.ToModel();
+        model.CreatedBy = user.Id;
+        model.UpdatedBy = user.Id;
 
-                _uow.VehicleGreeceNiple.Add(model);
+        _uow.VehicleGreeceNiple.Add(model);
                 await _uow.CommitAsync();
 
                 response.IsSuccess = true;
@@ -76,12 +58,6 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var vt = _uow.VehicleGreeceNiple.GetAll().FirstOrDefault(t => t.Id == id);
-                if(vt.ParentId.HasValue)
-                {
-                    vt.Parent.ActualGreeceNipleReplaceDate = (DateTime?)null;
-                    vt.Parent.UpdatedBy = user.Id;
-                    vt.Parent.UpdatedOn = DateTime.UtcNow;
-                }
 
                 vt.UpdatedBy = user.Id;
                 vt.IsActive = false;

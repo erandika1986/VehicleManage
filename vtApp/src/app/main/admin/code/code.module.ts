@@ -29,6 +29,7 @@ import { CodesComponent } from './codes.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CodeFormComponent } from './code-form/code-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialModule } from 'app/MaterialModule';
 
 const routes: Routes = [
   {
@@ -47,29 +48,11 @@ const routes: Routes = [
   declarations: [CodeListComponent, CodesComponent, FilterBarComponent, CodeFormComponent],
   imports: [
     RouterModule.forChild(routes),
-
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatTabsModule,
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatSlideToggleModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ],
 
   providers: [
