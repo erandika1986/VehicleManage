@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatColors } from '@fuse/mat-colors';
-import { VehicleInsuranceModel } from 'app/models/vehicle/vehicle-insurance.model';
+import { VehicleInsuranceModel, VehicleInsuranceReactiveForm } from 'app/models/vehicle/vehicle-insurance.model';
 
 @Component({
   selector: 'app-insurance-detail',
@@ -63,10 +63,13 @@ export class InsuranceDetailComponent implements OnInit {
       vehicleId: new FormControl(this.insurance.vehicleId, Validators.required),
       insuranceDate: new FormControl({ value: insuranceDate, disabled: this.isReadOnly }),
       validTillDate: new FormControl({ value: validTillDate, disabled: this.isReadOnly }),
-      isActive: new FormControl(true),
+      isActive: new FormControl(this.insurance.isActive),
       createdOn: new FormControl({ value: this.insurance.createdOn, disabled: true }),
-      updatedOn: new FormControl({ value: this.insurance.updatedOn, disabled: true })
+      updatedOn: new FormControl({ value: this.insurance.updatedOn, disabled: true }),
     });
   }
+
+
+
 
 }

@@ -58,8 +58,8 @@
                 <button mat-raised-button class="orange" (click)="edit(item)">
                     <mat-icon class="s-16 mr-sm-4">edit</mat-icon>
                 </button>
-                <button mat-raised-button class="red">
-                    <mat-icon class="s-16 mr-sm-4">delete_forever</mat-icon>
+                <button mat-raised-button class="red" (click)="delete(item.id)">
+                    <mat-icon class="s-16 mr-sm-4" >delete_forever</mat-icon>
                 </button>
                 <button mat-raised-button class="blue">
                     <mat-icon class="s-16 mr-sm-4">cloud_upload</mat-icon>

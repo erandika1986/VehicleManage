@@ -42,7 +42,7 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleInsurance
     [HttpPost]
-    [Route("addNewVehicleInsurance")]
+    [Route("saveVehicleInsurance")]
     public async Task<ActionResult> AddNewVehicleInsurance([FromBody] VehicleInsuranceViewModel vm)
     {
       var userName = IdentityHelper.GetUsername();

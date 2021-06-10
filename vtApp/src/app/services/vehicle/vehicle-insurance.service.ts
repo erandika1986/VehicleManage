@@ -22,24 +22,24 @@ export class VehicleInsuranceService {
   }
 
   // add new
-  addNewVehicleInsuranceRecord(model: VehicleInsuranceModel): Observable<VehicleResponseModel> {
+  saveVehicleInsurance(model: VehicleInsuranceModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleInsurance', model);
+      (environment.apiUrl + 'VehicleInsurance/saveVehicleInsurance', model);
   }
 
   // get by id
   getVehicleInsuranceRecordById(id: number): Observable<VehicleInsuranceModel> {
     return this.httpClient.
       get<VehicleInsuranceModel>
-      (environment.apiUrl + 'VehicleInsurance/' + id);
+      (environment.apiUrl + 'VehicleInsurance/getVehicleInsuranceById/' + id);
   }
 
 
   // delete existing record
   deleteVehicleInsuranceRecord(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleInsurance/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleInsurance/deleteVehicleInsurance/' + id);
   }
 
   // get
