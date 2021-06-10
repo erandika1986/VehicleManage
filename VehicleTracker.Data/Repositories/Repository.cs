@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -31,9 +31,9 @@ namespace VehicleTracker.Data
             return DbSet.Find(id);
         }
 
-        public virtual Task<T> GetByIdAsync(long id)
+        public virtual async Task<T> GetByIdAsync(long id)
         {
-            return DbSet.FindAsync(id);
+            return await DbSet.FindAsync(id);
         }
 
         public virtual T GetById(string id)
@@ -41,9 +41,9 @@ namespace VehicleTracker.Data
             return DbSet.Find(id);
         }
 
-        public virtual Task<T> GetByIdAsync(string id)
+        public virtual async Task<T> GetByIdAsync(string id)
         {
-            return DbSet.FindAsync(id);
+            return await DbSet.FindAsync(id);
         }
 
         public virtual void Add(T entity)
