@@ -10,6 +10,7 @@ namespace VehicleTracker.ViewModel.Vehicle
     public string ValidTill { get; set; }
 
     public string ImageURL { get; set; }
+    public string ImageName { get; set; }
 
 
     //For Reactive Form

@@ -69,7 +69,4 @@ export class InsuranceDetailComponent implements OnInit {
     });
   }
 
-
-
-
 }

@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -9,9 +10,11 @@ import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { Upload } from 'app/models/common/upload';
 import { VehicleInsuranceModel, VehicleInsuranceReactiveForm } from 'app/models/vehicle/vehicle-insurance.model';
 import { RouteService } from 'app/services/route/route.service';
 import { VehicleInsuranceService } from 'app/services/vehicle/vehicle-insurance.service';
+import { EMPTY, Observable } from 'rxjs';
 import { InsuranceDetailComponent } from '../insurance-detail/insurance-detail.component';
 
 @Component({
@@ -71,6 +74,8 @@ export class InsuranceListComponent implements OnInit, AfterViewInit,OnChanges  
     this._fuseProgressBarService.show();
     this._insuranceService.getAllVehicleInsuranceDetails(this.vehicleId)
       .subscribe(response=>{
+        console.log(response);
+        
         this._fuseProgressBarService.hide();
         this.totalNumberOfRecords = response.length;
         this.dataSource = new MatTableDataSource(response);
@@ -294,4 +299,105 @@ export class InsuranceListComponent implements OnInit, AfterViewInit,OnChanges  
     
   }
 
+  upload$: Observable<Upload> = EMPTY;
+  precentage:any;
+  onFileChange(event: any,item:VehicleInsuranceModel) 
+  {
+
+    let fi = event.srcElement;
+    const formData = new FormData();
+    formData.set("id",item.id.toString());
+    
+    if(fi.files.length>0)
+    {
+        this._fuseProgressBarService.show();
+        for (let index = 0; index < fi.files.length; index++) {
+          
+          formData.append('file', fi.files[index], fi.files[index].name);
+        }
+        item.isUploading=true;
+        this._insuranceService.uploadInsuranceImage(formData).subscribe(res=>
+          {
+            this.precentage =res;
+            if(res.state=="DONE")
+            {
+              //item.isUploading=false;
+              this._fuseProgressBarService.hide();
+              this.getVehicleInsuranceList();
+              this._snackBar.open("Image has been uploaded successfully", 'Success', {
+                duration: 2500,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+              });
+            }
+            //progress
+          },error=>{
+            this._fuseProgressBarService.hide();
+            //item.isUploading=false;
+            this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          });
+/*         this._quotationService.uploadQuotationFiles(formData)
+          .subscribe(response=>{
+ 
+          },error=>{
+            console.log("Error occured");
+            
+          }); */
+    }    
+  }
+
+  downloadPercentage:number=0;
+  isDownloading:boolean;
+  downloadFile(item:VehicleInsuranceModel)
+  {
+    this._fuseProgressBarService.show();
+    this.isDownloading=true;
+    this._insuranceService.downloadInsuranceImage(item.id)
+      .subscribe(response=>{
+
+        console.log(response);
+        
+        if (response.type === HttpEventType.DownloadProgress) {
+          this.downloadPercentage = Math.round(100 * response.loaded / response.total);
+        }
+        
+        if (response.type === HttpEventType.Response) {
+          if(response.status == 204)
+          {
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+          else
+          {
+            const objectUrl: string = URL.createObjectURL(response.body);
+            const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+    
+            a.href = objectUrl;
+            a.download = item.imageName;
+            document.body.appendChild(a);
+            a.click();
+    
+            document.body.removeChild(a);
+            URL.revokeObjectURL(objectUrl);
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+
+        }
+
+
+
+
+      },error=>{
+        this._fuseProgressBarService.hide();
+        this.isDownloading=false;
+        this.downloadPercentage=0;
+      });
+  }
 }

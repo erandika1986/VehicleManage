@@ -210,9 +210,9 @@ namespace VehicleTracker.WebApi
 
         options.SwaggerDoc("v1", new OpenApiInfo
         {
-          Title = "EEG - Web API",
+          Title = "Vehcile Tracker - Web API",
           Version = "v1",
-          Description = "The web service for EEG",
+          Description = "The web service for Vehcile Tracker",
           TermsOfService = new Uri("https://example.com/terms")
         });
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

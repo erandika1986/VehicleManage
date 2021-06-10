@@ -4,6 +4,7 @@ export class VehicleInsuranceModel extends VehicleCommonModel {
     insuranceDate: string;
     validTill: string;
     imageURL:string;
+    imageName:string;
 
     insuranceYear:number;
     insuranceMonth:number;
@@ -12,6 +13,9 @@ export class VehicleInsuranceModel extends VehicleCommonModel {
     validTillYear:number;
     validTillMonth:number;
     validTillDay:number;
+
+    //For Progress Bar
+    isUploading:boolean;
 }
 
 

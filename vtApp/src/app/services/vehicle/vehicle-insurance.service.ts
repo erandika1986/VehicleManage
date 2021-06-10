@@ -6,6 +6,7 @@ import { environment } from 'environments/environment';
 import { VehicleInsuranceModel } from 'app/models/vehicle/vehicle-insurance.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { upload, Upload } from 'app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,12 @@ export class VehicleInsuranceService {
       get<VehicleInsuranceModel>
       (environment.apiUrl + 'VehicleInsurance/getLatestRecordForVehicle/' + vehicleId);
   };
+
+  uploadInsuranceImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'VehicleInsurance/uploadInsuranceImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadInsuranceImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'VehicleInsurance/downloadInsuranceImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }

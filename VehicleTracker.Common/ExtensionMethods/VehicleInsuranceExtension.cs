@@ -1,6 +1,10 @@
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Text;
+using VehicleTracker.Common;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Vehicle;
 
@@ -25,7 +29,7 @@ namespace System
       return model;
     }
 
-    public static VehicleInsuranceViewModel ToVm(this VehicleInsurance model, VehicleInsuranceViewModel vm = null)
+    public static VehicleInsuranceViewModel ToVm(this VehicleInsurance model, IConfiguration config, VehicleInsuranceViewModel vm = null)
     {
       if (vm == null)
         vm = new VehicleInsuranceViewModel();
@@ -42,12 +46,37 @@ namespace System
       vm.ValidTillMonth = model.ValidTill.Month;
       vm.ValidTillDay = model.ValidTill.Day;
       vm.RegistrationNo = model.Vehicle.RegistrationNo;
-
       vm.InsuranceYear = model.InsuranceDate.Year;
       vm.InsuranceMonth = model.InsuranceDate.Month;
       vm.InsuranceDay = model.InsuranceDate.Day;
+      vm.ImageName = model.Attachment;
+      if (!string.IsNullOrEmpty(model.Attachment))
+      {
+        //vm.ImageURL = string.Format("{0}/{1}/{2}/{3}", config.GetSection("FileUploadUrl").Value, FolderNames.INSURANCE, model.Vehicle.Id, model.Attachment);
+        var imagePath = string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.INSURANCE, model.Vehicle.Id, model.Attachment);
+
+        vm.ImageURL = "data:image/jpg;base64,"+ ImageHelper.getThumnialImage(imagePath);
+      }
+
       return vm;
 
     }
+
+    public static string GetVehicleInsuranceFolderPath(this VehicleInsurance model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}", config.GetSection("FileUploadPath").Value, FolderNames.INSURANCE, model.Vehicle.Id);
+    }
+
+    public static string GetVehicleInsuranceImagePath(this VehicleInsurance model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.INSURANCE, model.Vehicle.Id, model.Attachment);
+    }
+
+    public static string GetVehicleInsuranceImageName(this VehicleInsurance model,string extension)
+    {
+      return string.Format(@"Insurance-Image-{0}{1}",model.InsuranceDate.Year,extension);
+    }
   }
+
+
 }

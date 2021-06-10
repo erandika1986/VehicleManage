@@ -2,10 +2,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Common;
 using VehicleTracker.Data;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Common;
@@ -15,14 +17,14 @@ namespace VehicleTracker.Business
 {
   public class VehicleInsuranceService : IVehicleInsuranceService
   {
-    private readonly IVMDBUow _uow;
+    readonly VMDBContext _db;
     private readonly IUserService _userService;
     private readonly IConfiguration config;
     private readonly ILogger<VehicleInsuranceService> logger;
 
-    public VehicleInsuranceService(IVMDBUow uow, IUserService userService, IConfiguration config, ILogger<VehicleInsuranceService> logger)
+    public VehicleInsuranceService(VMDBContext db, IUserService userService, IConfiguration config, ILogger<VehicleInsuranceService> logger)
     {
-      this._uow = uow;
+      this._db = db;
       this._userService = userService;
       this.config = config;
       this.logger = logger;
@@ -34,13 +36,13 @@ namespace VehicleTracker.Business
       try
       {
         var user = _userService.GetUserByUsername(userName);
-        var model = _uow.VehicleInsurance.GetAll().FirstOrDefault(x => x.Id == vm.Id);
-        if(model==null)
+        var model = _db.VehicleInsurance.FirstOrDefault(x => x.Id == vm.Id);
+        if (model == null)
         {
           model = vm.ToModel();
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
-          _uow.VehicleInsurance.Add(model);
+          _db.VehicleInsurance.Add(model);
         }
         else
         {
@@ -49,10 +51,10 @@ namespace VehicleTracker.Business
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
 
-          _uow.VehicleInsurance.Update(model);
+          _db.VehicleInsurance.Update(model);
         }
 
-        await _uow.CommitAsync();
+        await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
         response.Message = "New Record has been added.";
@@ -74,12 +76,12 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        var vt = _uow.VehicleInsurance.GetAll().FirstOrDefault(t => t.Id == id);
+        var vt = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id);
         vt.UpdatedBy = user.Id;
         vt.IsActive = false;
         vt.UpdatedOn = DateTime.UtcNow;
-        _uow.VehicleInsurance.Update(vt);
-        await _uow.CommitAsync();
+        _db.VehicleInsurance.Update(vt);
+        await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
         response.Message = "Record has been deleted.";
@@ -96,14 +98,14 @@ namespace VehicleTracker.Business
 
     public List<VehicleInsuranceViewModel> GetAllVehicleInsurance(int vehicleId)
     {
-      var query = _uow.VehicleInsurance.GetAll().Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.Id);
+      var query = _db.VehicleInsurance.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.InsuranceDate);
       var data = new List<VehicleInsuranceViewModel>();
 
       var pageData = query.ToList();
 
       pageData.ForEach(p =>
       {
-        data.Add(p.ToVm());
+        data.Add(p.ToVm(config));
       });
 
 
@@ -112,10 +114,10 @@ namespace VehicleTracker.Business
 
     public VehicleInsuranceViewModel GetLatestRecordForVehicle(long vehicleId)
     {
-      var latestRecord = _uow.VehicleInsurance.GetAll().Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
+      var latestRecord = _db.VehicleInsurance.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
       if (latestRecord != null)
       {
-        return latestRecord.ToVm();
+        return latestRecord.ToVm(config);
       }
       else
       {
@@ -125,11 +127,94 @@ namespace VehicleTracker.Business
 
     public VehicleInsuranceViewModel GetVehicleInsuranceById(long id)
     {
-      var vtvm = _uow.VehicleInsurance.GetAll().FirstOrDefault(t => t.Id == id).ToVm();
+      var vtvm = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id).ToVm(config);
 
       return vtvm;
     }
 
+    public async Task<ResponseViewModel> UploadInsuranceImage(FileContainerModel container, string userName)
+    {
+      var response = new ResponseViewModel();
+
+
+      try
+      {
+        var user = _db.User.FirstOrDefault(t => t.Username == userName);
+
+        var insuranceRecord = _db.VehicleInsurance.FirstOrDefault(x => x.Id == container.Id);
+
+        var folderPath = insuranceRecord.GetVehicleInsuranceFolderPath(config);
+
+        if (!string.IsNullOrEmpty(insuranceRecord.Attachment))
+        {
+          var existingImagePath = string.Format(@"{0}\{1}", folderPath, insuranceRecord.Attachment);
+
+          File.Delete(existingImagePath);
+        }
+
+        if (!Directory.Exists(folderPath))
+        {
+          Directory.CreateDirectory(folderPath);
+        }
+
+        var firstFile = container.Files.FirstOrDefault();
+        if (firstFile != null && firstFile.Length > 0)
+        {
+          var fileName = insuranceRecord.GetVehicleInsuranceImageName(Path.GetExtension(firstFile.FileName));
+          var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+          using (var stream = new FileStream(filePath, FileMode.Create))
+          {
+            await firstFile.CopyToAsync(stream);
+
+            insuranceRecord.Attachment = fileName;
+
+            _db.VehicleInsurance.Update(insuranceRecord);
+
+            await _db.SaveChangesAsync();
+
+          }
+        }
+
+        response.IsSuccess = true;
+        response.Message = "Insurance image has been uploaded succesfully.";
+      }
+      catch (Exception ex)
+      {
+        logger.LogError(ex.ToString());
+        response.IsSuccess = false;
+        response.Message = "Error has been occured while uploading the file. Please try again.";
+      }
+
+      return response;
+    }
+
+    public DownloadFileViewModel DownloadInsuranceImage(int id)
+    {
+      var response = new DownloadFileViewModel();
+      try
+      {
+        var insuranceRecord = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id);
+        var imagePath = insuranceRecord.GetVehicleInsuranceImagePath(config);
+        byte[] fileContents = null;
+        MemoryStream ms = new MemoryStream();
+
+        using (FileStream fs = File.OpenRead(imagePath))
+        {
+          fs.CopyTo(ms);
+          fileContents = ms.ToArray();
+          ms.Dispose();
+          response.FileData = fileContents;
+        }
+
+        response.FileName = insuranceRecord.Attachment;
+      }
+      catch (Exception ex)
+      {
+        logger.LogError(ex.ToString());
+      }
+
+      return response;
+    }
   }
 }
 

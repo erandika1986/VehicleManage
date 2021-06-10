@@ -21,10 +21,19 @@ export class AuthInterceptorService implements HttpInterceptor {
     if (idToken) {
       const token: string = 'Bearer ' + JSON.parse(idToken).token;
 
-      const cloned = req.clone({
+      let cloned = req.clone({
         setHeaders: { Authorization: token }
 
       });
+
+      console.log(req.headers.get('filedownload'));
+      
+      if (req.headers.get('filedownload') !== null) {
+        cloned = req.clone({
+          setHeaders: { Authorization: token },
+          responseType: 'blob' as 'json'
+      });
+      } 
 
       return next.handle(cloned).pipe(map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {

@@ -15,5 +15,7 @@ namespace VehicleTracker.Business.Interfaces
         List<VehicleInsuranceViewModel> GetAllVehicleInsurance(int vehicleId);
         VehicleInsuranceViewModel GetVehicleInsuranceById(long id);
         VehicleInsuranceViewModel GetLatestRecordForVehicle(long vehicleId);
-    }
+        Task<ResponseViewModel> UploadInsuranceImage(FileContainerModel container, string userName);
+        DownloadFileViewModel DownloadInsuranceImage(int id);
+  }
 }
