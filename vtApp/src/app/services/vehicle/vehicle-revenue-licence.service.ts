@@ -6,6 +6,7 @@ import { environment } from 'environments/environment';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
 import { VehicleRevenueLicenceModel } from 'app/models/vehicle/vehicle-revenue-licence.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { upload, Upload } from 'app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +15,31 @@ export class VehicleRevenueLicenceService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleRL(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleRLPaginatedItemsModel> {
+  getAllVehicleRevenueLicence(vehicleId: number): Observable<VehicleRevenueLicenceModel[]> {
     return this.httpClient.
-      get<VehicleRLPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleRevenueLicence/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleRevenueLicenceModel[]>
+      (environment.apiUrl + 'VehicleRevenueLicence/getAllVehicleRevenueLicence/' + vehicleId);
   }
 
   // add new
-  addNewVehicleRL(model: VehicleRevenueLicenceModel): Observable<VehicleResponseModel> {
+  saveVehicleRevenueLicence(model: VehicleRevenueLicenceModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleRevenueLicence', model);
+      (environment.apiUrl + 'VehicleRevenueLicence/saveVehicleRevenueLicence', model);
   }
 
   // get by id
-  getVehicleRLById(id: number): Observable<VehicleRevenueLicenceModel> {
+  getVehicleRevenueLicenceById(id: number): Observable<VehicleRevenueLicenceModel> {
     return this.httpClient.
       get<VehicleRevenueLicenceModel>
-      (environment.apiUrl + 'VehicleRevenueLicence/' + id);
+      (environment.apiUrl + 'VehicleRevenueLicence/getVehicleRevenueLicenceById/' + id);
   }
 
 
   // delete existing record
-  deleteVehicleRL(id: number): Observable<ResponseModel> {
+  deleteVehicleRevenueLicence(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleRevenueLicence/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleRevenueLicence/deleteVehicleRevenueLicence/' + id);
   }
 
   // get
@@ -47,4 +48,13 @@ export class VehicleRevenueLicenceService {
       get<VehicleRevenueLicenceModel>
       (environment.apiUrl + 'VehicleRevenueLicence/getLatestRecordForVehicle/' + vehicleId);
   };
+
+  
+  uploadRevenueLicenceImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'VehicleRevenueLicence/uploadRevenueLicenceImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadRevenueLicenceImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'VehicleRevenueLicence/downloadRevenueLicenceImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }

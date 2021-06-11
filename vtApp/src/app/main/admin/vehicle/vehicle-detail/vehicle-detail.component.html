@@ -129,7 +129,7 @@
 
                         <mat-tab label="Revenue Licence" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <revenue-licence-list [vehicleId]="vehicleId"></revenue-licence-list>
+                                <revenue-licence-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></revenue-licence-list>
                             </div>
 
                         </mat-tab>
