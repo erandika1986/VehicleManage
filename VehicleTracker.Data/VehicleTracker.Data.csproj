@@ -23,4 +23,10 @@
     <ProjectReference Include="..\VehicleTracker.Model\VehicleTracker.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contract\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

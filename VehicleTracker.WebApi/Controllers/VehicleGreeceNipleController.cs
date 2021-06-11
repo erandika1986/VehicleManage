@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         // GET api/VehicleGreeceNiple/15/2
-        [HttpGet("{vehicleId:int}/{pageSize:int}/{currentPage:int}")]
-        public ActionResult Get(int vehicleId, int pageSize, int currentPage)
+        [HttpGet("{vehicleId:int}")]
+        public ActionResult Get(int vehicleId)
         {
-            var response = _vehicleGreeceNipleService.GetAllVehicleGreeceNiple(vehicleId, pageSize, currentPage);
+            var response = _vehicleGreeceNipleService.GetAllVehicleGreeceNiple(vehicleId);
             return Ok(response);
         }
 
@@ -43,7 +43,7 @@ namespace VehicleTracker.WebApi.Controllers
         public async Task<ActionResult> Post([FromBody] VehicleGreeceNipleViewModel vm)
         {
             var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleGreeceNipleService.AddNewVehicleGreeceNiple(vm, userName);
+            var response = await _vehicleGreeceNipleService.SaveVehicleGreeceNiple(vm, userName);
             return Ok(response);
         }
 

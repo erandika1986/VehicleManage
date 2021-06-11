@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,118 +12,124 @@ using VehicleTracker.ViewModel.Vehicle;
 
 namespace VehicleTracker.Business
 {
-    public class VehicleAirCleanerService : IVehicleAirCleanerService
+  public class VehicleAirCleanerService : IVehicleAirCleanerService
+  {
+    private readonly ILogger<IVehicleAirCleanerService> _logger;
+    readonly VMDBContext _db;
+    private readonly IUserService _userService;
+
+    public VehicleAirCleanerService(VMDBContext db, IUserService userService, ILogger<IVehicleAirCleanerService> logger)
     {
-        private readonly IVMDBUow _uow;
-        private readonly IUserService _userService;
-
-        public VehicleAirCleanerService(IVMDBUow uow, IUserService userService)
-        {
-            this._uow = uow;
-            this._userService = userService;
-        }
-
-        public async Task<VehicleResponseViewModel> AddNewVehicleAirCleaner(VehicleAirCleanerViewModel vm, string userName)
-        {
-            var response = new VehicleResponseViewModel();
-            try
-            {
-                var user = _userService.GetUserByUsername(userName);
-
-        var model = vm.ToModel();
-        model.CreatedBy = user.Id;
-        model.UpdatedBy = user.Id;
-
-                _uow.VehicleAirCleaner.Add(model);
-                await _uow.CommitAsync();
-
-
-                response.IsSuccess = true;
-                response.Message = "New Record has been added.";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Operation failed.Please try again.";
-            }
-
-
-            return response;
-        }
-
-        public async Task<VehicleResponseViewModel> DeleteVehicleAirCleaner(long id, string userName)
-        {
-            var response = new VehicleResponseViewModel();
-            try
-            {
-                var user = _userService.GetUserByUsername(userName);
-
-                var vt = _uow.VehicleAirCleaner.GetAll().FirstOrDefault(t => t.Id == id);
-                vt.UpdatedBy = user.Id;
-                vt.IsActive = false;
-                vt.UpdatedOn = DateTime.UtcNow;
-                _uow.VehicleAirCleaner.Update(vt);
-                await _uow.CommitAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Record has been deleted.";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Operation failed.Please try again.";
-            }
-
-
-            return response;
-        }
-
-        public PaginatedItemsViewModel<VehicleAirCleanerViewModel> GetAllVehicleAirCleaner(int vehicleId, int pageSize, int currentPage)
-        {
-            var query = _uow.VehicleAirCleaner.GetAll().Where(t => t.VehicleId == vehicleId && t.IsActive==true).OrderByDescending(t=>t.Id);
-
-            int totalRecordCount = 0;
-            double totalPages = 0;
-            int totalPageCount = 0;
-            var data = new List<VehicleAirCleanerViewModel>();
-
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
-
-            var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-
-            pageData.ForEach(p =>
-            {
-                data.Add(p.ToVm());
-            });
-
-            var response = new PaginatedItemsViewModel<VehicleAirCleanerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
-
-
-            return response;
-        }
-
-        public VehicleAirCleanerViewModel GetLatestRecordForVehicle(long vehicleId)
-        {
-            var latestRecord = _uow.VehicleAirCleaner.GetAll().Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
-            if (latestRecord != null)
-            {
-                return latestRecord.ToVm();
-            }
-            else
-            {
-                return new VehicleAirCleanerViewModel();
-            }
-        }
-
-        public VehicleAirCleanerViewModel GetVehicleAirCleanerById(long id)
-        {
-            var vtvm = _uow.VehicleAirCleaner.GetAll().FirstOrDefault(t => t.Id == id).ToVm();
-
-            return vtvm;
-        }
-
-
+      this._db = db;
+      this._userService = userService;
+      this._logger = logger;
     }
+
+    public async Task<VehicleResponseViewModel> SaveVehicleAirCleaner(VehicleAirCleanerViewModel vm, string userName)
+    {
+      var response = new VehicleResponseViewModel();
+      try
+      {
+        var user = _userService.GetUserByUsername(userName);
+        var model = _db.VehicleAirCleaners.FirstOrDefault(x => x.Id == vm.Id);
+        if(model==null)
+        {
+          model = vm.ToModel();
+          model.CreatedBy = user.Id;
+          model.UpdatedBy = user.Id;
+          _db.VehicleAirCleaners.Add(model);
+   
+          response.Message = "New Record has been added.";
+        }
+        else
+        {
+          model.NextAirCleanerReplaceMilage = vm.NextAirCleanerReplaceMilage;
+          model.AirCleanerReplaceMilage = vm.AirCleanerReplaceMilage;
+          model.UpdatedBy = user.Id;
+          model.UpdatedOn = DateTime.UtcNow;
+          _db.VehicleAirCleaners.Update(model);
+
+          response.Message = "Record has been updated.";
+        }
+        await _db.SaveChangesAsync();
+        response.IsSuccess = true;
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.ToString());
+        response.IsSuccess = false;
+        response.Message = "Operation failed.Please try again.";
+      }
+
+
+      return response;
+    }
+
+    public async Task<VehicleResponseViewModel> DeleteVehicleAirCleaner(long id, string userName)
+    {
+      var response = new VehicleResponseViewModel();
+      try
+      {
+        var user = _userService.GetUserByUsername(userName);
+
+        var vt = _db.VehicleAirCleaners.FirstOrDefault(t => t.Id == id);
+        vt.UpdatedBy = user.Id;
+        vt.IsActive = false;
+        vt.UpdatedOn = DateTime.UtcNow;
+        _db.VehicleAirCleaners.Update(vt);
+        await _db.SaveChangesAsync();
+
+        response.IsSuccess = true;
+        response.Message = "Record has been deleted.";
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.ToString());
+        response.IsSuccess = false;
+        response.Message = "Operation failed.Please try again.";
+      }
+
+
+      return response;
+    }
+
+    public List<VehicleAirCleanerViewModel> GetAllVehicleAirCleaner(int vehicleId)
+    {
+      var query = _db.VehicleAirCleaners.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.Id);
+
+      var data = new List<VehicleAirCleanerViewModel>();
+
+      var pageData = query.ToList();
+
+      pageData.ForEach(p =>
+      {
+        data.Add(p.ToVm());
+      });
+
+
+      return data;
+    }
+
+    public VehicleAirCleanerViewModel GetLatestRecordForVehicle(long vehicleId)
+    {
+      var latestRecord = _db.VehicleAirCleaners.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
+      if (latestRecord != null)
+      {
+        return latestRecord.ToVm();
+      }
+      else
+      {
+        return new VehicleAirCleanerViewModel();
+      }
+    }
+
+    public VehicleAirCleanerViewModel GetVehicleAirCleanerById(long id)
+    {
+      var vtvm = _db.VehicleAirCleaners.FirstOrDefault(t => t.Id == id).ToVm();
+
+      return vtvm;
+    }
+
+
+  }
 }

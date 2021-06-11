@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +9,9 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IVehicleGreeceNipleService
     {
-        Task<VehicleResponseViewModel> AddNewVehicleGreeceNiple(VehicleGreeceNipleViewModel vm, string userName);
-        //Task<VehicleResponseViewModel> UpdateVehicleGreeceNiple(VehicleGreeceNipleViewModel vm, string userName);
+        Task<VehicleResponseViewModel> SaveVehicleGreeceNiple(VehicleGreeceNipleViewModel vm, string userName);
         Task<VehicleResponseViewModel> DeleteVehicleGreeceNiple(long id, string userName);
-        PaginatedItemsViewModel<VehicleGreeceNipleViewModel> GetAllVehicleGreeceNiple(int vehicleId, int pageSize, int currentPage);
+        List<VehicleGreeceNipleViewModel> GetAllVehicleGreeceNiple(int vehicleId);
         VehicleGreeceNipleViewModel GetVehicleGreeceNipleById(long id);
         VehicleGreeceNipleViewModel GetLatestRecordForVehicle(long vehicleId);
     }

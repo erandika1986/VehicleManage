@@ -6,38 +6,38 @@ using VehicleTracker.ViewModel.Vehicle;
 
 namespace System
 {
-    public static class VehicleGearBoxOilMilageExtension
+  public static class VehicleGearBoxOilMilageExtension
+  {
+    public static VehicleGearBoxOilMilage ToModel(this VehicleGearBoxOilMilageViewModel vm, VehicleGearBoxOilMilage model = null)
     {
-        public static VehicleGearBoxOilMilage ToModel(this VehicleGearBoxOilMilageViewModel vm, VehicleGearBoxOilMilage model = null)
-        {
-            if (model == null)
-                model = new VehicleGearBoxOilMilage();
+      if (model == null)
+        model = new VehicleGearBoxOilMilage();
 
-            model.Id = vm.Id;
-            model.VehicleId = vm.VehicleId;
-            model.NextGearBoxOilChangeMilage = vm.NextGearBoxOilChangeMilage;
-            model.GearBoxOilChangeMilage = vm.GearBoxOilChangeMilage;
-            model.CreatedOn = DateTime.UtcNow;
-            model.UpdatedOn = DateTime.UtcNow;
-            model.IsActive = vm.IsActive;
+      model.Id = vm.Id;
+      model.VehicleId = vm.VehicleId;
+      model.NextGearBoxOilChangeMilage = vm.NextGearBoxOilChangeMilage;
+      model.GearBoxOilChangeMilage = vm.GearBoxOilChangeMilage;
+      model.CreatedOn = DateTime.UtcNow;
+      model.UpdatedOn = DateTime.UtcNow;
+      model.IsActive = vm.IsActive;
 
-            return model;
-        }
-
-        public static VehicleGearBoxOilMilageViewModel ToVm(this VehicleGearBoxOilMilage model, VehicleGearBoxOilMilageViewModel vm = null)
-        {
-            if (vm == null)
-                vm = new VehicleGearBoxOilMilageViewModel();
-
-            vm.Id = model.Id;
-            vm.VehicleId = model.VehicleId;
-            vm.NextGearBoxOilChangeMilage = model.NextGearBoxOilChangeMilage;
-            vm.GearBoxOilChangeMilage = model.GearBoxOilChangeMilage;
-            vm.CreatedOn = model.CreatedOn;
-            vm.UpdatedOn = model.UpdatedOn;
-            vm.IsActive = model.IsActive;
-
-            return vm;
-        }
+      return model;
     }
+
+    public static VehicleGearBoxOilMilageViewModel ToVm(this VehicleGearBoxOilMilage model, VehicleGearBoxOilMilageViewModel vm = null)
+    {
+      if (vm == null)
+        vm = new VehicleGearBoxOilMilageViewModel();
+
+      vm.Id = model.Id;
+      vm.VehicleId = model.VehicleId;
+      vm.NextGearBoxOilChangeMilage = model.NextGearBoxOilChangeMilage;
+      vm.GearBoxOilChangeMilage = model.GearBoxOilChangeMilage;
+      vm.CreatedOn = model.CreatedOn.ToString("MMMM dd, yyyy");
+      vm.UpdatedOn = model.UpdatedOn.ToString("MMMM dd, yyyy");
+      vm.IsActive = model.IsActive;
+
+      return vm;
+    }
+  }
 }

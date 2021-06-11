@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         // GET api/VehicleGearBoxOilMilage/15/2
-        [HttpGet("{vehicleId:int}/{pageSize:int}/{currentPage:int}")]
-        public ActionResult Get(int vehicleId, int pageSize, int currentPage)
+        [HttpGet("{vehicleId:int}")]
+        public ActionResult Get(int vehicleId)
         {
-            var response = _vehicleGearBoxOilMilageService.GetAllVehicleGearBoxOilMilage(vehicleId, pageSize, currentPage);
+            var response = _vehicleGearBoxOilMilageService.GetAllVehicleGearBoxOilMilage(vehicleId);
             return Ok(response);
         }
 
@@ -43,7 +43,7 @@ namespace VehicleTracker.WebApi.Controllers
         public async Task<ActionResult> Post([FromBody] VehicleGearBoxOilMilageViewModel vm)
         {
             var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleGearBoxOilMilageService.AddNewVehicleGearBoxOilMilage(vm, userName);
+            var response = await _vehicleGearBoxOilMilageService.SaveVehicleGearBoxOilMilage(vm, userName);
             return Ok(response);
         }
 

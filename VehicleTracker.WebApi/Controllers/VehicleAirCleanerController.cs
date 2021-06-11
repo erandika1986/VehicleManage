@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,10 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         // GET api/VehicleAirCleaner/15/2
-        [HttpGet("{vehicleId:int}/{pageSize:int}/{currentPage:int}")]
-        public ActionResult Get(int vehicleId, int pageSize, int currentPage)
+        [HttpGet("{vehicleId:int}")]
+        public ActionResult Get(int vehicleId)
         {
-            var response = _vehicleAirCleanerService.GetAllVehicleAirCleaner(vehicleId, pageSize, currentPage);
+            var response = _vehicleAirCleanerService.GetAllVehicleAirCleaner(vehicleId);
             return Ok(response);
         }
 
@@ -43,7 +43,7 @@ namespace VehicleTracker.WebApi.Controllers
         public async Task<ActionResult> Post([FromBody] VehicleAirCleanerViewModel vm)
         {
             var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleAirCleanerService.AddNewVehicleAirCleaner(vm, userName);
+            var response = await _vehicleAirCleanerService.SaveVehicleAirCleaner(vm, userName);
             return Ok(response);
         }
 

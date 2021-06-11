@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +9,9 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IVehicleFuelFilterMilageService
     {
-        Task<VehicleResponseViewModel> AddNewVehicleFuelFilterMilage(VehicleFuelFilterMilageViewModel vm, string userName);
-        ///Task<VehicleResponseViewModel> UpdateVehicleFuelFilterMilage(VehicleFuelFilterMilageViewModel vm, string userName);
+        Task<VehicleResponseViewModel> SaveVehicleFuelFilterMilage(VehicleFuelFilterMilageViewModel vm, string userName);
         Task<VehicleResponseViewModel> DeleteVehicleFuelFilterMilage(long id, string userName);
-        PaginatedItemsViewModel<VehicleFuelFilterMilageViewModel> GetAllVehicleFuelFilterMilage(int vehicleId, int pageSize, int currentPage);
+        List<VehicleFuelFilterMilageViewModel> GetAllVehicleFuelFilterMilage(int vehicleId);
         VehicleFuelFilterMilageViewModel GetVehicleFuelFilterMilageById(long id);
         VehicleFuelFilterMilageViewModel GetLatestRecordForVehicle(long vehicleId);
     }

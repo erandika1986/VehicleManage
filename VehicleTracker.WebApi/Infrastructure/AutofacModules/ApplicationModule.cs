@@ -29,10 +29,6 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
           .As<IIdentityService>()
           .SingleInstance();
 
-      builder.RegisterType<VMDBUow>()
-          .As<IVMDBUow>()
-          .InstancePerLifetimeScope();
-
       builder.RegisterType<UserService>()
     .As<IUserService>()
     .InstancePerLifetimeScope();

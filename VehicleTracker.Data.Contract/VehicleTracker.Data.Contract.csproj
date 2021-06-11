@@ -8,4 +8,9 @@
     <ProjectReference Include="..\VehicleTracker.Model\VehicleTracker.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

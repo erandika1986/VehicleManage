@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +14,12 @@ namespace VehicleTracker.Business
 {
     public class VehicleTypeService : IVehicleTypeService
     {
-        private readonly IVMDBUow _uow;
-        private readonly IUserService _userService;
+    private readonly VMDBContext _db;
+    private readonly IUserService _userService;
 
-        public VehicleTypeService(IVMDBUow uow, IUserService userService)
+        public VehicleTypeService(VMDBContext db, IUserService userService)
         {
-            this._uow = uow;
+            this._db = db;
             this._userService = userService;
         }
 
@@ -32,42 +32,42 @@ namespace VehicleTracker.Business
                 masterData.FuelTypes.Add(new DropDownViewModal() { Id = (int)type, Name = EnumHelper.GetEnumDescription(type) });
             }
 
-            var breakOilCodes = _uow.BreakOilCodes.GetAll().ToList();
+            var breakOilCodes = _db.BreakOilCodes.ToList();
             masterData.BreakOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             breakOilCodes.ForEach(item =>
             {
                 masterData.BreakOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
             });
 
-            var differentialOilCodes = _uow.DifferentialOilCodes.GetAll().ToList();
+            var differentialOilCodes = _db.DifferentialOilCodes.ToList();
             masterData.DifferentialOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             differentialOilCodes.ForEach(item =>
             {
                 masterData.DifferentialOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
             });
 
-            var engineOilCoolants = _uow.EgineCoolants.GetAll().ToList();
+            var engineOilCoolants = _db.EgineCoolants.ToList();
             masterData.CoolantsTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             engineOilCoolants.ForEach(item =>
             {
                 masterData.CoolantsTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
             });
 
-            var enginOilCodes = _uow.EngineOilCodes.GetAll().ToList();
+            var enginOilCodes = _db.EngineOilCodes.ToList();
             masterData.EngineOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             enginOilCodes.ForEach(item =>
             {
                 masterData.EngineOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
             });
 
-            var gearBoxOilCodes = _uow.GearBoxOilCodes.GetAll().ToList();
+            var gearBoxOilCodes = _db.GearBoxOilCodes.ToList();
             masterData.GearBoxOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             gearBoxOilCodes.ForEach(item =>
             {
                 masterData.GearBoxOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
             });
 
-            var powerSteeringOilCodes = _uow.PowerSteeringOilCodes.GetAll().ToList();
+            var powerSteeringOilCodes = _db.PowerSteeringOilCodes.ToList();
             masterData.PowerSteeringOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
             powerSteeringOilCodes.ForEach(item =>
             {
@@ -82,12 +82,12 @@ namespace VehicleTracker.Business
             var response = new ResponseViewModel();
             try
             {
-                var model = _uow.VehicleType.GetAll().FirstOrDefault(t => t.Id == vm.Id);
+                var model = _db.VehicleTypes.FirstOrDefault(t => t.Id == vm.Id);
                 if(model==null)
                 {
                     model = vm.ToModel();
-                    _uow.VehicleType.Add(model);
-                    await _uow.CommitAsync();
+          _db.VehicleTypes.Add(model);
+                    await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;
                     response.Message = "New Vehicle type has been added.";
@@ -115,8 +115,8 @@ namespace VehicleTracker.Business
                     model.PowerSteeringOilId = vm.PowerSteeringOilId > 0 ? vm.PowerSteeringOilId : (int?)null;
 
 
-                    _uow.VehicleType.Update(model);
-                    await _uow.CommitAsync();
+          _db.VehicleTypes.Update(model);
+                    await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;
                     response.Message = "Vehicle type has been updated.";
@@ -137,9 +137,9 @@ namespace VehicleTracker.Business
             var response = new ResponseViewModel();
             try
             {
-                var vt = _uow.VehicleType.GetAll().FirstOrDefault(t => t.Id == id);
-                _uow.VehicleType.Delete(vt);
-                await _uow.CommitAsync();
+                var vt = _db.VehicleTypes.FirstOrDefault(t => t.Id == id);
+        _db.VehicleTypes.Remove(vt);
+                await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
                 response.Message = "Vehicle type has been deleted.";
@@ -155,7 +155,7 @@ namespace VehicleTracker.Business
         }
         public List<VehicleTypeViewModel> GetAllVehicleTypes()
         {
-            var query = _uow.VehicleType.GetAll().OrderBy(t => t.Name);
+            var query = _db.VehicleTypes.OrderBy(t => t.Name);
 
             var data = new List<VehicleTypeViewModel>();
 
@@ -174,7 +174,7 @@ namespace VehicleTracker.Business
         }
         public VehicleTypeViewModel GetVehicleTypeById(long id)
         {
-            var vtvm = _uow.VehicleType.GetAll().FirstOrDefault(t => t.Id == id).ToVm();
+            var vtvm = _db.VehicleTypes.FirstOrDefault(t => t.Id == id).ToVm();
 
             return vtvm;
         }
