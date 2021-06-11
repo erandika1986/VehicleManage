@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class DailyVehicleBeat
     {
         public DailyVehicleBeat()
         {
-            DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrders>();
+            DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrder>();
         }
 
         public long Id { get; set; }
@@ -27,6 +29,6 @@ namespace VehicleTracker.Model
         public virtual Route Route { get; set; }
         public virtual User UpdatedByNavigation { get; set; }
         public virtual Vehicle Vehicle { get; set; }
-        public virtual ICollection<DailyVehicleBeatOrders> DailyVehicleBeatOrders { get; set; }
+        public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }
     }
 }

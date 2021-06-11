@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class VehicleType
     {
         public VehicleType()
         {
-            Vehicle = new HashSet<Vehicle>();
+            Vehicles = new HashSet<Vehicle>();
         }
 
         public long Id { get; set; }
@@ -34,12 +36,12 @@ namespace VehicleTracker.Model
         public int? EngineCoolantId { get; set; }
         public int? PowerSteeringOilId { get; set; }
 
-        public virtual BreakOilCodes BreakOil { get; set; }
-        public virtual DifferentialOilCodes DifferentialOil { get; set; }
-        public virtual EgineCoolants EngineCoolant { get; set; }
-        public virtual EngineOilCodes EngineOil { get; set; }
-        public virtual GearBoxOilCodes GearBoxOil { get; set; }
-        public virtual PowerSteeringOilCodes PowerSteeringOil { get; set; }
-        public virtual ICollection<Vehicle> Vehicle { get; set; }
+        public virtual BreakOilCode BreakOil { get; set; }
+        public virtual DifferentialOilCode DifferentialOil { get; set; }
+        public virtual EgineCoolant EngineCoolant { get; set; }
+        public virtual EngineOilCode EngineOil { get; set; }
+        public virtual GearBoxOilCode GearBoxOil { get; set; }
+        public virtual PowerSteeringOilCode PowerSteeringOil { get; set; }
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }

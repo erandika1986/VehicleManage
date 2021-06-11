@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -29,13 +29,13 @@ namespace VehicleTracker.Business
             var response = new RouteResponseViewModel();
             try
             {
-                var route = _db.Route.FirstOrDefault(t => t.Id == vm.Id);
+                var route = _db.Routes.FirstOrDefault(t => t.Id == vm.Id);
 
                 if(route==null)
                 {
                     var model = vm.ToModel();
 
-                    _db.Route.Add(model);
+                    _db.Routes.Add(model);
 
                     await _db.SaveChangesAsync();
 
@@ -50,7 +50,7 @@ namespace VehicleTracker.Business
                     route.EndFrom = vm.EndFrom;
                     route.TotalDistance = vm.TotalDistance;
 
-                    _db.Route.Update(route);
+                    _db.Routes.Update(route);
 
                     await _db.SaveChangesAsync();
 
@@ -73,11 +73,11 @@ namespace VehicleTracker.Business
             var response = new ResponseViewModel();
             try
             {
-                var route = _db.Route.FirstOrDefault(t => t.Id == id);
+                var route = _db.Routes.FirstOrDefault(t => t.Id == id);
 
                 route.IsActive = false;
 
-                _db.Route.Update(route);
+                _db.Routes.Update(route);
 
                 await _db.SaveChangesAsync();
 
@@ -95,7 +95,7 @@ namespace VehicleTracker.Business
 
         public List<RouteViewModel> GetAllRoutes()
         {
-            var query = _db.Route.Where(t=>t.IsActive==true).OrderBy(t => t.RouteCode);
+            var query = _db.Routes.Where(t=>t.IsActive==true).OrderBy(t => t.RouteCode);
 
             var data = new List<RouteViewModel>();
 
@@ -115,7 +115,7 @@ namespace VehicleTracker.Business
 
         public RouteViewModel GetRouteById(long id)
         {
-            var route = _db.Route.FirstOrDefault(t => t.Id == id).ToVm();
+            var route = _db.Routes.FirstOrDefault(t => t.Id == id).ToVm();
 
             return route;
         }

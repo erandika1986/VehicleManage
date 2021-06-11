@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace VehicleTracker.Business.Factories
 
                 if (entity == null)
                 {
-                    entity = new EgineCoolants();
+                    entity = new EgineCoolant();
                     entity.Code = code.Code;
                     DbContext.EgineCoolants.Add(entity);
                 }

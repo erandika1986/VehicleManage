@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +28,7 @@ namespace VehicleTracker.Business.Factories
 
                 if (entity == null)
                 {
-                    entity = new BreakOilCodes();
+                    entity = new BreakOilCode();
                     entity.Code = code.Code;
                     DbContext.BreakOilCodes.Add(entity);
                 }

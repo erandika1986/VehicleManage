@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +36,7 @@ namespace VehicleTracker.Business
             try
             {
 
-                var category = _db.ProductCategory.FirstOrDefault(d => d.Id == id);
+                var category = _db.ProductCategories.FirstOrDefault(d => d.Id == id);
 
                 category = new Model.ProductCategory()
                 {
@@ -44,7 +44,7 @@ namespace VehicleTracker.Business
                     IsActive = false
                 };
 
-                _db.ProductCategory.Update(category);
+                _db.ProductCategories.Update(category);
                 await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
@@ -62,7 +62,7 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<ProductCategoryViewModel> GetAllProductCategories(int pageSize, int currentPage)
         {
-            var query = _db.ProductCategory.Where(t => t.IsActive == true).OrderBy(t => t.Name);
+            var query = _db.ProductCategories.Where(t => t.IsActive == true).OrderBy(t => t.Name);
 
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -97,7 +97,7 @@ namespace VehicleTracker.Business
         {
             var response = new ProductCategoryViewModel();
 
-            var pCategory = _db.ProductCategory.FirstOrDefault(x => x.Id == id);
+            var pCategory = _db.ProductCategories.FirstOrDefault(x => x.Id == id);
 
             response.Description = pCategory.Description;
             response.Id = pCategory.Id;
@@ -115,7 +115,7 @@ namespace VehicleTracker.Business
             try
             {
 
-                var category = _db.ProductCategory.FirstOrDefault(d => d.Id == vm.Id);
+                var category = _db.ProductCategories.FirstOrDefault(d => d.Id == vm.Id);
 
                 if (category == null)
                 {
@@ -127,7 +127,7 @@ namespace VehicleTracker.Business
                         Picture = vm.Picture
                     };
 
-                    _db.ProductCategory.Add(category);
+                    _db.ProductCategories.Add(category);
                     await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;
@@ -139,7 +139,7 @@ namespace VehicleTracker.Business
                     category.Name = vm.Name;
                     category.Picture = vm.Picture;
 
-                    _db.ProductCategory.Update(category);
+                    _db.ProductCategories.Update(category);
                     await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;

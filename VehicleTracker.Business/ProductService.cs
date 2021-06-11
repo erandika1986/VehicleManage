@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,12 +33,12 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                var product = _db.Product.FirstOrDefault(x => x.Id == id);
+                var product = _db.Products.FirstOrDefault(x => x.Id == id);
                 product.IsActive = false;
                 product.UpdatedOn = DateTime.UtcNow;
                 product.UpdatedById = user.Id;
 
-                _db.Product.Update(product);
+                _db.Products.Update(product);
 
                 await _db.SaveChangesAsync();
 
@@ -58,7 +58,7 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<ProductViewModel> GetAllProducts(int productSubCategryId, int pageSize, int currentPage)
         {
-            var query = _db.Product.OrderBy(t=>t.ProductName);
+            var query = _db.Products.OrderBy(t=>t.ProductName);
 
             if(productSubCategryId > 0)
             {
@@ -90,7 +90,7 @@ namespace VehicleTracker.Business
 
         public ProductViewModel GetProductById(long id)
         {
-            var product = _db.Product.FirstOrDefault(x => x.Id == id);
+            var product = _db.Products.FirstOrDefault(x => x.Id == id);
 
             return product.ToVm();
         }
@@ -103,7 +103,7 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                var product = _db.Product.FirstOrDefault(x => x.Id == vm.Id);
+                var product = _db.Products.FirstOrDefault(x => x.Id == vm.Id);
 
                 if(product==null)
                 {
@@ -113,7 +113,7 @@ namespace VehicleTracker.Business
                     product.UpdatedOn = DateTime.UtcNow;
                     product.UpdatedById = user.Id;
 
-                    _db.Product.Add(product);
+                    _db.Products.Add(product);
                     await _db.SaveChangesAsync();
 
                 }
@@ -130,7 +130,7 @@ namespace VehicleTracker.Business
                     product.UpdatedOn = DateTime.UtcNow;
                     product.UpdatedById = user.Id;
 
-                    _db.Product.Update(product);
+                    _db.Products.Update(product);
 
                     await _db.SaveChangesAsync();
                 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,13 +31,13 @@ namespace VehicleTracker.Business
             var response = new ResponseViewModel();
             try
             {
-                var supplier = _db.Supplier.FirstOrDefault(x => x.Id == vm.Id);
+                var supplier = _db.Suppliers.FirstOrDefault(x => x.Id == vm.Id);
 
                 if(supplier==null)
                 {
                      supplier = vm.ToModel();
 
-                    _db.Supplier.Add(supplier);
+                    _db.Suppliers.Add(supplier);
                     await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;
@@ -53,7 +53,7 @@ namespace VehicleTracker.Business
                     supplier.Email1 = vm.Email1;
                     supplier.Email2 = vm.Email2;
 
-                    _db.Supplier.Update(supplier);
+                    _db.Suppliers.Update(supplier);
                     await _db.SaveChangesAsync();
 
                     response.IsSuccess = true;
@@ -77,11 +77,11 @@ namespace VehicleTracker.Business
 
             try
             {
-                var supplier = _db.Supplier.FirstOrDefault(x => x.Id == id);
+                var supplier = _db.Suppliers.FirstOrDefault(x => x.Id == id);
 
                 supplier.IsActive = false;
 
-                _db.Supplier.Update(supplier);
+                _db.Suppliers.Update(supplier);
                 await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
@@ -99,7 +99,7 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<SupplierViewModel> GetAllSuppliers(int pageSize, int currentPage)
         {
-            var query = _db.Supplier.OrderBy(t => t.Name);
+            var query = _db.Suppliers.OrderBy(t => t.Name);
 
 
 
@@ -127,7 +127,7 @@ namespace VehicleTracker.Business
 
         public SupplierViewModel GetSupplierById(long id)
         {
-            var supplier = _db.Supplier.FirstOrDefault(x => x.Id == id);
+            var supplier = _db.Suppliers.FirstOrDefault(x => x.Id == id);
 
             return supplier.ToVm();
         }

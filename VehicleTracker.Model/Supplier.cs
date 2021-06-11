@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Supplier
     {
         public Supplier()
         {
-            Product = new HashSet<Product>();
-            PurchaseOrder = new HashSet<PurchaseOrder>();
+            Products = new HashSet<Product>();
+            PurchaseOrders = new HashSet<PurchaseOrder>();
         }
 
         public int Id { get; set; }
@@ -31,7 +33,7 @@ namespace VehicleTracker.Model
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
-        public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

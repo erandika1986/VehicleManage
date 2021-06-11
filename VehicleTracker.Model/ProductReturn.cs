@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class ProductReturn

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
-    public partial class VehicleExpenses
+    public partial class VehicleExpense
     {
         public long Id { get; set; }
         public int ExpenseType { get; set; }

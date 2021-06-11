@@ -36,13 +36,13 @@ namespace VehicleTracker.Business
       try
       {
         var user = _userService.GetUserByUsername(userName);
-        var model = _db.VehicleInsurance.FirstOrDefault(x => x.Id == vm.Id);
+        var model = _db.VehicleInsurances.FirstOrDefault(x => x.Id == vm.Id);
         if (model == null)
         {
           model = vm.ToModel();
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
-          _db.VehicleInsurance.Add(model);
+          _db.VehicleInsurances.Add(model);
 
           response.Message = "New Record has been added.";
         }
@@ -53,7 +53,7 @@ namespace VehicleTracker.Business
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
 
-          _db.VehicleInsurance.Update(model);
+          _db.VehicleInsurances.Update(model);
 
           response.Message = "Record has been updated.";
         }
@@ -80,11 +80,11 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        var vt = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id);
+        var vt = _db.VehicleInsurances.FirstOrDefault(t => t.Id == id);
         vt.UpdatedBy = user.Id;
         vt.IsActive = false;
         vt.UpdatedOn = DateTime.UtcNow;
-        _db.VehicleInsurance.Update(vt);
+        _db.VehicleInsurances.Update(vt);
         await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
@@ -102,7 +102,7 @@ namespace VehicleTracker.Business
 
     public List<VehicleInsuranceViewModel> GetAllVehicleInsurance(int vehicleId)
     {
-      var query = _db.VehicleInsurance.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.InsuranceDate);
+      var query = _db.VehicleInsurances.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.InsuranceDate);
       var data = new List<VehicleInsuranceViewModel>();
 
       var pageData = query.ToList();
@@ -118,7 +118,7 @@ namespace VehicleTracker.Business
 
     public VehicleInsuranceViewModel GetLatestRecordForVehicle(long vehicleId)
     {
-      var latestRecord = _db.VehicleInsurance.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
+      var latestRecord = _db.VehicleInsurances.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
       if (latestRecord != null)
       {
         return latestRecord.ToVm(config);
@@ -131,7 +131,7 @@ namespace VehicleTracker.Business
 
     public VehicleInsuranceViewModel GetVehicleInsuranceById(long id)
     {
-      var vtvm = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id).ToVm(config);
+      var vtvm = _db.VehicleInsurances.FirstOrDefault(t => t.Id == id).ToVm(config);
 
       return vtvm;
     }
@@ -143,9 +143,9 @@ namespace VehicleTracker.Business
 
       try
       {
-        var user = _db.User.FirstOrDefault(t => t.Username == userName);
+        var user = _db.Users.FirstOrDefault(t => t.Username == userName);
 
-        var insuranceRecord = _db.VehicleInsurance.FirstOrDefault(x => x.Id == container.Id);
+        var insuranceRecord = _db.VehicleInsurances.FirstOrDefault(x => x.Id == container.Id);
 
         var folderPath = insuranceRecord.GetVehicleInsuranceFolderPath(config);
 
@@ -172,7 +172,7 @@ namespace VehicleTracker.Business
 
             insuranceRecord.Attachment = fileName;
 
-            _db.VehicleInsurance.Update(insuranceRecord);
+            _db.VehicleInsurances.Update(insuranceRecord);
 
             await _db.SaveChangesAsync();
 
@@ -197,7 +197,7 @@ namespace VehicleTracker.Business
       var response = new DownloadFileViewModel();
       try
       {
-        var insuranceRecord = _db.VehicleInsurance.FirstOrDefault(t => t.Id == id);
+        var insuranceRecord = _db.VehicleInsurances.FirstOrDefault(t => t.Id == id);
         var imagePath = insuranceRecord.GetVehicleInsuranceImagePath(config);
         byte[] fileContents = null;
         MemoryStream ms = new MemoryStream();

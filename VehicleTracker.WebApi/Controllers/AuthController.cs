@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -70,7 +70,7 @@ namespace VehicleTracker.WebApi.Controllers
                     //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(comapny.SecretKey.ToString()));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                     string userRole = string.Empty;
-                    string roles = string.Join(",",user.UserRole.Select(t=>t.Role.Name).ToList());
+                    string roles = string.Join(",",user.UserRoles.Select(t=>t.Role.Name).ToList());
 
                     var now = DateTime.UtcNow;
                     DateTime nowDate = DateTime.UtcNow;
@@ -100,7 +100,7 @@ namespace VehicleTracker.WebApi.Controllers
                         FirstName = user.FirstName,
                         Email = user.Email,
                         ProfilePic="",
-                        Role = user.UserRole.FirstOrDefault().Role.Name
+                        Role = user.UserRoles.FirstOrDefault().Role.Name
                     });
                 }
                 else

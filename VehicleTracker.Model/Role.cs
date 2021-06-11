@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Role
     {
         public Role()
         {
-            UserRole = new HashSet<UserRole>();
+            UserRoles = new HashSet<UserRole>();
         }
 
         public long Id { get; set; }
         public string Name { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual ICollection<UserRole> UserRole { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

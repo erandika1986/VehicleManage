@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class ProductSubCategory
     {
         public ProductSubCategory()
         {
-            Product = new HashSet<Product>();
+            Products = new HashSet<Product>();
         }
 
         public int Id { get; set; }
@@ -18,6 +20,6 @@ namespace VehicleTracker.Model
         public bool? IsActive { get; set; }
 
         public virtual ProductCategory ProductCategory { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

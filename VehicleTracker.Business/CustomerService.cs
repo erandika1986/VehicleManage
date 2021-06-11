@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +38,7 @@ namespace VehicleTracker.Business
                 model.UpdatedOn = DateTime.UtcNow;
                 model.UpdatedById = user.Id;
 
-                _db.Client.Add(model);
+                _db.Clients.Add(model);
 
                 await _db.SaveChangesAsync();
 
@@ -62,12 +62,12 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                var client = _db.Client.FirstOrDefault(t => t.Id == id);
+                var client = _db.Clients.FirstOrDefault(t => t.Id == id);
                 client.IsActive = false;
                 client.UpdatedOn = DateTime.UtcNow;
                 client.UpdatedById = user.Id;
 
-                _db.Client.Update(client);
+                _db.Clients.Update(client);
 
                 await _db.SaveChangesAsync();
 
@@ -87,7 +87,7 @@ namespace VehicleTracker.Business
 
         public PaginatedItemsViewModel<CustomerViewModel> GetAllCustomers(int pageSize, int currentPage)
         {
-            var query = _db.Client.Where(t => t.IsActive == true).OrderBy(t => t.Name);
+            var query = _db.Clients.Where(t => t.IsActive == true).OrderBy(t => t.Name);
 
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -113,7 +113,7 @@ namespace VehicleTracker.Business
 
         public CustomerViewModel GetCustomerById(long id)
         {
-            var client = _db.Client.FirstOrDefault(t => t.Id == id);
+            var client = _db.Clients.FirstOrDefault(t => t.Id == id);
 
             return client.ToVm();
         }
@@ -125,7 +125,7 @@ namespace VehicleTracker.Business
             {
                 var user = _userService.GetUserByUsername(userName);
 
-                var client = _db.Client.FirstOrDefault(t => t.Id == vm.Id);
+                var client = _db.Clients.FirstOrDefault(t => t.Id == vm.Id);
                 client.Name = vm.Name;
                 client.Description = vm.Description;
                 client.ContactNo1 = vm.ContactNo1;
@@ -139,7 +139,7 @@ namespace VehicleTracker.Business
                 client.UpdatedOn = DateTime.UtcNow;
                 client.UpdatedById = user.Id;
 
-                _db.Client.Update(client);
+                _db.Clients.Update(client);
 
                 await _db.SaveChangesAsync();
 

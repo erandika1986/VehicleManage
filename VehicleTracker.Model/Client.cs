@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Client
     {
         public Client()
         {
-            CustomerProductPrice = new HashSet<CustomerProductPrice>();
-            Order = new HashSet<Order>();
+            CustomerProductPrices = new HashSet<CustomerProductPrice>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }
@@ -31,7 +33,7 @@ namespace VehicleTracker.Model
         public virtual User CreatedBy { get; set; }
         public virtual Route Route { get; set; }
         public virtual User UpdatedBy { get; set; }
-        public virtual ICollection<CustomerProductPrice> CustomerProductPrice { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<CustomerProductPrice> CustomerProductPrices { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

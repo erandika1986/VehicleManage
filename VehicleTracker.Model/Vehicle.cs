@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Vehicle
     {
         public Vehicle()
         {
-            DailyVehicleBeat = new HashSet<DailyVehicleBeat>();
-            VehicleAirCleaner = new HashSet<VehicleAirCleaner>();
-            VehicleDifferentialOilChangeMilage = new HashSet<VehicleDifferentialOilChangeMilage>();
-            VehicleEmissiontTest = new HashSet<VehicleEmissiontTest>();
-            VehicleEngineOilMilage = new HashSet<VehicleEngineOilMilage>();
-            VehicleExpenses = new HashSet<VehicleExpenses>();
-            VehicleFitnessReport = new HashSet<VehicleFitnessReport>();
-            VehicleFuelFilterMilage = new HashSet<VehicleFuelFilterMilage>();
-            VehicleGearBoxOilMilage = new HashSet<VehicleGearBoxOilMilage>();
-            VehicleGreeceNiple = new HashSet<VehicleGreeceNiple>();
-            VehicleInsurance = new HashSet<VehicleInsurance>();
-            VehicleRevenueLicence = new HashSet<VehicleRevenueLicence>();
+            DailyVehicleBeats = new HashSet<DailyVehicleBeat>();
+            VehicleAirCleaners = new HashSet<VehicleAirCleaner>();
+            VehicleDifferentialOilChangeMilages = new HashSet<VehicleDifferentialOilChangeMilage>();
+            VehicleEmissiontTests = new HashSet<VehicleEmissiontTest>();
+            VehicleEngineOilMilages = new HashSet<VehicleEngineOilMilage>();
+            VehicleExpenses = new HashSet<VehicleExpense>();
+            VehicleFitnessReports = new HashSet<VehicleFitnessReport>();
+            VehicleFuelFilterMilages = new HashSet<VehicleFuelFilterMilage>();
+            VehicleGearBoxOilMilages = new HashSet<VehicleGearBoxOilMilage>();
+            VehicleGreeceNiples = new HashSet<VehicleGreeceNiple>();
+            VehicleInsurances = new HashSet<VehicleInsurance>();
+            VehicleRevenueLicences = new HashSet<VehicleRevenueLicence>();
         }
 
         public long Id { get; set; }
@@ -36,17 +38,17 @@ namespace VehicleTracker.Model
         public bool? IsActive { get; set; }
 
         public virtual VehicleType VehicelType { get; set; }
-        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeat { get; set; }
-        public virtual ICollection<VehicleAirCleaner> VehicleAirCleaner { get; set; }
-        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilage { get; set; }
-        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTest { get; set; }
-        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilage { get; set; }
-        public virtual ICollection<VehicleExpenses> VehicleExpenses { get; set; }
-        public virtual ICollection<VehicleFitnessReport> VehicleFitnessReport { get; set; }
-        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilage { get; set; }
-        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilage { get; set; }
-        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNiple { get; set; }
-        public virtual ICollection<VehicleInsurance> VehicleInsurance { get; set; }
-        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicence { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeats { get; set; }
+        public virtual ICollection<VehicleAirCleaner> VehicleAirCleaners { get; set; }
+        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilages { get; set; }
+        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTests { get; set; }
+        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilages { get; set; }
+        public virtual ICollection<VehicleExpense> VehicleExpenses { get; set; }
+        public virtual ICollection<VehicleFitnessReport> VehicleFitnessReports { get; set; }
+        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilages { get; set; }
+        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilages { get; set; }
+        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNiples { get; set; }
+        public virtual ICollection<VehicleInsurance> VehicleInsurances { get; set; }
+        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicences { get; set; }
     }
 }

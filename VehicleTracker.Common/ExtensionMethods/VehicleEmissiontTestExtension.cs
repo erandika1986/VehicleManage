@@ -15,7 +15,7 @@ namespace System
 
             model.Id = vm.Id;
             model.VehicleId = vm.VehicleId;
-            model.NextEmissiontTestDate = vm.NextEmissiontTestDate;
+            model.ValidTill = vm.NextEmissiontTestDate;
             model.EmissiontTestDate = vm.EmissiontTestDate;
             model.CreatedOn = DateTime.UtcNow;
             model.UpdatedOn = DateTime.UtcNow;
@@ -31,10 +31,10 @@ namespace System
 
             vm.Id = model.Id;
             vm.VehicleId = model.VehicleId;
-            vm.NextEmissiontTestDate = model.NextEmissiontTestDate;
+            vm.NextEmissiontTestDate = model.ValidTill;
             vm.EmissiontTestDate = model.EmissiontTestDate;
-            vm.CreatedOn = model.CreatedOn;
-            vm.UpdatedOn = model.UpdatedOn;
+            vm.CreatedOn = model.CreatedOn.ToString("MMMM dd, yyyy");
+            vm.UpdatedOn = model.UpdatedOn.ToString("MMMM dd, yyyy");
             vm.IsActive = model.IsActive;
 
             return vm;

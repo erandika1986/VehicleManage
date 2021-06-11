@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Wharehouse
     {
         public Wharehouse()
         {
-            PurchaseOrder = new HashSet<PurchaseOrder>();
+            PurchaseOrders = new HashSet<PurchaseOrder>();
         }
 
         public int Id { get; set; }
@@ -24,6 +26,6 @@ namespace VehicleTracker.Model
         public virtual User CreatedBy { get; set; }
         public virtual User Manager { get; set; }
         public virtual User UpdatedBy { get; set; }
-        public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

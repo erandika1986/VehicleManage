@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
-    public partial class OrderItems
+    public partial class OrderItem
     {
         public long Id { get; set; }
         public long OrderId { get; set; }

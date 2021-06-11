@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -9,10 +9,10 @@ namespace System
 {
     public static class VehicleExpenseExtension
     {
-        public static VehicleExpenses ToModel(this VehicleExpenseViewModel vm, VehicleExpenses model = null)
+        public static VehicleExpense ToModel(this VehicleExpenseViewModel vm, VehicleExpense model = null)
         {
             if (model == null)
-                model = new VehicleExpenses();
+                model = new VehicleExpense();
 
             model.Id = vm.Id;
             model.ExpenseType = (int)vm.ExpenseType;
@@ -28,7 +28,7 @@ namespace System
             return model;
         }
 
-        public static VehicleExpenseViewModel ToVm(this VehicleExpenses model, VehicleExpenseViewModel vm = null)
+        public static VehicleExpenseViewModel ToVm(this VehicleExpense model, VehicleExpenseViewModel vm = null)
         {
             if (vm == null)
                 vm = new VehicleExpenseViewModel();

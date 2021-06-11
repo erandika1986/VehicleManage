@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +16,12 @@ namespace VehicleTracker.Data
         void RolebackTransaction();
 
 
-        IRepository<BreakOilCodes> BreakOilCodes { get;  }
-        IRepository<DifferentialOilCodes> DifferentialOilCodes { get; }
-        IRepository<EgineCoolants> EgineCoolants { get;  }
-        IRepository<EngineOilCodes> EngineOilCodes { get;  }
-        IRepository<GearBoxOilCodes> GearBoxOilCodes { get;  }
-        IRepository<PowerSteeringOilCodes> PowerSteeringOilCodes { get; }
+        IRepository<BreakOilCode> BreakOilCodes { get;  }
+        IRepository<DifferentialOilCode> DifferentialOilCodes { get; }
+        IRepository<EgineCoolant> EgineCoolants { get;  }
+        IRepository<EngineOilCode> EngineOilCodes { get;  }
+        IRepository<GearBoxOilCode> GearBoxOilCodes { get;  }
+        IRepository<PowerSteeringOilCode> PowerSteeringOilCodes { get; }
         IRepository<DailyVehicleBeat> DailyVehicleBeat { get;  }
         IRepository<Role> Role { get;  }
         IRepository<Route> Route { get;  }
@@ -39,6 +39,6 @@ namespace VehicleTracker.Data
         IRepository<VehicleInsurance> VehicleInsurance { get;  }
         IRepository<VehicleRevenueLicence> VehicleRevenueLicence { get;  }
         IRepository<VehicleType> VehicleType { get;  }
-        IRepository<VehicleExpenses> VehicleExpense { get; }
+        IRepository<VehicleExpense> VehicleExpense { get; }
     }
 }

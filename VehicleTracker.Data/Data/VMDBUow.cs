@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,12 +27,12 @@ namespace VehicleTracker.Data
 
         #endregion
 
-        public IRepository<BreakOilCodes> BreakOilCodes { get { return GetRepositoryByModel<BreakOilCodes>(); } }
-        public IRepository<DifferentialOilCodes> DifferentialOilCodes { get { return GetRepositoryByModel<DifferentialOilCodes>(); } }
-        public IRepository<EgineCoolants> EgineCoolants { get { return GetRepositoryByModel<EgineCoolants>(); } }
-        public IRepository<EngineOilCodes> EngineOilCodes { get { return GetRepositoryByModel<EngineOilCodes>(); } }
-        public IRepository<GearBoxOilCodes> GearBoxOilCodes { get { return GetRepositoryByModel<GearBoxOilCodes>(); } }
-        public IRepository<PowerSteeringOilCodes> PowerSteeringOilCodes { get { return GetRepositoryByModel<PowerSteeringOilCodes>(); } }
+        public IRepository<BreakOilCode> BreakOilCodes { get { return GetRepositoryByModel<BreakOilCode>(); } }
+        public IRepository<DifferentialOilCode> DifferentialOilCodes { get { return GetRepositoryByModel<DifferentialOilCode>(); } }
+        public IRepository<EgineCoolant> EgineCoolants { get { return GetRepositoryByModel<EgineCoolant>(); } }
+        public IRepository<EngineOilCode> EngineOilCodes { get { return GetRepositoryByModel<EngineOilCode>(); } }
+        public IRepository<GearBoxOilCode> GearBoxOilCodes { get { return GetRepositoryByModel<GearBoxOilCode>(); } }
+        public IRepository<PowerSteeringOilCode> PowerSteeringOilCodes { get { return GetRepositoryByModel<PowerSteeringOilCode>(); } }
         public IRepository<DailyVehicleBeat> DailyVehicleBeat { get { return GetRepositoryByModel<DailyVehicleBeat>(); } }
         public IRepository<Role> Role { get { return GetRepositoryByModel<Role>(); } }
         public IRepository<Route> Route { get { return GetRepositoryByModel<Route>(); } }
@@ -50,7 +50,7 @@ namespace VehicleTracker.Data
         public IRepository<VehicleInsurance> VehicleInsurance { get { return GetRepositoryByModel<VehicleInsurance>(); } }
         public IRepository<VehicleRevenueLicence> VehicleRevenueLicence { get { return GetRepositoryByModel<VehicleRevenueLicence>(); } }
         public IRepository<VehicleType> VehicleType { get { return GetRepositoryByModel<VehicleType>(); } }
-        public IRepository<VehicleExpenses> VehicleExpense { get { return GetRepositoryByModel<VehicleExpenses>(); } }
+        public IRepository<VehicleExpense> VehicleExpense { get { return GetRepositoryByModel<VehicleExpense>(); } }
 
 
 

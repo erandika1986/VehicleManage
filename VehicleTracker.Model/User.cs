@@ -1,50 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class User
     {
         public User()
         {
-            ClientCreatedBy = new HashSet<Client>();
-            ClientUpdatedBy = new HashSet<Client>();
-            CustomerProductPriceCreatedBy = new HashSet<CustomerProductPrice>();
-            CustomerProductPriceUpdatedBy = new HashSet<CustomerProductPrice>();
-            DailyVehicleBeatCreatedByNavigation = new HashSet<DailyVehicleBeat>();
-            DailyVehicleBeatUpdatedByNavigation = new HashSet<DailyVehicleBeat>();
-            OrderCreatedBy = new HashSet<Order>();
-            OrderUpdatedBy = new HashSet<Order>();
-            ProductCreatedBy = new HashSet<Product>();
-            ProductInventoryCreatedBy = new HashSet<ProductInventory>();
-            ProductInventoryUdatedBy = new HashSet<ProductInventory>();
-            ProductUpdatedBy = new HashSet<Product>();
-            PurchaseOrderCreatedBy = new HashSet<PurchaseOrder>();
-            PurchaseOrderUpdatedBy = new HashSet<PurchaseOrder>();
-            SupplierCreatedBy = new HashSet<Supplier>();
-            SupplierUpdatedBy = new HashSet<Supplier>();
-            UserRole = new HashSet<UserRole>();
-            VehicleAirCleanerCreatedByNavigation = new HashSet<VehicleAirCleaner>();
-            VehicleAirCleanerUpdatedByNavigation = new HashSet<VehicleAirCleaner>();
-            VehicleDifferentialOilChangeMilage = new HashSet<VehicleDifferentialOilChangeMilage>();
-            VehicleEmissiontTest = new HashSet<VehicleEmissiontTest>();
-            VehicleEngineOilMilageCreatedByNavigation = new HashSet<VehicleEngineOilMilage>();
-            VehicleEngineOilMilageUpdatedByNavigation = new HashSet<VehicleEngineOilMilage>();
-            VehicleExpensesCreatedByNavigation = new HashSet<VehicleExpenses>();
-            VehicleExpensesUpdatedByNavigation = new HashSet<VehicleExpenses>();
-            VehicleFuelFilterMilageCreatedByNavigation = new HashSet<VehicleFuelFilterMilage>();
-            VehicleFuelFilterMilageUpdatedByNavigation = new HashSet<VehicleFuelFilterMilage>();
-            VehicleGearBoxOilMilageCreatedByNavigation = new HashSet<VehicleGearBoxOilMilage>();
-            VehicleGearBoxOilMilageUpdatedByNavigation = new HashSet<VehicleGearBoxOilMilage>();
-            VehicleGreeceNipleCreatedByNavigation = new HashSet<VehicleGreeceNiple>();
-            VehicleGreeceNipleUpdatedByNavigation = new HashSet<VehicleGreeceNiple>();
-            VehicleInsuranceCreatedByNavigation = new HashSet<VehicleInsurance>();
-            VehicleInsuranceUpdatedByNavigation = new HashSet<VehicleInsurance>();
-            VehicleRevenueLicenceCreatedByNavigation = new HashSet<VehicleRevenueLicence>();
-            VehicleRevenueLicenceUpdatedByNavigation = new HashSet<VehicleRevenueLicence>();
-            WharehouseCreatedBy = new HashSet<Wharehouse>();
-            WharehouseManager = new HashSet<Wharehouse>();
-            WharehouseUpdatedBy = new HashSet<Wharehouse>();
+            ClientCreatedBies = new HashSet<Client>();
+            ClientUpdatedBies = new HashSet<Client>();
+            CustomerProductPriceCreatedBies = new HashSet<CustomerProductPrice>();
+            CustomerProductPriceUpdatedBies = new HashSet<CustomerProductPrice>();
+            DailyVehicleBeatCreatedByNavigations = new HashSet<DailyVehicleBeat>();
+            DailyVehicleBeatUpdatedByNavigations = new HashSet<DailyVehicleBeat>();
+            OrderCreatedBies = new HashSet<Order>();
+            OrderUpdatedBies = new HashSet<Order>();
+            ProductCreatedBies = new HashSet<Product>();
+            ProductInventoryCreatedBies = new HashSet<ProductInventory>();
+            ProductInventoryUdatedBies = new HashSet<ProductInventory>();
+            ProductUpdatedBies = new HashSet<Product>();
+            PurchaseOrderCreatedBies = new HashSet<PurchaseOrder>();
+            PurchaseOrderUpdatedBies = new HashSet<PurchaseOrder>();
+            SupplierCreatedBies = new HashSet<Supplier>();
+            SupplierUpdatedBies = new HashSet<Supplier>();
+            UserRoles = new HashSet<UserRole>();
+            VehicleAirCleanerCreatedByNavigations = new HashSet<VehicleAirCleaner>();
+            VehicleAirCleanerUpdatedByNavigations = new HashSet<VehicleAirCleaner>();
+            VehicleDifferentialOilChangeMilages = new HashSet<VehicleDifferentialOilChangeMilage>();
+            VehicleEmissiontTests = new HashSet<VehicleEmissiontTest>();
+            VehicleEngineOilMilageCreatedByNavigations = new HashSet<VehicleEngineOilMilage>();
+            VehicleEngineOilMilageUpdatedByNavigations = new HashSet<VehicleEngineOilMilage>();
+            VehicleExpenseCreatedByNavigations = new HashSet<VehicleExpense>();
+            VehicleExpenseUpdatedByNavigations = new HashSet<VehicleExpense>();
+            VehicleFuelFilterMilageCreatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
+            VehicleFuelFilterMilageUpdatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
+            VehicleGearBoxOilMilageCreatedByNavigations = new HashSet<VehicleGearBoxOilMilage>();
+            VehicleGearBoxOilMilageUpdatedByNavigations = new HashSet<VehicleGearBoxOilMilage>();
+            VehicleGreeceNipleCreatedByNavigations = new HashSet<VehicleGreeceNiple>();
+            VehicleGreeceNipleUpdatedByNavigations = new HashSet<VehicleGreeceNiple>();
+            VehicleInsuranceCreatedByNavigations = new HashSet<VehicleInsurance>();
+            VehicleInsuranceUpdatedByNavigations = new HashSet<VehicleInsurance>();
+            VehicleRevenueLicenceCreatedByNavigations = new HashSet<VehicleRevenueLicence>();
+            VehicleRevenueLicenceUpdatedByNavigations = new HashSet<VehicleRevenueLicence>();
+            WharehouseCreatedBies = new HashSet<Wharehouse>();
+            WharehouseManagers = new HashSet<Wharehouse>();
+            WharehouseUpdatedBies = new HashSet<Wharehouse>();
         }
 
         public long Id { get; set; }
@@ -57,43 +59,43 @@ namespace VehicleTracker.Model
         public string TimeZone { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual ICollection<Client> ClientCreatedBy { get; set; }
-        public virtual ICollection<Client> ClientUpdatedBy { get; set; }
-        public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBy { get; set; }
-        public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBy { get; set; }
-        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigation { get; set; }
-        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigation { get; set; }
-        public virtual ICollection<Order> OrderCreatedBy { get; set; }
-        public virtual ICollection<Order> OrderUpdatedBy { get; set; }
-        public virtual ICollection<Product> ProductCreatedBy { get; set; }
-        public virtual ICollection<ProductInventory> ProductInventoryCreatedBy { get; set; }
-        public virtual ICollection<ProductInventory> ProductInventoryUdatedBy { get; set; }
-        public virtual ICollection<Product> ProductUpdatedBy { get; set; }
-        public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBy { get; set; }
-        public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBy { get; set; }
-        public virtual ICollection<Supplier> SupplierCreatedBy { get; set; }
-        public virtual ICollection<Supplier> SupplierUpdatedBy { get; set; }
-        public virtual ICollection<UserRole> UserRole { get; set; }
-        public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilage { get; set; }
-        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTest { get; set; }
-        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleExpenses> VehicleExpensesCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleExpenses> VehicleExpensesUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilageCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilageUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNipleCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNipleUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleInsurance> VehicleInsuranceCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleInsurance> VehicleInsuranceUpdatedByNavigation { get; set; }
-        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceCreatedByNavigation { get; set; }
-        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceUpdatedByNavigation { get; set; }
-        public virtual ICollection<Wharehouse> WharehouseCreatedBy { get; set; }
-        public virtual ICollection<Wharehouse> WharehouseManager { get; set; }
-        public virtual ICollection<Wharehouse> WharehouseUpdatedBy { get; set; }
+        public virtual ICollection<Client> ClientCreatedBies { get; set; }
+        public virtual ICollection<Client> ClientUpdatedBies { get; set; }
+        public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBies { get; set; }
+        public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBies { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigations { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigations { get; set; }
+        public virtual ICollection<Order> OrderCreatedBies { get; set; }
+        public virtual ICollection<Order> OrderUpdatedBies { get; set; }
+        public virtual ICollection<Product> ProductCreatedBies { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventoryUdatedBies { get; set; }
+        public virtual ICollection<Product> ProductUpdatedBies { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBies { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBies { get; set; }
+        public virtual ICollection<Supplier> SupplierCreatedBies { get; set; }
+        public virtual ICollection<Supplier> SupplierUpdatedBies { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilages { get; set; }
+        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTests { get; set; }
+        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleExpense> VehicleExpenseCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleExpense> VehicleExpenseUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilageCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilageUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNipleCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleGreeceNiple> VehicleGreeceNipleUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleInsurance> VehicleInsuranceCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleInsurance> VehicleInsuranceUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleRevenueLicence> VehicleRevenueLicenceUpdatedByNavigations { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseCreatedBies { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseManagers { get; set; }
+        public virtual ICollection<Wharehouse> WharehouseUpdatedBies { get; set; }
     }
 }

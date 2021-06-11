@@ -38,7 +38,7 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        var model = _db.VehicleRevenueLicence.FirstOrDefault(x => x.Id == vm.Id);
+        var model = _db.VehicleRevenueLicences.FirstOrDefault(x => x.Id == vm.Id);
 
         if (model == null)
         {
@@ -46,7 +46,7 @@ namespace VehicleTracker.Business
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
 
-          _db.VehicleRevenueLicence.Add(model);
+          _db.VehicleRevenueLicences.Add(model);
           await _db.SaveChangesAsync();
 
           response.Message = "New record has been added.";
@@ -58,7 +58,7 @@ namespace VehicleTracker.Business
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
 
-          _db.VehicleRevenueLicence.Update(model);
+          _db.VehicleRevenueLicences.Update(model);
           response.Message = "Record has been updated.";
         }
 
@@ -82,11 +82,11 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        var vt = _db.VehicleRevenueLicence.FirstOrDefault(t => t.Id == id);
+        var vt = _db.VehicleRevenueLicences.FirstOrDefault(t => t.Id == id);
         vt.UpdatedBy = user.Id;
         vt.IsActive = false;
         vt.UpdatedOn = DateTime.UtcNow;
-        _db.VehicleRevenueLicence.Update(vt);
+        _db.VehicleRevenueLicences.Update(vt);
         await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
@@ -104,7 +104,7 @@ namespace VehicleTracker.Business
 
     public List<VehicleRevenueLicenceViewModel> GetAllVehicleRevenueLicence(int vehicleId)
     {
-      var query = _db.VehicleRevenueLicence.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.RevenueLicenceDate);
+      var query = _db.VehicleRevenueLicences.Where(t => t.VehicleId == vehicleId && t.IsActive == true).OrderByDescending(t => t.RevenueLicenceDate);
 
       var data = new List<VehicleRevenueLicenceViewModel>();
 
@@ -121,7 +121,7 @@ namespace VehicleTracker.Business
 
     public VehicleRevenueLicenceViewModel GetLatestRecordForVehicle(long vehicleId)
     {
-      var latestRecord = _db.VehicleRevenueLicence.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
+      var latestRecord = _db.VehicleRevenueLicences.Where(t => t.VehicleId == vehicleId).OrderByDescending(t => t.Id).FirstOrDefault();
       if (latestRecord != null)
       {
         return latestRecord.ToVm(config);
@@ -134,7 +134,7 @@ namespace VehicleTracker.Business
 
     public VehicleRevenueLicenceViewModel GetVehicleRevenueLicenceById(long id)
     {
-      var vtvm = _db.VehicleRevenueLicence.FirstOrDefault(t => t.Id == id).ToVm(config);
+      var vtvm = _db.VehicleRevenueLicences.FirstOrDefault(t => t.Id == id).ToVm(config);
 
       return vtvm;
     }
@@ -146,9 +146,9 @@ namespace VehicleTracker.Business
 
       try
       {
-        var user = _db.User.FirstOrDefault(t => t.Username == userName);
+        var user = _db.Users.FirstOrDefault(t => t.Username == userName);
 
-        var licenceRecord = _db.VehicleRevenueLicence.FirstOrDefault(x => x.Id == container.Id);
+        var licenceRecord = _db.VehicleRevenueLicences.FirstOrDefault(x => x.Id == container.Id);
 
         var folderPath = licenceRecord.GetVehicleRevenueLicenceFolderPath(config);
 
@@ -175,7 +175,7 @@ namespace VehicleTracker.Business
 
             licenceRecord.Attachment = fileName;
 
-            _db.VehicleRevenueLicence.Update(licenceRecord);
+            _db.VehicleRevenueLicences.Update(licenceRecord);
 
             await _db.SaveChangesAsync();
 
@@ -200,7 +200,7 @@ namespace VehicleTracker.Business
       var response = new DownloadFileViewModel();
       try
       {
-        var licenseRecord = _db.VehicleRevenueLicence.FirstOrDefault(t => t.Id == id);
+        var licenseRecord = _db.VehicleRevenueLicences.FirstOrDefault(t => t.Id == id);
         var imagePath = licenseRecord.GetVehicleRevenueLicenceImagePath(config);
         byte[] fileContents = null;
         MemoryStream ms = new MemoryStream();

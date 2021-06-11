@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace VehicleTracker.Model
 {
     public partial class Route
     {
         public Route()
         {
-            Client = new HashSet<Client>();
-            DailyVehicleBeat = new HashSet<DailyVehicleBeat>();
+            Clients = new HashSet<Client>();
+            DailyVehicleBeats = new HashSet<DailyVehicleBeat>();
         }
 
         public long Id { get; set; }
@@ -18,7 +20,7 @@ namespace VehicleTracker.Model
         public decimal? TotalDistance { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual ICollection<Client> Client { get; set; }
-        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeat { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeats { get; set; }
     }
 }
