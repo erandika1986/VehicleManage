@@ -1,69 +1,114 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.ViewModel.Common;
 using VehicleTracker.ViewModel.Vehicle;
 using VehicleTracker.WebApi.Helpers;
+using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class VehicleEmissionTestController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  [Authorize]
+  public class VehicleEmissionTestController : ControllerBase
+  {
+    private readonly IVehicleEmissionTestService _vehicleEmissionTestService;
+    private readonly IIdentityService identityService;
+
+    public VehicleEmissionTestController(IVehicleEmissionTestService vehicleEmissionTestService, IIdentityService identityService)
     {
-        private readonly IVehicleEmissionTestService _vehicleEmissionTestService;
-
-        public VehicleEmissionTestController(IVehicleEmissionTestService vehicleEmissionTestService)
-        {
-            this._vehicleEmissionTestService = vehicleEmissionTestService;
-        }
-
-        // GET api/VehicleEmissionTest/15/2
-        [HttpGet("{vehicleId:int}/{pageSize:int}/{currentPage:int}")]
-        public ActionResult Get(int vehicleId, int pageSize, int currentPage)
-        {
-            var response = _vehicleEmissionTestService.GetAllVehicleEmissionTest(vehicleId, pageSize, currentPage);
-            return Ok(response);
-        }
-
-        // GET api/VehicleEmissionTest/5
-        [HttpGet("{id}")]
-        public ActionResult Get(long id)
-        {
-            var response = _vehicleEmissionTestService.GetVehicleEmissionTestById(id);
-            return Ok(response);
-        }
-
-        // POST api/VehicleEmissionTest
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] VehicleEmissionTestViewModel vm)
-        {
-            var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleEmissionTestService.AddNewVehicleEmissionTest(vm, userName);
-            return Ok(response);
-        }
-
-
-
-        // DELETE api/VehicleEmissionTest/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var userName = IdentityHelper.GetUsername();
-            var response = await _vehicleEmissionTestService.DeleteVehicleEmissionTest(id, userName);
-            return Ok(response);
-        }
-
-
-        [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
-        public ActionResult GetLatestRecordForVehicle(long vehicleId)
-        {
-            var response = _vehicleEmissionTestService.GetLatestRecordForVehicle(vehicleId);
-            return Ok(response);
-        }
+      this._vehicleEmissionTestService = vehicleEmissionTestService;
+      this.identityService = identityService;
     }
+
+    // GET api/VehicleEmissionTest/15/2
+    [HttpGet("{vehicleId:int}")]
+    public ActionResult Get(int vehicleId)
+    {
+      var response = _vehicleEmissionTestService.GetAllVehicleEmissionTest(vehicleId);
+      return Ok(response);
+    }
+
+    // GET api/VehicleEmissionTest/5
+    [HttpGet]
+    [Route("getVehicleEmissionTestById/{id}")]
+    public ActionResult GetVehicleEmissionTestById(long id)
+    {
+      var response = _vehicleEmissionTestService.GetVehicleEmissionTestById(id);
+      return Ok(response);
+    }
+
+    // POST api/VehicleEmissionTest
+    [HttpPost]
+    [Route("saveVehicleEmissionTest")]
+    public async Task<ActionResult> SaveVehicleEmissionTest([FromBody] VehicleEmissionTestViewModel vm)
+    {
+      var userName = IdentityHelper.GetUsername();
+      var response = await _vehicleEmissionTestService.SaveVehicleEmissionTest(vm, userName);
+      return Ok(response);
+    }
+
+
+
+    // DELETE api/VehicleEmissionTest/5
+    [HttpDelete("{id}")]
+    [Route("deleteVehicleEmissionTest/{id}")]
+    public async Task<ActionResult> DeleteVehicleEmissionTest(int id)
+    {
+      var userName = IdentityHelper.GetUsername();
+      var response = await _vehicleEmissionTestService.DeleteVehicleEmissionTest(id, userName);
+      return Ok(response);
+    }
+
+
+    [HttpGet]
+    [Route("GetLatestRecordForVehicle/{vehicleId}")]
+    public ActionResult GetLatestRecordForVehicle(long vehicleId)
+    {
+      var response = _vehicleEmissionTestService.GetLatestRecordForVehicle(vehicleId);
+      return Ok(response);
+    }
+
+    [HttpPost]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("uploadEmissionTestImage")]
+    public async Task<IActionResult> UploadEmissionTestImage()
+    {
+      var userName = identityService.GetUserName();
+
+      var container = new FileContainerModel();
+
+      var request = await Request.ReadFormAsync();
+
+      container.Id = int.Parse(request["id"]);
+
+      foreach (var file in request.Files)
+      {
+        container.Files.Add(file);
+      }
+
+      var response = await _vehicleEmissionTestService.UploadEmissionTestImage(container, userName);
+
+      return Ok(response);
+    }
+
+
+    [HttpGet]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("downloadEmissionTestImage/{id:int}")]
+    [ProducesResponseType(typeof(DownloadFileViewModel), (int)HttpStatusCode.OK)]
+    public FileStreamResult DownloadEmissionTestImage(int id)
+    {
+      var response = _vehicleEmissionTestService.DownloadEmissionTestImage(id);
+
+      return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
+    }
+  }
 }

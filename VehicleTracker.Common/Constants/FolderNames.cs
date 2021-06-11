@@ -9,5 +9,7 @@ namespace VehicleTracker.Common
     public const string INSURANCE = "INSURANCE";
     public const string VEHICLE = "VEHICLE";
     public const string VEHICLE_REVENUE = "VEHICLEREVENUE";
+    public const string EMISSION_TEST = "EMISSION-TEST";
+    public const string FITNESS_REPORT = "FITNESS-REPORT";
   }
 }

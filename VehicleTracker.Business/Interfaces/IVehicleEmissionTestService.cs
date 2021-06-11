@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +9,13 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IVehicleEmissionTestService
     {
-        Task<VehicleResponseViewModel> AddNewVehicleEmissionTest(VehicleEmissionTestViewModel vm, string userName);
+        Task<VehicleResponseViewModel> SaveVehicleEmissionTest(VehicleEmissionTestViewModel vm, string userName);
         //Task<VehicleResponseViewModel> UpdateVehicleEmissionTest(VehicleEmissionTestViewModel vm, string userName);
         Task<VehicleResponseViewModel> DeleteVehicleEmissionTest(long id, string userName);
-        PaginatedItemsViewModel<VehicleEmissionTestViewModel> GetAllVehicleEmissionTest(int vehicleId, int pageSize, int currentPage);
+        List<VehicleEmissionTestViewModel> GetAllVehicleEmissionTest(int vehicleId);
         VehicleEmissionTestViewModel GetVehicleEmissionTestById(long id);
         VehicleEmissionTestViewModel GetLatestRecordForVehicle(long vehicleId);
-    }
+        Task<ResponseViewModel> UploadEmissionTestImage(FileContainerModel container, string userName);
+        DownloadFileViewModel DownloadEmissionTestImage(int id);
+  }
 }
