@@ -50,7 +50,7 @@ namespace VehicleTracker.WebApi.Controllers
     [Route("saveVehicleEmissionTest")]
     public async Task<ActionResult> SaveVehicleEmissionTest([FromBody] VehicleEmissionTestViewModel vm)
     {
-      var userName = IdentityHelper.GetUsername();
+      var userName = identityService.GetUserName();
       var response = await _vehicleEmissionTestService.SaveVehicleEmissionTest(vm, userName);
       return Ok(response);
     }
@@ -62,7 +62,7 @@ namespace VehicleTracker.WebApi.Controllers
     [Route("deleteVehicleEmissionTest/{id}")]
     public async Task<ActionResult> DeleteVehicleEmissionTest(int id)
     {
-      var userName = IdentityHelper.GetUsername();
+      var userName = identityService.GetUserName();
       var response = await _vehicleEmissionTestService.DeleteVehicleEmissionTest(id, userName);
       return Ok(response);
     }

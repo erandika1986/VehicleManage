@@ -1,0 +1,250 @@
+2021-06-12 01:02:59.639 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-12 01:03:03.048 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-12 01:03:03.056 +05:30 [DBG] Hosting starting
+2021-06-12 01:03:03.476 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-12 01:03:03.479 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-12 01:03:03.507 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-12 01:03:03.508 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-12 01:03:03.509 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-12 01:03:03.509 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-12 01:03:03.509 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-12 01:03:03.510 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-12 01:03:03.510 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-12 01:03:03.510 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-12 01:03:03.511 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-12 01:03:03.511 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-12 01:03:03.511 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-12 01:03:03.518 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-12 01:03:03.526 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-12 01:03:03.527 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-12 01:03:03.527 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-12 01:03:03.528 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-12 01:03:03.528 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-12 01:03:03.528 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-12 01:03:03.528 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-12 01:03:03.528 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-12 01:03:03.529 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-12 01:03:03.529 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-12 01:03:03.529 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-12 01:03:03.538 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-12 01:03:03.552 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:03:03.554 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-12 01:03:03.556 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:03:03.561 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-12 01:03:03.565 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-12 01:03:03.569 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-12 01:03:03.570 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-12 01:03:03.574 +05:30 [DBG] Hosting started
+2021-06-12 01:03:03.575 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-12 01:03:03.649 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-12 01:03:03.651 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-12 01:03:04.328 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 678.3858ms
+2021-06-12 01:03:04.902 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-12 01:03:05.136 +05:30 [ERR] Connection ID "17942340917054668924", Request ID "8000007e-0000-f900-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - VehicleTracker.WebApi.Controllers.VehicleEmissionTestController.DeleteVehicleEmissionTest (VehicleTracker.WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2021-06-12 01:03:05.401 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 500 - - 499.0815ms
+2021-06-12 01:03:34.721 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-12 01:03:37.201 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-12 01:03:37.213 +05:30 [DBG] Hosting starting
+2021-06-12 01:03:37.673 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-12 01:03:37.677 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-12 01:03:37.706 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-12 01:03:37.706 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-12 01:03:37.707 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-12 01:03:37.707 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-12 01:03:37.707 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-12 01:03:37.708 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-12 01:03:37.708 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-12 01:03:37.708 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-12 01:03:37.709 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-12 01:03:37.709 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-12 01:03:37.709 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-12 01:03:37.718 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-12 01:03:37.730 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-12 01:03:37.731 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-12 01:03:37.731 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-12 01:03:37.732 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-12 01:03:37.733 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-12 01:03:37.734 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-12 01:03:37.751 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-12 01:03:37.770 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:03:37.775 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-12 01:03:37.777 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:03:37.782 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-12 01:03:37.786 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-12 01:03:37.792 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-12 01:03:37.793 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-12 01:03:37.800 +05:30 [DBG] Hosting started
+2021-06-12 01:03:37.800 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-12 01:03:37.890 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-12 01:03:37.894 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-12 01:03:38.151 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 265.2653ms
+2021-06-12 01:03:38.527 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-12 01:03:38.681 +05:30 [ERR] Connection ID "17942340917054668927", Request ID "80000081-0000-f900-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - VehicleTracker.WebApi.Controllers.VehicleEmissionTestController.DeleteVehicleEmissionTest (VehicleTracker.WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2021-06-12 01:03:38.753 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 500 - - 225.4780ms
+2021-06-12 01:05:53.669 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-12 01:05:55.645 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-12 01:05:55.657 +05:30 [DBG] Hosting starting
+2021-06-12 01:05:56.817 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-12 01:05:56.823 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-12 01:05:56.851 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-12 01:05:56.852 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-12 01:05:56.852 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-12 01:05:56.853 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-12 01:05:56.853 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-12 01:05:56.853 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-12 01:05:56.853 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-12 01:05:56.854 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-12 01:05:56.854 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-12 01:05:56.854 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-12 01:05:56.854 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-12 01:05:56.863 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-12 01:05:56.875 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-12 01:05:56.875 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-12 01:05:56.875 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-12 01:05:56.877 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-12 01:05:56.877 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-12 01:05:56.878 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-12 01:05:56.878 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-12 01:05:56.879 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-12 01:05:56.879 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-12 01:05:56.879 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-12 01:05:56.879 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-12 01:05:56.897 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-12 01:05:56.919 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:05:56.923 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-12 01:05:56.925 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:05:56.932 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-12 01:05:56.937 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-12 01:05:56.942 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-12 01:05:56.943 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-12 01:05:56.952 +05:30 [DBG] Hosting started
+2021-06-12 01:05:56.952 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-12 01:05:57.043 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-12 01:05:57.048 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-12 01:05:57.299 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 259.1168ms
+2021-06-12 01:05:57.715 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-12 01:05:57.883 +05:30 [ERR] Connection ID "17509995357122068551", Request ID "80000049-0001-f300-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - VehicleTracker.WebApi.Controllers.VehicleEmissionTestController.DeleteVehicleEmissionTest (VehicleTracker.WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2021-06-12 01:05:57.951 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 500 - - 236.0183ms
+2021-06-12 01:08:03.865 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-12 01:08:07.467 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-12 01:08:07.480 +05:30 [DBG] Hosting starting
+2021-06-12 01:08:07.861 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-12 01:08:07.864 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-12 01:08:07.890 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-12 01:08:07.890 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-12 01:08:07.891 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-12 01:08:07.891 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-12 01:08:07.891 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-12 01:08:07.892 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-12 01:08:07.892 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-12 01:08:07.892 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-12 01:08:07.893 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-12 01:08:07.893 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-12 01:08:07.893 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-12 01:08:07.900 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-12 01:08:07.914 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-12 01:08:07.915 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-12 01:08:07.915 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-12 01:08:07.916 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-12 01:08:07.917 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-12 01:08:07.917 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-12 01:08:07.917 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-12 01:08:07.917 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-12 01:08:07.918 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-12 01:08:07.918 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-12 01:08:07.918 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-12 01:08:07.934 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-12 01:08:07.959 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:08:07.962 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-12 01:08:07.964 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 01:08:07.969 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-12 01:08:07.975 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-12 01:08:07.978 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-12 01:08:07.980 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-12 01:08:07.985 +05:30 [DBG] Hosting started
+2021-06-12 01:08:07.985 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-12 01:08:08.052 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-12 01:08:08.056 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-12 01:08:08.241 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 191.6343ms
+2021-06-12 01:08:08.594 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-12 01:08:08.720 +05:30 [ERR] Connection ID "16285016262772260865", Request ID "80000003-0002-e200-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - VehicleTracker.WebApi.Controllers.VehicleEmissionTestController.DeleteVehicleEmissionTest (VehicleTracker.WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2021-06-12 01:08:08.777 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 500 - - 183.0605ms
+2021-06-12 08:30:12.117 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-12 08:30:35.021 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-12 08:30:35.030 +05:30 [DBG] Hosting starting
+2021-06-12 08:30:41.767 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-12 08:30:41.771 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-12 08:30:43.764 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-12 08:30:43.803 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-12 08:30:43.838 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-12 08:30:43.876 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-12 08:30:43.919 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-12 08:30:43.948 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-12 08:30:43.962 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-12 08:30:44.021 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-12 08:30:44.196 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-12 08:30:44.232 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-12 08:30:44.318 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-12 08:30:44.724 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-12 08:30:45.284 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-12 08:30:45.285 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-12 08:30:45.285 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-12 08:30:45.286 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-12 08:30:45.286 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-12 08:30:45.286 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-12 08:30:45.287 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-12 08:30:45.287 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-12 08:30:45.287 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-12 08:30:45.287 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-12 08:30:45.287 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-12 08:30:45.299 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-12 08:30:45.341 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 08:30:45.344 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-12 08:30:45.346 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-12 08:30:45.350 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-12 08:30:45.354 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-12 08:30:45.358 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-12 08:30:45.360 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-12 08:30:45.365 +05:30 [DBG] Hosting started
+2021-06-12 08:30:45.365 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-12 08:30:46.365 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-12 08:30:46.514 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-12 08:30:47.455 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 1090.4190ms
+2021-06-12 08:30:48.681 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-12 08:30:48.950 +05:30 [ERR] Connection ID "17942340917054668940", Request ID "8000008e-0000-f900-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - VehicleTracker.WebApi.Controllers.VehicleEmissionTestController.DeleteVehicleEmissionTest (VehicleTracker.WebApi). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2021-06-12 08:30:52.069 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 500 - - 3387.3648ms

@@ -22,7 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\VehicleTracker.Business\VehicleTracker.Business.csproj" />
     <ProjectReference Include="..\VehicleTracker.Common\VehicleTracker.Common.csproj" />
-    <ProjectReference Include="..\VehicleTracker.Data.Contract\VehicleTracker.Data.Contract.csproj" />
     <ProjectReference Include="..\VehicleTracker.Data\VehicleTracker.Data.csproj" />
     <ProjectReference Include="..\VehicleTracker.Model\VehicleTracker.Model.csproj" />
     <ProjectReference Include="..\VehicleTracker.ViewModel\VehicleTracker.ViewModel.csproj" />
