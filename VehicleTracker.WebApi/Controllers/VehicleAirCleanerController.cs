@@ -25,16 +25,18 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleAirCleaner/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleAirCleaner/{vehicleId}")]
+    public ActionResult GetAllVehicleAirCleaner(int vehicleId)
     {
       var response = _vehicleAirCleanerService.GetAllVehicleAirCleaner(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleAirCleaner/5
-    [HttpGet("{id}")]
-    public ActionResult Get(long id)
+    [HttpGet]
+    [Route("getVehicleAirCleanerById/{id}")]
+    public ActionResult GetVehicleAirCleanerById(long id)
     {
       var response = _vehicleAirCleanerService.GetVehicleAirCleanerById(id);
       return Ok(response);
@@ -42,7 +44,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleAirCleaner
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleAirCleanerViewModel vm)
+    [Route("saveVehicleAirCleaner")]
+    public async Task<ActionResult> SaveVehicleAirCleaner([FromBody] VehicleAirCleanerViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleAirCleanerService.SaveVehicleAirCleaner(vm, userName);
@@ -52,15 +55,17 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleAirCleaner/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleAirCleaner/{id}")]
+    public async Task<ActionResult> DeleteVehicleAirCleaner(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleAirCleanerService.DeleteVehicleAirCleaner(id, userName);
       return Ok(response);
     }
 
-    [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
+    [HttpGet]
+    [Route("getLatestRecordForVehicle/{vehicleId}")]
     public ActionResult GetLatestRecordForVehicle(long vehicleId)
     {
       var response = _vehicleAirCleanerService.GetLatestRecordForVehicle(vehicleId);

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleFRPaginatedItemsModel } from 'app/models/vehicle/vehicle-f-r-paginated.items.model';
 import { environment } from 'environments/environment';
 import { VehicleFitnessReportModel } from 'app/models/vehicle/vehicle-fitness-report.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { upload, Upload } from 'app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +15,31 @@ export class VehicleFitnessReportService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleFR(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleFRPaginatedItemsModel> {
+  getAllVehicleFitnessReport(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleResponseModel[]> {
     return this.httpClient.
-      get<VehicleFRPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleFitnessReport/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleResponseModel[]>
+      (environment.apiUrl + 'VehicleFitnessReport/getAllVehicleFitnessReport/' + vehicleId);
   }
 
   // add new
-  addNewVehicleFR(model: VehicleFitnessReportModel): Observable<VehicleResponseModel> {
+  saveVehicleFitnessReport(model: VehicleFitnessReportModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleFitnessReport', model);
+      (environment.apiUrl + 'VehicleFitnessReport/saveVehicleFitnessReport', model);
   }
 
   // get by id
-  getVehicleFRById(id: number): Observable<VehicleFitnessReportModel> {
+  getVehicleFitnessReportById(id: number): Observable<VehicleFitnessReportModel> {
     return this.httpClient.
       get<VehicleFitnessReportModel>
-      (environment.apiUrl + 'VehicleFitnessReport/' + id);
+      (environment.apiUrl + 'VehicleFitnessReport/getVehicleFitnessReportById/' + id);
   }
 
 
   // delete existing record
-  deleteVehicleFR(id: number): Observable<ResponseModel> {
+  deleteVehicleFitnessReport(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleFitnessReport/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleFitnessReport/deleteVehicleFitnessReport/' + id);
   }
 
 
@@ -49,4 +49,12 @@ export class VehicleFitnessReportService {
       get<VehicleFitnessReportModel>
       (environment.apiUrl + 'VehicleFitnessReport/getLatestRecordForVehicle/' + vehicleId);
   };
+
+  uploadFitnessReportImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'VehicleFitnessReport/uploadFitnessReportImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadFitnessReportImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'VehicleFitnessReport/downloadFitnessReportImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }

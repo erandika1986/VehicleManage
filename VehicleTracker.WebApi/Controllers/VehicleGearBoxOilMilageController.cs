@@ -25,16 +25,18 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleGearBoxOilMilage/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleGearBoxOilMilage/{vehicleId}")]
+    public ActionResult GetAllVehicleGearBoxOilMilage(int vehicleId)
     {
       var response = _vehicleGearBoxOilMilageService.GetAllVehicleGearBoxOilMilage(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleGearBoxOilMilage/5
-    [HttpGet("{id}")]
-    public ActionResult Get(long id)
+    [HttpGet]
+    [Route("getVehicleGearBoxOilMilageById/{id}")]
+    public ActionResult GetVehicleGearBoxOilMilageById(long id)
     {
       var response = _vehicleGearBoxOilMilageService.GetVehicleGearBoxOilMilageById(id);
       return Ok(response);
@@ -42,7 +44,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleGearBoxOilMilage
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleGearBoxOilMilageViewModel vm)
+    [Route("saveVehicleGearBoxOilMilage")]
+    public async Task<ActionResult> SaveVehicleGearBoxOilMilage([FromBody] VehicleGearBoxOilMilageViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleGearBoxOilMilageService.SaveVehicleGearBoxOilMilage(vm, userName);
@@ -52,15 +55,17 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleGearBoxOilMilage/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleGearBoxOilMilage/{id}")]
+    public async Task<ActionResult> DeleteVehicleGearBoxOilMilage(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleGearBoxOilMilageService.DeleteVehicleGearBoxOilMilage(id, userName);
       return Ok(response);
     }
 
-    [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
+    [HttpGet]
+    [Route("getLatestRecordForVehicle/{vehicleId}")]
     public ActionResult GetLatestRecordForVehicle(long vehicleId)
     {
       var response = _vehicleGearBoxOilMilageService.GetLatestRecordForVehicle(vehicleId);

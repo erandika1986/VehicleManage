@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleEOCMPaginatedItemsModel } from 'app/models/vehicle/vehicle-e-o-c-paginated.items.model';
 import { environment } from 'environments/environment';
 import { VehicleEngineOilMilageModel } from 'app/models/vehicle/vehicle-engine-oil-milage.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
@@ -15,31 +14,31 @@ export class VehicleEngineOilChangeMilageService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleEOCM(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleEOCMPaginatedItemsModel> {
+  getAllVehicleEngineOilMilage(vehicleId: number): Observable<VehicleEngineOilMilageModel[]> {
     return this.httpClient.
-      get<VehicleEOCMPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleEngineOilMilage/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleEngineOilMilageModel[]>
+      (environment.apiUrl + 'VehicleEngineOilMilage/getAllVehicleEngineOilMilage' + vehicleId);
   }
 
   // add new
-  addNewVehicleEOCM(model: VehicleEngineOilMilageModel): Observable<VehicleResponseModel> {
+  saveVehicleEngineOilMilage(model: VehicleEngineOilMilageModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleEngineOilMilage', model);
+      (environment.apiUrl + 'VehicleEngineOilMilage/saveVehicleEngineOilMilage', model);
   }
 
   // get by id
-  getVehicleEOCMById(id: number): Observable<VehicleEngineOilMilageModel> {
+  getVehicleEngineOilMilageById(id: number): Observable<VehicleEngineOilMilageModel> {
     return this.httpClient.
       get<VehicleEngineOilMilageModel>
-      (environment.apiUrl + 'VehicleEngineOilMilage/' + id);
+      (environment.apiUrl + 'VehicleEngineOilMilage/getVehicleEngineOilMilageById/' + id);
   }
 
 
   // delete existing record
-  deleteVehicleEOCM(id: number): Observable<ResponseModel> {
+  deleteVehicleEngineOilMilage(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleEngineOilMilage/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleEngineOilMilage/deleteVehicleEngineOilMilage/' + id);
   }
 
   // get

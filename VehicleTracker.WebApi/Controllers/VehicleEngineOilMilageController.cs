@@ -26,15 +26,17 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleEngineOilMilage/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleEngineOilMilage/{vehicleId}")]
+    public ActionResult GetAllVehicleEngineOilMilage(int vehicleId)
     {
       var response = _vehicleEngineOilMilageService.GetAllVehicleEngineOilMilage(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleEngineOilMilage/5
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("getVehicleEngineOilMilageById/{id}")]
     public ActionResult Get(long id)
     {
       var response = _vehicleEngineOilMilageService.GetVehicleEngineOilMilageById(id);
@@ -43,7 +45,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleEngineOilMilage
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleEngineOilMilageViewModel vm)
+    [Route("saveVehicleEngineOilMilage")]
+    public async Task<ActionResult> SaveVehicleEngineOilMilage([FromBody] VehicleEngineOilMilageViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleEngineOilMilageService.SaveVehicleEngineOilMilage(vm, userName);
@@ -53,15 +56,17 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleEngineOilMilage/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleEngineOilMilage/{id}")]
+    public async Task<ActionResult> DeleteVehicleEngineOilMilage(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleEngineOilMilageService.DeleteVehicleEngineOilMilage(id, userName);
       return Ok(response);
     }
 
-    [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
+    [HttpGet]
+    [Route("getLatestRecordForVehicle/{vehicleId}")]
     public ActionResult GetLatestRecordForVehicle(long vehicleId)
     {
       var response = _vehicleEngineOilMilageService.GetLatestRecordForVehicle(vehicleId);

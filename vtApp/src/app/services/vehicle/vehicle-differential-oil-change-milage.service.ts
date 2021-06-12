@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleDOCMPaginatedItemsModel } from 'app/models/vehicle/vehicle-d-o-c-m-paginated.items.model';
 import { environment } from 'environments/environment';
 import { VehicleDifferentialOilChangeMilageModel } from 'app/models/vehicle/vehicle-differential-oil-change-milage.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
@@ -15,10 +14,10 @@ export class VehicleDifferentialOilChangeMilageService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleDOCM(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleDOCMPaginatedItemsModel> {
+  getAllVehicleDifferentialOilChangeMilage(vehicleId: number): Observable<VehicleDifferentialOilChangeMilageModel[]> {
     return this.httpClient.
-      get<VehicleDOCMPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleDifferentialOilChangeMilageModel[]>
+      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage/getAllVehicleDifferentialOilChangeMilage/' + vehicleId );
   };
   // get
   getLatestRecordForVehicle(vehicleId: number): Observable<VehicleDifferentialOilChangeMilageModel> {
@@ -28,24 +27,24 @@ export class VehicleDifferentialOilChangeMilageService {
   };
 
   // add new
-  addNewVehicleDOCM(model: VehicleDifferentialOilChangeMilageModel): Observable<VehicleResponseModel> {
+  saveVehicleDifferentialOilChangeMilage(model: VehicleDifferentialOilChangeMilageModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage', model);
+      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage/saveVehicleDifferentialOilChangeMilage', model);
   };
 
   // get by id
-  getVehicleDOCMById(id: number): Observable<VehicleDifferentialOilChangeMilageModel> {
+  getVehicleDifferentialOilChangeMilageById(id: number): Observable<VehicleDifferentialOilChangeMilageModel> {
     return this.httpClient.
       get<VehicleDifferentialOilChangeMilageModel>
-      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage/' + id);
+      (environment.apiUrl + 'VehicleDifferentialOilChangeMilage/getVehicleDifferentialOilChangeMilageById/' + id);
   };
 
 
 
   // delete existing record
-  deleteVehicleDOCM(id: number): Observable<ResponseModel> {
+  deleteVehicleDifferentialOilChangeMilage(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleDifferentialOilChangeMilage/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleDifferentialOilChangeMilage/deleteVehicleDifferentialOilChangeMilage/' + id);
   };
 }

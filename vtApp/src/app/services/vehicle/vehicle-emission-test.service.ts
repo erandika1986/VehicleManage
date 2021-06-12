@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleETPaginatedItemsModel } from 'app/models/vehicle/vehicle-e-t-paginated.items.model';
 import { environment } from 'environments/environment';
 import { VehicleEmissionTestModel } from 'app/models/vehicle/vehicle-emission-test.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { upload, Upload } from 'app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -15,38 +15,46 @@ export class VehicleEmissionTestService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleET(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleETPaginatedItemsModel> {
+  getAllVehicleEmissionTest(vehicleId: number): Observable<VehicleResponseModel[]> {
     return this.httpClient.
-      get<VehicleETPaginatedItemsModel>
-      (environment.apiUrl + 'VehicleEmissionTest/' + vehicleId + '/' + pageSize + '/' + currentPage);
+      get<VehicleResponseModel[]>
+      (environment.apiUrl + 'VehicleEmissionTest/getAllVehicleEmissionTest/' + vehicleId);
   }
 
   // add new
-  addNewVehicleET(model: VehicleEmissionTestModel): Observable<VehicleResponseModel> {
+  saveVehicleEmissionTest(model: VehicleEmissionTestModel): Observable<VehicleResponseModel> {
     return this.httpClient.
       post<VehicleResponseModel>
-      (environment.apiUrl + 'VehicleEmissionTest', model);
+      (environment.apiUrl + 'VehicleEmissionTest/saveVehicleEmissionTest', model);
   }
 
   // get by id
-  getVehicleETById(id: number): Observable<VehicleEmissionTestModel> {
+  getVehicleEmissionTestById(id: number): Observable<VehicleEmissionTestModel> {
     return this.httpClient.
       get<VehicleEmissionTestModel>
-      (environment.apiUrl + 'VehicleEmissionTest/' + id);
+      (environment.apiUrl + 'VehicleEmissionTest/getVehicleEmissionTestById/' + id);
   }
 
 
 
   // delete existing record
-  deleteVehicleET(id: number): Observable<ResponseModel> {
+  deleteVehicleEmissionTest(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'VehicleEmissionTest/' + id);
+      delete<ResponseModel>(environment.apiUrl + 'VehicleEmissionTest/deleteVehicleEmissionTest/' + id);
   }
 
   // get
-  getLatestRecordForVehicle(vehicleId: number): Observable<VehicleEmissionTestModel> {
+  GetLatestRecordForVehicle(vehicleId: number): Observable<VehicleEmissionTestModel> {
     return this.httpClient.
       get<VehicleEmissionTestModel>
-      (environment.apiUrl + 'VehicleEmissionTest/getLatestRecordForVehicle/' + vehicleId);
+      (environment.apiUrl + 'VehicleEmissionTest/GetLatestRecordForVehicle/' + vehicleId);
   };
+
+  uploadEmissionTestImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'VehicleInsurance/uploadEmissionTestImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadEmissionTestImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'VehicleInsurance/downloadEmissionTestImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }

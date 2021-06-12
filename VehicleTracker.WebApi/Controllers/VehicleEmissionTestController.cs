@@ -29,7 +29,8 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleEmissionTest/15/2
-    [HttpGet("{vehicleId:int}")]
+    [HttpGet]
+    [Route("getAllVehicleEmissionTest/{vehicleId}")]
     public ActionResult Get(int vehicleId)
     {
       var response = _vehicleEmissionTestService.GetAllVehicleEmissionTest(vehicleId);
@@ -58,7 +59,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleEmissionTest/5
-    [HttpDelete("{id}")]
+    [HttpDelete]
     [Route("deleteVehicleEmissionTest/{id}")]
     public async Task<ActionResult> DeleteVehicleEmissionTest(int id)
     {

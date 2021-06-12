@@ -25,16 +25,18 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleGreeceNiple/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleGreeceNiple/{vehicleId}")]
+    public ActionResult GetAllVehicleGreeceNiple(int vehicleId)
     {
       var response = _vehicleGreeceNipleService.GetAllVehicleGreeceNiple(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleGreeceNiple/5
-    [HttpGet("{id}")]
-    public ActionResult Get(long id)
+    [HttpGet]
+    [Route("getVehicleGreeceNipleById/{id}")]
+    public ActionResult GetVehicleGreeceNipleById(long id)
     {
       var response = _vehicleGreeceNipleService.GetVehicleGreeceNipleById(id);
       return Ok(response);
@@ -42,7 +44,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleGreeceNiple
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleGreeceNipleViewModel vm)
+    [Route("saveVehicleGreeceNiple")]
+    public async Task<ActionResult> SaveVehicleGreeceNiple([FromBody] VehicleGreeceNipleViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleGreeceNipleService.SaveVehicleGreeceNiple(vm, userName);
@@ -52,8 +55,9 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleGreeceNiple/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleGreeceNiple/{id}")]
+    public async Task<ActionResult> DeleteVehicleGreeceNiple(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleGreeceNipleService.DeleteVehicleGreeceNiple(id, userName);

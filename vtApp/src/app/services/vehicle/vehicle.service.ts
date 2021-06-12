@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleTypeMasterDataModel } from 'app/models/vehicle/vehicle-type-master-data.model';
 import { environment } from 'environments/environment';
-import { VehicleTypePaginatedItemsModel } from 'app/models/vehicle/vehicle-type-paginated.items.model';
 import { VehicleMasterDataModel } from 'app/models/vehicle/vehicle-master-data.model';
 import { VehicleTypeModel } from 'app/models/vehicle/vehicle-type.model';
 import { ResponseModel } from 'app/models/common/response.model';
-import { VehiclePaginatedItemsModel } from 'app/models/vehicle/vehicle-paginated.items.model';
 import { VehicleModel } from 'app/models/vehicle/vehicle.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';
+import { VehiclePaginatedItemsModel } from 'app/models/vehicle/vehicle-paginated.items.model';
 
 @Injectable({
   providedIn: 'root'

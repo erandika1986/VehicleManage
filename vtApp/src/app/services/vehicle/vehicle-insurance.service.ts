@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleIPaginatedItemsModel } from 'app/models/vehicle/vehicle-i-paginated.items.model';
+
 import { environment } from 'environments/environment';
 import { VehicleInsuranceModel } from 'app/models/vehicle/vehicle-insurance.model';
 import { VehicleResponseModel } from 'app/models/vehicle/vehicle-response.model';

@@ -26,16 +26,18 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleFuelFilterMilage/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleFuelFilterMilage/{vehicleId}")]
+    public ActionResult GetAllVehicleFuelFilterMilage(int vehicleId)
     {
       var response = _vehicleFuelFilterMilageService.GetAllVehicleFuelFilterMilage(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleFuelFilterMilage/5
-    [HttpGet("{id}")]
-    public ActionResult Get(long id)
+    [HttpGet]
+    [Route("getVehicleFuelFilterMilageById/{id}")]
+    public ActionResult GetVehicleFuelFilterMilageById(long id)
     {
       var response = _vehicleFuelFilterMilageService.GetVehicleFuelFilterMilageById(id);
       return Ok(response);
@@ -43,7 +45,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleFuelFilterMilage
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleFuelFilterMilageViewModel vm)
+    [Route("saveVehicleFuelFilterMilage")]
+    public async Task<ActionResult> SaveVehicleFuelFilterMilage([FromBody] VehicleFuelFilterMilageViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleFuelFilterMilageService.SaveVehicleFuelFilterMilage(vm, userName);
@@ -52,15 +55,17 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleFuelFilterMilage/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleFuelFilterMilage/{id}")]
+    public async Task<ActionResult> DeleteVehicleFuelFilterMilage(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleFuelFilterMilageService.DeleteVehicleFuelFilterMilage(id, userName);
       return Ok(response);
     }
 
-    [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
+    [HttpGet]
+    [Route("getLatestRecordForVehicle/{vehicleId}")]
     public ActionResult GetLatestRecordForVehicle(long vehicleId)
     {
       var response = _vehicleFuelFilterMilageService.GetLatestRecordForVehicle(vehicleId);

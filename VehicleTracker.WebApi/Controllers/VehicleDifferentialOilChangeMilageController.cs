@@ -26,16 +26,18 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     // GET api/VehicleDifferentialOilChangeMilage/15/2
-    [HttpGet("{vehicleId:int}")]
-    public ActionResult Get(int vehicleId)
+    [HttpGet]
+    [Route("getAllVehicleDifferentialOilChangeMilage/{vehicleId}")]
+    public ActionResult GetAllVehicleDifferentialOilChangeMilage(int vehicleId)
     {
       var response = _vehicleDifferentialOilChangeMilageService.GetAllVehicleDifferentialOilChangeMilage(vehicleId);
       return Ok(response);
     }
 
     // GET api/VehicleDifferentialOilChangeMilage/5
-    [HttpGet("{id}")]
-    public ActionResult Get(long id)
+    [HttpGet]
+    [Route("getVehicleDifferentialOilChangeMilageById/{id}")]
+    public ActionResult GetVehicleDifferentialOilChangeMilageById(long id)
     {
       var response = _vehicleDifferentialOilChangeMilageService.GetVehicleDifferentialOilChangeMilageById(id);
       return Ok(response);
@@ -43,7 +45,8 @@ namespace VehicleTracker.WebApi.Controllers
 
     // POST api/VehicleDifferentialOilChangeMilage
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] VehicleDifferentialOilChangeMilageViewModel vm)
+    [Route("saveVehicleDifferentialOilChangeMilage")]
+    public async Task<ActionResult> SaveVehicleDifferentialOilChangeMilage([FromBody] VehicleDifferentialOilChangeMilageViewModel vm)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleDifferentialOilChangeMilageService.SaveVehicleDifferentialOilChangeMilage(vm, userName);
@@ -53,15 +56,17 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // DELETE api/VehicleDifferentialOilChangeMilage/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpDelete]
+    [Route("deleteVehicleDifferentialOilChangeMilage/{id}")]
+    public async Task<ActionResult> DeleteVehicleDifferentialOilChangeMilage(int id)
     {
       var userName = identityService.GetUserName();
       var response = await _vehicleDifferentialOilChangeMilageService.DeleteVehicleDifferentialOilChangeMilage(id, userName);
       return Ok(response);
     }
 
-    [HttpGet("getLatestRecordForVehicle/{vehicleId:long}")]
+    [HttpGet]
+    [Route("GetLatestRecordForVehicle/{vehicleId}")]
     public ActionResult GetLatestRecordForVehicle(long vehicleId)
     {
       var response = _vehicleDifferentialOilChangeMilageService.GetLatestRecordForVehicle(vehicleId);
