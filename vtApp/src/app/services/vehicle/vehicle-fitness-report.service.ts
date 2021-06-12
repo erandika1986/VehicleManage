@@ -15,7 +15,7 @@ export class VehicleFitnessReportService {
   constructor(private httpClient: HttpClient) { }
 
   // get
-  getAllVehicleFitnessReport(vehicleId: number, pageSize: number, currentPage: number): Observable<VehicleResponseModel[]> {
+  getAllVehicleFitnessReport(vehicleId: number): Observable<VehicleResponseModel[]> {
     return this.httpClient.
       get<VehicleResponseModel[]>
       (environment.apiUrl + 'VehicleFitnessReport/getAllVehicleFitnessReport/' + vehicleId);
