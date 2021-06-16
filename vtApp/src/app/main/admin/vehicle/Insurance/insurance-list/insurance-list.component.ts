@@ -259,8 +259,6 @@ export class InsuranceListComponent implements OnInit, AfterViewInit,OnChanges  
     object.id = reactiveObject.id;
     object.vehicleId = reactiveObject.vehicleId;
     object.isActive = reactiveObject.isActive;
-    object.updatedBy=0;
-    object.createdBy=0;
     object.insuranceYear = reactiveObject.insuranceDate.getFullYear();
     object.insuranceMonth = reactiveObject.insuranceDate.getMonth() + 1
     object.insuranceDay = reactiveObject.insuranceDate.getDate();

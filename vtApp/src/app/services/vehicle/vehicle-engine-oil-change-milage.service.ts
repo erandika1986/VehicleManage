@@ -17,7 +17,7 @@ export class VehicleEngineOilChangeMilageService {
   getAllVehicleEngineOilMilage(vehicleId: number): Observable<VehicleEngineOilMilageModel[]> {
     return this.httpClient.
       get<VehicleEngineOilMilageModel[]>
-      (environment.apiUrl + 'VehicleEngineOilMilage/getAllVehicleEngineOilMilage' + vehicleId);
+      (environment.apiUrl + 'VehicleEngineOilMilage/getAllVehicleEngineOilMilage/' + vehicleId);
   }
 
   // add new

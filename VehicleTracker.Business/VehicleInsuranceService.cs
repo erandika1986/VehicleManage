@@ -152,8 +152,10 @@ namespace VehicleTracker.Business
         if (!string.IsNullOrEmpty(insuranceRecord.Attachment))
         {
           var existingImagePath = string.Format(@"{0}\{1}", folderPath, insuranceRecord.Attachment);
-
-          File.Delete(existingImagePath);
+          if (File.Exists(existingImagePath))
+          {
+            File.Delete(existingImagePath);
+          }
         }
 
         if (!Directory.Exists(folderPath))

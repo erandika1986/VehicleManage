@@ -35,7 +35,10 @@ namespace System
       vm.GearBoxOilChangeMilage = model.GearBoxOilChangeMilage;
       vm.CreatedOn = model.CreatedOn.ToString("MMMM dd, yyyy");
       vm.UpdatedOn = model.UpdatedOn.ToString("MMMM dd, yyyy");
+      vm.CreatedBy = string.Format("{0} {1}", model.CreatedByNavigation.FirstName, model.CreatedByNavigation.LastName);
+      vm.UpdatedBy = string.Format("{0} {1}", model.UpdatedByNavigation.FirstName, model.UpdatedByNavigation.LastName);
       vm.IsActive = model.IsActive;
+      vm.RegistrationNo = model.Vehicle.RegistrationNo;
 
       return vm;
     }

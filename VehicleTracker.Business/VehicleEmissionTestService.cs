@@ -138,7 +138,10 @@ namespace VehicleTracker.Business
         {
           var existingImagePath = string.Format(@"{0}\{1}", folderPath, emissionTestReportRecord.Attachment);
 
-          File.Delete(existingImagePath);
+          if(File.Exists(existingImagePath))
+          {
+            File.Delete(existingImagePath);
+          }
         }
 
         if (!Directory.Exists(folderPath))

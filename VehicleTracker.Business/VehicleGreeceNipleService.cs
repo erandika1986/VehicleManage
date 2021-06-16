@@ -47,8 +47,8 @@ namespace VehicleTracker.Business
         }
         else
         {
-          model.GreeceNipleReplaceDate = vm.GreeceNipleReplaceDate;
-          model.NextGreeceNipleReplaceDate = vm.NextGreeceNipleReplaceDate;
+          model.GreeceNipleReplaceDate = new DateTime(vm.GreeceNipleReplacYear, vm.GreeceNipleReplacMonth, vm.GreeceNipleReplacDay, 0, 0, 0);
+          model.NextGreeceNipleReplaceDate = new DateTime(vm.NextGreeceNipleReplaceYear, vm.NextGreeceNipleReplaceMonth, vm.NextGreeceNipleReplaceDay, 0, 0, 0);
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
 

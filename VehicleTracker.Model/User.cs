@@ -28,12 +28,16 @@ namespace VehicleTracker.Model
             UserRoles = new HashSet<UserRole>();
             VehicleAirCleanerCreatedByNavigations = new HashSet<VehicleAirCleaner>();
             VehicleAirCleanerUpdatedByNavigations = new HashSet<VehicleAirCleaner>();
-            VehicleDifferentialOilChangeMilages = new HashSet<VehicleDifferentialOilChangeMilage>();
-            VehicleEmissiontTests = new HashSet<VehicleEmissiontTest>();
+            VehicleDifferentialOilChangeMilageCreatedByNavigations = new HashSet<VehicleDifferentialOilChangeMilage>();
+            VehicleDifferentialOilChangeMilageUpdatedByNavigations = new HashSet<VehicleDifferentialOilChangeMilage>();
+            VehicleEmissiontTestCreatedByNavigations = new HashSet<VehicleEmissiontTest>();
+            VehicleEmissiontTestUpdatedByNavigations = new HashSet<VehicleEmissiontTest>();
             VehicleEngineOilMilageCreatedByNavigations = new HashSet<VehicleEngineOilMilage>();
             VehicleEngineOilMilageUpdatedByNavigations = new HashSet<VehicleEngineOilMilage>();
             VehicleExpenseCreatedByNavigations = new HashSet<VehicleExpense>();
             VehicleExpenseUpdatedByNavigations = new HashSet<VehicleExpense>();
+            VehicleFitnessReportCreatedByNavigations = new HashSet<VehicleFitnessReport>();
+            VehicleFitnessReportUpdatedByNavigations = new HashSet<VehicleFitnessReport>();
             VehicleFuelFilterMilageCreatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
             VehicleFuelFilterMilageUpdatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
             VehicleGearBoxOilMilageCreatedByNavigations = new HashSet<VehicleGearBoxOilMilage>();
@@ -78,12 +82,16 @@ namespace VehicleTracker.Model
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleAirCleaner> VehicleAirCleanerUpdatedByNavigations { get; set; }
-        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilages { get; set; }
-        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTests { get; set; }
+        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilageCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleDifferentialOilChangeMilage> VehicleDifferentialOilChangeMilageUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTestCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTestUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleExpense> VehicleExpenseCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleExpense> VehicleExpenseUpdatedByNavigations { get; set; }
+        public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportCreatedByNavigations { get; set; }
+        public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleGearBoxOilMilage> VehicleGearBoxOilMilageCreatedByNavigations { get; set; }

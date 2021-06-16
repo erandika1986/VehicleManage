@@ -19,6 +19,8 @@ namespace VehicleTracker.Model
         public long UpdatedBy { get; set; }
         public bool IsActive { get; set; }
 
+        public virtual User CreatedByNavigation { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
         public virtual Vehicle Vehicle { get; set; }
     }
 }

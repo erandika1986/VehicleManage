@@ -2,9 +2,9 @@ export class VehicleCommonModel {
     id: number;
     vehicleId: number;
     createdOn: string;
-    createdBy: number;
+    createdBy: string;
     updatedOn: string;
-    updatedBy: number;
+    updatedBy: string;
     isActive: boolean;
 
     registrationNo:string;

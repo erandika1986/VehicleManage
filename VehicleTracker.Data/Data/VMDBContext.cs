@@ -717,8 +717,14 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 
+        entity.HasOne(d => d.CreatedByNavigation)
+            .WithMany(p => p.VehicleDifferentialOilChangeMilageCreatedByNavigations)
+            .HasForeignKey(d => d.CreatedBy)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_VehicleDifferentialOilChangeMilage_User");
+
         entity.HasOne(d => d.UpdatedByNavigation)
-            .WithMany(p => p.VehicleDifferentialOilChangeMilages)
+            .WithMany(p => p.VehicleDifferentialOilChangeMilageUpdatedByNavigations)
             .HasForeignKey(d => d.UpdatedBy)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_VehicleDifferentialOilChangeMilage_User1");
@@ -742,8 +748,14 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.ValidTill).HasColumnType("datetime");
 
+        entity.HasOne(d => d.CreatedByNavigation)
+            .WithMany(p => p.VehicleEmissiontTestCreatedByNavigations)
+            .HasForeignKey(d => d.CreatedBy)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_VehicleEmissiontTest_User");
+
         entity.HasOne(d => d.UpdatedByNavigation)
-            .WithMany(p => p.VehicleEmissiontTests)
+            .WithMany(p => p.VehicleEmissiontTestUpdatedByNavigations)
             .HasForeignKey(d => d.UpdatedBy)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_VehicleEmissiontTest_User1");
@@ -828,6 +840,18 @@ namespace VehicleTracker.Data
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 
         entity.Property(e => e.ValidTill).HasColumnType("datetime");
+
+        entity.HasOne(d => d.CreatedByNavigation)
+            .WithMany(p => p.VehicleFitnessReportCreatedByNavigations)
+            .HasForeignKey(d => d.CreatedBy)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_VehicleFitnessReport_User");
+
+        entity.HasOne(d => d.UpdatedByNavigation)
+            .WithMany(p => p.VehicleFitnessReportUpdatedByNavigations)
+            .HasForeignKey(d => d.UpdatedBy)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_VehicleFitnessReport_User1");
 
         entity.HasOne(d => d.Vehicle)
             .WithMany(p => p.VehicleFitnessReports)

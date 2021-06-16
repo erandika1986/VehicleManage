@@ -1,1 +1,74 @@
-<p>engine-oil-list works!</p>
+
+
+
+<div id="vehicles">
+    <mat-table class="engine-oil-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
+        <!-- Reference imageURL -->
+
+    <!-- Name nextInsuranceDate -->
+    <ng-container matColumnDef="oilChangeMilage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Oil Change Milage</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.oilChangeMilage}} Km
+            </p>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="nextOilChangeMilage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Next Oil Change Milage</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.nextOilChangeMilage}} Km
+            </p>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef>
+            <div fxFlex="row" fxLayoutAlign="center center">
+    
+    
+                <div class="button-row">
+                    <button mat-raised-button class="green" (click)="add()">
+                        <mat-icon class="s-16 mr-sm-4">add</mat-icon>
+                    </button>
+    
+                  </div>
+            </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <div fxFlex="row" fxLayoutAlign="center center">
+    
+    
+                <div class="button-row">
+                    <button mat-raised-button class="primary" (click)="view(item)">
+                        <mat-icon class="s-16 mr-sm-4" >remove_red_eye</mat-icon>
+                    </button>
+                    <button mat-raised-button class="orange" (click)="edit(item)">
+                        <mat-icon class="s-16 mr-sm-4">edit</mat-icon>
+                    </button>
+                    <button mat-raised-button class="red" (click)="delete(item.id)">
+                        <mat-icon class="s-16 mr-sm-4" >delete_forever</mat-icon>
+                    </button>
+                  </div>
+            </div>
+    
+        </mat-cell>
+    </ng-container>
+    
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+    
+    <mat-row *matRowDef="let order; columns: displayedColumns;" class="order" matRipple>
+    </mat-row>
+    </mat-table>
+    
+    <mat-paginator [length]="totalNumberOfRecords" [pageSize]="100" [pageSizeOptions]="[100,5, 10, 25]">
+    </mat-paginator>
+    
+    </div>
+    

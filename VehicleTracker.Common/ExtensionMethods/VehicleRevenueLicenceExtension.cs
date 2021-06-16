@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using VehicleTracker.Common;
 using VehicleTracker.Model;
@@ -37,6 +38,8 @@ namespace System
       vm.RevenueLicenceDate = model.RevenueLicenceDate.ToString("MMMM dd, yyyy");
       vm.CreatedOn = model.CreatedOn.ToString("MMMM dd, yyyy");
       vm.UpdatedOn = model.UpdatedOn.ToString("MMMM dd, yyyy");
+      vm.CreatedBy = string.Format("{0} {1}", model.CreatedByNavigation.FirstName, model.CreatedByNavigation.LastName);
+      vm.UpdatedBy = string.Format("{0} {1}", model.UpdatedByNavigation.FirstName, model.UpdatedByNavigation.LastName);
       vm.IsActive = model.IsActive;
       vm.ValidTillYear = model.ValidTill.Year;
       vm.ValidTillMonth = model.ValidTill.Month;
@@ -49,8 +52,10 @@ namespace System
       if (!string.IsNullOrEmpty(model.Attachment))
       {
         var imagePath = string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.VEHICLE_REVENUE, model.Vehicle.Id, model.Attachment);
-
-        vm.ImageURL = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
+        if (File.Exists(imagePath))
+        {
+          vm.ImageURL = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
+        }
       }
 
 

@@ -258,8 +258,6 @@ export class FitnessReportListComponent implements OnInit, AfterViewInit,OnChang
      object.id = reactiveObject.id;
      object.vehicleId = reactiveObject.vehicleId;
      object.isActive = reactiveObject.isActive;
-     object.updatedBy=0;
-     object.createdBy=0;
      object.fitnessReportYear = reactiveObject.fitnessReportDate.getFullYear();
      object.fitnessReportMonth = reactiveObject.fitnessReportDate.getMonth() + 1
      object.fitnessReportDay = reactiveObject.fitnessReportDate.getDate();

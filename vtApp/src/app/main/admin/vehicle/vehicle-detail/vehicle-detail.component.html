@@ -136,56 +136,56 @@
 
                         <mat-tab label="Emission Test" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <emission-test-list [vehicleId]="vehicleId"></emission-test-list>
+                                <emission-test-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></emission-test-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Fitness Report" *ngIf="hasFitnessReport && vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <fitness-report-list [vehicleId]="vehicleId"></fitness-report-list>
+                                <fitness-report-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></fitness-report-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Air Cleaner" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <air-cleaner-list [vehicleId]="vehicleId"></air-cleaner-list>
+                                <air-cleaner-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></air-cleaner-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Engine Oil" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <engine-oil-list [vehicleId]="vehicleId"></engine-oil-list>
+                                <engine-oil-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></engine-oil-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Fuel Filter" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <fuel-filter-list [vehicleId]="vehicleId"></fuel-filter-list>
+                                <fuel-filter-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></fuel-filter-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Gear Box Oil" *ngIf="vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <gear-box-list [vehicleId]="vehicleId"></gear-box-list>
+                                <gear-box-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></gear-box-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Differential Oil" *ngIf="hasDifferentialOil && vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <differential-oil-list [vehicleId]="vehicleId"></differential-oil-list>
+                                <differential-oil-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></differential-oil-list>
                             </div>
 
                         </mat-tab>
 
                         <mat-tab label="Greece Niple" *ngIf="hasGreeceNipple && vehicleId!=0">
                             <div class="tab-content p-24" fusePerfectScrollbar>
-                                <greece-niple-list [vehicleId]="vehicleId"></greece-niple-list>
+                                <greece-niple-list [vehicleId]="vehicleId" [regNo]="vehicle?.registrationNo"></greece-niple-list>
                             </div>
 
                         </mat-tab>

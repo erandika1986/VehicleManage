@@ -1,1 +1,86 @@
-<p>emission-test-list works!</p>
+
+
+
+<div id="vehicles">
+    <mat-table class="emission-test-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
+        <!-- Reference imageURL -->
+    <ng-container matColumnDef="imageURL">
+        <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <img class="product-image"  [src]="item.imageURL" style="height: 54px !important;;width:74px !important" *ngIf="item.imageURL && !isUploading"/><span style="color:royalblue;font-weight: bold;cursor: pointer;" (click)="downloadFile(item)" *ngIf="item.imageURL && !isUploading">&nbsp;Download</span>
+            <img class="product-image"  [src]="'assets/images/ecommerce/Image-Not-Available.png'" style="height: 54px !important;width:74px !important" *ngIf="!item.imageURL && !isUploading"/>
+            <mat-progress-bar mode="query" *ngIf="isUploading"></mat-progress-bar>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Name nextInsuranceDate -->
+    <ng-container matColumnDef="emissiontTestDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Emissiont Test Date</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.emissiontTestDate}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="validTill">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Valid Till</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.validTill}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef>
+            <div fxFlex="row" fxLayoutAlign="center center">
+    
+    
+                <div class="button-row">
+                    <button mat-raised-button class="green" (click)="add()">
+                        <mat-icon class="s-16 mr-sm-4">add</mat-icon>
+                    </button>
+    
+                  </div>
+            </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <div fxFlex="row" fxLayoutAlign="center center">
+    
+    
+                <div class="button-row">
+                    <button mat-raised-button class="primary" (click)="view(item)">
+                        <mat-icon class="s-16 mr-sm-4" >remove_red_eye</mat-icon>
+                    </button>
+                    <button mat-raised-button class="orange" (click)="edit(item)">
+                        <mat-icon class="s-16 mr-sm-4">edit</mat-icon>
+                    </button>
+                    <button mat-raised-button class="red" (click)="delete(item.id)">
+                        <mat-icon class="s-16 mr-sm-4" >delete_forever</mat-icon>
+                    </button>
+                    <button mat-raised-button class="blue" (click)="fileInput.click()">
+                        <mat-icon class="s-16 mr-sm-4">cloud_upload</mat-icon>
+                        <input #fileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,item)" style="display:none;"/>
+                    </button>
+                  </div>
+            </div>
+    
+        </mat-cell>
+    </ng-container>
+    
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+    
+    <mat-row *matRowDef="let order; columns: displayedColumns;" class="order" matRipple>
+    </mat-row>
+    </mat-table>
+    
+    <mat-paginator [length]="totalNumberOfRecords" [pageSize]="100" [pageSizeOptions]="[100,5, 10, 25]">
+    </mat-paginator>
+    
+    </div>
+    

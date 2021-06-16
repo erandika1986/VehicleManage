@@ -51,10 +51,10 @@ export class VehicleEmissionTestService {
   };
 
   uploadEmissionTestImage(data: FormData): Observable<Upload> {
-    return this.httpClient.post(environment.apiUrl + 'VehicleInsurance/uploadEmissionTestImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+    return this.httpClient.post(environment.apiUrl + 'VehicleEmissionTest/uploadEmissionTestImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
   }
 
   downloadEmissionTestImage(id: number): Observable<any> {
-    return this.httpClient.get<any>(environment.apiUrl +'VehicleInsurance/downloadEmissionTestImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+    return this.httpClient.get<any>(environment.apiUrl +'VehicleEmissionTest/downloadEmissionTestImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
   }
 }
