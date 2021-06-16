@@ -60,17 +60,32 @@ differential-oil-list {
         }
 
         .mat-column-buttons {
-            flex: 0 1 30%;
+            flex: 0 1 15%;
             text-align: center !important;
             align-items: center !important;
         }
 
         .mat-column-differentialOilChangeMilage {
-            flex: 0 1 35%;
+            flex: 0 1 21%;
         }
 
         .mat-column-nextDifferentialOilChangeMilage {
-            flex: 0 1 35%;
+            flex: 0 1 21%;
+        }
+        .mat-column-createdOn {
+            flex: 0 1 12%;
+        }
+
+        .mat-column-createdBy {
+            flex: 0 1 16%;
+        }
+
+        .mat-column-updatedOn {
+            flex: 0 1 12%;
+        }
+
+        .mat-column-updatedBy {
+            flex: 0 1 16%;
         }
     }
 }
@@ -82,4 +97,19 @@ differential-oil-list {
 
 .button-row .mat-button-base {
     margin: 8px 8px 8px 0;
+}
+button.small {
+    margin-right: 1vw;
+    font-size: 9px;
+    min-width: 20px !important;
+}
+
+.small-mat-raised-button-small {
+    padding: 0px 6px !important;
+}
+
+i,
+.small-mat-icon {
+    margin-top: 10px;
+    font-size: 15px !important;
 }

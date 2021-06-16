@@ -37,7 +37,7 @@ export class EngineOilListComponent implements OnInit, AfterViewInit,OnChanges {
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','oilChangeMilage', 'nextOilChangeMilage'];
+  displayedColumns = ['buttons','oilChangeMilage', 'nextOilChangeMilage','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

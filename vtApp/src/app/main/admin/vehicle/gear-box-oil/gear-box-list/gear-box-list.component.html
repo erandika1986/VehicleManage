@@ -25,6 +25,41 @@
             </p>
         </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="createdOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created On</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.createdOn}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.createdBy}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Updated On</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.updatedOn}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Updated By</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <p class="text-truncate">
+                {{item.updatedBy}}
+            </p>
+        </mat-cell>
+    </ng-container>
     
     <!-- Buttons Column -->
     <ng-container matColumnDef="buttons">
@@ -45,14 +80,14 @@
     
     
                 <div class="button-row">
-                    <button mat-raised-button class="primary" (click)="view(item)">
-                        <mat-icon class="s-16 mr-sm-4" >remove_red_eye</mat-icon>
+                    <button mat-raised-button class="primary  small small-mat-raised-button-small" (click)="view(item)">
+                        <mat-icon class="small-mat-icon" >remove_red_eye</mat-icon>
                     </button>
-                    <button mat-raised-button class="orange" (click)="edit(item)">
-                        <mat-icon class="s-16 mr-sm-4">edit</mat-icon>
+                    <button mat-raised-button class="orange  small small-mat-raised-button-small" (click)="edit(item)">
+                        <mat-icon class="small-mat-icon">edit</mat-icon>
                     </button>
-                    <button mat-raised-button class="red" (click)="delete(item.id)">
-                        <mat-icon class="s-16 mr-sm-4" >delete_forever</mat-icon>
+                    <button mat-raised-button class="red  small small-mat-raised-button-small" (click)="delete(item.id)">
+                        <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
                     </button>
                   </div>
             </div>

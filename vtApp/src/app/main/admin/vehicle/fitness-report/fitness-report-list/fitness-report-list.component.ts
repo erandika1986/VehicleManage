@@ -40,7 +40,7 @@ export class FitnessReportListComponent implements OnInit, AfterViewInit,OnChang
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','imageURL', 'fitnessReportDate','validTill'];
+  displayedColumns = ['buttons','imageURL', 'fitnessReportDate','validTill','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

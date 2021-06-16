@@ -41,7 +41,7 @@ export class RevenueLicenceListComponent implements OnInit, AfterViewInit,OnChan
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','imageURL', 'revenueLicenceDate','validTill'];
+  displayedColumns = ['buttons','imageURL', 'revenueLicenceDate','validTill','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

@@ -37,7 +37,7 @@ export class FuelFilterListComponent implements OnInit, AfterViewInit,OnChanges 
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','fuelFilterChangeMilage', 'nextFuelFilterChangeMilage'];
+  displayedColumns = ['buttons','fuelFilterChangeMilage', 'nextFuelFilterChangeMilage','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

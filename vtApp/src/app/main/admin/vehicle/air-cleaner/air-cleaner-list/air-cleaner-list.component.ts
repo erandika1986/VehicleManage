@@ -38,7 +38,7 @@ export class AirCleanerListComponent implements OnInit, AfterViewInit,OnChanges 
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','airCleanerReplaceMilage', 'nextAirCleanerReplaceMilage'];
+  displayedColumns = ['buttons','airCleanerReplaceMilage', 'nextAirCleanerReplaceMilage','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

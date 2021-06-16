@@ -60,19 +60,19 @@ fitness-report-list {
         }
 
         .mat-column-buttons {
-            flex: 0 1 30%;
+            flex: 0 1 18%;
             text-align: center !important;
             align-items: center !important;
         }
 
         .mat-header-imageURL {
-            flex: 0 1 20%;
+            flex: 0 1 13%;
             text-align: center;
             justify-content: center;
         }
 
         .mat-column-imageURL {
-            flex: 0 1 20%;
+            flex: 0 1 13%;
             text-align: center;
             align-items: center !important;
 
@@ -84,11 +84,27 @@ fitness-report-list {
         }
 
         .mat-column-fitnessReportDate {
-            flex: 0 1 25%;
+            flex: 0 1 13%;
         }
 
         .mat-column-validTill {
-            flex: 0 1 25%;
+            flex: 0 1 13%;
+        }
+
+        .mat-column-createdOn {
+            flex: 0 1 12%;
+        }
+
+        .mat-column-createdBy {
+            flex: 0 1 16%;
+        }
+
+        .mat-column-updatedOn {
+            flex: 0 1 12%;
+        }
+
+        .mat-column-updatedBy {
+            flex: 0 1 16%;
         }
     }
 }
@@ -100,4 +116,20 @@ fitness-report-list {
 
 .button-row .mat-button-base {
     margin: 8px 8px 8px 0;
+}
+
+button.small {
+    margin-right: 1vw;
+    font-size: 9px;
+    min-width: 20px !important;
+}
+
+.small-mat-raised-button-small {
+    padding: 0px 6px !important;
+}
+
+i,
+.small-mat-icon {
+    margin-top: 10px;
+    font-size: 15px !important;
 }

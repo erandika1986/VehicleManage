@@ -38,7 +38,7 @@ export class DifferentialOilListComponent implements OnInit, AfterViewInit,OnCha
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','differentialOilChangeMilage', 'nextDifferentialOilChangeMilage'];
+  displayedColumns = ['buttons','differentialOilChangeMilage', 'nextDifferentialOilChangeMilage','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

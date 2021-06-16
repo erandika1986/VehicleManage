@@ -37,7 +37,7 @@ export class GearBoxListComponent implements OnInit, AfterViewInit,OnChanges {
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','gearBoxOilChangeMilage', 'nextGearBoxOilChangeMilage'];
+  displayedColumns = ['buttons','gearBoxOilChangeMilage', 'nextGearBoxOilChangeMilage','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

@@ -39,7 +39,7 @@ export class InsuranceListComponent implements OnInit, AfterViewInit,OnChanges  
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','imageURL', 'insuranceDate','validTill'];
+  displayedColumns = ['buttons','imageURL', 'insuranceDate','validTill','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

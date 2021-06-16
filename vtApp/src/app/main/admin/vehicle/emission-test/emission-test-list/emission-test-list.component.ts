@@ -40,7 +40,7 @@ export class EmissionTestListComponent implements OnInit, AfterViewInit,OnChange
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','imageURL', 'emissiontTestDate','validTill'];
+  displayedColumns = ['buttons','imageURL', 'emissiontTestDate','validTill','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;

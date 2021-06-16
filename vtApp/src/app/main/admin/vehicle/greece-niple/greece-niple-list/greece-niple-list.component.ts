@@ -37,7 +37,7 @@ export class GreeceNipleListComponent implements OnInit, AfterViewInit,OnChanges
 
   totalNumberOfRecords: number;
 
-  displayedColumns = ['buttons','greeceNipleReplaceDate', 'nextGreeceNipleReplaceDate'];
+  displayedColumns = ['buttons','greeceNipleReplaceDate', 'nextGreeceNipleReplaceDate','createdOn','createdBy','updatedOn','updatedBy'];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
