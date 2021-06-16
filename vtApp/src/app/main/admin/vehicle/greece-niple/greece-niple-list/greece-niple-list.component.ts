@@ -253,6 +253,7 @@ export class GreeceNipleListComponent implements OnInit, AfterViewInit,OnChanges
     object.id = reactiveObject.id;
     object.vehicleId = reactiveObject.vehicleId;
     object.isActive = reactiveObject.isActive;
+    object.note =reactiveObject.note;
     object.greeceNipleReplacYear = reactiveObject.greeceNipleReplaceDate.getFullYear();
     object.greeceNipleReplacMonth = reactiveObject.greeceNipleReplaceDate.getMonth() + 1
     object.greeceNipleReplacDay = reactiveObject.greeceNipleReplaceDate.getDate();

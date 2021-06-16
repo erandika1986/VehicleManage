@@ -13,6 +13,7 @@ namespace VehicleTracker.ViewModel.Vehicle
     public string UpdatedOn { get; set; }
     public string UpdatedBy { get; set; }
     public bool IsActive { get; set; }
+    public string Note { get; set; }
 
     public string RegistrationNo { get; set; }
 

@@ -256,6 +256,7 @@ export class EmissionTestListComponent implements OnInit, AfterViewInit,OnChange
     object.id = reactiveObject.id;
     object.vehicleId = reactiveObject.vehicleId;
     object.isActive = reactiveObject.isActive;
+    object.note = reactiveObject.note;
     object.emissionTestYear = reactiveObject.emissiontTestDate.getFullYear();
     object.emissionTestMonth = reactiveObject.emissiontTestDate.getMonth() + 1
     object.emissionTestDay = reactiveObject.emissiontTestDate.getDate();

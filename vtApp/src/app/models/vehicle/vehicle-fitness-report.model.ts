@@ -26,6 +26,7 @@ export class VehicleFitnessReportReactiveForm {
     updatedOn: string;
     updatedBy: number;
     isActive: boolean;
+    note:string;
     registrationNo:string;
     fitnessReportDate:Date;
     validTillDate:Date;

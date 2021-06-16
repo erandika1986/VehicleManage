@@ -48,6 +48,7 @@ export class GearBoxDetailComponent implements OnInit {
       vehicleId: new FormControl(this.gearBoxOil.vehicleId, Validators.required),
       gearBoxOilChangeMilage: new FormControl({ value: this.gearBoxOil.gearBoxOilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
       nextGearBoxOilChangeMilage: new FormControl({ value: this.gearBoxOil.nextGearBoxOilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
+      note: new FormControl({ value: this.gearBoxOil.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.gearBoxOil.isActive),
       createdOn: new FormControl({ value: this.gearBoxOil.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.gearBoxOil.updatedOn, disabled: true }),

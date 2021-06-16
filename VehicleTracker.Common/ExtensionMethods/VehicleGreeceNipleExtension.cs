@@ -19,6 +19,7 @@ namespace System
       model.GreeceNipleReplaceDate = new DateTime(vm.NextGreeceNipleReplaceYear, vm.NextGreeceNipleReplaceMonth, vm.NextGreeceNipleReplaceDay, 0, 0, 0);
       model.CreatedOn = DateTime.UtcNow;
       model.UpdatedOn = DateTime.UtcNow;
+      model.Note = vm.Note;
       model.IsActive = vm.IsActive;
 
       return model;
@@ -44,6 +45,7 @@ namespace System
       vm.CreatedBy = string.Format("{0} {1}", model.CreatedByNavigation.FirstName, model.CreatedByNavigation.LastName);
       vm.UpdatedBy = string.Format("{0} {1}", model.UpdatedByNavigation.FirstName, model.UpdatedByNavigation.LastName);
       vm.IsActive = model.IsActive;
+      vm.Note = model.Note;
       vm.RegistrationNo = model.Vehicle.RegistrationNo;
 
       return vm;

@@ -22,6 +22,7 @@ namespace System
       model.FitnessReportDate = new DateTime(vm.FitnessReportYear, vm.FitnessReportMonth, vm.FitnessReportDay);
       model.CreatedOn = DateTime.UtcNow;
       model.UpdatedOn = DateTime.UtcNow;
+      model.Note = vm.Note;
       model.IsActive = vm.IsActive;
 
       return model;
@@ -49,6 +50,7 @@ namespace System
       vm.FitnessReportMonth = model.FitnessReportDate.Month;
       vm.FitnessReportDay = model.FitnessReportDate.Day;
       vm.ImageName = model.Attachment;
+      vm.Note = model.Note;
       if (!string.IsNullOrEmpty(model.Attachment))
       {
         //vm.ImageURL = string.Format("{0}/{1}/{2}/{3}", config.GetSection("FileUploadUrl").Value, FolderNames.INSURANCE, model.Vehicle.Id, model.Attachment);

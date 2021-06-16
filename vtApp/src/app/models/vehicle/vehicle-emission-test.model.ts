@@ -26,6 +26,7 @@ export class VehicleEmissionTestReactiveForm {
     updatedOn: string;
     updatedBy: number;
     isActive: boolean;
+    note:string;
     registrationNo:string;
     emissiontTestDate:Date;
     validTillDate:Date;

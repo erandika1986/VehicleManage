@@ -48,6 +48,7 @@ export class DifferentialOilDetailComponent implements OnInit {
       vehicleId: new FormControl(this.differentialOil.vehicleId, Validators.required),
       differentialOilChangeMilage: new FormControl({ value: this.differentialOil.differentialOilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
       nextDifferentialOilChangeMilage: new FormControl({ value: this.differentialOil.nextDifferentialOilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
+      note: new FormControl({ value: this.differentialOil.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.differentialOil.isActive),
       createdOn: new FormControl({ value: this.differentialOil.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.differentialOil.updatedOn, disabled: true }),

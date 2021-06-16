@@ -259,6 +259,7 @@ export class RevenueLicenceListComponent implements OnInit, AfterViewInit,OnChan
      object.id = reactiveObject.id;
      object.vehicleId = reactiveObject.vehicleId;
      object.isActive = reactiveObject.isActive;
+     object.note = reactiveObject.note;
      object.revenueLicenceYear = reactiveObject.revenueLicenceDate.getFullYear();
      object.revenueLicenceMonth = reactiveObject.revenueLicenceDate.getMonth() + 1
      object.revenueLicenceDay = reactiveObject.revenueLicenceDate.getDate();

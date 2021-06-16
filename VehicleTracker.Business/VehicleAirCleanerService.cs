@@ -38,7 +38,6 @@ namespace VehicleTracker.Business
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
           _db.VehicleAirCleaners.Add(model);
-   
           response.Message = "New Record has been added.";
         }
         else
@@ -47,10 +46,11 @@ namespace VehicleTracker.Business
           model.AirCleanerReplaceMilage = vm.AirCleanerReplaceMilage;
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
+          model.Note = vm.Note;
           _db.VehicleAirCleaners.Update(model);
-
           response.Message = "Record has been updated.";
         }
+
         await _db.SaveChangesAsync();
         response.IsSuccess = true;
       }

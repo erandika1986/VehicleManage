@@ -22,6 +22,7 @@ export class VehicleGreeceNipleReactiveForm {
     updatedOn: string;
     updatedBy: number;
     isActive: boolean;
+    note:string;
     registrationNo:string;
     greeceNipleReplaceDate:Date;
     nextGreeceNipleReplaceDate:Date;

@@ -39,9 +39,6 @@ namespace VehicleTracker.Business
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
           _db.VehicleDifferentialOilChangeMilages.Add(model);
-
-
-          response.IsSuccess = true;
           response.Message = "New Record has been added.";
         }
         else
@@ -50,11 +47,12 @@ namespace VehicleTracker.Business
           model.NextDifferentialOilChangeMilage = vm.NextDifferentialOilChangeMilage;
           model.UpdatedOn = DateTime.UtcNow;
           model.UpdatedBy = user.Id;
+          model.Note = vm.Note;
           _db.VehicleDifferentialOilChangeMilages.Update(model);
-
           response.Message = "Record has been updated.";
         }
         await _db.SaveChangesAsync();
+        response.IsSuccess = true;
 
       }
       catch (Exception ex)

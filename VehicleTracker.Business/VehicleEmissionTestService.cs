@@ -36,15 +36,31 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        var model = vm.ToModel();
-        model.CreatedBy = user.Id;
-        model.UpdatedBy = user.Id;
+        var model = _db.VehicleEmissiontTests.FirstOrDefault(x => x.Id == vm.Id);
 
-        _db.VehicleEmissiontTests.Add(model);
+        if(model==null)
+        {
+          model = vm.ToModel();
+          model.CreatedBy = user.Id;
+          model.UpdatedBy = user.Id;
+          _db.VehicleEmissiontTests.Add(model);
+          response.Message = "New Record has been added.";
+        }
+        else
+        {
+          model.EmissiontTestDate = new DateTime(vm.EmissionTestYear, vm.EmissionTestMonth, vm.EmissionTestDay, 0, 0, 0);
+          model.ValidTill = new DateTime(vm.ValidTillYear, vm.ValidTillMonth, vm.ValidTillDay, 0, 0, 0);
+          model.UpdatedOn = DateTime.UtcNow;
+          model.UpdatedBy = user.Id;
+          model.Note = vm.Note;
+
+          _db.VehicleEmissiontTests.Update(model);
+          await _db.SaveChangesAsync();
+          response.Message = "Record has been updated successfully.";
+        }
+
         await _db.SaveChangesAsync();
-
         response.IsSuccess = true;
-        response.Message = "New Record has been added.";
       }
       catch (Exception ex)
       {

@@ -28,6 +28,7 @@ export class VehicleInsuranceReactiveForm {
     updatedBy: number;
     isActive: boolean;
     registrationNo:string;
+    note:string;
     insuranceDate:Date;
     validTillDate:Date;
 }

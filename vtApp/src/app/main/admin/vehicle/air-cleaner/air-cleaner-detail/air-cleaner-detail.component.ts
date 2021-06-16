@@ -49,6 +49,7 @@ export class AirCleanerDetailComponent implements OnInit {
       vehicleId: new FormControl(this.airCleaner.vehicleId, Validators.required),
       airCleanerReplaceMilage: new FormControl({ value: this.airCleaner.airCleanerReplaceMilage, disabled: this.isReadOnly }),
       nextAirCleanerReplaceMilage: new FormControl({ value: this.airCleaner.nextAirCleanerReplaceMilage, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.airCleaner.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.airCleaner.isActive),
       createdOn: new FormControl({ value: this.airCleaner.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.airCleaner.updatedOn, disabled: true }),

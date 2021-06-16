@@ -33,6 +33,11 @@
                 <mat-error>Next Greece Niple Replace Date is required!</mat-error>
             </mat-form-field>
 
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Note</mat-label>
+                <textarea matInput name="note" formControlName="note" placeholder="Enter a note here"></textarea>
+            </mat-form-field>
+
             <mat-form-field appearance="outline" class="w-100-p" *ngIf="greeceNiple.id!=0">
                 <mat-label>Created On</mat-label>
                 <input matInput name="createdOn" formControlName="createdOn">

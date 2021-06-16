@@ -26,6 +26,7 @@ export class VehicleRevenueLicenceReactiveForm {
     updatedOn: string;
     updatedBy: number;
     isActive: boolean;
+    note:string;
     registrationNo:string;
     revenueLicenceDate:Date;
     validTillDate:Date;

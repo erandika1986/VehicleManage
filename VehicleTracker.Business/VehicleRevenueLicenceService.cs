@@ -47,8 +47,6 @@ namespace VehicleTracker.Business
           model.UpdatedBy = user.Id;
 
           _db.VehicleRevenueLicences.Add(model);
-          await _db.SaveChangesAsync();
-
           response.Message = "New record has been added.";
         }
         else
@@ -56,14 +54,15 @@ namespace VehicleTracker.Business
           model.RevenueLicenceDate = new DateTime(vm.RevenueLicenceYear, vm.RevenueLicenceMonth, vm.RevenueLicenceDay, 0, 0, 0);
           model.ValidTill = new DateTime(vm.ValidTillYear, vm.ValidTillMonth, vm.ValidTillDay, 0, 0, 0);
           model.UpdatedBy = user.Id;
+          model.Note = vm.Note;
           model.UpdatedOn = DateTime.UtcNow;
 
           _db.VehicleRevenueLicences.Update(model);
           response.Message = "Record has been updated.";
         }
 
+        await _db.SaveChangesAsync();
         response.IsSuccess = true;
-        response.Message = "New Record has been added.";
       }
       catch (Exception ex)
       {

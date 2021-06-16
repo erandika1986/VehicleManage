@@ -90,7 +90,7 @@ export class DifferentialOilListComponent implements OnInit, AfterViewInit,OnCha
     differentialOil.isActive=true;
 
     this.dialogRef = this._matDialog.open(DifferentialOilDetailComponent, {
-      panelClass: 'engine-oil-form-dialog',
+      panelClass: 'differential-oil-form-dialog',
       data: {
         differentialOil: differentialOil,
         action: "add",
@@ -115,7 +115,7 @@ export class DifferentialOilListComponent implements OnInit, AfterViewInit,OnCha
   edit(item:VehicleEngineOilMilageModel)
   {
     this.dialogRef = this._matDialog.open(DifferentialOilDetailComponent, {
-      panelClass: 'engine-oil-form-dialog',
+      panelClass: 'differential-oil-form-dialog',
       data: {
         differentialOil: item,
         action: "edit",
@@ -155,7 +155,7 @@ export class DifferentialOilListComponent implements OnInit, AfterViewInit,OnCha
   view(item:VehicleDifferentialOilChangeMilageModel)
   {
     this.dialogRef = this._matDialog.open(DifferentialOilDetailComponent, {
-      panelClass: 'engine-oil-form-dialog',
+      panelClass: 'differential-oil-form-dialog',
       data: {
         differentialOil: item,
         action: "edit",

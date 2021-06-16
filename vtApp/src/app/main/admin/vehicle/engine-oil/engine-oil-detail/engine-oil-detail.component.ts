@@ -48,6 +48,7 @@ export class EngineOilDetailComponent implements OnInit {
       vehicleId: new FormControl(this.engineOil.vehicleId, Validators.required),
       oilChangeMilage: new FormControl({ value: this.engineOil.oilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
       nextOilChangeMilage: new FormControl({ value: this.engineOil.nextOilChangeMilage, disabled: this.isReadOnly },[Validators.required]),
+      note: new FormControl({ value: this.engineOil.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.engineOil.isActive),
       createdOn: new FormControl({ value: this.engineOil.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.engineOil.updatedOn, disabled: true }),

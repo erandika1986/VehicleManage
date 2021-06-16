@@ -51,6 +51,7 @@ namespace VehicleTracker.Business
           model.NextGreeceNipleReplaceDate = new DateTime(vm.NextGreeceNipleReplaceYear, vm.NextGreeceNipleReplaceMonth, vm.NextGreeceNipleReplaceDay, 0, 0, 0);
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
+          model.Note = vm.Note;
 
           _db.VehicleGreeceNiples.Update(model);
           response.Message = "Record has been updated.";

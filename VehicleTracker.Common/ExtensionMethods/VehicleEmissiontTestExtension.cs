@@ -22,6 +22,7 @@ namespace System
       model.EmissiontTestDate = new DateTime(vm.EmissionTestYear, vm.EmissionTestMonth, vm.EmissionTestDay);
       model.CreatedOn = DateTime.UtcNow;
       model.UpdatedOn = DateTime.UtcNow;
+      model.Note = vm.Note;
       model.IsActive = vm.IsActive;
 
       return model;
@@ -48,6 +49,7 @@ namespace System
       vm.EmissionTestYear = model.EmissiontTestDate.Year;
       vm.EmissionTestMonth = model.EmissiontTestDate.Month;
       vm.EmissionTestDay = model.EmissiontTestDate.Day;
+      vm.Note = model.Note;
       vm.ImageName = model.Attachment;
 
       if (!string.IsNullOrEmpty(model.Attachment))

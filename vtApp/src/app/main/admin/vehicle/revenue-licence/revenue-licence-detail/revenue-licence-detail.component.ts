@@ -63,6 +63,7 @@ export class RevenueLicenceDetailComponent implements OnInit {
       vehicleId: new FormControl(this.licence.vehicleId, Validators.required),
       revenueLicenceDate: new FormControl({ value: revenueDate, disabled: this.isReadOnly }),
       validTillDate: new FormControl({ value: validTillDate, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.licence.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.licence.isActive),
       createdOn: new FormControl({ value: this.licence.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.licence.updatedOn, disabled: true }),

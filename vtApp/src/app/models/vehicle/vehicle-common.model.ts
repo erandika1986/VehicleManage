@@ -6,6 +6,7 @@ export class VehicleCommonModel {
     updatedOn: string;
     updatedBy: string;
     isActive: boolean;
+    note:string;
 
     registrationNo:string;
 }

@@ -64,6 +64,7 @@ export class EmissionTestDetailComponent implements OnInit {
       vehicleId: new FormControl(this.emissionTest.vehicleId, Validators.required),
       emissiontTestDate: new FormControl({ value: emssionTestDate, disabled: this.isReadOnly }),
       validTillDate: new FormControl({ value: validTillDate, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.emissionTest.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.emissionTest.isActive),
       createdOn: new FormControl({ value: this.emissionTest.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.emissionTest.updatedOn, disabled: true }),

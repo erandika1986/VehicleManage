@@ -49,6 +49,7 @@ export class FuelFilterDetailComponent implements OnInit {
       vehicleId: new FormControl(this.fuelFilter.vehicleId, Validators.required),
       fuelFilterChangeMilage: new FormControl({ value: this.fuelFilter.fuelFilterChangeMilage, disabled: this.isReadOnly },[Validators.required]),
       nextFuelFilterChangeMilage: new FormControl({ value: this.fuelFilter.nextFuelFilterChangeMilage, disabled: this.isReadOnly },[Validators.required]),
+      note: new FormControl({ value: this.fuelFilter.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.fuelFilter.isActive),
       createdOn: new FormControl({ value: this.fuelFilter.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.fuelFilter.updatedOn, disabled: true }),

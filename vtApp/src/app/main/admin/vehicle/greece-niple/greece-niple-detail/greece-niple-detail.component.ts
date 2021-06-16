@@ -63,6 +63,7 @@ export class GreeceNipleDetailComponent implements OnInit {
       vehicleId: new FormControl(this.greeceNiple.vehicleId, Validators.required),
       greeceNipleReplaceDate: new FormControl({ value: greeceNipleReplaceDate, disabled: this.isReadOnly }),
       nextGreeceNipleReplaceDate: new FormControl({ value: nextGreeceNipleReplaceDate, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.greeceNiple.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.greeceNiple.isActive),
       createdOn: new FormControl({ value: this.greeceNiple.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.greeceNiple.updatedOn, disabled: true }),

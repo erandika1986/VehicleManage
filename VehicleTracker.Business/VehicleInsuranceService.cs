@@ -43,7 +43,6 @@ namespace VehicleTracker.Business
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
           _db.VehicleInsurances.Add(model);
-
           response.Message = "New Record has been added.";
         }
         else
@@ -51,10 +50,10 @@ namespace VehicleTracker.Business
           model.InsuranceDate = new DateTime(vm.InsuranceYear, vm.InsuranceMonth, vm.InsuranceDay, 0, 0, 0);
           model.ValidTill = new DateTime(vm.ValidTillYear, vm.ValidTillMonth, vm.ValidTillDay, 0, 0, 0);
           model.UpdatedBy = user.Id;
+          model.Note = vm.Note;
           model.UpdatedOn = DateTime.UtcNow;
 
           _db.VehicleInsurances.Update(model);
-
           response.Message = "Record has been updated.";
         }
 

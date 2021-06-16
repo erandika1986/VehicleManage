@@ -22,6 +22,7 @@ namespace System
       model.RevenueLicenceDate = new DateTime(vm.RevenueLicenceYear, vm.RevenueLicenceMonth, vm.RevenueLicenceDay); ;
       model.CreatedOn = DateTime.UtcNow;
       model.UpdatedOn = DateTime.UtcNow;
+      model.Note = vm.Note;
       model.IsActive = vm.IsActive;
 
       return model;
@@ -49,6 +50,7 @@ namespace System
       vm.RevenueLicenceMonth = model.RevenueLicenceDate.Month;
       vm.RevenueLicenceDay = model.RevenueLicenceDate.Day;
       vm.ImageName = model.Attachment;
+      vm.Note = model.Note;
       if (!string.IsNullOrEmpty(model.Attachment))
       {
         var imagePath = string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.VEHICLE_REVENUE, model.Vehicle.Id, model.Attachment);

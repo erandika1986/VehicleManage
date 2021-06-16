@@ -39,9 +39,7 @@ namespace VehicleTracker.Business
           model = vm.ToModel();
           model.CreatedBy = user.Id;
           model.UpdatedBy = user.Id;
-
           _db.VehicleEngineOilMilages.Add(model);
-
           response.Message = "New Record has been added.";
         }
         else
@@ -50,8 +48,8 @@ namespace VehicleTracker.Business
           model.NextOilChangeMilage = vm.NextOilChangeMilage;
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
+          model.Note = vm.Note;
           _db.VehicleEngineOilMilages.Update(model);
-
           response.Message = "New Record has been updated.";
         }
 

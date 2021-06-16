@@ -64,6 +64,7 @@ export class FitnessReportDetailComponent implements OnInit {
       vehicleId: new FormControl(this.fitnessReport.vehicleId, Validators.required),
       fitnessReportDate: new FormControl({ value: fitnessReportDate, disabled: this.isReadOnly }),
       validTillDate: new FormControl({ value: validTillDate, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.fitnessReport.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.fitnessReport.isActive),
       createdOn: new FormControl({ value: this.fitnessReport.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.fitnessReport.updatedOn, disabled: true }),

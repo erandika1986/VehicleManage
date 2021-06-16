@@ -49,6 +49,7 @@ namespace VehicleTracker.Business
           model.NextGearBoxOilChangeMilage = vm.NextGearBoxOilChangeMilage;
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
+          model.Note = vm.Note;
 
           _db.VehicleGearBoxOilMilages.Update(model);
           response.Message = "Record has been updated.";

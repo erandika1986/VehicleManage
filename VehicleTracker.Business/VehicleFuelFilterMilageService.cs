@@ -49,6 +49,7 @@ namespace VehicleTracker.Business
           model.NextFuelFilterChangeMilage = vm.NextFuelFilterChangeMilage;
           model.UpdatedBy = user.Id;
           model.UpdatedOn = DateTime.UtcNow;
+          model.Note = vm.Note;
           _db.VehicleFuelFilterMilages.Update(model);
 
           response.Message = "Record has been updated.";

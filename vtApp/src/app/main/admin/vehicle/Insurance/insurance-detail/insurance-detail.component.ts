@@ -63,6 +63,7 @@ export class InsuranceDetailComponent implements OnInit {
       vehicleId: new FormControl(this.insurance.vehicleId, Validators.required),
       insuranceDate: new FormControl({ value: insuranceDate, disabled: this.isReadOnly }),
       validTillDate: new FormControl({ value: validTillDate, disabled: this.isReadOnly }),
+      note: new FormControl({ value: this.insurance.note, disabled: this.isReadOnly }),
       isActive: new FormControl(this.insurance.isActive),
       createdOn: new FormControl({ value: this.insurance.createdOn, disabled: true }),
       updatedOn: new FormControl({ value: this.insurance.updatedOn, disabled: true }),
