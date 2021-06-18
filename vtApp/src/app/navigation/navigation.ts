@@ -179,6 +179,12 @@ export const navigation: FuseNavigation[] = [
                         title: 'Wharehouse',
                         type: 'item',
                         url: '/admin/wharehouse/list'
+                    },
+                    {
+                        id: 'User',
+                        title: 'Users',
+                        type: 'item',
+                        url: '/admin/user/list'
                     }
 
                 ]
