@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,16 @@ namespace VehicleTracker.Business
         #region Member variable
 
         private readonly VMDBContext _db;
-        private readonly IUserService _userService;
+    private readonly IConfiguration _config;
+    private readonly IUserService _userService;
 
         #endregion
 
-        public ProductService(VMDBContext db, IUserService userService)
+        public ProductService(VMDBContext db, IUserService userService, IConfiguration config)
         {
             this._db = db;
             this._userService = userService;
+      this._config = config;
         }
 
         public async Task<ResponseViewModel> DeleteProduct(int id, string userName)
@@ -79,7 +82,7 @@ namespace VehicleTracker.Business
 
             pageData.ForEach(p =>
             {
-                data.Add(p.ToVm());
+                data.Add(p.ToVm(_config));
             });
 
             var response = new PaginatedItemsViewModel<ProductViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
@@ -92,7 +95,7 @@ namespace VehicleTracker.Business
         {
             var product = _db.Products.FirstOrDefault(x => x.Id == id);
 
-            return product.ToVm();
+            return product.ToVm(_config);
         }
 
         public async Task<ResponseViewModel> SaveProduct(ProductViewModel vm, string userName)
@@ -121,7 +124,6 @@ namespace VehicleTracker.Business
                 {
                     product.ProductName = vm.Name;
                     product.IsActive = vm.IsActive;
-                    product.Picture = vm.Picture;
                     product.ProductCode = vm.ProductCode;
                     product.SubProductCategoryId = vm.ProductSubCategoryId;
                     product.SubProductCategoryId = vm.ProductSubCategoryId;

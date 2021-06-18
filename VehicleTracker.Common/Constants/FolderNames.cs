@@ -11,5 +11,9 @@ namespace VehicleTracker.Common
     public const string VEHICLE_REVENUE = "VEHICLEREVENUE";
     public const string EMISSION_TEST = "EMISSION-TEST";
     public const string FITNESS_REPORT = "FITNESS-REPORT";
+    public const string PRODUCT_CATEGORY = "PRODUCT-CATEGORY";
+    public const string PRODUCT_SUB_CATEGORY = "PRODUCT-SUB-CATEGORIES";
+    public const string PRODUCT = "PRODUCTS";
+    public const string USERS = "USERS";
   }
 }

@@ -10,13 +10,13 @@ namespace VehicleTracker.Model
         public Product()
         {
             CustomerProductPrices = new HashSet<CustomerProductPrice>();
+            ProductImages = new HashSet<ProductImage>();
             ProductInventories = new HashSet<ProductInventory>();
         }
 
         public int Id { get; set; }
         public string ProductName { get; set; }
         public string ProductCode { get; set; }
-        public string Picture { get; set; }
         public decimal UnitPrice { get; set; }
         public int AvailableQty { get; set; }
         public int SubProductCategoryId { get; set; }
@@ -32,6 +32,7 @@ namespace VehicleTracker.Model
         public virtual Supplier Supplier { get; set; }
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<CustomerProductPrice> CustomerProductPrices { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductInventory> ProductInventories { get; set; }
     }
 }

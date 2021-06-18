@@ -15,6 +15,7 @@ namespace VehicleTracker.ViewModel.Common
     }
     public List<IFormFile> Files { get; set; }
     public long Id { get; set; }
+    public int Type { get; set; }
 
   }
 }

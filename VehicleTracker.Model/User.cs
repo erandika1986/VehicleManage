@@ -60,9 +60,18 @@ namespace VehicleTracker.Model
         public string Email { get; set; }
         public string MobileNo { get; set; }
         public string Password { get; set; }
-        public string TimeZone { get; set; }
+        public string Image { get; set; }
+        public int? TimeZoneId { get; set; }
+        public string Nicno { get; set; }
+        public string NicfrontImage { get; set; }
+        public string NicbackImage { get; set; }
+        public string DrivingLicenceNo { get; set; }
+        public string DrivingLicenceFrontImage { get; set; }
+        public string DrivingLicenceBackImage { get; set; }
+        public string PersonalAddress { get; set; }
         public bool? IsActive { get; set; }
 
+        public virtual TimeZoneDetail TimeZone { get; set; }
         public virtual ICollection<Client> ClientCreatedBies { get; set; }
         public virtual ICollection<Client> ClientUpdatedBies { get; set; }
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBies { get; set; }

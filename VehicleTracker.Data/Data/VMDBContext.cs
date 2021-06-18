@@ -30,6 +30,7 @@ namespace VehicleTracker.Data
     public virtual DbSet<PowerSteeringOilCode> PowerSteeringOilCodes { get; set; }
     public virtual DbSet<Product> Products { get; set; }
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
     public virtual DbSet<ProductInventory> ProductInventories { get; set; }
     public virtual DbSet<ProductReturn> ProductReturns { get; set; }
     public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; }
@@ -39,6 +40,7 @@ namespace VehicleTracker.Data
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Route> Routes { get; set; }
     public virtual DbSet<Supplier> Suppliers { get; set; }
+    public virtual DbSet<TimeZoneDetail> TimeZoneDetails { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserRole> UserRoles { get; set; }
     public virtual DbSet<Vehicle> Vehicles { get; set; }
@@ -368,6 +370,24 @@ namespace VehicleTracker.Data
             .HasMaxLength(250);
       });
 
+      modelBuilder.Entity<ProductImage>(entity =>
+      {
+        entity.ToTable("ProductImage");
+
+        entity.Property(e => e.IsActive)
+            .IsRequired()
+            .HasDefaultValueSql("((1))");
+
+        entity.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(500);
+
+        entity.HasOne(d => d.Product)
+            .WithMany(p => p.ProductImages)
+            .HasForeignKey(d => d.ProductId)
+            .HasConstraintName("FK_ProductImage_ProductImage");
+      });
+
       modelBuilder.Entity<ProductInventory>(entity =>
       {
         entity.ToTable("ProductInventory");
@@ -589,17 +609,35 @@ namespace VehicleTracker.Data
             .HasConstraintName("FK_Supplier_User1");
       });
 
+      modelBuilder.Entity<TimeZoneDetail>(entity =>
+      {
+        entity.Property(e => e.DisplayName)
+            .IsRequired()
+            .HasMaxLength(500);
+
+        entity.Property(e => e.TimeZoneId)
+            .IsRequired()
+            .HasMaxLength(500)
+            .HasColumnName("TimeZoneID");
+      });
+
       modelBuilder.Entity<User>(entity =>
       {
         entity.ToTable("User");
 
-        entity.Property(e => e.Email)
-            .IsRequired()
-            .HasMaxLength(150);
+        entity.Property(e => e.DrivingLicenceBackImage).HasMaxLength(500);
+
+        entity.Property(e => e.DrivingLicenceFrontImage).HasMaxLength(500);
+
+        entity.Property(e => e.DrivingLicenceNo).HasMaxLength(20);
+
+        entity.Property(e => e.Email).HasMaxLength(150);
 
         entity.Property(e => e.FirstName)
             .IsRequired()
             .HasMaxLength(150);
+
+        entity.Property(e => e.Image).HasMaxLength(500);
 
         entity.Property(e => e.IsActive)
             .IsRequired()
@@ -611,11 +649,32 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.MobileNo).HasMaxLength(12);
 
-        entity.Property(e => e.Password).HasMaxLength(50);
+        entity.Property(e => e.NicbackImage)
+            .HasMaxLength(500)
+            .HasColumnName("NICBackImage");
 
-        entity.Property(e => e.TimeZone).HasMaxLength(500);
+        entity.Property(e => e.NicfrontImage)
+            .HasMaxLength(500)
+            .HasColumnName("NICFrontImage");
 
-        entity.Property(e => e.Username).HasMaxLength(150);
+        entity.Property(e => e.Nicno)
+            .HasMaxLength(20)
+            .HasColumnName("NICNo");
+
+        entity.Property(e => e.Password)
+            .IsRequired()
+            .HasMaxLength(50);
+
+        entity.Property(e => e.PersonalAddress).HasMaxLength(1000);
+
+        entity.Property(e => e.Username)
+            .IsRequired()
+            .HasMaxLength(150);
+
+        entity.HasOne(d => d.TimeZone)
+            .WithMany(p => p.Users)
+            .HasForeignKey(d => d.TimeZoneId)
+            .HasConstraintName("FK_User_TimeZoneDetails");
       });
 
       modelBuilder.Entity<UserRole>(entity =>
