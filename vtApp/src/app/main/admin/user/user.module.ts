@@ -4,8 +4,12 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { FuseWidgetModule } from '@fuse/components';
+import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MaterialModule } from 'app/MaterialModule';
+import { SeletedBarComponent } from './seleted-bar/seleted-bar.component';
+import { UsersComponent } from './users.component';
+import { UserService } from 'app/services/user/user.service';
+import { MainComponent } from './sidebars/main/main.component';
 
 const routes: Routes = [
   {
@@ -15,22 +19,18 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: UserListComponent
+    component: UsersComponent
 
-  },
-  {
-    path: 'list/:id',
-    component: UserDetailComponent,
-    /*       resolve: {
-            data: EcommerceProductService
-          } */
   }
 ];
 
 @NgModule({
   declarations: [
     UserListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    SeletedBarComponent,
+    UsersComponent,
+    MainComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -39,9 +39,14 @@ const routes: Routes = [
     CommonModule,
     FuseSharedModule,
     FuseWidgetModule,
+    FuseSidebarModule,
     //FuseSharedModule,
     FuseWidgetModule,
     MaterialModule
-  ]
+  ],
+  providers :[UserService],
+  entryComponents: [
+    UserDetailComponent
+]
 })
 export class UserModule { }

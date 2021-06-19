@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { upload, Upload } from 'app/models/common/upload';
 import { ResponseModel } from 'app/models/common/response.model';
 import { User } from 'app/models/user/user.model';
@@ -12,7 +12,26 @@ import { UserMasterDataModel } from 'app/models/user/user.master.data.model';
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient) { }
+  onContactsChanged: BehaviorSubject<any>;
+  onSelectedContactsChanged: BehaviorSubject<any>;
+  onUserDataChanged: BehaviorSubject<any>;
+  onSearchTextChanged: Subject<any>;
+  onFilterChanged: Subject<any>;
+
+  users: User[];
+  user: any;
+  selectedContacts: string[] = [];
+
+  searchText: string;
+  filterBy: string;
+  
+  constructor(private httpClient: HttpClient) {
+    this.onContactsChanged = new BehaviorSubject([]);
+    this.onSelectedContactsChanged = new BehaviorSubject([]);
+    this.onUserDataChanged = new BehaviorSubject([]);
+    this.onSearchTextChanged = new Subject();
+    this.onFilterChanged = new Subject();
+   }
 
   saveVehicle(model: User): Observable<ResponseModel> {
     return this.httpClient.

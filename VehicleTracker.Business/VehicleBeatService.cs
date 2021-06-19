@@ -116,7 +116,7 @@ namespace VehicleTracker.Business
 
       var filterDate = new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]), 0, 0, 0);
 
-      TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById(user.TimeZone);
+      TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById(user.TimeZone.TimeZoneId);
 
       var startDate = new DateTime(int.Parse(splitedDate[0]), int.Parse(splitedDate[1]), int.Parse(splitedDate[2]), 0, 0, 0);
 
