@@ -1,12 +1,19 @@
 import { DataSource } from "@angular/cdk/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { UserService } from "app/services/user/user.service";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 export class UserDataSource extends DataSource<any>
 {
 
+    private _filterChange = new BehaviorSubject('');
+    private _filteredDataChange = new BehaviorSubject('');
+    
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        private _matPaginator: MatPaginator,
+        private _matSort: MatSort
     )
     {
         super();
@@ -20,6 +27,28 @@ export class UserDataSource extends DataSource<any>
     {
         return this._userService.getAllUsers(0,true);
     }
+
+    get filteredData(): any
+    {
+        return this._filteredDataChange.value;
+    }
+
+    set filteredData(value: any)
+    {
+        this._filteredDataChange.next(value);
+    }
+
+
+        // Filter
+        get filter(): string
+        {
+            return this._filterChange.value;
+        }
+    
+        set filter(filter: string)
+        {
+            this._filterChange.next(filter);
+        }
 
     /**
      * Disconnect
