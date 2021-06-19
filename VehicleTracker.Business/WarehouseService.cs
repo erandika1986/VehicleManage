@@ -34,14 +34,38 @@ namespace VehicleTracker.Business
 
     public async Task<ResponseViewModel> DeleteWarehouse(int id)
     {
-      throw new NotImplementedException();
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var warehouse = _db.Wharehouses.FirstOrDefault(x => x.Id == id);
+
+                warehouse.IsActive = false;
+
+                _db.Wharehouses.Update(warehouse);
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Warehouse has been deleted.";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error has been occured.Please try again.";
+            }
+
+            return response;
     }
 
     public List<WarehouseViewModel> GetAllWarehouses()
     {
-      var response = new List<WarehouseViewModel>();
+            var response = new List<WarehouseViewModel>();
 
+            var query = _db.Wharehouses.Where(t => t.IsActive == true);
 
+            var result = query.ToList();
+
+            
       return response;
     }
 
@@ -75,15 +99,32 @@ namespace VehicleTracker.Business
 
         if(warehouse==null)
         {
-          //Create new Warehouse object and save it to the database
-        }
+                    //Create new Warehouse object and save it to the database
+                    _db.Wharehouses.Add(warehouse);
+                    await _db.SaveChangesAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = "Warehouse has been created.";
+
+                }
         else
         {
-          //Updated existing record with given value;
-        }
+                    //Updated existing record with given value;
+                    warehouse.Id = vm.Id;
+                    warehouse.Address = vm.Address;
+                    warehouse.Phone = vm.Phone;
+                    warehouse.ManagerId = vm.SelectedManagerId;
+                    warehouse.FloorSpace = vm.FloorSpace;
 
-        response.IsSuccess = true;
-        response.Message = "";
+                    _db.Wharehouses.Update(warehouse);
+                    await _db.SaveChangesAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = "Warehouse has been updated.";
+         }
+
+       /* response.IsSuccess = true;
+        response.Message = "";*/
       }
       catch(Exception ex)
       {
