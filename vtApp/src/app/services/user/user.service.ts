@@ -6,32 +6,35 @@ import { upload, Upload } from 'app/models/common/upload';
 import { ResponseModel } from 'app/models/common/response.model';
 import { User } from 'app/models/user/user.model';
 import { UserMasterDataModel } from 'app/models/user/user.master.data.model';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  onContactsChanged: BehaviorSubject<any>;
-  onSelectedContactsChanged: BehaviorSubject<any>;
+  onUsersChanged: BehaviorSubject<any>;
+  onSelectedUsersChanged: BehaviorSubject<any>;
   onUserDataChanged: BehaviorSubject<any>;
   onSearchTextChanged: Subject<any>;
   onFilterChanged: Subject<any>;
 
   users: User[];
   user: any;
-  selectedContacts: string[] = [];
+  selectedUsers: string[] = [];
 
   searchText: string;
   filterBy: string;
   
   constructor(private httpClient: HttpClient) {
-    this.onContactsChanged = new BehaviorSubject([]);
-    this.onSelectedContactsChanged = new BehaviorSubject([]);
+    this.onUsersChanged = new BehaviorSubject([]);
+    this.onSelectedUsersChanged = new BehaviorSubject([]); 
     this.onUserDataChanged = new BehaviorSubject([]);
     this.onSearchTextChanged = new Subject();
     this.onFilterChanged = new Subject();
    }
+
+
 
   saveVehicle(model: User): Observable<ResponseModel> {
     return this.httpClient.
@@ -45,6 +48,18 @@ export class UserService {
         get<User[]>
         (environment.apiUrl + 'User/getAllUsers/' + roleId+"/"+status);
   }
+
+      // get
+      getAllUsers1(roleId: number,status:boolean): Promise<User[]> {
+        return new Promise((resolve,reject) =>{
+          this.httpClient.get(environment.apiUrl + 'User/getAllUsers/' + roleId+"/"+status)
+            .subscribe((response:User[])=>{
+                this.users = response;
+                this.onUsersChanged.next(this.users);
+                resolve(response);
+            },reject);
+        });
+    }
 
         // get
   getUserMasterData(): Observable<UserMasterDataModel> {

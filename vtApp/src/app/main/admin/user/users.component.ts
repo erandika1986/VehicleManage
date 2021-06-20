@@ -35,7 +35,7 @@ export class UsersComponent  implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this._userService.onSelectedContactsChanged
+     this._userService.onSelectedUsersChanged
     .pipe(takeUntil(this._unsubscribeAll))
     .subscribe(selectedContacts => {
         this.hasSelectedContacts = selectedContacts.length > 0;
@@ -49,7 +49,7 @@ this.searchInput.valueChanges
     )
     .subscribe(searchText => {
         this._userService.onSearchTextChanged.next(searchText);
-    });
+    }); 
   }
 
       /**

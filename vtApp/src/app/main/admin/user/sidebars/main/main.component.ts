@@ -23,12 +23,12 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.filterBy = this._usersService.filterBy || 'all';
-
+ 
     this._usersService.onUserDataChanged
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe(user => {
             this.user = user;
-        });
+        }); 
   }
 
       /**
