@@ -101,7 +101,9 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
 .As<IVehicleTypeService>()
 .InstancePerLifetimeScope();
 
-
+      builder.RegisterType<WarehouseService>()
+.As<IWarehouseService>()
+.InstancePerLifetimeScope();
 
     }
   }

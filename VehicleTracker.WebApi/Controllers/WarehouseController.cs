@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VehicleTracker.Business.Interfaces;
+using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
@@ -11,9 +13,14 @@ namespace VehicleTracker.WebApi.Controllers
   [ApiController]
   public class WarehouseController : ControllerBase
   {
-    public WarehouseController()
-    {
+    private readonly IWarehouseService _warehouseService;
+    private readonly IIdentityService _identityService;
 
+
+    public WarehouseController(IWarehouseService warehouseService, IIdentityService identityService)
+    {
+      this._warehouseService = warehouseService;
+      this._identityService = identityService;
     }
 
 
