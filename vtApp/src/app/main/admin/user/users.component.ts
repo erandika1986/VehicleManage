@@ -35,12 +35,6 @@ export class UsersComponent  implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-     this._userService.onSelectedUsersChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(selectedContacts => {
-        this.hasSelectedContacts = selectedContacts.length > 0;
-    });
-
 this.searchInput.valueChanges
     .pipe(
         takeUntil(this._unsubscribeAll),

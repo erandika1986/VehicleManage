@@ -43,14 +43,14 @@ export class UserService {
   }
 
     // get
-  getAllUsers(roleId: number,status:boolean): Observable<User[]> {
+  getAllUsers(roleId: number,status:number): Observable<User[]> {
       return this.httpClient.
         get<User[]>
         (environment.apiUrl + 'User/getAllUsers/' + roleId+"/"+status);
   }
 
       // get
-      getAllUsers1(roleId: number,status:boolean): Promise<User[]> {
+      getAllUsers1(roleId: number,status:number): Promise<User[]> {
         return new Promise((resolve,reject) =>{
           this.httpClient.get(environment.apiUrl + 'User/getAllUsers/' + roleId+"/"+status)
             .subscribe((response:User[])=>{

@@ -1,33 +1,37 @@
 <div class="sidebar-content">
 
     <div class="card">
-
-
         <!-- / SIDEBAR HEADER -->
 
         <!-- SIDEBAR CONTENT -->
         <div class="content py-16" fusePerfectScrollbar>
 
             <div class="nav material2">
+                <form [formGroup]="filterForm" style="margin-left: 5px !important;">
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field appearance="outline" class="pr-sm-8 pr-4 custome-wrapper" fxFlex="1 0 20">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="selectdStatusId" (selectionChange)="dropdownFilterChanged()">
+                                <mat-option *ngFor="let item of status" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+    
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field appearance="outline" class="pr-sm-8 pr-4 custome-wrapper" fxFlex="1 0 20">
+                            <mat-label>Role</mat-label>
+                            <mat-select formControlName="selectedRoleId" (selectionChange)="dropdownFilterChanged()">
+                                <mat-option *ngFor="let item of roles" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+    
+                </form>
 
-                <div class="nav-item" aria-label="inbox">
-                    <a class="nav-link" matRipple (click)="changeFilter('all')"
-                       [ngClass]="{'active accent':filterBy ==='all'}">
-                        <span class="title">All Users</span>
-                    </a>
-                </div>
-
-                <div class="nav-item" aria-label="frequently contacted" (click)="changeFilter('frequent')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='frequent'}">
-                        <div class="title">Active Users</div>
-                    </a>
-                </div>
-
-                <div class="nav-item" aria-label="starred" (click)="changeFilter('starred')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='starred'}">
-                        <div class="title">Inactive Users</div>
-                    </a>
-                </div>
             </div>
 
         </div>

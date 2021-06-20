@@ -30,5 +30,6 @@ namespace VehicleTracker.ViewModel.Users
     public bool? IsActive { get; set; }
 
     public List<RoleViewModel> Roles { get; set; }
+    public string RoleText { get; set; }
   }
 }

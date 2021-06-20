@@ -32,14 +32,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true})
   sort: MatSort;
 
-  users: any;
-  user: any;
-  //dataSource: UserDataSource | null;
   filterValue:string;
   dataSource = new MatTableDataSource([]);
-  displayedColumns = ['image', 'firstName', 'email', 'mobileNo', 'buttons'];
-  selectedUsers: any[];
-  checkboxes: {};
+  displayedColumns = ['image', 'firstName','roleText', 'email', 'mobileNo', 'buttons'];
+
+
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
@@ -56,7 +53,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this._userService.onFilterChanged.subscribe((response:UserFilter)=>{
-        this.loadUsers(response.selectedRoleId,response.selectdStatus==1?true:false);
+        this.loadUsers(response.selectedRoleId,response.selectdStatusId);
     });
 
     this._userService.onSearchTextChanged.subscribe(response=>{
@@ -68,7 +65,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         
     });
 
-    this.loadUsers(0,true);
+    this.loadUsers(0,0);
   }
 
   ngOnDestroy(): void
@@ -78,7 +75,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       this._unsubscribeAll.complete();
   }
 
-  loadUsers(roleId:number,status:boolean)
+  loadUsers(roleId:number,status:number)
   {
     this._userService.getAllUsers(roleId,status)
     .subscribe(response=>{

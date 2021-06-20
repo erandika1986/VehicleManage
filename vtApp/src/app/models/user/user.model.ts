@@ -19,4 +19,5 @@ export class User {
     drivingLicenceFrontImage:string;
     drivingLicenceBackImage:string;
     role: Role[];
+    roleText:string;
 }
