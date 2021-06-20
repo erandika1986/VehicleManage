@@ -63,7 +63,26 @@ namespace VehicleTracker.Business
 
             var query = _db.Wharehouses.Where(t => t.IsActive == true);
 
-            var result = query.ToList();
+            var results = query.ToList();
+
+            foreach(var warehouse in results)
+            {
+                var vm = new WarehouseViewModel();
+                vm.Id = warehouse.Id;
+                vm.Address = warehouse.Address;
+                vm.CreatedBy = string.Format("{0} {1}", warehouse.CreatedBy.FirstName, warehouse.CreatedBy.LastName);
+                vm.CreatedOn = warehouse.CreatedOn.ToString("MMMM dd, yyyy");
+                vm.FloorSpace = warehouse.FloorSpace;
+                vm.IsActive = warehouse.IsActive;
+                vm.ManagerName = string.Format("{0} {1}", warehouse.Manager.FirstName, warehouse.Manager.LastName);
+                vm.Phone = warehouse.Phone;
+                vm.UpdatedOn = warehouse.UpdatedOn.ToString("MMMM dd, yyyy");
+                vm.UpdatedBy = string.Format("{0} {1}", warehouse.UpdatedBy.FirstName, warehouse.UpdatedBy.LastName);
+
+                response.Add(vm);
+            }
+
+
 
             
       return response;
@@ -99,6 +118,7 @@ namespace VehicleTracker.Business
 
         if(warehouse==null)
         {
+                    
                     //Create new Warehouse object and save it to the database
                     _db.Wharehouses.Add(warehouse);
                     await _db.SaveChangesAsync();
