@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
@@ -24,6 +26,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild('dialogContent')
   dialogContent: TemplateRef<any>;
 
+  @ViewChild(MatPaginator, {static: true})
+  paginator: MatPaginator;
+
+  @ViewChild(MatSort, {static: true})
+  sort: MatSort;
+
   users: any;
   user: any;
   //dataSource: UserDataSource | null;
@@ -35,8 +43,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-      // Private
-      private _unsubscribeAll: Subject<any>;
+  // Private
+  private _unsubscribeAll: Subject<any>;
       
   constructor
   (
@@ -55,6 +63,8 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.filterValue = response.trim(); // Remove whitespace
         this.filterValue = this.filterValue.toLowerCase(); // Datasource defaults to lowercase matches
         this.dataSource.filter = this.filterValue;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
         
     });
 

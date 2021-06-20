@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { UserService } from 'app/services/user/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,12 +13,25 @@ export class MainComponent implements OnInit, OnDestroy {
 
   user: any;
   filterBy: string;
+  status:DropDownModel[]=[];
+
+
 
   // Private
   private _unsubscribeAll: Subject<any>;
   
   constructor(private _usersService: UserService) { 
     this._unsubscribeAll = new Subject();
+    let activeStaus:DropDownModel = new DropDownModel();
+    activeStaus.id=1;
+    activeStaus.name="Active";
+
+    let inactiveStaus:DropDownModel = new DropDownModel();
+    inactiveStaus.id=2;
+    inactiveStaus.name="Inactive";
+
+    this.status.push(activeStaus);
+    this.status.push(inactiveStaus);
   }
 
   ngOnInit(): void {
