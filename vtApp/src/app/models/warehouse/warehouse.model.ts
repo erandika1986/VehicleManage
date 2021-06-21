@@ -5,12 +5,12 @@ export class WarehouseModel
     id:number;
     address:string;
     phone:string;
-    ManagerId:string;
+    managerName:string;
     floorSpace:number;
-    createOn:Date
-    createById:number;
-    updateOn:Date;
-    updatedById:number;
+    createdOn:string;
+    createdBy:string;
+    updateOn:string;
+    updatedBy:string;
     isActive:boolean;
     SelectedManagerId:number;
    
