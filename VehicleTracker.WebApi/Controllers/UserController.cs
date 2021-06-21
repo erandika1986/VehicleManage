@@ -58,7 +58,7 @@ namespace VehicleTracker.WebApi.Controllers
 
     [HttpGet]
     [Route("getAllUsers/{roleId}/{status}")]
-    public IActionResult  GetAllUsers(int roleId, bool status)
+    public IActionResult  GetAllUsers(int roleId, int status)
     {
       var response = _userService.GetAllUsers(roleId, status);
 
