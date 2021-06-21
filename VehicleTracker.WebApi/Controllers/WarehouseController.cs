@@ -40,7 +40,7 @@ namespace VehicleTracker.WebApi.Controllers
 
     //POST api/wharehouse
     [HttpPost]
-    public async Task<ActionResult>post([FromBody] WarehouseViewModel vm)
+    public async Task<ActionResult>Post([FromBody] WarehouseViewModel vm)
     {
        var userName = identityService.GetUserName();
        var response = await _warehouseService.SaveWarehouse(vm, userName);
