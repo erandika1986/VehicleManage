@@ -36,7 +36,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource([]);
   displayedColumns = ['image', 'firstName','roleText', 'email', 'mobileNo', 'buttons'];
 
-
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
@@ -94,7 +93,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     editUser(user:User): void
     {
         this.dialogRef = this._matDialog.open(UserDetailComponent, {
-            panelClass: 'contact-form-dialog',
+            panelClass: 'user-form-dialog',
             data      : {
               user: user,
                 action : 'edit'
