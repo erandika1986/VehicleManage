@@ -59,7 +59,7 @@ this.searchInput.valueChanges
     newContact(): void
     {
         this.dialogRef = this._matDialog.open(UserDetailComponent, {
-            panelClass: 'contact-form-dialog',
+            panelClass: 'user-form-dialog',
             data      : {
                 action: 'new'
             }
