@@ -10,7 +10,7 @@ namespace VehicleTracker.Business.Interfaces
 {
   public interface IWarehouseService
   {
-    Task<ResponseViewModel> SaveWarehouse(WarehouseViewModel vm);
+    Task<ResponseViewModel> SaveWarehouse(WarehouseViewModel vm, string userName);
     Task<ResponseViewModel> DeleteWarehouse(int id);
     WarehouseViewModel GetWarehouseById(int id);
     List<WarehouseViewModel> GetAllWarehouses();

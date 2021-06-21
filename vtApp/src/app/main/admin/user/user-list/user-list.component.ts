@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { UserDataSource } from 'app/models/user/user.datasource';
+import { UserFilter } from 'app/models/user/user.filter.model';
 import { User } from 'app/models/user/user.model';
 import { UserService } from 'app/services/user/user.service';
 import { Subject } from 'rxjs';
@@ -23,71 +26,46 @@ export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild('dialogContent')
   dialogContent: TemplateRef<any>;
 
-  users: any;
-  user: any;
-  //dataSource: UserDataSource | null;
+  @ViewChild(MatPaginator, {static: true})
+  paginator: MatPaginator;
+
+  @ViewChild(MatSort, {static: true})
+  sort: MatSort;
+
+  filterValue:string;
   dataSource = new MatTableDataSource([]);
-  displayedColumns = ['image', 'firstName', 'email', 'mobileNo', 'buttons'];
-  selectedUsers: any[];
-  checkboxes: {};
+  displayedColumns = ['image', 'firstName','roleText', 'email', 'mobileNo', 'buttons'];
+
+
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-      // Private
-      private _unsubscribeAll: Subject<any>;
+  // Private
+  private _unsubscribeAll: Subject<any>;
       
-  constructor(        private _userService: UserService,
-    public _matDialog: MatDialog) {
+  constructor
+  (
+      private _userService: UserService,
+        public _matDialog: MatDialog) {
       this._unsubscribeAll = new Subject();
      }
 
   ngOnInit(): void {
 
-    //this.dataSource = new UserDataSource(this._userService);
-
-    this._userService.getAllUsers(0,true)
-    .subscribe(response=>{
-        this.dataSource = new MatTableDataSource(response);
-        this.dataSource.connect();
+    this._userService.onFilterChanged.subscribe((response:UserFilter)=>{
+        this.loadUsers(response.selectedRoleId,response.selectdStatusId);
     });
 
-    this._userService.onContactsChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(contacts => {
-        this.users = contacts;
-
-/*         this.checkboxes = {};
-        contacts.map(contact => {
-            this.checkboxes[contact.id] = false;
-        }); */
+    this._userService.onSearchTextChanged.subscribe(response=>{
+        this.filterValue = response.trim(); // Remove whitespace
+        this.filterValue = this.filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = this.filterValue;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
     });
 
-    this._userService.onSelectedContactsChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(selectedContacts => {
-/*         for ( const id in this.checkboxes )
-        {
-            if ( !this.checkboxes.hasOwnProperty(id) )
-            {
-                continue;
-            }
-
-            this.checkboxes[id] = selectedContacts.includes(id);
-        } */
-        this.selectedUsers = selectedContacts;
-    });
-
-    this._userService.onUserDataChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(user => {
-        this.user = user;
-    });
-
-this._userService.onFilterChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(() => {
-        //this._userService.deselectContacts();
-    });
+    this.loadUsers(0,0);
   }
 
   ngOnDestroy(): void
@@ -95,6 +73,17 @@ this._userService.onFilterChanged
       // Unsubscribe from all subscriptions
       this._unsubscribeAll.next();
       this._unsubscribeAll.complete();
+  }
+
+  loadUsers(roleId:number,status:number)
+  {
+    this._userService.getAllUsers(roleId,status)
+    .subscribe(response=>{
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+    });
   }
 
       /**
