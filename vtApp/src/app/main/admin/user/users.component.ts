@@ -35,12 +35,6 @@ export class UsersComponent  implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-     this._userService.onSelectedUsersChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(selectedContacts => {
-        this.hasSelectedContacts = selectedContacts.length > 0;
-    });
-
 this.searchInput.valueChanges
     .pipe(
         takeUntil(this._unsubscribeAll),
@@ -65,7 +59,7 @@ this.searchInput.valueChanges
     newContact(): void
     {
         this.dialogRef = this._matDialog.open(UserDetailComponent, {
-            panelClass: 'contact-form-dialog',
+            panelClass: 'user-form-dialog',
             data      : {
                 action: 'new'
             }

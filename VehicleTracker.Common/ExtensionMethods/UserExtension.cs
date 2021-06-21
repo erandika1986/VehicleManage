@@ -50,6 +50,7 @@ namespace System
       vm.PersonalAddress = model.PersonalAddress;
       vm.TimeZoneId = model.TimeZoneId.HasValue?model.TimeZoneId.Value:0;
       vm.Username = model.Username;
+      vm.RoleText = string.Join(",", model.UserRoles.Select(x => x.Role.Name).ToList());
 
 
       if (!string.IsNullOrEmpty(model.Image))

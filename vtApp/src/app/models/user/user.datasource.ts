@@ -21,7 +21,7 @@ export class UserDataSource extends DataSource<any>
      */
     connect(): Observable<any[]>
     {
-        return this._userService.getAllUsers(0,true);
+        return this._userService.getAllUsers(0,0);
     }
 
     /**

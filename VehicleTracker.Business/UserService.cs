@@ -215,15 +215,21 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public List<UserViewModel> GetAllUsers(int roleId, bool status)
+    public List<UserViewModel> GetAllUsers(int roleId, int status)
     {
       var response = new List<UserViewModel>();
 
-      var query = _db.Users.Where(x=>x.IsActive==status);
+      var query = _db.Users.OrderBy(x=>x.FirstName);
+
+      if(status>0)
+      {
+        var isActive = status == 1 ? true : false;
+        query = query.Where(x => x.IsActive == isActive).OrderBy(x => x.FirstName);
+      }
 
       if(roleId>0)
       {
-        query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId));
+        query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x=>x.FirstName);
       }
 
       var users = query.ToList();
