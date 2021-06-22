@@ -1,3 +1,4 @@
+import { MaterialModule } from 'app/MaterialModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,7 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FuseWidgetModule } from '@fuse/components';
+import { FuseWidgetModule, FuseSidebarModule } from '@fuse/components';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -50,26 +51,14 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
 
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
+    
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    SharedModule
+    FuseSidebarModule,
+    //FuseSharedModule,
+    FuseWidgetModule,
+    MaterialModule
   ]
 })
 export class WharehouseModule { }
