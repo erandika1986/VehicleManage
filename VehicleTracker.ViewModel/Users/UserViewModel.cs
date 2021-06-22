@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VehicleTracker.ViewModel.Common;
 
 namespace VehicleTracker.ViewModel.Users
 {
@@ -8,7 +9,7 @@ namespace VehicleTracker.ViewModel.Users
   {
     public UserViewModel()
     {
-      Roles = new List<RoleViewModel>();
+      Roles = new List<long>();
     }
 
     public long Id { get; set; }
@@ -29,7 +30,7 @@ namespace VehicleTracker.ViewModel.Users
     public string PersonalAddress { get; set; }
     public bool? IsActive { get; set; }
 
-    public List<RoleViewModel> Roles { get; set; }
+    public List<long> Roles { get; set; }
     public string RoleText { get; set; }
   }
 }

@@ -80,7 +80,7 @@
 
 <!-- ADD CONTACT BUTTON -->
 <button mat-fab class="accent" id="add-user-button" (click)="newContact()" aria-label="add contact"
-        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" *ngIf="masterData">
     <mat-icon>person_add</mat-icon>
 </button>
 <!-- / ADD CONTACT BUTTON -->

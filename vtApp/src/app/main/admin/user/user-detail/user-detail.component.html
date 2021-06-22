@@ -39,13 +39,13 @@
                 <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
                     <mat-label>Email</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="email" formControlName="email" matInput required placeholder="Email">
+                    <input name="email" formControlName="email" matInput placeholder="Email">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
                     <mat-label>Mobile No</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="mobileNo" formControlName="mobileNo" matInput required>
+                    <input name="mobileNo" formControlName="mobileNo" matInput>
                 </mat-form-field>
 
 
@@ -55,12 +55,12 @@
                 <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
                     <mat-label>Driving Licence No</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput required>
+                    <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
                     <mat-label>NIC No</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="nicno" formControlName="nicno" matInput required>
+                    <input name="nicno" formControlName="nicno" matInput>
                 </mat-form-field>
             </div>
 
@@ -68,42 +68,46 @@
                 <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
                     <mat-label>Username</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="userName" formControlName="userName" matInput required placeholder="Username">
+                    <input name="username" formControlName="username" matInput required placeholder="Username">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48" *ngIf="user.id==0">
                     <mat-label>Password</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
                     <input name="password" formControlName="password" matInput required>
                 </mat-form-field>
             </div>
 
+            <div fxLayout="row" fxLayoutAlign="space-between">
+                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                    <mat-label>Roles</mat-label>
+                    <mat-select formControlName="roles" multiple required>
+                        <mat-select-trigger>
+                            {{rolesName}}
+                          </mat-select-trigger>
+                        <mat-option *ngFor="let item of masterData?.roles" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                </mat-form-field>
 
-
+                <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                    <mat-label>Time Zone</mat-label>
+                    <mat-select formControlName="timeZoneId" required>
+                        <mat-option *ngFor="let item of masterData?.timeZones" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                </mat-form-field>
+            </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Personal Address</mat-label>
                     <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="personalAddress" formControlName="personalAddress" matInput required>
-                </mat-form-field>
-            </div>
-
-
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Time Zone</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="timeZoneId" formControlName="timeZoneId" matInput required>
-                </mat-form-field>
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Driving Licence No</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput required>
+                    <input name="personalAddress" formControlName="personalAddress" matInput>
                 </mat-form-field>
             </div>
 

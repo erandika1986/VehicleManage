@@ -78,21 +78,23 @@ namespace VehicleTracker.Business
         if(user==null)
         {
           user = vm.ToNewModel();
+          user.Password = CustomPasswordHasher.GenerateHash(vm.Password);
 
           user.UserRoles = new HashSet<UserRole>();
 
-          foreach (var role in vm.Roles)
+          foreach (var roleId in vm.Roles)
           {
             var userRole = new UserRole()
             {
               IsActive = true,
-              RoleId = role.Id,
+              RoleId = roleId,
               StartedDate = DateTime.UtcNow
             };
 
             user.UserRoles.Add(userRole);
-            _db.Users.Add(user);
           }
+
+          _db.Users.Add(user);
 
           response.Message = "New user has been created.";
         }
@@ -107,16 +109,16 @@ namespace VehicleTracker.Business
           user.DrivingLicenceNo = vm.DrivingLicenceNo;
 
           var existingId = user.UserRoles.Select(x => x.RoleId).ToList();
-          var newRoles = (from nr in vm.Roles where !existingId.Any(x => x == nr.Id) select nr);
-          var deletedRoles = (from dr in existingId where !vm.Roles.Any(x => x.Id == dr) select dr);
+          var newRoles = (from nr in vm.Roles where !existingId.Any(x => x == nr) select nr);
+          var deletedRoles = (from dr in existingId where !vm.Roles.Any(x => x == dr) select dr);
 
           //Assigned New roles
-          foreach(var role in newRoles)
+          foreach(var roleId in newRoles)
           {
             var userRole = new UserRole()
             {
               IsActive = true,
-              RoleId = role.Id,
+              RoleId = roleId,
               StartedDate = DateTime.UtcNow
             };
 

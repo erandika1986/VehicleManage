@@ -71,6 +71,7 @@ export class MainComponent implements OnInit, OnDestroy {
     {
       this._usersService.getUserMasterData()
         .subscribe(response=>{
+          this._usersService.onMasterDataRecieved.next(response);
           response.roles.forEach(element => {
             this.roles.push(element);
           });

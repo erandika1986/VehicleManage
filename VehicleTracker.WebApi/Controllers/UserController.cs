@@ -27,7 +27,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     [HttpPost]
-    [Route("saveVehicle")]
+    [Route("saveUser")]
     public async Task<IActionResult> SaveUser(UserViewModel vm)
     {
       var response = await _userService.SaveUser(vm);

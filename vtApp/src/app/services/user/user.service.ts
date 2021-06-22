@@ -18,6 +18,7 @@ export class UserService {
   onUserDataChanged: BehaviorSubject<any>;
   onSearchTextChanged: Subject<any>;
   onFilterChanged: Subject<any>;
+  onMasterDataRecieved:Subject<any>;
 
   users: User[];
   user: any;
@@ -32,6 +33,7 @@ export class UserService {
     this.onUserDataChanged = new BehaviorSubject([]);
     this.onSearchTextChanged = new Subject();
     this.onFilterChanged = new Subject();
+    this.onMasterDataRecieved = new Subject();
    }
 
 
@@ -39,7 +41,7 @@ export class UserService {
   saveVehicle(model: User): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>
-      (environment.apiUrl + 'User/saveVehicle', model);
+      (environment.apiUrl + 'User/saveUser', model);
   }
 
     // get
