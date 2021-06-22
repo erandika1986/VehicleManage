@@ -9,7 +9,7 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface ICustomerService
     {
-        PaginatedItemsViewModel<CustomerViewModel> GetAllCustomers(int pageSize, int currentPage);
+        List<CustomerViewModel> GetAllCustomers();
         CustomerViewModel GetCustomerById(long id);
         Task<ResponseViewModel> AddNewCustomer(CustomerViewModel vm, string userName);
         Task<ResponseViewModel> UpdateCustomer(CustomerViewModel vm, string userName);
