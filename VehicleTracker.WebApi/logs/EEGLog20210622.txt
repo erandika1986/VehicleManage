@@ -2396,3 +2396,59 @@ ORDER BY [c].[Name]
 2021-06-22 21:48:32.529 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi)'
 2021-06-22 21:48:32.531 +05:30 [DBG] 'VMDBContext' disposed.
 2021-06-22 21:48:32.531 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/Customer - - - 200 - application/json;+charset=utf-8 68.9292ms
+2021-06-22 21:50:29.467 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5005/api/Customer - -
+2021-06-22 21:50:29.468 +05:30 [DBG] OPTIONS requests are not supported
+2021-06-22 21:50:29.468 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-06-22 21:50:29.468 +05:30 [INF] CORS policy execution successful.
+2021-06-22 21:50:29.469 +05:30 [DBG] The request is a preflight request.
+2021-06-22 21:50:29.475 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5005/api/Customer - - - 204 - - 7.2537ms
+2021-06-22 21:50:29.476 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/api/Customer - -
+2021-06-22 21:50:29.476 +05:30 [DBG] The request path  does not match the path filter
+2021-06-22 21:50:29.476 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-06-22 21:50:29.476 +05:30 [INF] CORS policy execution successful.
+2021-06-22 21:50:29.476 +05:30 [DBG] 1 candidate(s) found for the request path '/api/Customer'
+2021-06-22 21:50:29.476 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi)' with route pattern 'api/Customer' is valid for the request path '/api/Customer'
+2021-06-22 21:50:29.477 +05:30 [DBG] Request matched endpoint 'VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi)'
+2021-06-22 21:50:29.477 +05:30 [INF] Successfully validated the token.
+2021-06-22 21:50:29.477 +05:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2021-06-22 21:50:29.477 +05:30 [INF] Authorization was successful.
+2021-06-22 21:50:29.477 +05:30 [INF] Executing endpoint 'VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi)'
+2021-06-22 21:50:29.477 +05:30 [INF] Route matched with {action = "Get", controller = "Customer"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Get() on controller VehicleTracker.WebApi.Controllers.CustomerController (VehicleTracker.WebApi).
+2021-06-22 21:50:29.477 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-06-22 21:50:29.477 +05:30 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2021-06-22 21:50:29.477 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-06-22 21:50:29.478 +05:30 [DBG] Execution plan of exception filters (in the following order): ["VehicleTracker.WebApi.Infrastructure.Filters.HttpGlobalExceptionFilter"]
+2021-06-22 21:50:29.478 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter","Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-06-22 21:50:29.478 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.CustomerController (VehicleTracker.WebApi)
+2021-06-22 21:50:29.478 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.CustomerController (VehicleTracker.WebApi)
+2021-06-22 21:50:29.491 +05:30 [INF] Executing action method VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi) - Validation state: "Valid"
+2021-06-22 21:50:29.491 +05:30 [INF] Entity Framework Core 5.0.7 initialized 'VMDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+2021-06-22 21:50:29.492 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-06-22 21:50:29.492 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-06-22 21:50:29.492 +05:30 [DBG] Opening connection to database 'VMDB' on server 'LAPTOP-DDKVBVHQ\SQLEXPRESS'.
+2021-06-22 21:50:29.492 +05:30 [DBG] Opened connection to database 'VMDB' on server 'LAPTOP-DDKVBVHQ\SQLEXPRESS'.
+2021-06-22 21:50:29.492 +05:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[Address], [c].[ContactNo1], [c].[ContactNo2], [c].[CreatedById], [c].[CreatedOn], [c].[Description], [c].[Email], [c].[IsActive], [c].[Latitude], [c].[Longitude], [c].[Name], [c].[Priority], [c].[RouteId], [c].[UpdatedById], [c].[UpdatedOn]
+FROM [Client] AS [c]
+WHERE [c].[IsActive] = CAST(1 AS bit)
+ORDER BY [c].[Name]
+2021-06-22 21:50:29.494 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[Address], [c].[ContactNo1], [c].[ContactNo2], [c].[CreatedById], [c].[CreatedOn], [c].[Description], [c].[Email], [c].[IsActive], [c].[Latitude], [c].[Longitude], [c].[Name], [c].[Priority], [c].[RouteId], [c].[UpdatedById], [c].[UpdatedOn]
+FROM [Client] AS [c]
+WHERE [c].[IsActive] = CAST(1 AS bit)
+ORDER BY [c].[Name]
+2021-06-22 21:50:29.494 +05:30 [DBG] Context 'VMDBContext' started tracking 'Client' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-06-22 21:50:29.494 +05:30 [DBG] A data reader was disposed.
+2021-06-22 21:50:29.495 +05:30 [DBG] Closing connection to database 'VMDB' on server 'LAPTOP-DDKVBVHQ\SQLEXPRESS'.
+2021-06-22 21:50:29.495 +05:30 [DBG] Closed connection to database 'VMDB' on server 'LAPTOP-DDKVBVHQ\SQLEXPRESS'.
+2021-06-22 21:50:29.495 +05:30 [INF] Executed action method VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 3.9736ms.
+2021-06-22 21:50:29.495 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2021-06-22 21:50:29.495 +05:30 [DBG] No information found on request to perform content negotiation.
+2021-06-22 21:50:29.495 +05:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-06-22 21:50:29.495 +05:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-06-22 21:50:29.495 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-06-22 21:50:29.495 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VehicleTracker.ViewModel.CustomerViewModel, VehicleTracker.ViewModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2021-06-22 21:50:29.495 +05:30 [INF] Executed action VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi) in 17.7347ms
+2021-06-22 21:50:29.495 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.CustomerController.Get (VehicleTracker.WebApi)'
+2021-06-22 21:50:29.502 +05:30 [DBG] 'VMDBContext' disposed.
+2021-06-22 21:50:29.503 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/Customer - - - 200 - application/json;+charset=utf-8 26.7619ms

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using VehicleTracker.ViewModel;
 using VehicleTracker.WebApi.Infrastructure.Services;
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class WarehouseController : ControllerBase
@@ -16,7 +18,7 @@ namespace VehicleTracker.WebApi.Controllers
      private readonly IWarehouseService _warehouseService;
      private readonly IIdentityService identityService;
   
-    public WarehouseController(IWarehouseService warehouseService, IdentityService identityService)
+    public WarehouseController(IWarehouseService warehouseService, IIdentityService identityService)
     {
             this._warehouseService = warehouseService;
             this.identityService = identityService;
