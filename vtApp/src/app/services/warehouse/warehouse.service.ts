@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.modal';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResponseModel } from 'app/models/common/response.model';
@@ -22,6 +23,11 @@ export class WarehouseService {
       get<WarehouseModel[]>(environment.apiUrl + 'Warehouse');
   }
 
+  getAllManagers(): Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Warehouse/getAllManagers');
+  }
+
   SaveWarehouse(vm: WarehouseModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Warehouse', vm);
@@ -31,4 +37,5 @@ export class WarehouseService {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Warehouse' + "/" + id);
   }
+  //dropdownmodelarray
 }
