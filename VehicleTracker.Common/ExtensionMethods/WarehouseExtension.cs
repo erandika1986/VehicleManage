@@ -21,8 +21,9 @@ namespace System
       vm.CreatedOn = warehouse.CreatedOn.ToString("MMMM dd, yyyy");
       vm.FloorSpace = warehouse.FloorSpace;
       vm.IsActive = warehouse.IsActive;
-      vm.ManagerName = string.Format("{0} {1}", warehouse.Manager.FirstName, warehouse.Manager.LastName);
+      vm.SelectedManagerId = warehouse.ManagerId;
       vm.Phone = warehouse.Phone;
+      vm.ManagerName = string.Format("{0} {1}", warehouse.Manager.FirstName, warehouse.Manager.LastName);
       vm.UpdatedOn = warehouse.UpdatedOn.ToString("MMMM dd, yyyy");
       vm.UpdatedBy = string.Format("{0} {1}", warehouse.UpdatedBy.FirstName, warehouse.UpdatedBy.LastName);
 
@@ -41,6 +42,7 @@ namespace System
       model.ManagerId = vm.SelectedManagerId;
       model.Phone = vm.Phone;
       model.UpdatedOn = DateTime.UtcNow;
+      model.IsActive = true;
 
       return model;
     }

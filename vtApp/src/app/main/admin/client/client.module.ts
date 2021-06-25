@@ -17,13 +17,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FuseWidgetModule } from '@fuse/components';
+import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from 'app/shared/shared.module';
 import { ClientDetailComponent } from './client-detail/client-detail.component';
 import { ClientListComponent } from './client-list/client-list.component';
+import { MaterialModule } from 'app/MaterialModule';
 
 
 const routes: Routes = [
@@ -51,26 +52,13 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
 
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    SharedModule
+    FuseSidebarModule,
+    //FuseSharedModule,
+    FuseWidgetModule,
+    MaterialModule
   ]
 })
 export class ClientModule { }

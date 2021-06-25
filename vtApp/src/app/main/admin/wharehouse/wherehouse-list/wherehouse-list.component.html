@@ -27,7 +27,7 @@
             <div class="search-wrapper mx-32 mx-md-0">
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input #input (keyup)="applyFilter($event.target.value)" placeholder="Search for Route">
+                    <input #input (keyup)="applyFilter($event.target.value)" placeholder="Search for Warehouse">
                 </div>
             </div>
             <!-- / SEARCH -->
@@ -56,7 +56,7 @@
                 </ng-container>
 
              
-                <!-- Name routeCode -->
+                <!--address -->
                 <ng-container matColumnDef="address">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
                     <mat-cell *matCellDef="let item">
@@ -64,7 +64,7 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Model startFrom -->
+                <!-- phone -->
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
                     <mat-cell *matCellDef="let item">
@@ -72,22 +72,38 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Year endFrom -->
+                <!-- managerName -->
                 <ng-container matColumnDef="managerName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>mManager Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Manager Name</mat-header-cell>
                     <mat-cell *matCellDef="let item">
                         <p class="text-truncate">{{item.managerName}}</p>
                     </mat-cell>
                 </ng-container>
 
-                <!-- Code Total Distance -->
+                <!-- floorSpacee -->
                 <ng-container matColumnDef="floorSpace">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Floor Space</mat-header-cell>
                     <mat-cell *matCellDef="let item">
                         <p class="text-truncate">{{item.floorSpace}}</p>
                     </mat-cell>
                 </ng-container>
+              
+                <!-- floorSpacee -->
+                <ng-container matColumnDef="createdOn">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Created On</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.createdOn}}</p>
+                    </mat-cell>
+                </ng-container>
 
+                <ng-container matColumnDef="updatedOn">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Updated On</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.updatedOn}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                
 
                 <!-- Buttons Column -->
                 <ng-container matColumnDef="buttons">

@@ -31,7 +31,7 @@ export class WherehouseListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  displayedColumns = ["buttons", "id", "address", "phone", "managerName", "floorSpace"];
+  displayedColumns = ["buttons", "id", "address", "phone", "managerName", "floorSpace", "createdOn", "updatedOn"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -72,7 +72,7 @@ export class WherehouseListComponent implements OnInit {
            * Save
            */
           case 'save':
-            this.saveWarehouse();
+            this.saveWarehouse(formData.getRawValue());
 
 
             break;
@@ -88,8 +88,35 @@ export class WherehouseListComponent implements OnInit {
       });
   }
 
-  addNewWarehouse(){
+  addNewWarehouse(): void {
 
+    let warehouse: WarehouseModel = new WarehouseModel();
+    warehouse.id = 0;
+    warehouse.address = "";
+    warehouse.phone = "";
+    warehouse.floorSpace = 0;
+   /*warehouse.createdOn = "";
+    warehouse.updateOn = "";*/
+    warehouse.isActive = true;
+
+    this.dialogRef = this._matDialog.open(WherehouseDetailComponent, {
+      panelClass: 'route-form-dialog',
+      data: {
+        warehouse: warehouse,
+        action: "add"
+      }
+    });
+
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+
+        const formData: FormGroup = response;
+        this.saveWarehouse(formData.getRawValue());
+
+      });
   }
 
   loadWarehouses() {
@@ -115,8 +142,36 @@ export class WherehouseListComponent implements OnInit {
   }
 
 
-saveWarehouse(){
+saveWarehouse(vm: WarehouseModel) {
+  this._fuseProgressBarService.show();
+  this._warehouseService.SaveWarehouse(vm)
+    .subscribe(response => {
 
+      this._fuseProgressBarService.hide();
+      if (response.isSuccess) {
+        this._snackBar.open(response.message, 'Success', {
+          duration: 2500,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+
+        this.loadWarehouses();;
+      }
+      else {
+        this._snackBar.open(response.message, 'Error', {
+          duration: 2500,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+      }
+    }, error => {
+      this._fuseProgressBarService.hide();
+      this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+        duration: 2500,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+    });
 }
 
 deleteWarehouse(warehouse:WarehouseModel){
@@ -164,6 +219,6 @@ deleteWarehouse(warehouse:WarehouseModel){
 
 }
 
-  
+ 
 
 }
