@@ -27,8 +27,6 @@ export class WarehouseService {
       post<ResponseModel>(environment.apiUrl + 'Warehouse', vm);
   }
 
-
-
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Warehouse' + "/" + id);

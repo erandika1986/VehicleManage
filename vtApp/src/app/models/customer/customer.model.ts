@@ -12,5 +12,5 @@ export class CustomerModel
     priority:number;
     routeID:number;
     isActive:boolean;
-    
+    message:string;
 }

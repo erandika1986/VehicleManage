@@ -10,7 +10,7 @@ using VehicleTracker.ViewModel;
 using VehicleTracker.WebApi.Infrastructure.Services;
 namespace VehicleTracker.WebApi.Controllers
 {
-    [Authorize]
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class WarehouseController : ControllerBase

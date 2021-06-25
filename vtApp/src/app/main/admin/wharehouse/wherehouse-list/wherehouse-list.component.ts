@@ -10,6 +10,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { WarehouseService } from 'app/services/warehouse/warehouse.service';
+import { WherehouseDetailComponent } from '../wherehouse-detail/wherehouse-detail.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'wherehouse-list',
@@ -49,8 +51,41 @@ export class WherehouseListComponent implements OnInit {
     this.loadWarehouses();
   }
 
-  editWarehouse(item:WarehouseModel){
+  editWarehouse(warehouse:WarehouseModel): void {
+    this.dialogRef = this._matDialog.open(WherehouseDetailComponent, {
+      panelClass: 'route-form-dialog',
+      data: {
+        warehouse: warehouse,
+        action: "edit"
+      }
+    });
 
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+        const actionType: string = response[0];
+        const formData: FormGroup = response[1];
+        switch (actionType) {
+          /**
+           * Save
+           */
+          case 'save':
+            this.saveWarehouse();
+
+
+            break;
+          /**
+           * Delete
+           */
+          case 'delete':
+
+            this.deleteWarehouse(formData.getRawValue());
+
+            break;
+        }
+      });
   }
 
   addNewWarehouse(){
@@ -84,7 +119,48 @@ saveWarehouse(){
 
 }
 
-deleteWarehouse(item:WarehouseModel){
+deleteWarehouse(warehouse:WarehouseModel){
+
+  this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+    disableClose: false
+  });
+
+  this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this record?';
+
+  this.confirmDialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this._fuseProgressBarService.show();
+      this._warehouseService.delete(warehouse.id)
+        .subscribe(response => {
+
+          this._fuseProgressBarService.hide();
+          if (response.isSuccess) {
+            this._snackBar.open(response.message, 'Success', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+
+            this.loadWarehouses();
+          }
+          else {
+            this._snackBar.open(response.message, 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          }
+        }, error => {
+          this._fuseProgressBarService.hide();
+          this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+            duration: 2500,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        });
+    }
+    this.confirmDialogRef = null;
+  });
 
 }
 
