@@ -12,6 +12,6 @@ namespace VehicleTracker.Business.Interfaces
         Task<ResponseViewModel> SaveSupplier(SupplierViewModel vm);
         Task<ResponseViewModel> DeleteSupplier(long id);
         SupplierViewModel GetSupplierById(long id);
-        PaginatedItemsViewModel<SupplierViewModel> GetAllSuppliers(int pageSize, int currentPage);
+        List<SupplierViewModel> GetAllSuppliers();
     }
 }
