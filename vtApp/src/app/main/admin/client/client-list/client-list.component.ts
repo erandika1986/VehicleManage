@@ -57,10 +57,13 @@ export class ClientListComponent implements OnInit {
 
 
   editCustomer(customer: CustomerModel): void {
+
+    console.log(customer);
+    
     this.dialogRef = this._matDialog.open(ClientDetailComponent, {
-      panelClass: 'customer-form-dialog',
+      panelClass: 'client-form-dialog',
       data: {
-        route: customer,
+        customer: customer,
         action: "edit"
       }
     });
@@ -77,9 +80,7 @@ export class ClientListComponent implements OnInit {
            * Save
            */
           case 'save':
-            this.saveCustomer
-            
-            (formData.getRawValue());
+            this.saveCustomer(formData.getRawValue());
 
 
             break;
@@ -103,7 +104,7 @@ export class ClientListComponent implements OnInit {
     customer.name = "";
     customer.priority = 0;
     customer.address = "";
-    customer.isActive = true; // id ,name, priority, address, isActive,contactNo1,contactNo2,description,email,latitude,longitude,routeID
+    customer.isActive = true;
     customer.contactNo1 = "";
     customer.contactNo2 = "";
     customer.description = "";
