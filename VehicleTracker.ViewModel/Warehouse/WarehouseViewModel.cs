@@ -20,6 +20,6 @@ namespace VehicleTracker.ViewModel
     public bool IsActive { get; set; }
 
 
-    public int SelectedManagerId { get; set; }
+    public long SelectedManagerId { get; set; }
   }
 }

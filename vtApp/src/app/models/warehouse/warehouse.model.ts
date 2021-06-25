@@ -1,4 +1,3 @@
-import { User } from "../user/user.model";
 
 export class WarehouseModel
 {
@@ -9,10 +8,10 @@ export class WarehouseModel
     floorSpace:number;
     createdOn:string;
     createdBy:string;
-    updateOn:string;
+    updatedOn:string;
     updatedBy:string;
     isActive:boolean;
-    SelectedManagerId:number;
+    selectedManagerId:number;
    
     
 }
