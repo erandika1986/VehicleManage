@@ -85,30 +85,30 @@ namespace VehicleTracker.Business
         }
        
 
-        public PaginatedItemsViewModel<CustomerViewModel> GetAllCustomers(int pageSize, int currentPage)
+        public List<CustomerViewModel> GetAllCustomers()
         {
             var query = _db.Clients.Where(t => t.IsActive == true).OrderBy(t => t.Name);
 
-            int totalRecordCount = 0;
-            double totalPages = 0;
-            int totalPageCount = 0;
+            //int totalRecordCount = 0;
+            //double totalPages = 0;
+            //int totalPageCount = 0;
             var data = new List<CustomerViewModel>();
 
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            //totalRecordCount = query.Count();
+            //totalPages = (double)totalRecordCount / pageSize;
+            //totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderBy(t => t.Name).ToList();
-
+            //var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderBy(t => t.Name).ToList();
+            var pageData = query.ToList();
             pageData.ForEach(p =>
             {
                 data.Add(p.ToVm());
             });
 
-            var response = new PaginatedItemsViewModel<CustomerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
+            //var response = new PaginatedItemsViewModel<CustomerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
 
 
-            return response;
+            return data;
         }
 
         public CustomerViewModel GetCustomerById(long id)

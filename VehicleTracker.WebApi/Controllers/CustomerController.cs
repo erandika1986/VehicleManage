@@ -25,10 +25,10 @@ namespace VehicleTracker.WebApi.Controllers
       this.identityService = identityService;
     }
 
-    [HttpGet("{pageSize:int}/{currentPage:int}")]
-    public ActionResult Get(int pageSize, int currentPage)
+    [HttpGet]
+    public ActionResult Get()
     {
-      var response = _customerService.GetAllCustomers(pageSize, currentPage);
+      var response = _customerService.GetAllCustomers();
       return Ok(response);
     }
 
