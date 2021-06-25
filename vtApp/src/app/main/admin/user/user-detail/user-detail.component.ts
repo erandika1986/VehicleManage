@@ -108,4 +108,9 @@ export class UserDetailComponent implements OnInit {
               null
   }
 
+  get id()
+  {
+    return this.userForm.get('id').value;
+  }
+
 }
