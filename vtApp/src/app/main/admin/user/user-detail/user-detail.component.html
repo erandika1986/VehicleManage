@@ -16,98 +16,215 @@
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
-        <form [formGroup]="userForm">
+        <mat-tab-group dynamicHeight="true">
 
-            <div fxLayout="row" fxLayoutAlign="space-between">
-                    <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                        <mat-label>First Name</mat-label>
-                        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                        <input name="firstName" formControlName="firstName" matInput placeholder="First Name" required> 
-                    </mat-form-field>
- 
-                    <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                        <mat-label>Last Name</mat-label>
-                        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                        <input name="lastName" formControlName="lastName" matInput placeholder="Last Name" required>
-                    </mat-form-field>
+            <mat-tab label="Details">
+                <form [formGroup]="userForm" style="margin-top: 20px !important;">
 
-            </div>
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                                <mat-label>First Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="firstName" formControlName="firstName" matInput placeholder="First Name" required> 
+                            </mat-form-field>
+         
+                            <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                                <mat-label>Last Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="lastName" formControlName="lastName" matInput placeholder="Last Name" required>
+                            </mat-form-field>
+        
+                    </div>
+        
+        
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Email</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="email" formControlName="email" matInput placeholder="Email">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Mobile No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="mobileNo" formControlName="mobileNo" matInput>
+                        </mat-form-field>
+        
+        
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Driving Licence No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>NIC No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="nicno" formControlName="nicno" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Username</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="username" formControlName="username" matInput required placeholder="Username">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48" *ngIf="user.id==0">
+                            <mat-label>Password</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="password" formControlName="password" matInput required>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Roles</mat-label>
+                            <mat-select formControlName="roles" multiple required>
+                                <mat-select-trigger>
+                                    {{rolesName}}
+                                  </mat-select-trigger>
+                                <mat-option *ngFor="let item of masterData?.roles" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                            <mat-label>Time Zone</mat-label>
+                            <mat-select formControlName="timeZoneId" required>
+                                <mat-option *ngFor="let item of masterData?.timeZones" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Personal Address</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="personalAddress" formControlName="personalAddress" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                </form>
+            </mat-tab>
+
+            <mat-tab label="Image Upload" *ngIf="id!=0">
+                <div class="products tab-content p-24" fusePerfectScrollbar>
+                    <table class="simple">
+                        <thead>
+                            <tr>
+
+                                <th style="width: 20% !important;">Image</th>
+                                <th style="width: 40% !important;">Name</th>
+                                <th style="width: 20% !important;">Download</th>
+                                <th style="width: 20% !important;">Upload</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/id-card.png'" *ngIf="!user?.nicFrontImage">
+                                    <img class="product-image" [src]="user.nicFrontImage" *ngIf="user?.nicFrontImage">
+                                </td>
+                                <td>
+                                    NIC Front Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.nicFrontImage">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/id-card.png'" *ngIf="!user?.nicBackImage">
+                                    <img class="product-image" [src]="user.nicBackImage" *ngIf="user?.nicBackImage">
+                                </td>
+                                <td>
+                                    NIC Back Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small"  *ngIf="user?.nicBackImage">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/driving-license.png'" *ngIf="!user?.drivingLicenceFrontImage">
+                                    <img class="product-image" [src]="user.drivingLicenceFrontImage" *ngIf="user?.drivingLicenceFrontImage">
+                                </td>
+                                <td>
+                                    Driving Licence Front Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceFrontImage">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/driving-license.png'" *ngIf="!user?.drivingLicenceBackImage">
+                                    <img class="product-image" [src]="user.drivingLicenceBackImage" *ngIf="user?.drivingLicenceBackImage">
+                                </td>
+                                <td>
+                                    Driving Licence Front Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceBackImage">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
 
 
-
-            <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                    <mat-label>Email</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="email" formControlName="email" matInput required placeholder="Email">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                    <mat-label>Mobile No</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="mobileNo" formControlName="mobileNo" matInput required>
-                </mat-form-field>
-
-
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                    <mat-label>Driving Licence No</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput required>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                    <mat-label>NIC No</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="nicno" formControlName="nicno" matInput required>
-                </mat-form-field>
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="space-between">
-                <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
-                    <mat-label>Username</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="userName" formControlName="userName" matInput required placeholder="Username">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
-                    <mat-label>Password</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="password" formControlName="password" matInput required>
-                </mat-form-field>
-            </div>
-
-
-
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Personal Address</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="personalAddress" formControlName="personalAddress" matInput required>
-                </mat-form-field>
-            </div>
-
-
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Time Zone</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="timeZoneId" formControlName="timeZoneId" matInput required>
-                </mat-form-field>
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Driving Licence No</mat-label>
-                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
-                    <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput required>
-                </mat-form-field>
-            </div>
-
-        </form>
 
     </div>
 

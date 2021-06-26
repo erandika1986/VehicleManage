@@ -2,7 +2,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { UserMasterDataModel } from 'app/models/user/user.master.data.model';
+import { User } from 'app/models/user/user.model';
 import { UserService } from 'app/services/user/user.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -21,16 +24,19 @@ export class UsersComponent  implements OnInit, OnDestroy {
   hasSelectedContacts: boolean;
   searchInput: FormControl;
 
+  masterData:UserMasterDataModel;
       // Private
       private _unsubscribeAll: Subject<any>;
   
   constructor(        private _userService: UserService,
     private _fuseSidebarService: FuseSidebarService,
+    private _fuseProgressBarService: FuseProgressBarService,
     private _matDialog: MatDialog) { 
               // Set the defaults
       this.searchInput = new FormControl('');
       // Set the private defaults
       this._unsubscribeAll = new Subject();
+
     }
 
   ngOnInit(): void {
@@ -44,7 +50,13 @@ this.searchInput.valueChanges
     .subscribe(searchText => {
         this._userService.onSearchTextChanged.next(searchText);
     }); 
+
+    this._userService.onMasterDataRecieved.subscribe(response=>{
+
+        this.masterData =response;
+    });
   }
+
 
       /**
      * On destroy
@@ -61,6 +73,7 @@ this.searchInput.valueChanges
         this.dialogRef = this._matDialog.open(UserDetailComponent, {
             panelClass: 'user-form-dialog',
             data      : {
+                masterData:this.masterData,
                 action: 'new'
             }
         });
@@ -71,8 +84,7 @@ this.searchInput.valueChanges
                 {
                     return;
                 }
-
-                this._userService.saveVehicle(response.getRawValue());
+                this.saveUser(response.getRawValue())
             });
     }
 
@@ -84,6 +96,20 @@ this.searchInput.valueChanges
     toggleSidebar(name): void
     {
         this._fuseSidebarService.getSidebar(name).toggleOpen();
+    }
+    
+
+    saveUser(user:User)
+    {
+        this._fuseProgressBarService.show();
+        console.log(user);
+        
+        this._userService.saveVehicle(user)
+            .subscribe(response=>{
+                this._fuseProgressBarService.hide();
+            },error=>{
+                this._fuseProgressBarService.hide();
+            });
     }
 
 
