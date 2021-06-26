@@ -44,7 +44,8 @@ namespace VehicleTracker.WebApi.Controllers
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SupplierViewModel vm)
     {
-      var response = await _supplierService.SaveSupplier(vm);
+      var username = identityService.GetUserName();
+      var response = await _supplierService.SaveSupplier(vm,username);
       return Ok(response);
     }
 

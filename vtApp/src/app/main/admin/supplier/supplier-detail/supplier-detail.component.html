@@ -1,1 +1,88 @@
-<p>supplier-detail works!</p>
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-16 pb-0 m-0" fusePerfectScrollbar>
+
+        <form name="supplierForm" [formGroup]="supplierForm" class="event-form w-100-p" fxLayout="column" fxFlex>
+
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Name</mat-label>
+                <input matInput name="name" formControlName="name" required>
+                <mat-error>Address is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Description</mat-label>
+                <input matInput name="description" formControlName="description" required>
+                <mat-error>Phone required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Address</mat-label>
+                <input matInput name="address" formControlName="address" required>
+                <mat-error>Floor space required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Phone Number 1</mat-label>
+                <input matInput name="phone1" formControlName="phone1" required>
+                <mat-error>Floor space required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Phone Number 2</mat-label>
+                <input matInput name="phone2" formControlName="phone2" required>
+                <mat-error>Floor space required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Email1 Address 1</mat-label>
+                <input matInput name="email1" formControlName="email1" required>
+                <mat-error>Floor space required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Email1 Address 2</mat-label>
+                <input matInput name="email2" formControlName="email2" required>
+                <mat-error>Floor space required!</mat-error>
+            </mat-form-field>
+
+          <!--  <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Warehouse Manager</mat-label>
+                <mat-select formControlName="selectedManagerId" required>
+                <mat-option *ngFor="let item of managers" [value]="item.id" >
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>-->
+        </form>
+       
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action ==='edit'" mat-button color="primary" class="mr-8"
+            (click)="matDialogRef.close(['delete',supplierForm])" aria-label="Delete" matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button color="primary" class="save-button"
+            (click)="matDialogRef.close(supplierForm)" [disabled]="supplierForm.invalid" aria-label="ADD">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button color="primary" class="save-button"
+            (click)="matDialogRef.close(['save', supplierForm])" [disabled]="supplierForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

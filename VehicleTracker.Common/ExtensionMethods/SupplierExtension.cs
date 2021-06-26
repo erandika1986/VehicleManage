@@ -22,6 +22,8 @@ namespace System
             model.Phone2 = vm.Phone2;
             model.Email1 = vm.Email1;
             model.Email2 = vm.Email2;
+            model.CreatedOn = DateTime.UtcNow;
+            model.UpdatedOn = DateTime.UtcNow;
             model.IsActive = vm.IsActive;
 
             return model;

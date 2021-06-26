@@ -9,7 +9,7 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface ISupplierService
     {
-        Task<ResponseViewModel> SaveSupplier(SupplierViewModel vm);
+        Task<ResponseViewModel> SaveSupplier(SupplierViewModel vm,string userName);
         Task<ResponseViewModel> DeleteSupplier(long id);
         SupplierViewModel GetSupplierById(long id);
         List<SupplierViewModel> GetAllSuppliers();
