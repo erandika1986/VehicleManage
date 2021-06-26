@@ -46,17 +46,7 @@ namespace VehicleTracker.WebApi.Controllers
     {
       var userName = identityService.GetUserName();
 
-      var response = await _customerService.AddNewCustomer(vm, userName);
-      return Ok(response);
-    }
-
-    // PUT api/Route
-    [HttpPut]
-    public async Task<ActionResult> Put([FromBody] CustomerViewModel vm)
-    {
-      var userName = identityService.GetUserName();
-
-      var response = await _customerService.UpdateCustomer(vm, userName);
+      var response = await _customerService.SaveCustomer(vm, userName);
       return Ok(response);
     }
 

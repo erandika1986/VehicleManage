@@ -26,24 +26,49 @@ namespace VehicleTracker.Business
             this._userService = userService;
         }
 
-        public async Task<ResponseViewModel> AddNewCustomer(CustomerViewModel vm,string userName)
+        public async Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm,string userName)
         {
             var response = new ResponseViewModel();
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                var model = vm.ToModel();
-                model.CreatedOn = DateTime.UtcNow;
-                model.CreatedById = user.Id;
-                model.UpdatedOn = DateTime.UtcNow;
-                model.UpdatedById = user.Id;
 
-                _db.Clients.Add(model);
+                var client = _db.Clients.FirstOrDefault(x => x.Id == vm.Id);
+                if(client==null)
+                {
+                    client = vm.ToModel();
+                    client.CreatedOn = DateTime.UtcNow;
+                    client.CreatedById = user.Id;
+                    client.UpdatedOn = DateTime.UtcNow;
+                    client.UpdatedById = user.Id;
+
+                    _db.Clients.Add(client);
+                    response.Message = "New Client has been saved.";
+                }
+                else
+                {
+                    client.Name = vm.Name;
+                    client.Description = vm.Description;
+                    client.ContactNo1 = vm.ContactNo1;
+                    client.ContactNo2 = vm.ContactNo2;
+                    client.Email = vm.Email;
+                    client.Address = vm.Address;
+                    client.Priority = vm.Priority;
+                    client.RouteId = vm.RouteId;
+                    client.Longitude = vm.Longitude;
+                    client.Latitude = vm.Latitude;
+                    client.UpdatedOn = DateTime.UtcNow;
+                    client.UpdatedById = user.Id;
+
+                    _db.Clients.Update(client);
+                    response.Message = "Selected client details has been updated.";
+                }
+
 
                 await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "New Client has been saved.";
+
 
             }
             catch(Exception ex)
@@ -118,41 +143,6 @@ namespace VehicleTracker.Business
             return client.ToVm();
         }
 
-        public async Task<ResponseViewModel> UpdateCustomer(CustomerViewModel vm, string userName)
-        {
-            var response = new ResponseViewModel();
-            try
-            {
-                var user = _userService.GetUserByUsername(userName);
 
-                var client = _db.Clients.FirstOrDefault(t => t.Id == vm.Id);
-                client.Name = vm.Name;
-                client.Description = vm.Description;
-                client.ContactNo1 = vm.ContactNo1;
-                client.ContactNo2 = vm.ContactNo2;
-                client.Email = vm.Email;
-                client.Address = vm.Address;
-                client.Priority = vm.Priority;
-                client.RouteId = vm.RouteId;
-                client.Longitude = vm.Longitude;
-                client.Latitude = vm.Latitude;
-                client.UpdatedOn = DateTime.UtcNow;
-                client.UpdatedById = user.Id;
-
-                _db.Clients.Update(client);
-
-                await _db.SaveChangesAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Selected client details has been updated.";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Error has been occured while updating the selected client details. Please try again.";
-            }
-
-            return response;
-        }
     }
 }

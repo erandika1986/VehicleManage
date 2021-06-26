@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatColors } from '@fuse/mat-colors';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { CustomerModel } from 'app/models/customer/customer.model';
 
 @Component({
@@ -16,16 +17,18 @@ export class ClientDetailComponent implements OnInit {
   clientForm: FormGroup;
   dialogTitle: string;
   presetColors = MatColors.presets;
+  routes: DropDownModel[]=[];
 
 
 constructor(public matDialogRef: MatDialogRef<ClientDetailComponent>,
   @Inject(MAT_DIALOG_DATA) private _data: any) {
 
   this.action = _data.action;
-
+  this.customer = _data.customer;
+  
   if (this.action === 'edit') {
     this.dialogTitle = "Edit Client";
-    this.customer = _data.customer;
+
   }
   else {
     this.dialogTitle = 'New Client';

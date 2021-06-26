@@ -11,8 +11,7 @@ namespace VehicleTracker.Business.Interfaces
     {
         List<CustomerViewModel> GetAllCustomers();
         CustomerViewModel GetCustomerById(long id);
-        Task<ResponseViewModel> AddNewCustomer(CustomerViewModel vm, string userName);
-        Task<ResponseViewModel> UpdateCustomer(CustomerViewModel vm, string userName);
+        Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm, string userName);
         Task<ResponseViewModel> DeleteCustomer(int id, string userName);
     }
 }

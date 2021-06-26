@@ -23,7 +23,7 @@ namespace System
             model.Latitude = vm.Latitude;
             model.Priority = vm.Priority;
             model.RouteId = vm.RouteId;
-            model.IsActive = vm.IsActive;
+            model.IsActive = true;
 
             return model;
         }
