@@ -9,8 +9,16 @@
 
         <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
             <img [src]="'assets/images/avatars/profile.jpg'" class="avatar contact-avatar huge m-0"
-                 [alt]="user.firstName"/>
+                  *ngIf="!user?.image"/>
+            <img [src]="user?.image" class="avatar contact-avatar huge m-0"
+                  *ngIf="user?.image"/>
             <div class="contact-name mt-8">{{user.firstName}} {{user.lastName}}</div>
+            <div class="contact-name mt-8">
+                <span style="font-size: 13px;cursor: pointer;" (click)="profileImageInput.click()">Upload Profile Image</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span style="font-size: 13px;cursor: pointer;" (click)="downloadFile(1,user?.imageName)">Download Profile Image</span>
+                <input #profileImageInput type="file" class="form-control" name="documents" (change)="onFileChange($event,1)" style="display:none;"/>
+            </div>
         </mat-toolbar-row>
     </mat-toolbar>
 
@@ -125,8 +133,9 @@
 
                                 <th style="width: 20% !important;">Image</th>
                                 <th style="width: 40% !important;">Name</th>
-                                <th style="width: 20% !important;">Download</th>
                                 <th style="width: 20% !important;">Upload</th>
+                                <th style="width: 20% !important;">Download</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -140,16 +149,18 @@
                                     NIC Front Image
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.nicFrontImage">
-                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="nicfpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #nicfpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,2)" style="display:none;"/>
                                     </button>
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
-                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
-                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.nicFrontImage" (click)="downloadFile(2,user?.nicFrontImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
                                     </button>
                                 </td>
+
                             </tr>
 
                             <tr class="product-row">
@@ -162,16 +173,18 @@
                                     NIC Back Image
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="green  small small-mat-raised-button-small"  *ngIf="user?.nicBackImage">
-                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="nicbpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #nicbpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,3)" style="display:none;"/>
                                     </button>
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
-                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
-                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small"  *ngIf="user?.nicBackImage" (click)="downloadFile(3,user?.nicBackImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
                                     </button>
                                 </td>
+
                             </tr>
 
                             <tr class="product-row">
@@ -184,16 +197,18 @@
                                     Driving Licence Front Image
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceFrontImage">
-                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="dlfpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #dlfpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,4)" style="display:none;"/>
                                     </button>
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
-                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
-                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceFrontImage" (click)="downloadFile(4,user?.drivingLicenceFrontImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
                                     </button>
                                 </td>
+
                             </tr>
 
                             <tr class="product-row">
@@ -203,19 +218,21 @@
                                     <img class="product-image" [src]="user.drivingLicenceBackImage" *ngIf="user?.drivingLicenceBackImage">
                                 </td>
                                 <td>
-                                    Driving Licence Front Image
+                                    Driving Licence Back Image
                                 </td>
                                 <td>
-                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceBackImage">
-                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button mat-raised-button class="blue  small small-mat-raised-button-small">
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="dlbpfileInput.click()">
                                         <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
-                                        <input #fileInput type="file" class="form-control" name="documents" style="display:none;"/>
+                                        <input #dlbpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,5)" style="display:none;"/>
                                     </button>
                                 </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceBackImage"  (click)="downloadFile(5,user?.drivingLicenceBackImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
+                                    </button>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>

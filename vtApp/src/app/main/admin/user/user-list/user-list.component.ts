@@ -42,6 +42,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+
+  userFilter:UserFilter;
   
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -57,7 +59,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this._userService.onFilterChanged.subscribe((response:UserFilter)=>{
+        this.userFilter=response;
         this.loadUsers(response.selectedRoleId,response.selectdStatusId);
+    });
+
+    this._userService.onUserUpdated.subscribe(()=>{
+        this.loadUsers(this.userFilter.selectedRoleId,this.userFilter.selectdStatusId);
     });
 
     this._userService.onSearchTextChanged.subscribe(response=>{
@@ -87,6 +94,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   {
     this._userService.getAllUsers(roleId,status)
     .subscribe(response=>{
+        console.log(response);
+        
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

@@ -244,6 +244,13 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public UserViewModel GetUserById(long id)
+    {
+      var user = _db.Users.FirstOrDefault(x => x.Id == id);
+
+      return user.ToVm(_config);
+    }
+
     public async Task<ResponseViewModel> UploadUserImage(FileContainerModel container, string userName)
     {
       var response = new ResponseViewModel();
@@ -253,6 +260,7 @@ namespace VehicleTracker.Business
       {
         var user = _db.Users.FirstOrDefault(t => t.Username == userName);
         var userRecord = _db.Users.FirstOrDefault(x => x.Id == container.Id);
+        var folderPath = userRecord.GetUserImageFolderPath(_config);
         //var folderPath = string.Empty;
         //var fileName = string.Empty;
         //var filePath = string.Empty;
@@ -263,10 +271,10 @@ namespace VehicleTracker.Business
         {
           case (int)UserPhotoType.UserImage:
             {
-              var folderPath = userRecord.GetUserImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.Image))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.Image);
+
                 if (File.Exists(existingImagePath))
                 {
                   File.Delete(existingImagePath);
@@ -287,11 +295,6 @@ namespace VehicleTracker.Business
                   await firstFile.CopyToAsync(stream);
 
                   userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
                   response.Message = "User image has been uploaded succesfully.";
                 }
               }
@@ -299,7 +302,7 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.NicBack:
             {
-              var folderPath = userRecord.GetUserNICBackImagePath(_config);
+
               if (!string.IsNullOrEmpty(userRecord.NicbackImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.NicbackImage);
@@ -322,12 +325,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.NicbackImage = fileName;
                   response.Message = "User NIC back image has been uploaded succesfully.";
                 }
               }
@@ -335,7 +333,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.NicFront:
             {
-              var folderPath = userRecord.GetUserNICFrontImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.NicfrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.NicfrontImage);
@@ -358,12 +355,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.NicfrontImage = fileName;
                   response.Message = "User NIC front image has been uploaded succesfully.";
                 }
               }
@@ -371,7 +363,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.DrivingLicenceFront:
             {
-              var folderPath = userRecord.GetUserDrivingLicenceFrontImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.DrivingLicenceFrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.DrivingLicenceFrontImage);
@@ -394,12 +385,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.DrivingLicenceFrontImage = fileName;
                   response.Message = "User driving licence front image has been uploaded succesfully.";
                 }
               }
@@ -407,7 +393,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.DrivingLicenceBack:
             {
-              var folderPath = userRecord.GetUserDrivingLicenceBackImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.DrivingLicenceFrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.DrivingLicenceBackImage);
@@ -430,18 +415,16 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.DrivingLicenceBackImage = fileName;
                   response.Message = "User driving licence back image has been uploaded succesfully.";
                 }
               }
             }
             break;
         }
+
+        _db.Users.Update(userRecord);
+        await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
 

@@ -55,6 +55,11 @@ namespace System
       vm.Username = model.Username;
       vm.RoleText = string.Join(",", model.UserRoles.Select(x => x.Role.Name).ToList());
       vm.Roles = model.UserRoles.Select(x => x.RoleId).ToList();
+      vm.ImageName = model.Image;
+      vm.NicFrontImageName = model.NicfrontImage;
+      vm.NicBackImageName = model.NicbackImage;
+      vm.DrivingLicenceFrontImageName = model.DrivingLicenceFrontImage;
+      vm.DrivingLicenceBackImageName = model.DrivingLicenceBackImage;
 
 
       if (!string.IsNullOrEmpty(model.Image))

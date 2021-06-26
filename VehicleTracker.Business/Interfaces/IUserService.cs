@@ -18,6 +18,7 @@ namespace VehicleTracker.Business
     List<UserViewModel> GetAllUsers(int roleId, int status);
     Task<ResponseViewModel> UploadUserImage(FileContainerModel container, string userName);
     DownloadFileViewModel DownloadUserImage(int id, int type);
+    UserViewModel GetUserById(long id);
   }
 
 }
