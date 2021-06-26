@@ -6,8 +6,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { UserDataSource } from 'app/models/user/user.datasource';
 import { UserFilter } from 'app/models/user/user.filter.model';
+import { UserMasterDataModel } from 'app/models/user/user.master.data.model';
 import { User } from 'app/models/user/user.model';
 import { UserService } from 'app/services/user/user.service';
 import { Subject } from 'rxjs';
@@ -36,14 +38,19 @@ export class UserListComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource([]);
   displayedColumns = ['image', 'firstName','roleText', 'email', 'mobileNo', 'buttons'];
 
+  masterData:UserMasterDataModel;
+
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+
+  userFilter:UserFilter;
   
   // Private
   private _unsubscribeAll: Subject<any>;
       
   constructor
   (
+    private _fuseProgressBarService: FuseProgressBarService,
       private _userService: UserService,
         public _matDialog: MatDialog) {
       this._unsubscribeAll = new Subject();
@@ -52,7 +59,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this._userService.onFilterChanged.subscribe((response:UserFilter)=>{
+        this.userFilter=response;
         this.loadUsers(response.selectedRoleId,response.selectdStatusId);
+    });
+
+    this._userService.onUserUpdated.subscribe(()=>{
+        this.loadUsers(this.userFilter.selectedRoleId,this.userFilter.selectdStatusId);
     });
 
     this._userService.onSearchTextChanged.subscribe(response=>{
@@ -63,6 +75,10 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
         
     });
+
+    this._userService.onMasterDataRecieved.subscribe(response=>{
+        this.masterData = response;
+    })
 
     this.loadUsers(0,0);
   }
@@ -78,6 +94,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   {
     this._userService.getAllUsers(roleId,status)
     .subscribe(response=>{
+        console.log(response);
+        
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -96,7 +114,8 @@ export class UserListComponent implements OnInit, OnDestroy {
             panelClass: 'user-form-dialog',
             data      : {
               user: user,
-                action : 'edit'
+              masterData:this.masterData,
+              action : 'edit'
             }
         });
 
@@ -115,7 +134,7 @@ export class UserListComponent implements OnInit, OnDestroy {
                      */
                     case 'save':
 
-                        this._userService.saveVehicle(formData.getRawValue());
+                        this.saveUser(formData.getRawValue());
 
                         break;
                     /**
@@ -123,7 +142,7 @@ export class UserListComponent implements OnInit, OnDestroy {
                      */
                     case 'delete':
 
-                        this.deleteContact(user);
+                        this.deleteUser(user);
 
                         break;
                 }
@@ -133,7 +152,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     /**
      * Delete Contact
      */
-    deleteContact(user:User): void
+    deleteUser(user:User): void
     {
         this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
             disableClose: false
@@ -149,6 +168,20 @@ export class UserListComponent implements OnInit, OnDestroy {
             this.confirmDialogRef = null;
         });
 
+    }
+
+    saveUser(user:User)
+    {
+        this._fuseProgressBarService.show();
+        console.log(user);
+        
+        this._userService.saveVehicle(user)
+            .subscribe(response=>{
+                this._fuseProgressBarService.hide();
+                this.loadUsers(0,0);
+            },error=>{
+                this._fuseProgressBarService.hide();
+            });
     }
 
 }

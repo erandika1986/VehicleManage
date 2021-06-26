@@ -27,7 +27,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     [HttpPost]
-    [Route("saveVehicle")]
+    [Route("saveUser")]
     public async Task<IActionResult> SaveUser(UserViewModel vm)
     {
       var response = await _userService.SaveUser(vm);
@@ -65,6 +65,15 @@ namespace VehicleTracker.WebApi.Controllers
       return Ok(response);
     }
 
+    [HttpGet]
+    [Route("getUserById/{id}")]
+    public IActionResult GetUserById(long id)
+    {
+      var response = _userService.GetUserById(id);
+
+      return Ok(response);
+    }
+
     [HttpPost]
     [RequestSizeLimit(long.MaxValue)]
     [Route("uploadUserImage")]
@@ -77,7 +86,7 @@ namespace VehicleTracker.WebApi.Controllers
       var request = await Request.ReadFormAsync();
 
       container.Id = int.Parse(request["id"]);
-      container.Id = int.Parse(request["type"]);
+      container.Type = int.Parse(request["type"]);
 
       foreach (var file in request.Files)
       {

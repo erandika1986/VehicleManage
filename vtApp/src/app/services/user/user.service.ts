@@ -18,6 +18,8 @@ export class UserService {
   onUserDataChanged: BehaviorSubject<any>;
   onSearchTextChanged: Subject<any>;
   onFilterChanged: Subject<any>;
+  onMasterDataRecieved:Subject<any>;
+  onUserUpdated:BehaviorSubject<any>;
 
   users: User[];
   user: any;
@@ -32,6 +34,8 @@ export class UserService {
     this.onUserDataChanged = new BehaviorSubject([]);
     this.onSearchTextChanged = new Subject();
     this.onFilterChanged = new Subject();
+    this.onMasterDataRecieved = new Subject();
+    this.onUserUpdated = new BehaviorSubject([]);
    }
 
 
@@ -39,7 +43,7 @@ export class UserService {
   saveVehicle(model: User): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>
-      (environment.apiUrl + 'User/saveVehicle', model);
+      (environment.apiUrl + 'User/saveUser', model);
   }
 
     // get
@@ -50,7 +54,7 @@ export class UserService {
   }
 
       // get
-      getAllUsers1(roleId: number,status:number): Promise<User[]> {
+ getAllUsers1(roleId: number,status:number): Promise<User[]> {
         return new Promise((resolve,reject) =>{
           this.httpClient.get(environment.apiUrl + 'User/getAllUsers/' + roleId+"/"+status)
             .subscribe((response:User[])=>{
@@ -60,6 +64,12 @@ export class UserService {
             },reject);
         });
     }
+
+    getUserById(id: number): Observable<User> {
+      return this.httpClient.
+        get<User>
+        (environment.apiUrl + 'User/getUserById/' + id);
+  }
 
         // get
   getUserMasterData(): Observable<UserMasterDataModel> {

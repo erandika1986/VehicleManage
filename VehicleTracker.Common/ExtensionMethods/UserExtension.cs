@@ -40,17 +40,26 @@ namespace System
       if (vm == null)
         vm = new UserViewModel();
 
+      vm.Id = model.Id;
       vm.Email = model.Email;
       vm.FirstName = model.FirstName;
       vm.IsActive = model.IsActive;
       vm.LastName = model.LastName;
       vm.MobileNo = model.MobileNo;
+      vm.Username = model.Username;
+      vm.Password = model.Password;
       vm.DrivingLicenceNo = model.DrivingLicenceNo;
       vm.Nicno = model.Nicno;
       vm.PersonalAddress = model.PersonalAddress;
       vm.TimeZoneId = model.TimeZoneId.HasValue?model.TimeZoneId.Value:0;
       vm.Username = model.Username;
       vm.RoleText = string.Join(",", model.UserRoles.Select(x => x.Role.Name).ToList());
+      vm.Roles = model.UserRoles.Select(x => x.RoleId).ToList();
+      vm.ImageName = model.Image;
+      vm.NicFrontImageName = model.NicfrontImage;
+      vm.NicBackImageName = model.NicbackImage;
+      vm.DrivingLicenceFrontImageName = model.DrivingLicenceFrontImage;
+      vm.DrivingLicenceBackImageName = model.DrivingLicenceBackImage;
 
 
       if (!string.IsNullOrEmpty(model.Image))

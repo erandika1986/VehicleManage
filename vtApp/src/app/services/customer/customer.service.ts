@@ -31,4 +31,5 @@ export class CustomerService {
     return this.httpClient.
       delete<CustomerModel>(environment.apiUrl + 'Customer' + "/" + id);
   }
+  
 }
