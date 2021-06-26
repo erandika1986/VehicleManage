@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
 using VehicleTracker.ViewModel;
+using VehicleTracker.ViewModel.Customer;
 using VehicleTracker.WebApi.Helpers;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
@@ -59,5 +60,14 @@ namespace VehicleTracker.WebApi.Controllers
       var response = await _customerService.DeleteCustomer(id, userName);
       return Ok(response);
     }
+
+        [HttpGet]
+        [Route("getCustomerMasterData")]
+        public ActionResult GetCustomerMasterData()
+        {
+            CustomerMasterDataViewModel response = _customerService.GetCustomerMasterData();
+
+            return Ok(response);
+        }
   }
 }

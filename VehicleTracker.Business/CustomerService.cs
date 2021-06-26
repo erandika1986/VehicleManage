@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Common;
 using VehicleTracker.Data;
+using VehicleTracker.Model.Enums;
 using VehicleTracker.ViewModel;
 using VehicleTracker.ViewModel.Common;
+using VehicleTracker.ViewModel.Customer;
 
 namespace VehicleTracker.Business
 {
@@ -143,6 +146,13 @@ namespace VehicleTracker.Business
             return client.ToVm();
         }
 
+        public CustomerMasterDataViewModel GetCustomerMasterData()
+        {
+            var response = new CustomerMasterDataViewModel();
 
+            response.Priorities.Add(new DropDownViewModal() { Id = (int)ClientPriority.High, Name = EnumHelper.GetEnumDescription(ClientPriority.High)});
+
+            return response;
+        }
     }
 }

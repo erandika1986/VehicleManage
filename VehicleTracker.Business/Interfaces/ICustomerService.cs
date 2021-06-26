@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.ViewModel;
 using VehicleTracker.ViewModel.Common;
+using VehicleTracker.ViewModel.Customer;
 
 namespace VehicleTracker.Business.Interfaces
 {
@@ -13,5 +14,6 @@ namespace VehicleTracker.Business.Interfaces
         CustomerViewModel GetCustomerById(long id);
         Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm, string userName);
         Task<ResponseViewModel> DeleteCustomer(int id, string userName);
+        CustomerMasterDataViewModel GetCustomerMasterData();
     }
 }

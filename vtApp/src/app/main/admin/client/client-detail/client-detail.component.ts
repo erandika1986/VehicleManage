@@ -18,6 +18,7 @@ export class ClientDetailComponent implements OnInit {
   dialogTitle: string;
   presetColors = MatColors.presets;
   routes: DropDownModel[]=[];
+  priorities:DropDownModel[]=[];
 
 
 constructor(public matDialogRef: MatDialogRef<ClientDetailComponent>,
@@ -25,7 +26,7 @@ constructor(public matDialogRef: MatDialogRef<ClientDetailComponent>,
 
   this.action = _data.action;
   this.customer = _data.customer;
-  
+
   if (this.action === 'edit') {
     this.dialogTitle = "Edit Client";
 
