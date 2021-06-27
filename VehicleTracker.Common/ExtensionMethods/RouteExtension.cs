@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -15,6 +15,7 @@ namespace System
 
             model.Id = vm.Id;
             model.RouteCode = vm.RouteCode;
+            model.Name = vm.Name;
             model.StartFrom = vm.StartFrom;
             model.EndFrom = vm.EndFrom;
             model.TotalDistance = vm.TotalDistance;
@@ -29,6 +30,7 @@ namespace System
                 vm = new RouteViewModel();
 
             vm.Id = model.Id;
+            vm.Name = model.Name;
             vm.RouteCode = model.RouteCode;
             vm.StartFrom = model.StartFrom;
             vm.EndFrom = model.EndFrom;
