@@ -8,6 +8,10 @@ export class SupplierModel
     phone2:string;
     email1:string;
     email2:string;
+    bank:string;
+    accountNo:string;
+    branch:string;
+    branchCode:string;
     isActive:boolean;
 
 }

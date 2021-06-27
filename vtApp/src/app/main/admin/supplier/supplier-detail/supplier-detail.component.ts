@@ -60,6 +60,10 @@ createSupplierForm() {
     phone2: new FormControl(this.supplier.phone2,Validators.required),
     email1: new FormControl(this.supplier.email1,Validators.required),
     email2: new FormControl(this.supplier.email2,Validators.required),
+    bank: new FormControl(this.supplier.bank,Validators.required),
+    accountNo: new FormControl(this.supplier.accountNo,Validators.required),
+    branch: new FormControl(this.supplier.branch,Validators.required),
+    branchCode: new FormControl(this.supplier.branchCode,Validators.required),
     iSActive:new FormControl(this.supplier.isActive)
   });
 } 

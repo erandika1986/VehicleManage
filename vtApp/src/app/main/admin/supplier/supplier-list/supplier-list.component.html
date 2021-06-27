@@ -104,6 +104,38 @@
                     </mat-cell>
                 </ng-container>
 
+                 <!-- Bank -->
+                <ng-container matColumnDef="bank">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Bank</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.bank}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                  <!-- Account No -->
+                  <ng-container matColumnDef="accountNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Account No</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.accountNo}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Branch -->
+                <ng-container matColumnDef="branch">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.branch}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Branch Code-->
+                <ng-container matColumnDef="branchCode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.branchCode}}</p>
+                    </mat-cell>
+                </ng-container>
+
                 
 
                 <!-- Buttons Column -->
