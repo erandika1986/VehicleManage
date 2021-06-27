@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,8 +36,6 @@ namespace VehicleTracker.Business
       this._userService = userService;
     }
 
-
-
     public async Task<ResponseViewModel> DeleteProductCategory(int id, string userName)
     {
       var response = new ResponseViewModel();
@@ -66,6 +65,11 @@ namespace VehicleTracker.Business
       }
 
       return response;
+    }
+
+    public DownloadFileViewModel DownloadProductCategoryImage(int id)
+    {
+      throw new NotImplementedException();
     }
 
     public List<ProductCategoryViewModel> GetAllProductCategories()
@@ -149,6 +153,65 @@ namespace VehicleTracker.Business
         _logger.LogError(ex.ToString());
         response.IsSuccess = false;
         response.Message = "Error has been occured while saving the data. Please try again.";
+      }
+
+      return response;
+    }
+
+    public async Task<ResponseViewModel> UploadProductCategoryImage(FileContainerModel container, string userName)
+    {
+      var response = new ResponseViewModel();
+
+
+      try
+      {
+        var user = _db.Users.FirstOrDefault(t => t.Username == userName);
+
+        var productCategoryRecord = _db.ProductCategories.FirstOrDefault(x => x.Id == container.Id);
+
+        var folderPath = productCategoryRecord.GetProductCategoryImageFolderPath(_config);
+
+        if (!string.IsNullOrEmpty(productCategoryRecord.Picture))
+        {
+          var existingImagePath = string.Format(@"{0}\{1}", folderPath, productCategoryRecord.Picture);
+
+          if (File.Exists(existingImagePath))
+          {
+            File.Delete(existingImagePath);
+          }
+        }
+
+        if (!Directory.Exists(folderPath))
+        {
+          Directory.CreateDirectory(folderPath);
+        }
+
+        var firstFile = container.Files.FirstOrDefault();
+        if (firstFile != null && firstFile.Length > 0)
+        {
+          var fileName = productCategoryRecord.GetProductCategoryImageName(Path.GetExtension(firstFile.FileName));
+          var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+          using (var stream = new FileStream(filePath, FileMode.Create))
+          {
+            await firstFile.CopyToAsync(stream);
+
+            productCategoryRecord.Picture = fileName;
+
+            _db.ProductCategories.Update(productCategoryRecord);
+
+            await _db.SaveChangesAsync();
+
+          }
+        }
+
+        response.IsSuccess = true;
+        response.Message = "Product category image has been uploaded succesfully.";
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.ToString());
+        response.IsSuccess = false;
+        response.Message = "Error has been occured while uploading the file. Please try again.";
       }
 
       return response;

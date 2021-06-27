@@ -19,6 +19,8 @@ namespace VehicleTracker.Model
         public string ProductCode { get; set; }
         public decimal UnitPrice { get; set; }
         public int AvailableQty { get; set; }
+        public int MinOrderQty { get; set; }
+        public int MaxOrderQty { get; set; }
         public int SubProductCategoryId { get; set; }
         public int SupplierId { get; set; }
         public long CreatedById { get; set; }

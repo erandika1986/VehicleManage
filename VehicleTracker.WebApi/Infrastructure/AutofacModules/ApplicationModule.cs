@@ -30,80 +30,92 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
           .SingleInstance();
 
       builder.RegisterType<UserService>()
-    .As<IUserService>()
-    .InstancePerLifetimeScope();
+          .As<IUserService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleService>()
-    .As<IVehicleService>()
-    .InstancePerLifetimeScope();
+          .As<IVehicleService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<RouteService>()
-    .As<IRouteService>()
-    .InstancePerLifetimeScope();
+          .As<IRouteService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleDifferentialOilChangeMilageService>()
-    .As<IVehicleDifferentialOilChangeMilageService>()
-    .InstancePerLifetimeScope();
+          .As<IVehicleDifferentialOilChangeMilageService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleFitnessReportService>()
-    .As<IVehicleFitnessReportService>()
-    .InstancePerLifetimeScope();
+          .As<IVehicleFitnessReportService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleGreeceNipleService>()
-.As<IVehicleGreeceNipleService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleGreeceNipleService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleInsuranceService>()
-.As<IVehicleInsuranceService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleInsuranceService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleRevenueLicenceService>()
-.As<IVehicleRevenueLicenceService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleRevenueLicenceService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleEmissionTestService>()
-.As<IVehicleEmissionTestService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleEmissionTestService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleAirCleanerService>()
-.As<IVehicleAirCleanerService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleAirCleanerService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleEngineOilMilageService>()
-.As<IVehicleEngineOilMilageService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleEngineOilMilageService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleFuelFilterMilageService>()
-.As<IVehicleFuelFilterMilageService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleFuelFilterMilageService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleGearBoxOilMilageService>()
-.As<IVehicleGearBoxOilMilageService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleGearBoxOilMilageService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleBeatService>()
-.As<IVehicleBeatService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleBeatService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<CustomerService>()
-.As<ICustomerService>()
-.InstancePerLifetimeScope();
+          .As<ICustomerService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<SupplierService>()
-.As<ISupplierService>()
-.InstancePerLifetimeScope();
+          .As<ISupplierService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<MasterDataCodeSevice>()
-.As<IMasterDataCodeSevice>()
-.InstancePerLifetimeScope();
+          .As<IMasterDataCodeSevice>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<VehicleTypeService>()
-.As<IVehicleTypeService>()
-.InstancePerLifetimeScope();
+          .As<IVehicleTypeService>()
+          .InstancePerLifetimeScope();
 
       builder.RegisterType<WarehouseService>()
-.As<IWarehouseService>()
-.InstancePerLifetimeScope();
+          .As<IWarehouseService>()
+          .InstancePerLifetimeScope();
+
+      builder.RegisterType<ProductCategoryService>()
+          .As<IProductCategoryService>()
+          .InstancePerLifetimeScope();
+
+      builder.RegisterType<ProductSubCategoryService>()
+          .As<IProductSubCategoryService>()
+          .InstancePerLifetimeScope();
+
+      builder.RegisterType<ProductService>()
+          .As<IProductService>()
+          .InstancePerLifetimeScope();
 
     }
   }
