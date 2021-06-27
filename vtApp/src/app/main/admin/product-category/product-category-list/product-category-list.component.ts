@@ -260,7 +260,6 @@ export class ProductCategoryListComponent implements OnInit {
 
   }
 
-
   upload$: Observable<Upload> = EMPTY;
   precentage:any;
   onFileChange(event: any,item:ProductCategoryModel)

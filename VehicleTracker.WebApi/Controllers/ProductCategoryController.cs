@@ -65,7 +65,7 @@ namespace VehicleTracker.WebApi.Controllers
     [HttpPost]
     [RequestSizeLimit(long.MaxValue)]
     [Route("uploadProductCategoryImage")]
-    public async Task<IActionResult> UploadFitnessReportImage()
+    public async Task<IActionResult> UploadProductCategoryImage()
     {
       var userName = identityService.GetUserName();
 
@@ -90,7 +90,7 @@ namespace VehicleTracker.WebApi.Controllers
     [RequestSizeLimit(long.MaxValue)]
     [Route("downloadProductCategoryImage/{id:int}")]
     [ProducesResponseType(typeof(DownloadFileViewModel), (int)HttpStatusCode.OK)]
-    public FileStreamResult DownloadFitnessReportImage(int id)
+    public FileStreamResult DownloadProductCategoryImage(int id)
     {
       var response = productCategoryService.DownloadProductCategoryImage(id);
 

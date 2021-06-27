@@ -67,9 +67,17 @@ export class ProductService {
       delete<ResponseModel>(environment.apiUrl + 'ProductSubCategory' + "/" + id);
   }
 
-  getProductCategories(categoryId:number): Observable<DropDownModel[]> {
+  getProductCategories(): Observable<DropDownModel[]> {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'ProductSubCategory/getProductCategories');
+  }
+
+  uploadSubProductCategoryImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'ProductSubCategory/uploadSubProductCategoryImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadProductSubCategoryImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'ProductSubCategory/downloadProductSubCategoryImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
   }
 
   //For Product

@@ -66,5 +66,7 @@ namespace VehicleTracker.WebApi.Controllers
       var response = productService.GetProductSubCategories(subCategoryId);
       return Ok(response);
     }
+
+
   }
 }
