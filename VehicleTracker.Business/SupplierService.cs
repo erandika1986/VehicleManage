@@ -56,6 +56,10 @@ namespace VehicleTracker.Business
                     supplier.Phone2 = vm.Phone2;
                     supplier.Email1 = vm.Email1;
                     supplier.Email2 = vm.Email2;
+                    supplier.Bank = vm.Bank;
+                    supplier.AccountNo = vm.AccountNo;
+                    supplier.Branch = vm.Branch;
+                    supplier.BranchCode = vm.BranchCode;
                     supplier.UpdatedById = user.Id;
                     supplier.UpdatedOn = DateTime.UtcNow;
 

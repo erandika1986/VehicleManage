@@ -31,7 +31,8 @@ export class SupplierListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  displayedColumns = ["buttons",  "name", "description", "address", "phone1", "phone2", "email1", "email2"];
+  displayedColumns = ["buttons",  "name", "description", "address", "phone1","phone2", 
+                      "email1", "email2", "bank", "accountNo","branch","branchCode"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -101,6 +102,10 @@ export class SupplierListComponent implements OnInit {
     supplier.email2 = "";
     supplier.phone1 = "";
     supplier.phone2 = "";
+    supplier.bank = "";
+    supplier.accountNo = "";
+    supplier.branch = "";
+    supplier.branchCode = "";
     supplier.isActive = true;
 
     this.dialogRef = this._matDialog.open(SupplierDetailComponent, {
