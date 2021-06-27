@@ -4779,3 +4779,46 @@ ORDER BY [s].[Name]
 2021-06-27 00:48:51.842 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi)'
 2021-06-27 00:48:51.842 +05:30 [DBG] 'VMDBContext' disposed.
 2021-06-27 00:48:51.842 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/Supplier - - - 200 - application/json;+charset=utf-8 32.0175ms
+2021-06-27 08:37:29.584 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2021-06-27 08:37:47.198 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2021-06-27 08:37:47.253 +05:30 [DBG] Hosting starting
+2021-06-27 08:37:50.424 +05:30 [INF] User profile is available. Using 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-06-27 08:37:50.431 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-44d16866-5c3a-446c-aea6-cd3218852f6f.xml'.
+2021-06-27 08:37:51.591 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-485f2815-7dff-49fc-8c5f-eceddfc525d4.xml'.
+2021-06-27 08:37:51.640 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5044719e-c215-4118-bd46-7a7e2aa24179.xml'.
+2021-06-27 08:37:51.666 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-5b2a8788-a3ed-493d-9ffd-3bf5420636af.xml'.
+2021-06-27 08:37:51.706 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-79e93527-76ca-4c8c-bce4-33277116c41c.xml'.
+2021-06-27 08:37:51.751 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-87e04baf-c847-427c-be6e-8a7b719757d9.xml'.
+2021-06-27 08:37:51.786 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-976d06f7-ce63-48ea-81bc-cb5cb0030877.xml'.
+2021-06-27 08:37:51.868 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-a2a1541d-12ab-470c-b145-75a8a79a8aec.xml'.
+2021-06-27 08:37:51.901 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-dd04647a-d17e-4332-a673-17e1cedc9d90.xml'.
+2021-06-27 08:37:51.948 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-e364a954-d474-4eb5-874b-4124be0a8694.xml'.
+2021-06-27 08:37:51.988 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f1459477-04d6-4525-a99f-1aa74fa806b0.xml'.
+2021-06-27 08:37:52.031 +05:30 [DBG] Reading data from file 'C:\Users\MySelf\AppData\Local\ASP.NET\DataProtection-Keys\key-f81fab0b-fa0b-47d4-861e-efb9e6e73c69.xml'.
+2021-06-27 08:37:52.204 +05:30 [DBG] Found key {44d16866-5c3a-446c-aea6-cd3218852f6f}.
+2021-06-27 08:37:52.382 +05:30 [DBG] Found key {485f2815-7dff-49fc-8c5f-eceddfc525d4}.
+2021-06-27 08:37:52.382 +05:30 [DBG] Found key {5044719e-c215-4118-bd46-7a7e2aa24179}.
+2021-06-27 08:37:52.382 +05:30 [DBG] Found key {5b2a8788-a3ed-493d-9ffd-3bf5420636af}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {79e93527-76ca-4c8c-bce4-33277116c41c}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {87e04baf-c847-427c-be6e-8a7b719757d9}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {976d06f7-ce63-48ea-81bc-cb5cb0030877}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {a2a1541d-12ab-470c-b145-75a8a79a8aec}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {dd04647a-d17e-4332-a673-17e1cedc9d90}.
+2021-06-27 08:37:52.384 +05:30 [DBG] Found key {e364a954-d474-4eb5-874b-4124be0a8694}.
+2021-06-27 08:37:52.385 +05:30 [DBG] Found key {f1459477-04d6-4525-a99f-1aa74fa806b0}.
+2021-06-27 08:37:52.385 +05:30 [DBG] Found key {f81fab0b-fa0b-47d4-861e-efb9e6e73c69}.
+2021-06-27 08:37:52.403 +05:30 [DBG] Considering key {485f2815-7dff-49fc-8c5f-eceddfc525d4} with expiration date 2021-08-29 09:38:09Z as default key.
+2021-06-27 08:37:52.438 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-27 08:37:52.443 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2021-06-27 08:37:52.446 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-06-27 08:37:52.451 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-06-27 08:37:52.456 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-06-27 08:37:52.463 +05:30 [DBG] Using key {485f2815-7dff-49fc-8c5f-eceddfc525d4} as the default key.
+2021-06-27 08:37:52.465 +05:30 [DBG] Key ring with default key {485f2815-7dff-49fc-8c5f-eceddfc525d4} was loaded during application startup.
+2021-06-27 08:37:52.470 +05:30 [DBG] Hosting started
+2021-06-27 08:37:52.470 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2021-06-27 08:37:52.819 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2021-06-27 08:37:52.951 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-06-27 08:37:53.753 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 936.7429ms
+2021-06-27 08:37:54.648 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2021-06-27 08:37:54.996 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 347.9881ms
