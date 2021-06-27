@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +8,7 @@ namespace VehicleTracker.ViewModel.Route
     {
         public long Id { get; set; }
         public string RouteCode { get; set; }
+        public string Name { get; set; }
         public string StartFrom { get; set; }
         public string EndFrom { get; set; }
         public decimal? TotalDistance { get; set; }
