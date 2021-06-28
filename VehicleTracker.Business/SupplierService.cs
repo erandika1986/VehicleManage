@@ -110,7 +110,7 @@ namespace VehicleTracker.Business
 
         public List<SupplierViewModel> GetAllSuppliers()
         {
-            var query = _db.Suppliers.OrderBy(t => t.Name);
+            var query = _db.Suppliers.Where(x => x.IsActive == true).OrderBy(t => t.Name);
 
             var data = new List<SupplierViewModel>();
 
