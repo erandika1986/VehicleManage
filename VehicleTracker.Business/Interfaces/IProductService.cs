@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +9,10 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IProductService
     {
-        PaginatedItemsViewModel<ProductViewModel> GetAllProducts(int productSubCategryId,int pageSize, int currentPage);
-        ProductViewModel GetProductById(long id);
+        List<ProductViewModel> GetAllProducts(int productSubCategryId);
+        ProductViewModel GetProductById(int id);
         Task<ResponseViewModel> SaveProduct(ProductViewModel vm, string userName);
         Task<ResponseViewModel> DeleteProduct(int id, string userName);
-    }
+        List<DropDownViewModal> GetProductSubCategories(int categoryId);
+  }
 }

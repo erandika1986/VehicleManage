@@ -30,9 +30,10 @@ namespace System
     {
       if (vm == null)
         vm = new ProductSubCategoryViewModel();
-
+      vm.ProductCategoryName = model.ProductCategory.Name;
       vm.Id = model.Id;
       vm.Name = model.Name;
+     
       vm.Description = model.Description;
       if (!string.IsNullOrEmpty(model.Picture))
       {
@@ -49,10 +50,27 @@ namespace System
           vm.Picture = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
         }
       }
-      vm.Picture = model.Picture;
       vm.IsActive = model.IsActive.Value;
 
       return vm;
+    }
+
+
+    public static string GetProductSubCategoryImageFolderPath(this ProductSubCategory model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}\{3}\{4}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT_CATEGORY,
+            model.ProductCategoryId, FolderNames.PRODUCT_SUB_CATEGORY, model.Id);
+    }
+
+    public static string GetProductSubCategoryImagePath(this ProductSubCategory model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}\{3}\{4}\{5}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT_CATEGORY,
+            model.ProductCategoryId, FolderNames.PRODUCT_SUB_CATEGORY, model.Id, model.Picture);
+    }
+
+    public static string GetProductSubCategoryImageName(this ProductSubCategory model, string extension)
+    {
+      return string.Format(@"ProductCategory-{0}{1}", model.Name, extension);
     }
   }
 }
