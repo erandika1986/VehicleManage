@@ -13,7 +13,7 @@ using VehicleTracker.ViewModel.Customer;
 
 namespace VehicleTracker.Business
 {
-    public class CustomerService: ICustomerService
+    public class CustomerService : ICustomerService
     {
         #region Member variable
 
@@ -29,7 +29,7 @@ namespace VehicleTracker.Business
             this._userService = userService;
         }
 
-        public async Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm,string userName)
+        public async Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
             try
@@ -37,7 +37,7 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var client = _db.Clients.FirstOrDefault(x => x.Id == vm.Id);
-                if(client==null)
+                if (client == null)
                 {
                     client = vm.ToModel();
                     client.CreatedOn = DateTime.UtcNow;
@@ -74,7 +74,7 @@ namespace VehicleTracker.Business
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = "Error has been occured while adding new customer. Please try again.";
@@ -102,7 +102,7 @@ namespace VehicleTracker.Business
                 response.IsSuccess = true;
                 response.Message = "Selected client has been deleted.";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = "Error has been occured while deleting the selected customer. Please try again.";
@@ -111,7 +111,7 @@ namespace VehicleTracker.Business
             return response;
 
         }
-       
+
 
         public List<CustomerViewModel> GetAllCustomers()
         {
@@ -150,19 +150,18 @@ namespace VehicleTracker.Business
         {
             var response = new CustomerMasterDataViewModel();
 
-         
+
             foreach (ClientPriority value in Enum.GetValues(typeof(ClientPriority)))
             {
                 response.Priorities.Add(new DropDownViewModal() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
             }
 
-            
-                var routes = _db.Routes
-                    .Where(x => x.IsActive==true)
-                    .Select(u => new DropDownViewModal() { Id = u.Id }).ToList();
 
+            var routes = _db.Routes
+                .Where(x => x.IsActive == true)
+                .Select(r => new DropDownViewModal() { Id = r.Id, Name = r.Name }).ToList();
 
-
+            response.Routes.AddRange(routes);
 
             return response;
         }
