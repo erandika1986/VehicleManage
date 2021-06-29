@@ -47,10 +47,24 @@ namespace System
           vm.Picture = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
         }
       }
-      vm.Picture = model.Picture;
       vm.IsActive = model.IsActive.Value;
 
       return vm;
+    }
+
+    public static string GetProductCategoryImageFolderPath(this ProductCategory model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT_CATEGORY, model.Id);
+    }
+
+    public static string GetProductCategoryImagePath(this ProductCategory model, IConfiguration config)
+    {
+      return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT_CATEGORY, model.Id, model.Picture);
+    }
+
+    public static string GetProductCategoryImageName(this ProductCategory model, string extension)
+    {
+      return string.Format(@"ProductCategory-{0}{1}", model.Name, extension);
     }
   }
 }

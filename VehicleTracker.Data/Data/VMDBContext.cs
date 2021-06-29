@@ -545,6 +545,8 @@ namespace VehicleTracker.Data
             .IsRequired()
             .HasDefaultValueSql("((1))");
 
+        entity.Property(e => e.Name).HasMaxLength(350);
+
         entity.Property(e => e.RouteCode)
             .IsRequired()
             .HasMaxLength(250);

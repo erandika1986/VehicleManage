@@ -1,3 +1,5 @@
+import { MaterialModule } from './../../../MaterialModule';
+import { FuseSidebarModule } from './../../../../@fuse/components/sidebar/sidebar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,13 +38,6 @@ const routes: Routes = [
     path: 'list',
     component: SupplierListComponent
 
-  },
-  {
-    path: 'list/:id',
-    component: SupplierDetailComponent,
-    /*       resolve: {
-            data: EcommerceProductService
-          } */
   }
 ];
 
@@ -51,26 +46,13 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
 
-    MatButtonModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
     CommonModule,
-    MatDatepickerModule,
     FuseSharedModule,
     FuseWidgetModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    SharedModule
+    FuseSidebarModule,
+    //FuseSharedModule,
+    FuseWidgetModule,
+    MaterialModule
   ]
 })
 export class SupplierModule { }

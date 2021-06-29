@@ -19,6 +19,7 @@ namespace VehicleTracker.Model
         public string EndFrom { get; set; }
         public decimal? TotalDistance { get; set; }
         public bool? IsActive { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<Client> Clients { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeats { get; set; }

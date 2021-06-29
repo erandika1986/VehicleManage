@@ -64,6 +64,14 @@
                     </mat-cell>
                 </ng-container>
 
+                <!-- Name route name -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Route Name</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{item.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
                 <!-- Model startFrom -->
                 <ng-container matColumnDef="startFrom">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Start From</mat-header-cell>

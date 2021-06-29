@@ -8,7 +8,9 @@
  <mat-header-cell *matHeaderCellDef></mat-header-cell>
  <mat-cell *matCellDef="let user">
      <img class="avatar" [alt]="user.name"
-          [src]="'assets/images/avatars/profile.jpg'"/>
+          [src]="'assets/images/avatars/profile.jpg'" *ngIf="!user?.image"/>
+     <img class="avatar" [alt]="user.name"
+          [src]="user.image" *ngIf="user?.image"/>
  </mat-cell>
 </ng-container>
 

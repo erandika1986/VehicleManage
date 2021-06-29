@@ -20,13 +20,24 @@ namespace VehicleTracker.ViewModel.Users
     public string MobileNo { get; set; }
     public string Password { get; set; }
     public string Image { get; set; }
+    public string ImageName { get; set; }
     public int TimeZoneId { get; set; }
     public string Nicno { get; set; }
+
     public string NicFrontImage { get; set; }
+    public string NicFrontImageName { get; set; }
+
     public string NicBackImage { get; set; }
+    public string NicBackImageName { get; set; }
+
     public string DrivingLicenceNo { get; set; }
+
     public string DrivingLicenceFrontImage { get; set; }
+    public string DrivingLicenceFrontImageName { get; set; }
+
     public string DrivingLicenceBackImage { get; set; }
+    public string DrivingLicenceBackImageName { get; set; }
+
     public string PersonalAddress { get; set; }
     public bool? IsActive { get; set; }
 

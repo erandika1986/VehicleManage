@@ -21,4 +21,10 @@ export class User {
     drivingLicenceBackImage:string;
     roles: number[];
     roleText:string;
+
+    imageName :string;
+    nicFrontImageName :string;
+    nicBackImageName :string;
+    drivingLicenceFrontImageName :string;
+    drivingLicenceBackImageName :string;
 }

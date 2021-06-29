@@ -26,16 +26,20 @@ namespace VehicleTracker.Business
         }
 
 
-        public async Task<ResponseViewModel> SaveSupplier(SupplierViewModel vm)
+        public async Task<ResponseViewModel> SaveSupplier(SupplierViewModel vm,string userName)
         {
             var response = new ResponseViewModel();
             try
             {
+                var user = _db.Users.FirstOrDefault(t => t.Username == userName);
+
                 var supplier = _db.Suppliers.FirstOrDefault(x => x.Id == vm.Id);
 
                 if(supplier==null)
                 {
                      supplier = vm.ToModel();
+                    supplier.CreatedById = user.Id;
+                    supplier.UpdatedById = user.Id;
 
                     _db.Suppliers.Add(supplier);
                     await _db.SaveChangesAsync();
@@ -52,6 +56,13 @@ namespace VehicleTracker.Business
                     supplier.Phone2 = vm.Phone2;
                     supplier.Email1 = vm.Email1;
                     supplier.Email2 = vm.Email2;
+                    supplier.Bank = vm.Bank;
+                    supplier.AccountNo = vm.AccountNo;
+                    supplier.Branch = vm.Branch;
+                    supplier.BranchCode = vm.BranchCode;
+                    supplier.UpdatedById = user.Id;
+                    supplier.UpdatedOn = DateTime.UtcNow;
+
 
                     _db.Suppliers.Update(supplier);
                     await _db.SaveChangesAsync();
@@ -99,7 +110,7 @@ namespace VehicleTracker.Business
 
         public List<SupplierViewModel> GetAllSuppliers()
         {
-            var query = _db.Suppliers.OrderBy(t => t.Name);
+            var query = _db.Suppliers.Where(x => x.IsActive == true).OrderBy(t => t.Name);
 
             var data = new List<SupplierViewModel>();
 

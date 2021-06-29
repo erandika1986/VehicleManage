@@ -22,6 +22,12 @@ namespace System
             model.Phone2 = vm.Phone2;
             model.Email1 = vm.Email1;
             model.Email2 = vm.Email2;
+            model.Bank = vm.Bank;
+            model.AccountNo = vm.AccountNo;
+            model.Branch = vm.Branch;
+            model.BranchCode = vm.BranchCode;
+            model.CreatedOn = DateTime.UtcNow;
+            model.UpdatedOn = DateTime.UtcNow;
             model.IsActive = vm.IsActive;
 
             return model;
@@ -40,6 +46,10 @@ namespace System
             vm.Phone2 = model.Phone2;
             vm.Email1 = model.Email1;
             vm.Email2 = model.Email2;
+            vm.Bank = model.Bank;
+            vm.AccountNo = model.AccountNo;
+            vm.Branch = model.Branch;
+            vm.BranchCode = model.BranchCode;
             vm.IsActive = model.IsActive.Value;
 
             return vm;
