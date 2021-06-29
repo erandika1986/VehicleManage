@@ -1,22 +1,40 @@
 <div id="sub-categories" class="page-layout carded fullwidth inner-scroll">
-
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
     <!-- / TOP BACKGROUND -->
 
     <!-- CENTER -->
     <div class="center">
-
         <!-- HEADER -->
-        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-            fxLayoutAlign.gt-sm="space-between center">
-
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
             <!-- APP TITLE -->
-            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+            <div
+                class="logo mb-24 mb-md-0"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <mat-icon
+                    class="logo-icon s-32 mr-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
                     shopping_basket
                 </mat-icon>
-                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                <span
+                    class="logo-text h1"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
                     Product Sub Category
                 </span>
             </div>
@@ -24,67 +42,129 @@
 
             <!-- SEARCH -->
             <div class="search-wrapper mx-32 mx-md-0">
-                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div
+                    class="search"
+                    fxFlex
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
                     <mat-icon>search</mat-icon>
-                    <input #input (keyup)="applyFilter($event.target.value)" placeholder="Search for product sub category">
+                    <input
+                        #input
+                        (keyup)="applyFilter($event.target.value)"
+                        placeholder="Search for product sub category"
+                    />
                 </div>
             </div>
+
             <!-- / SEARCH -->
             <!-- ADD BUTTON -->
-             <button mat-raised-button (click)="addNew()" class="add-product-button fuse-white mt-24 mt-md-0"
-                matTooltip="Add new product sub category.">
+            <button
+                mat-raised-button
+                (click)="addNew()"
+                class="add-product-button fuse-white mt-24 mt-md-0"
+                matTooltip="Add new product sub category."
+            >
                 <span>ADD NEW</span>
             </button>
             <!-- / ADD BUTTON -->
-
         </div>
         <!-- / HEADER -->
 
         <!-- CONTENT CARD -->
         <div class="content-card">
-
-            <mat-table class="category-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
-                fusePerfectScrollbar>
-
+            <mat-table
+                class="category-table"
+                #table
+                [dataSource]="dataSource"
+                matSort
+                [@animateStagger]="{ value: '50' }"
+                fusePerfectScrollbar
+            >
                 <ng-container matColumnDef="picture">
                     <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
                     <mat-cell *matCellDef="let item">
-                        <img class="product-image"  [src]="item.picture" style="height: 54px !important;;width:74px !important" *ngIf="item.picture"/><span style="color:royalblue;font-weight: bold;cursor: pointer;" (click)="downloadFile(item)" *ngIf="item.imageURL">&nbsp;Download</span>
-                        <img class="product-image"  [src]="'assets/images/ecommerce/Image-Not-Available.png'" style="height: 54px !important;width:74px !important" *ngIf="!item.picture"/>
-<!--                         <mat-progress-bar mode="query" *ngIf="isUploading"></mat-progress-bar> -->
+                        <img
+                            class="product-image"
+                            [src]="item.picture"
+                            style="
+                                height: 54px !important;
+                                width: 74px !important;
+                            "
+                            *ngIf="item.picture"
+                        /><span
+                            style="
+                                color: royalblue;
+                                font-weight: bold;
+                                cursor: pointer;
+                            "
+                            (click)="downloadFile(item)"
+                            *ngIf="item.imageURL"
+                            >&nbsp;Download</span
+                        >
+                        <img
+                            class="product-image"
+                            [src]="
+                                'assets/images/ecommerce/Image-Not-Available.png'
+                            "
+                            style="
+                                height: 54px !important;
+                                width: 74px !important;
+                            "
+                            *ngIf="!item.picture"
+                        />
+                        <!--                         <mat-progress-bar mode="query" *ngIf="isUploading"></mat-progress-bar> -->
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="productCategoryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-form-field appearance="outline" class="w-100-p">
+                            <mat-label>Product Category</mat-label>
+                            <mat-select
+                                [(ngModel)]="selectedCategoryId"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let item of categories"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-header-cell>
                     <mat-cell *matCellDef="let item">
-                        <p class="text-truncate">{{item.productCategoryName}}</p>
+                        <p class="text-truncate">
+                            {{ item.productCategoryName }}
+                        </p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- name -->
                 <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Name</mat-header-cell
+                    >
                     <mat-cell *matCellDef="let item">
-                        <p class="text-truncate">{{item.name}}</p>
+                        <p class="text-truncate">{{ item.name }}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- description -->
                 <ng-container matColumnDef="description">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Description</mat-header-cell
+                    >
                     <mat-cell *matCellDef="let item">
-                        <p class="text-truncate">{{item.description}}</p>
+                        <p class="text-truncate">{{ item.description }}</p>
                     </mat-cell>
                 </ng-container>
-
 
                 <ng-container matColumnDef="buttons">
                     <mat-header-cell *matHeaderCellDef>
                         <div fxFlex="row" fxLayoutAlign="center center">
-                
-                
-<!--                             <div class="button-row">
+                            <!--                             <div class="button-row">
                                 <button mat-raised-button class="green" (click)="addNewProductCategory()">
                                     <mat-icon class="s-16 mr-sm-4">add</mat-icon>
                                 </button>
@@ -94,46 +174,99 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let item">
                         <div fxFlex="row" fxLayoutAlign="center center">
-                
                             <div class="button-row">
-                                <button mat-raised-button class="yellow  small small-mat-raised-button-small" (click)="viewProduct(item)" matTooltip="View products"
+                                <button
+                                    mat-raised-button
+                                    class="
+                                        yellow
+                                        small small-mat-raised-button-small
+                                    "
+                                    (click)="viewProduct(item)"
+                                    matTooltip="View products"
                                 >
-                                    <mat-icon class="small-mat-icon" >device_hub</mat-icon>
+                                    <mat-icon class="small-mat-icon"
+                                        >device_hub</mat-icon
+                                    >
                                 </button>
-                                <button mat-raised-button class="primary  small small-mat-raised-button-small" (click)="view(item)" matTooltip="View product sub category"
+                                <button
+                                    mat-raised-button
+                                    class="
+                                        primary
+                                        small small-mat-raised-button-small
+                                    "
+                                    (click)="view(item)"
+                                    matTooltip="View product sub category"
                                 >
-                                    <mat-icon class="small-mat-icon" >remove_red_eye</mat-icon>
+                                    <mat-icon class="small-mat-icon"
+                                        >remove_red_eye</mat-icon
+                                    >
                                 </button>
-                                <button mat-raised-button class="orange  small small-mat-raised-button-small" (click)="edit(item)" matTooltip="Edit product sub category"
+                                <button
+                                    mat-raised-button
+                                    class="
+                                        orange
+                                        small small-mat-raised-button-small
+                                    "
+                                    (click)="edit(item)"
+                                    matTooltip="Edit product sub category"
                                 >
-                                    <mat-icon class="small-mat-icon">edit</mat-icon>
+                                    <mat-icon class="small-mat-icon"
+                                        >edit</mat-icon
+                                    >
                                 </button>
-                                <button mat-raised-button class="red  small small-mat-raised-button-small" (click)="delete(item)" matTooltip="Delete product sub category"
+                                <button
+                                    mat-raised-button
+                                    class="
+                                        red
+                                        small small-mat-raised-button-small
+                                    "
+                                    (click)="delete(item)"
+                                    matTooltip="Delete product sub category"
                                 >
-                                    <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
+                                    <mat-icon class="small-mat-icon"
+                                        >delete_forever</mat-icon
+                                    >
                                 </button>
-                                <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="fileInput.click()" matTooltip="Upload product sub category image"
+                                <button
+                                    mat-raised-button
+                                    class="
+                                        blue
+                                        small small-mat-raised-button-small
+                                    "
+                                    (click)="fileInput.click()"
+                                    matTooltip="Upload product sub category image"
                                 >
-                                    <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
-                                    <input #fileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,item)" style="display:none;"/>
+                                    <mat-icon class="small-mat-icon"
+                                        >cloud_upload</mat-icon
+                                    >
+                                    <input
+                                        #fileInput
+                                        type="file"
+                                        class="form-control"
+                                        name="documents"
+                                        (change)="onFileChange($event, item)"
+                                        style="display: none"
+                                    />
                                 </button>
-                              </div>
+                            </div>
                         </div>
-                
                     </mat-cell>
                 </ng-container>
 
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
 
-                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-
-                <mat-row *matRowDef="let product; columns: displayedColumns;" class="product" matRipple>
+                <mat-row
+                    *matRowDef="let product; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
                 </mat-row>
-
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[50,10, 25, 100]">
+            <mat-paginator [pageSizeOptions]="[50, 10, 25, 100]">
             </mat-paginator>
-
         </div>
         <!-- / CONTENT CARD -->
     </div>

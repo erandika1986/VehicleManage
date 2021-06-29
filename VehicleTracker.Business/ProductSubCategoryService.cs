@@ -148,11 +148,13 @@ namespace VehicleTracker.Business
 
     public List<DropDownViewModal> GetProductCategories()
     {
-      var response = _db.ProductCategories
+      var response = new List<DropDownViewModal>();
+      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var categories = _db.ProductCategories
                       .Where(c=>c.IsActive==true)
                       .OrderBy(o=>o.Name)
                       .Select(x => new DropDownViewModal() { Id = x.Id, Name = x.Name }).ToList();
-
+      response.AddRange(categories);
       return response;
     }
 

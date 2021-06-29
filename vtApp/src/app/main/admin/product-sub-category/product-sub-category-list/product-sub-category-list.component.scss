@@ -98,6 +98,14 @@ product-sub-category-list {
     }
 }
 
+.mat-form-field-wrapper {
+    padding-bottom: 0em !important;
+}
+
+::ng-deep .mat-select-panel {
+    max-height: 25px !important;
+}
+
 .button-row {
     display: table-cell;
     width: 100% !important;

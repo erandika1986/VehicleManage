@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { Upload } from 'app/models/common/upload';
 import { ProductSubCategoryModel } from 'app/models/product/product.sub.category.model';
 import { ProductService } from 'app/services/product/product.service';
@@ -40,6 +41,9 @@ export class ProductSubCategoryListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild('input') input: ElementRef;
+
+  categories:DropDownModel[]=[];
+  selectedCategoryId:number=0;
   
   constructor(private _route: ActivatedRoute,
     private _productService: ProductService,
@@ -51,6 +55,7 @@ export class ProductSubCategoryListComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadList();
+    this.getCategories();
   }
 
   edit(item: ProductSubCategoryModel): void {
@@ -259,6 +264,15 @@ export class ProductSubCategoryListComponent implements OnInit {
   viewProduct(subCategory: ProductSubCategoryModel)
   {
 
+  }
+
+  getCategories()
+  {
+    this._productService.getProductCategories().subscribe(response=>{
+      this.categories = response;
+    },error=>{
+
+    });
   }
 
   upload$: Observable<Upload> = EMPTY;
