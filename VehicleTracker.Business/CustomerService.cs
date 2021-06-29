@@ -150,9 +150,34 @@ namespace VehicleTracker.Business
         {
             var response = new CustomerMasterDataViewModel();
 
-            response.Priorities.Add(new DropDownViewModal() { Id = (int)ClientPriority.High, Name = EnumHelper.GetEnumDescription(ClientPriority.High)});
+         
+            foreach (ClientPriority value in Enum.GetValues(typeof(ClientPriority)))
+            {
+                response.Priorities.Add(new DropDownViewModal() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
+            }
+
+            
+                var routes = _db.Routes
+                    .Where(x => x.IsActive==true)
+                    .Select(u => new DropDownViewModal() { Id = u.Id }).ToList();
+
+
+
 
             return response;
         }
+
+
+
+        //public List<DropDownViewModal> GetAllRoutes()
+        //{
+        //    var routes = _db.UserRoles
+        //        .Where(x => x.RoleId == (int)RoleType.Route || x.RoleId == (int)RoleType.Route)
+        //        .Select(u => new DropDownViewModal() { Id = u.Route.Id, Name = string.Format("{0} {1}", u.User.FirstName, u.User.LastName) }).Distinct().ToList();
+
+        //    return routes;
+        //}
+
+
     }
 }
