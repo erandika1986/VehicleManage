@@ -20,8 +20,13 @@ namespace VehicleTracker.ViewModel
     public int SupplierId { get; set; }
 
     public string Description { get; set; }
-    public string Picture { get; set; }
+    public string DefaultImage { get; set; }
     public bool IsActive { get; set; }
+
+    public string SupplierName { get; set; }
+    public string CategoryName { get; set; }
+    public string SubCategoryName { get; set; }
+
 
     public List<ProductImageViewModel> Images { get; set; }
   }

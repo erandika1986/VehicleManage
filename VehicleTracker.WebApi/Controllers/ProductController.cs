@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
 using VehicleTracker.ViewModel;
+using VehicleTracker.ViewModel.Common;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
@@ -24,7 +27,7 @@ namespace VehicleTracker.WebApi.Controllers
 
     // GET api/Route/15/2
     [HttpGet]
-    [Route("getAllProductSubCategories/{subCategoryId}")]
+    [Route("getAllProducts/{subCategoryId}")]
     public ActionResult GetAllProductSubCategories(int subCategoryId)
     {
       var response = productService.GetAllProducts(subCategoryId);
@@ -65,6 +68,41 @@ namespace VehicleTracker.WebApi.Controllers
     {
       var response = productService.GetProductSubCategories(subCategoryId);
       return Ok(response);
+    }
+
+    [HttpPost]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("uploadProductImage")]
+    public async Task<IActionResult> UploadProductImage()
+    {
+      var userName = identityService.GetUserName();
+
+      var container = new FileContainerModel();
+
+      var request = await Request.ReadFormAsync();
+
+      container.Id = int.Parse(request["id"]);
+
+      foreach (var file in request.Files)
+      {
+        container.Files.Add(file);
+      }
+
+      var response = await productService.UploadProductImage(container, userName);
+
+      return Ok(response);
+    }
+
+
+    [HttpGet]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("downloadProductImage/{id:int}")]
+    [ProducesResponseType(typeof(DownloadFileViewModel), (int)HttpStatusCode.OK)]
+    public FileStreamResult DownloadProductImage(int id)
+    {
+      var response = productService.DownloadProductImage(id);
+
+      return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
     }
 
 

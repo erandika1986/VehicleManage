@@ -14,6 +14,10 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
+  selectedCategoryId:number=0;
+  selectedSubCategoryId:number=0;
+  selectedProductId:number=0;
+  
   constructor(private httpClient: HttpClient) { }
 
   //For Product Category
@@ -48,6 +52,7 @@ export class ProductService {
 
   //For Product Sub Category
   getAllByCategoryId(categoryId:number): Observable<ProductSubCategoryModel[]> {
+    this.selectedCategoryId = categoryId;
     return this.httpClient.
       get<ProductSubCategoryModel[]>(environment.apiUrl + 'ProductSubCategory/getAllByCategoryId/'+categoryId);
   }
@@ -81,9 +86,10 @@ export class ProductService {
   }
 
   //For Product
-  getAllProductSubCategories(subCategoryId:number): Observable<ProductModel[]> {
+  getAllProducts(subCategoryId:number): Observable<ProductModel[]> {
+    this.selectedSubCategoryId = subCategoryId;
     return this.httpClient.
-      get<ProductModel[]>(environment.apiUrl + 'Product/getAllProductSubCategories/'+subCategoryId);
+      get<ProductModel[]>(environment.apiUrl + 'Product/getAllProducts/'+subCategoryId);
   }
 
   getProductById(id: number): Observable<ProductModel> {
@@ -101,9 +107,9 @@ export class ProductService {
       delete<ResponseModel>(environment.apiUrl + 'Product' + "/" + id);
   }
 
-  getProductSubCategories(subCategoryId:number): Observable<DropDownModel[]> {
+  getProductSubCategories(categoryId:number): Observable<DropDownModel[]> {
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Product/getProductSubCategories/'+subCategoryId);
+      get<DropDownModel[]>(environment.apiUrl + 'Product/getProductSubCategories/'+categoryId);
   }
 
 

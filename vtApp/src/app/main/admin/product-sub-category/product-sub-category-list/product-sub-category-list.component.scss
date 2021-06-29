@@ -102,8 +102,15 @@ product-sub-category-list {
     padding-bottom: 0em !important;
 }
 
-::ng-deep .mat-select-panel {
-    max-height: 25px !important;
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 1em 0 0.8em 0 !important;
+}
+
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+    font-size: inherit;
+    line-height: 2em;
+    height: 2em;
 }
 
 .button-row {

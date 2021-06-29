@@ -123,6 +123,9 @@
                             <mat-label>Product Category</mat-label>
                             <mat-select
                                 [(ngModel)]="selectedCategoryId"
+                                (selectionChange)="
+                                    categoryChanged($event.value)
+                                "
                                 required
                             >
                                 <mat-option

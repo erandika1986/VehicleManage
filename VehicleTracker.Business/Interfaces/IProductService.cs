@@ -14,5 +14,7 @@ namespace VehicleTracker.Business.Interfaces
         Task<ResponseViewModel> SaveProduct(ProductViewModel vm, string userName);
         Task<ResponseViewModel> DeleteProduct(int id, string userName);
         List<DropDownViewModal> GetProductSubCategories(int categoryId);
+        Task<ResponseViewModel> UploadProductImage(FileContainerModel container, string userName);
+        DownloadFileViewModel DownloadProductImage(int id);
   }
 }

@@ -62,7 +62,7 @@ namespace System
                 item.Name);
         if (File.Exists(imagePath))
         {
-          vm.Picture = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
+          vm.DefaultImage = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
         }
       }
 

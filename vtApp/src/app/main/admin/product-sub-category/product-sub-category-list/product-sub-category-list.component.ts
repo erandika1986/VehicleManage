@@ -166,7 +166,7 @@ export class ProductSubCategoryListComponent implements OnInit {
 
   loadList() {
     this._fuseProgressBarService.show();
-    this._productService.getAllByCategoryId(0)
+    this._productService.getAllByCategoryId(this.selectedCategoryId)
       .subscribe(response => {
         this._fuseProgressBarService.hide();
         this.dataSource = new MatTableDataSource(response);
@@ -273,6 +273,11 @@ export class ProductSubCategoryListComponent implements OnInit {
     },error=>{
 
     });
+  }
+
+  categoryChanged(item:any)
+  {
+    this.loadList();
   }
 
   upload$: Observable<Upload> = EMPTY;
