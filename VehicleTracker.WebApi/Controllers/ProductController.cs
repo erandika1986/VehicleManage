@@ -70,6 +70,14 @@ namespace VehicleTracker.WebApi.Controllers
       return Ok(response);
     }
 
+    [HttpGet]
+    [Route("getSuppliers")]
+    public ActionResult GetSuppliers()
+    {
+      var response = productService.GetSuppliers();
+      return Ok(response);
+    }
+
     [HttpPost]
     [RequestSizeLimit(long.MaxValue)]
     [Route("uploadProductImage")]

@@ -6,6 +6,7 @@ using System.Text;
 using VehicleTracker.Common;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel;
+using System.Linq;
 
 namespace System
 {
@@ -40,17 +41,14 @@ namespace System
       vm.AvailableQty = model.AvailableQty;
       vm.ProductSubCategoryId = model.SubProductCategoryId;
       vm.SupplierId = model.SupplierId;
+      vm.ProductCode = model.ProductCode;
+      vm.SubCategoryName = model.SubProductCategory.Name;
+      vm.CategoryName = model.SubProductCategory.ProductCategory.Name;
+      vm.SupplierName = model.Supplier.Name;
       vm.IsActive = model.IsActive.Value;
 
-      foreach (var item in model.ProductImages)
+      if(model.ProductImages.Count>0)
       {
-        var image = new ProductImageViewModel()
-        {
-          Id = item.Id,
-          ImageName = item.Name,
-          ProductId = model.Id
-        };
-
         //vm.ImageURL = string.Format("{0}/{1}/{2}/{3}", config.GetSection("FileUploadUrl").Value, FolderNames.INSURANCE, model.Vehicle.Id, model.Attachment);
         var imagePath = string.Format(@"{0}{1}\{2}\{3}\{4}\{5}\{6}",
                 config.GetSection("FileUploadPath").Value,
@@ -59,12 +57,36 @@ namespace System
                 FolderNames.PRODUCT_SUB_CATEGORY,
                 model.SubProductCategoryId,
                 model.Id,
-                item.Name);
+                model.ProductImages.FirstOrDefault().Name);
+
         if (File.Exists(imagePath))
         {
           vm.DefaultImage = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
         }
       }
+
+      //foreach (var item in model.ProductImages)
+      //{
+      //  var image = new ProductImageViewModel()
+      //  {
+      //    Id = item.Id,
+      //    ImageName = item.Name,
+      //    ProductId = model.Id
+      //  };
+
+      //  var imagePath = string.Format(@"{0}{1}\{2}\{3}\{4}\{5}\{6}",
+      //          config.GetSection("FileUploadPath").Value,
+      //          FolderNames.PRODUCT_CATEGORY,
+      //          model.SubProductCategory.ProductCategoryId,
+      //          FolderNames.PRODUCT_SUB_CATEGORY,
+      //          model.SubProductCategoryId,
+      //          model.Id,
+      //          item.Name);
+      //  if (File.Exists(imagePath))
+      //  {
+      //    vm.DefaultImage = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
+      //  }
+      //}
 
       return vm;
     }

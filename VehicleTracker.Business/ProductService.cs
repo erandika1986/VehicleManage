@@ -94,10 +94,26 @@ namespace VehicleTracker.Business
 
     public List<DropDownViewModal> GetProductSubCategories(int categoryId)
     {
-      var response = _db.ProductSubCategories
+      var response = new List<DropDownViewModal>();
+      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var subCategoories = _db.ProductSubCategories
                       .Where(p => p.ProductCategoryId == categoryId && p.IsActive == true)
                       .OrderBy(x => x.Name)
                       .Select(t => new DropDownViewModal() { Id = t.Id, Name = t.Name }).ToList();
+      response.AddRange(subCategoories);
+
+      return response;
+    }
+
+    public List<DropDownViewModal> GetSuppliers()
+    {
+      var response = new List<DropDownViewModal>();
+      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var suppliers = _db.Suppliers
+                      .Where(p =>  p.IsActive == true)
+                      .OrderBy(x => x.Name)
+                      .Select(t => new DropDownViewModal() { Id = t.Id, Name = t.Name }).ToList();
+      response.AddRange(suppliers);
 
       return response;
     }
@@ -162,12 +178,8 @@ namespace VehicleTracker.Business
       try
       {
         var user = _db.Users.FirstOrDefault(t => t.Username == userName);
-
         var productRecord = _db.Products.FirstOrDefault(x => x.Id == container.Id);
-
         var folderPath = productRecord.GetProductFolderPath(_config);
-
-
 
         if (!Directory.Exists(folderPath))
         {
@@ -189,15 +201,13 @@ namespace VehicleTracker.Business
             };
 
             _db.ProductImages.Add(pimage);
-
-
           }
         }
 
         await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
-        response.Message = "Product image has been uploaded succesfully.";
+        response.Message = "Product images has been uploaded succesfully.";
       }
       catch (Exception ex)
       {
@@ -211,7 +221,30 @@ namespace VehicleTracker.Business
 
     public DownloadFileViewModel DownloadProductImage(int id)
     {
-      throw new NotImplementedException();
+      var response = new DownloadFileViewModel();
+      try
+      {
+        var productImage = _db.ProductImages.FirstOrDefault(t => t.Id == id);
+        var imagePath = productImage.GetProductImagePath(_config);
+        byte[] fileContents = null;
+        MemoryStream ms = new MemoryStream();
+
+        using (FileStream fs = File.OpenRead(imagePath))
+        {
+          fs.CopyTo(ms);
+          fileContents = ms.ToArray();
+          ms.Dispose();
+          response.FileData = fileContents;
+        }
+
+        response.FileName = productImage.Name;
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex.ToString());
+      }
+
+      return response;
     }
   }
 }

@@ -52,6 +52,9 @@ export class ProductSubCategoryDetailComponent implements OnInit {
   }
 
   createSubCategoryForm() {
+
+    console.log(this.subcategory);
+    
     return new FormGroup({
       id: new FormControl({ value: this.subcategory.id, disabled: true }),
       productCategoryId:new FormControl({ value: this.subcategory.productCategoryId, disabled: this.isReadOnly } , Validators.required), 
@@ -65,7 +68,13 @@ export class ProductSubCategoryDetailComponent implements OnInit {
   {
     this._fuseProgressBarService.show();
       this._productServoce.getProductCategories().subscribe(response=>{
+          response.shift();
           this.productCategories=response;
+          if(this._productServoce.selectedCategoryId!=0)
+          {
+            this.subcategoryForm.patchValue({'productCategoryId':this._productServoce.selectedCategoryId});
+          }
+
           this._fuseProgressBarService.hide();
       },error=>{
         this._fuseProgressBarService.hide();

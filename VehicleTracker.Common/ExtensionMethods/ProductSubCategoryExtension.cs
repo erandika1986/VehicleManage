@@ -31,6 +31,7 @@ namespace System
       if (vm == null)
         vm = new ProductSubCategoryViewModel();
       vm.ProductCategoryName = model.ProductCategory.Name;
+      vm.ProductCategoryId = model.ProductCategoryId;
       vm.Id = model.Id;
       vm.Name = model.Name;
      

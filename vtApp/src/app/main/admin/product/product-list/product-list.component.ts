@@ -1,4 +1,6 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -10,9 +12,11 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { Upload } from 'app/models/common/upload';
+import { ProductImageModel } from 'app/models/product/product.image.model';
 import { ProductModel } from 'app/models/product/product.model';
 import { ProductService } from 'app/services/product/product.service';
 import { EMPTY, Observable, Subject } from 'rxjs';
+import { ProductDetailComponent } from '../product-detail/product-detail.component';
 
 @Component({
   selector: 'product-list',
@@ -30,7 +34,7 @@ export class ProductListComponent implements OnInit {
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   dataSource = new MatTableDataSource([]);
-  displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
+  displayedColumns = ['buttons', 'defaultImage', 'name', 'categoryName',"subCategoryName", 'unitPrice'];
 
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;
@@ -57,21 +61,113 @@ export class ProductListComponent implements OnInit {
     public _router: Router) { }
 
   ngOnInit(): void {
+    this.loadList();
+    this.getCategories();
   }
 
   edit(item:ProductModel)
   {
+    this.dialogRef = this._matDialog.open(ProductDetailComponent, {
+      panelClass: 'product-form-dialog',
+      data: {
+        product: item,
+        action: "edit",
+        isReadOnly:false
+      }
+    });
 
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+        const actionType: string = response[0];
+        const formData: FormGroup = response[1];
+        switch (actionType) {
+          /**
+           * Save
+           */
+          case 'save':
+            this.save(formData.getRawValue());
+
+
+            break;
+          /**
+           * Delete
+           */
+          case 'delete':
+
+            this.delete(formData.getRawValue());
+
+            break;
+        }
+      });
   }
 
   view(item:ProductModel)
   {
+    this.dialogRef = this._matDialog.open(ProductDetailComponent, {
+      panelClass: 'product-form-dialog',
+      data: {
+        product: item,
+        action: "edit",
+        isReadOnly:true
+      }
+    });
 
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+        const actionType: string = response[0];
+        let formData: FormGroup = response[1];
+        switch (actionType) {
+
+          case 'save':
+
+
+            break;
+
+          case 'delete':
+
+
+
+            break;
+        }
+      });
   }
 
   addNew()
   {
+    let product: ProductModel = new ProductModel();
+    product.id = 0;
+    product.productCategoryId=0;
+    product.productSubCategoryId=0;
+    product.supplierId =0;
+    product.name = "";
+    product.description="";
+    product.isActive = true;
+    
 
+    this.dialogRef = this._matDialog.open(ProductDetailComponent, {
+      panelClass: 'product-form-dialog',
+      data: {
+        product: product,
+        action: "add"
+      }
+    });
+
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+
+        const formData: FormGroup = response;
+        this.save(formData.getRawValue());
+
+      });
   }
 
   loadList() {
@@ -82,6 +178,7 @@ export class ProductListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
       }, error => {
         this._fuseProgressBarService.hide();
       })
@@ -176,9 +273,28 @@ export class ProductListComponent implements OnInit {
   {
     this._productService.getProductCategories().subscribe(response=>{
       this.categories = response;
+      this.getSubCategories();
     },error=>{
 
     });
+  }
+
+  productCategoryChanged(item:any)
+  {
+    this.getSubCategories()
+  }
+
+  getSubCategories()
+  {
+    this._productService.getProductSubCategories(this.selectedCategoryId)
+      .subscribe(response=>{
+        this.subCategories = response;
+        this.selectedSubCategoryId=0;
+        this.loadList();
+
+      },error=>{
+
+      })
   }
 
   filterChanged(item:any)
@@ -201,7 +317,7 @@ export class ProductListComponent implements OnInit {
           
           formData.append('file', fi.files[index], fi.files[index].name);
         }
-        this._productService.uploadSubProductCategoryImage(formData).subscribe(res=>
+        this._productService.uploadProductImage(formData).subscribe(res=>
           {
             this.precentage =res;
             if(res.state=="DONE")
@@ -233,5 +349,57 @@ export class ProductListComponent implements OnInit {
             
           }); */
     } 
+  }
+
+
+  downloadPercentage:number=0;
+  isDownloading:boolean;
+  downloadFile(item:ProductImageModel)
+  {
+    this._fuseProgressBarService.show();
+    this.isDownloading=true;
+    this._productService.downloadProductImage(item.id)
+      .subscribe(response=>{
+
+        console.log(response);
+        
+        if (response.type === HttpEventType.DownloadProgress) {
+          this.downloadPercentage = Math.round(100 * response.loaded / response.total);
+        }
+        
+        if (response.type === HttpEventType.Response) {
+          if(response.status == 204)
+          {
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+          else
+          {
+            const objectUrl: string = URL.createObjectURL(response.body);
+            const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+    
+            a.href = objectUrl;
+            a.download = item.imageName;
+            document.body.appendChild(a);
+            a.click();
+    
+            document.body.removeChild(a);
+            URL.revokeObjectURL(objectUrl);
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+
+        }
+
+
+
+
+      },error=>{
+        this._fuseProgressBarService.hide();
+        this.isDownloading=false;
+        this.downloadPercentage=0;
+      });
   }
 }

@@ -96,21 +96,21 @@ product-sub-category-list {
             flex: 0 1 22%;
         }
     }
-}
 
-.mat-form-field-wrapper {
-    padding-bottom: 0em !important;
-}
+    .mat-form-field-wrapper {
+        padding-bottom: 0em !important;
+    }
 
-.mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 1em 0 0.8em 0 !important;
-}
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 0.5em 0 0.5em 0 !important;
+    }
 
-.mat-select-panel .mat-optgroup-label,
-.mat-select-panel .mat-option {
-    font-size: inherit;
-    line-height: 2em;
-    height: 2em;
+    .mat-select-panel .mat-optgroup-label,
+    .mat-select-panel .mat-option {
+        font-size: inherit;
+        line-height: 2em;
+        height: 2em;
+    }
 }
 
 .button-row {

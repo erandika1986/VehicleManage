@@ -108,8 +108,23 @@ export class ProductService {
   }
 
   getProductSubCategories(categoryId:number): Observable<DropDownModel[]> {
+    this.selectedCategoryId=categoryId;
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'Product/getProductSubCategories/'+categoryId);
+  }
+
+  getSuppliers(): Observable<DropDownModel[]> {
+
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Product/getSuppliers');
+  }
+
+  uploadProductImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'Product/uploadProductImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
+  downloadProductImage(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'Product/downloadProductImage/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
   }
 
 
