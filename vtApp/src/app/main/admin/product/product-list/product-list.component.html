@@ -91,17 +91,8 @@
                                 height: 54px !important;
                                 width: 74px !important;
                             "
-                            *ngIf="item.image"
-                        /><span
-                            style="
-                                color: royalblue;
-                                font-weight: bold;
-                                cursor: pointer;
-                            "
-                            (click)="downloadFile(item)"
                             *ngIf="item.defaultImage"
-                            >&nbsp;Download</span
-                        >
+                        />
                         <img
                             class="product-image"
                             [src]="
@@ -114,6 +105,56 @@
                             *ngIf="!item.defaultImage"
                         />
                         <!--                         <mat-progress-bar mode="query" *ngIf="isUploading"></mat-progress-bar> -->
+                    </mat-cell>
+                </ng-container>
+
+                <!-- name -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Name</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- SKU -->
+                <ng-container matColumnDef="productCode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >SKU</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.productCode }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- availableQty -->
+                <ng-container matColumnDef="availableQty">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Available Qty</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.availableQty }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- availableQty -->
+                <ng-container matColumnDef="minOrderQty">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Min Order Qty</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.minOrderQty }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- availableQty -->
+                <ng-container matColumnDef="maxOrderQty">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Max Order Qty</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.maxOrderQty }}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -172,16 +213,6 @@
                         <p class="text-truncate">
                             {{ item.subCategoryName }}
                         </p>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- name -->
-                <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header
-                        >Name</mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let item">
-                        <p class="text-truncate">{{ item.name }}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -259,27 +290,6 @@
                                     <mat-icon class="small-mat-icon"
                                         >delete_forever</mat-icon
                                     >
-                                </button>
-                                <button
-                                    mat-raised-button
-                                    class="
-                                        blue
-                                        small small-mat-raised-button-small
-                                    "
-                                    (click)="fileInput.click()"
-                                    matTooltip="Upload product sub category image"
-                                >
-                                    <mat-icon class="small-mat-icon"
-                                        >cloud_upload</mat-icon
-                                    >
-                                    <input
-                                        #fileInput
-                                        type="file"
-                                        class="form-control"
-                                        name="documents"
-                                        (change)="onFileChange($event, item)"
-                                        style="display: none"
-                                    />
                                 </button>
                             </div>
                         </div>

@@ -4,10 +4,11 @@ import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
 import { upload, Upload } from 'app/models/common/upload';
 import { ProductCategoryModel } from 'app/models/product/product.category.model';
+import { ProductImageModel } from 'app/models/product/product.image.model';
 import { ProductModel } from 'app/models/product/product.model';
 import { ProductSubCategoryModel } from 'app/models/product/product.sub.category.model';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,12 @@ export class ProductService {
   selectedCategoryId:number=0;
   selectedSubCategoryId:number=0;
   selectedProductId:number=0;
+
+  onProductImageUploaded: Subject<any>;
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    this.onProductImageUploaded = new Subject();
+  }
 
   //For Product Category
 
@@ -91,6 +96,16 @@ export class ProductService {
     return this.httpClient.
       get<ProductModel[]>(environment.apiUrl + 'Product/getAllProducts/'+subCategoryId);
   }
+
+  getAllProductImages(productId:number): Observable<ProductImageModel[]> {
+
+    return this.httpClient.
+      get<ProductImageModel[]>(environment.apiUrl + 'Product/getAllProductImages/'+productId);
+  }
+
+  makeDefaultImage(photo: ProductImageModel): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(environment.apiUrl + 'Product/makeDefaultImage', photo);
+}
 
   getProductById(id: number): Observable<ProductModel> {
     return this.httpClient.

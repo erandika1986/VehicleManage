@@ -23,6 +23,7 @@ namespace VehicleTracker.Model
         public int MaxOrderQty { get; set; }
         public int SubProductCategoryId { get; set; }
         public int SupplierId { get; set; }
+        public string Description { get; set; }
         public long CreatedById { get; set; }
         public DateTime CreatedOn { get; set; }
         public long UpdatedById { get; set; }

@@ -9,6 +9,8 @@ export class ProductModel
     productCode :string;
     unitPrice :number;
     availableQty :number;
+    maxOrderQty:number;
+    minOrderQty:number;
     supplierId :number;
     description :string;
     defaultImage :string;

@@ -85,6 +85,47 @@ namespace VehicleTracker.Business
       return data;
     }
 
+    public List<ProductImageViewModel> GetAllProductImages(int productId)
+    {
+      var images = _db.Products.FirstOrDefault(x => x.Id == productId).GetProductImages(_config);
+
+      return images;
+    }
+
+    public async Task<ResponseViewModel> MakeDefaultImage(ProductImageViewModel image)
+    {
+      var response = new ResponseViewModel();
+      try
+      {
+        var images = _db.ProductImages.Where(x => x.ProductId == image.ProductId).ToList();
+
+        foreach (var item in images)
+        {
+          if(item.Id==image.Id)
+          {
+            item.IsDefault = true;
+          }
+          else
+          {
+            item.IsDefault = false;
+          }
+
+          _db.ProductImages.Update(item);
+
+        }
+        await _db.SaveChangesAsync();
+
+        response.IsSuccess = true;
+        response.Message = "Image save as default image for this product";
+      }
+      catch(Exception ex)
+      {
+        response.IsSuccess = false;
+        response.Message = "Operation has been failed. Please try again.";
+      }
+
+      return response;
+    }
     public ProductViewModel GetProductById(int id)
     {
       var product = _db.Products.FirstOrDefault(x => x.Id == id);
@@ -146,7 +187,9 @@ namespace VehicleTracker.Business
           product.IsActive = vm.IsActive;
           product.ProductCode = vm.ProductCode;
           product.SubProductCategoryId = vm.ProductSubCategoryId;
-          product.SubProductCategoryId = vm.ProductSubCategoryId;
+          product.AvailableQty = vm.AvailableQty;
+          product.MinOrderQty = vm.MinOrderQty;
+          product.MaxOrderQty = vm.MaxOrderQty;
           product.SupplierId = vm.SupplierId;
           product.UnitPrice = vm.UnitPrice;
           product.UpdatedOn = DateTime.UtcNow;

@@ -78,6 +78,25 @@ namespace VehicleTracker.WebApi.Controllers
       return Ok(response);
     }
 
+    [HttpGet]
+    [Route("getAllProductImages/{productId}")]
+    public ActionResult GetAllProductImages(int productId)
+    {
+      var response = productService.GetAllProductImages(productId);
+
+      return Ok(response);
+    }
+
+    [HttpPost]
+    [Route("makeDefaultImage")]
+    public async Task<IActionResult> MakeDefaultImage(ProductImageViewModel image)
+    {
+      var response = await productService.MakeDefaultImage(image);
+
+      return Ok(response);
+    }
+
+
     [HttpPost]
     [RequestSizeLimit(long.MaxValue)]
     [Route("uploadProductImage")]

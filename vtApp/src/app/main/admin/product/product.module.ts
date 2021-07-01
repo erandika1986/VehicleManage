@@ -8,6 +8,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { MaterialModule } from 'app/MaterialModule';
+import { ProductService } from 'app/services/product/product.service';
 
 const routes: Routes = [
   {
@@ -32,6 +33,12 @@ const routes: Routes = [
     FuseWidgetModule,
     SharedModule,
     MaterialModule
-  ]
+  ],
+  providers: [
+    ProductService
+  ],
+  entryComponents: [
+    ProductDetailComponent
+]
 })
 export class ProductModule { }

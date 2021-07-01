@@ -2,7 +2,8 @@ export class ProductImageModel
 {
     id:number;
     imageName:string;
-    imageUrl:string;
+    image:string;
     productId:number;
     productName:string;
+    isDefault:boolean;
 }

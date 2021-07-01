@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   dataSource = new MatTableDataSource([]);
-  displayedColumns = ['buttons', 'defaultImage', 'name', 'categoryName',"subCategoryName", 'unitPrice'];
+  displayedColumns = ['buttons', 'defaultImage', 'name','productCode','availableQty','minOrderQty','maxOrderQty', 'unitPrice', 'categoryName',"subCategoryName"];
 
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;
@@ -58,11 +58,16 @@ export class ProductListComponent implements OnInit {
     private _fuseProgressBarService: FuseProgressBarService,
     private _matDialog: MatDialog,
     private _snackBar: MatSnackBar,
-    public _router: Router) { }
+    public _router: Router) { 
+
+    }
 
   ngOnInit(): void {
     this.loadList();
     this.getCategories();
+    this._productService.onProductImageUploaded.subscribe(response=>{
+      this.loadList();
+    });
   }
 
   edit(item:ProductModel)
@@ -142,9 +147,9 @@ export class ProductListComponent implements OnInit {
   {
     let product: ProductModel = new ProductModel();
     product.id = 0;
-    product.productCategoryId=0;
-    product.productSubCategoryId=0;
-    product.supplierId =0;
+    //product.productCategoryId=0;
+    //product.productSubCategoryId=0;
+    //product.supplierId =0;
     product.name = "";
     product.description="";
     product.isActive = true;
@@ -184,7 +189,6 @@ export class ProductListComponent implements OnInit {
       })
   }
 
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -222,7 +226,6 @@ export class ProductListComponent implements OnInit {
         });
       });
   }
-
 
   delete(product: ProductModel) {
     this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
@@ -266,8 +269,6 @@ export class ProductListComponent implements OnInit {
       this.confirmDialogRef = null;
     });
   }
-
-
 
   getCategories()
   {
