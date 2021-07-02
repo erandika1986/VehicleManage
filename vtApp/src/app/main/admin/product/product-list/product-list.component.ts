@@ -63,6 +63,13 @@ export class ProductListComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    console.log(this._productService.selectedCategoryId);
+    console.log(this._productService.selectedSubCategoryId);
+    
+    this.selectedCategoryId = this._productService.selectedCategoryId;
+    this.selectedSubCategoryId = this._productService.selectedSubCategoryId;
+
     this.loadList();
     this.getCategories();
     this._productService.onProductImageUploaded.subscribe(response=>{
@@ -290,7 +297,6 @@ export class ProductListComponent implements OnInit {
     this._productService.getProductSubCategories(this.selectedCategoryId)
       .subscribe(response=>{
         this.subCategories = response;
-        this.selectedSubCategoryId=0;
         this.loadList();
 
       },error=>{

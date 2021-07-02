@@ -34,9 +34,6 @@ const routes: Routes = [
     SharedModule,
     MaterialModule
   ],
-  providers: [
-    ProductService
-  ],
   entryComponents: [
     ProductDetailComponent
 ]

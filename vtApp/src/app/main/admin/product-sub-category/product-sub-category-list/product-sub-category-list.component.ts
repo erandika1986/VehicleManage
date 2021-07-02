@@ -54,6 +54,7 @@ export class ProductSubCategoryListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.selectedCategoryId = this._productService.selectedCategoryId;
     this.loadList();
     this.getCategories();
   }
@@ -263,7 +264,9 @@ export class ProductSubCategoryListComponent implements OnInit {
 
   viewProduct(subCategory: ProductSubCategoryModel)
   {
-
+    this._productService.selectedCategoryId = subCategory.productCategoryId;
+    this._productService.selectedSubCategoryId = subCategory.id;
+    this._router.navigate(['/admin/product/list']);
   }
 
   getCategories()

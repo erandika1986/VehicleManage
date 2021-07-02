@@ -54,16 +54,16 @@ createSupplierForm() {
   return new FormGroup({
     id: new FormControl({ value: this.supplier.id, disabled: true }),
     name: new FormControl(this.supplier.name, Validators.required),
-    description: new FormControl(this.supplier.description,Validators.required),
-    address: new FormControl(this.supplier.address,Validators.required),
-    phone1: new FormControl(this.supplier.phone1,Validators.required),
-    phone2: new FormControl(this.supplier.phone2,Validators.required),
-    email1: new FormControl(this.supplier.email1,Validators.required),
-    email2: new FormControl(this.supplier.email2,Validators.required),
-    bank: new FormControl(this.supplier.bank,Validators.required),
-    accountNo: new FormControl(this.supplier.accountNo,Validators.required),
-    branch: new FormControl(this.supplier.branch,Validators.required),
-    branchCode: new FormControl(this.supplier.branchCode,Validators.required),
+    description: new FormControl(this.supplier.description),
+    address: new FormControl(this.supplier.address),
+    phone1: new FormControl(this.supplier.phone1),
+    phone2: new FormControl(this.supplier.phone2),
+    email1: new FormControl(this.supplier.email1),
+    email2: new FormControl(this.supplier.email2),
+    bank: new FormControl(this.supplier.bank,),
+    accountNo: new FormControl(this.supplier.accountNo),
+    branch: new FormControl(this.supplier.branch),
+    branchCode: new FormControl(this.supplier.branchCode),
     iSActive:new FormControl(this.supplier.isActive)
   });
 } 

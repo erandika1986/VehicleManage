@@ -257,7 +257,9 @@ export class ProductCategoryListComponent implements OnInit {
 
   viewProductSubCategory(category: ProductCategoryModel)
   {
-
+    this._productService.selectedCategoryId = category.id;
+    this._productService.selectedSubCategoryId=0;
+    this._router.navigate(['/admin/product-sub-category/list']);
   }
 
   upload$: Observable<Upload> = EMPTY;

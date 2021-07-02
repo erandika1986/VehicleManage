@@ -566,17 +566,11 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.Address).HasMaxLength(1000);
 
-        entity.Property(e => e.Bank)
-            .HasMaxLength(10)
-            .IsFixedLength(true);
+        entity.Property(e => e.Bank).HasMaxLength(500);
 
-        entity.Property(e => e.Branch)
-            .HasMaxLength(10)
-            .IsFixedLength(true);
+        entity.Property(e => e.Branch).HasMaxLength(500);
 
-        entity.Property(e => e.BranchCode)
-            .HasMaxLength(10)
-            .IsFixedLength(true);
+        entity.Property(e => e.BranchCode).HasMaxLength(20);
 
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
