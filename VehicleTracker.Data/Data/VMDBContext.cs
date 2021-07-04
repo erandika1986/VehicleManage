@@ -16,6 +16,7 @@ namespace VehicleTracker.Data
     {
     }
 
+    public virtual DbSet<AppSetting> AppSettings { get; set; }
     public virtual DbSet<BreakOilCode> BreakOilCodes { get; set; }
     public virtual DbSet<Client> Clients { get; set; }
     public virtual DbSet<CustomerProductPrice> CustomerProductPrices { get; set; }
@@ -70,6 +71,13 @@ namespace VehicleTracker.Data
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+      modelBuilder.Entity<AppSetting>(entity =>
+      {
+        entity.Property(e => e.Key)
+            .IsRequired()
+            .HasMaxLength(500);
+      });
 
       modelBuilder.Entity<BreakOilCode>(entity =>
       {
@@ -455,12 +463,9 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.Id).ValueGeneratedNever();
 
-        entity.Property(e => e.Amount)
-            .IsRequired()
-            .HasMaxLength(10)
-            .IsFixedLength(true);
-
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+        entity.Property(e => e.Discount).HasColumnType("decimal(10, 2)");
 
         entity.Property(e => e.IsActive)
             .IsRequired()
@@ -470,6 +475,16 @@ namespace VehicleTracker.Data
             .IsRequired()
             .HasMaxLength(15)
             .HasColumnName("PONumber");
+
+        entity.Property(e => e.ShipingCharge).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.SubTotal).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.TaxRate).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.TotalTaxAmount).HasColumnType("decimal(10, 2)");
 
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 
@@ -505,6 +520,12 @@ namespace VehicleTracker.Data
         entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
 
         entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
+
+        entity.HasOne(d => d.Product)
+            .WithMany(p => p.PurchaseOrderDetails)
+            .HasForeignKey(d => d.ProductId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_PurchaseOrderDetail_Product");
 
         entity.HasOne(d => d.PurchaseOrder)
             .WithMany(p => p.PurchaseOrderDetails)
@@ -585,6 +606,8 @@ namespace VehicleTracker.Data
         entity.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(500);
+
+        entity.Property(e => e.OurRefNo).HasMaxLength(50);
 
         entity.Property(e => e.Phone1).HasMaxLength(15);
 

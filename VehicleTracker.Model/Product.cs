@@ -12,6 +12,7 @@ namespace VehicleTracker.Model
             CustomerProductPrices = new HashSet<CustomerProductPrice>();
             ProductImages = new HashSet<ProductImage>();
             ProductInventories = new HashSet<ProductInventory>();
+            PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
         }
 
         public int Id { get; set; }
@@ -37,5 +38,6 @@ namespace VehicleTracker.Model
         public virtual ICollection<CustomerProductPrice> CustomerProductPrices { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductInventory> ProductInventories { get; set; }
+        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
     }
 }

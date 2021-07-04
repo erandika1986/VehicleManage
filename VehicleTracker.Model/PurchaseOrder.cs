@@ -17,7 +17,12 @@ namespace VehicleTracker.Model
         public int SupplierId { get; set; }
         public int ShippedToWharehouseId { get; set; }
         public string Terms { get; set; }
-        public string Amount { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TaxRate { get; set; }
+        public decimal TotalTaxAmount { get; set; }
+        public decimal ShipingCharge { get; set; }
+        public decimal Total { get; set; }
         public int Status { get; set; }
         public string Remark { get; set; }
         public string Attachment { get; set; }

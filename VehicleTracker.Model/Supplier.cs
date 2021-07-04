@@ -21,6 +21,7 @@ namespace VehicleTracker.Model
         public string Phone2 { get; set; }
         public string Email1 { get; set; }
         public string Email2 { get; set; }
+        public string OurRefNo { get; set; }
         public string Bank { get; set; }
         public string AccountNo { get; set; }
         public string Branch { get; set; }
