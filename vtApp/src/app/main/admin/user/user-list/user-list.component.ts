@@ -67,6 +67,10 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.loadUsers(this.userFilter.selectedRoleId,this.userFilter.selectdStatusId);
     });
 
+    this._userService.onNewUserAdded.subscribe(response=>{
+        this.saveUser(response);
+    });
+
     this._userService.onSearchTextChanged.subscribe(response=>{
         this.filterValue = response.trim(); // Remove whitespace
         this.filterValue = this.filterValue.toLowerCase(); // Datasource defaults to lowercase matches

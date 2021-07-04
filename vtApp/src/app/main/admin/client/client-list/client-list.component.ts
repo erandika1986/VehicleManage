@@ -111,7 +111,7 @@ export class ClientListComponent implements OnInit {
     customer.email = "";
     customer.latitude = 0;
     customer.longitude = 0;
-    customer.routeID = 0;
+    customer.routeId = 0;
 
     this.dialogRef = this._matDialog.open(ClientDetailComponent, {
       panelClass: 'client-form-dialog',
@@ -163,7 +163,7 @@ export class ClientListComponent implements OnInit {
       .subscribe(response => {
 
         this._fuseProgressBarService.hide();
-        if (response.isActive) {
+        if (response.isSuccess) {
           this._snackBar.open(response.message, 'Success', {
             duration: 2500,
             horizontalPosition: this.horizontalPosition,
@@ -204,7 +204,7 @@ export class ClientListComponent implements OnInit {
           .subscribe(response => {
 
             this._fuseProgressBarService.hide();
-            if (response.isActive) {
+            if (response.isSuccess) {
               this._snackBar.open(response.message, 'Success', {
                 duration: 2500,
                 horizontalPosition: this.horizontalPosition,

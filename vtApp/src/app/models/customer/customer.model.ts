@@ -2,7 +2,6 @@ export class CustomerModel
 {
     id:number;
     name:string;
-    description:string;
     contactNo1:string;
     contactNo2:string;
     email:string;
@@ -10,7 +9,7 @@ export class CustomerModel
     latitude:number;
     longitude:number;
     priority:number;
-    routeID:number;
+    routeId:number;
+    description:string;
     isActive:boolean;
-    message:string;
 }

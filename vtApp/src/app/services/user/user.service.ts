@@ -20,6 +20,7 @@ export class UserService {
   onFilterChanged: Subject<any>;
   onMasterDataRecieved:Subject<any>;
   onUserUpdated:BehaviorSubject<any>;
+  onNewUserAdded:Subject<any>;
 
   users: User[];
   user: any;
@@ -36,6 +37,7 @@ export class UserService {
     this.onFilterChanged = new Subject();
     this.onMasterDataRecieved = new Subject();
     this.onUserUpdated = new BehaviorSubject([]);
+    this.onNewUserAdded = new Subject();
    }
 
 

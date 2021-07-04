@@ -101,15 +101,7 @@ this.searchInput.valueChanges
 
     saveUser(user:User)
     {
-        this._fuseProgressBarService.show();
-        console.log(user);
-        
-        this._userService.saveVehicle(user)
-            .subscribe(response=>{
-                this._fuseProgressBarService.hide();
-            },error=>{
-                this._fuseProgressBarService.hide();
-            });
+        this._userService.onNewUserAdded.next(user);
     }
 
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ResponseModel } from 'app/models/common/response.model';
 import { CustomerMasterDataModel } from 'app/models/customer/customer.master.data.model';
 import { CustomerModel } from 'app/models/customer/customer.model';
 import { environment } from 'environments/environment';
@@ -20,22 +21,22 @@ export class CustomerService {
   
   getCustomerById(id: number): Observable<CustomerModel> {
     return this.httpClient.
-      get<CustomerModel>(environment.apiUrl + 'Customer' + "/" + id);
+      get<CustomerModel>(environment.apiUrl + 'Customer/' + id);
   }
 
-  saveCustomer(vm: CustomerModel): Observable<CustomerModel> {
+  saveCustomer(vm: CustomerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<CustomerModel>(environment.apiUrl + 'Customer', vm);
+      post<ResponseModel>(environment.apiUrl + 'Customer', vm);
   }
 
-  delete(id: number): Observable<CustomerModel> {
+  delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<CustomerModel>(environment.apiUrl + 'Customer' + "/" + id);
+      delete<ResponseModel>(environment.apiUrl + 'Customer/' + id);
   }
 
   getCustomerMasterData(): Observable<CustomerMasterDataModel> {
     return this.httpClient.
-      get<CustomerMasterDataModel>(environment.apiUrl + 'Customer' + "/" + this.getCustomerMasterData);
+      get<CustomerMasterDataModel>(environment.apiUrl + 'Customer/getCustomerMasterData');
   }
   
 }
