@@ -26,6 +26,11 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public POStatus Status { get; set; }
     public string Remarks { get; set; }
 
+    public string CreatedBy { get; set; }
+    public string CreatedOn { get; set; }
+    public string UpdatedBy { get; set; }
+    public string UpdatedOn { get; set; }
+
     public List<PurchaseOrderItemViewModel> Items { get; set; }
   }
 }

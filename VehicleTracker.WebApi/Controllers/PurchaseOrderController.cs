@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.ViewModel.PurchaseOrder;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
@@ -15,45 +16,57 @@ namespace VehicleTracker.WebApi.Controllers
   {
     private readonly IPurchaseOrderService _purchaseOrderService;
     private readonly IIdentityService _identityService;
+
+
     public PurchaseOrderController(IPurchaseOrderService purchaseOrderService, IIdentityService identityService)
     {
       this._purchaseOrderService = purchaseOrderService;
       this._identityService = identityService;
     }
 
-    //// GET api/Route/15/2
-    //[HttpGet]
-    //public ActionResult Get()
-    //{
-    //  var response = _purchaseOrderService.GetAllPurchaseOrder();
-    //  return Ok(response);
-    //}
 
-    //// GET api/Route/5
-    //[HttpGet("{id}")]
-    //public ActionResult Get(long id)
-    //{
-    //  var response = _supplierService.GetSupplierById(id);
-    //  return Ok(response);
-    //}
-
-    //// POST api/Route
-    //[HttpPost]
-    //public async Task<ActionResult> Post([FromBody] SupplierViewModel vm)
-    //{
-    //  var username = identityService.GetUserName();
-    //  var response = await _supplierService.SaveSupplier(vm, username);
-    //  return Ok(response);
-    //}
+    [HttpGet]
+    public ActionResult Get()
+    {
+      var response = _purchaseOrderService.GetAllPurchseOrder();
+      return Ok(response);
+    }
 
 
+    [HttpGet("{id}")]
+    public ActionResult Get(int id)
+    {
+      var response = _purchaseOrderService.GetPurchaseOrderById(id);
+      return Ok(response);
+    }
 
-    //// DELETE api/Route/5
-    //[HttpDelete("{id}")]
-    //public async Task<ActionResult> Delete(int id)
-    //{
-    //  var response = await _supplierService.DeleteSupplier(id);
-    //  return Ok(response);
-    //}
+
+    [HttpPost]
+    public async Task<ActionResult> Post([FromBody] PurchaseOrderViewModel vm)
+    {
+      var username = _identityService.GetUserName();
+      var response = await _purchaseOrderService.SavePurchaseOrder(vm, username);
+      return Ok(response);
+    }
+
+
+
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+      var username = _identityService.GetUserName();
+      var response = await _purchaseOrderService.DeletePurchaseOrder(id, username);
+      return Ok(response);
+    }
+
+
+    [HttpGet]
+    [Route("getPurchaseOrderMasterData")]
+    public ActionResult GetPurchaseOrderMasterData()
+    {
+      var response = _purchaseOrderService.GetPurchaseOrderMasterData();
+      return Ok(response);
+    }
   }
 }
