@@ -12,7 +12,7 @@ namespace VehicleTracker.Business.Interfaces
   {
     Task<ResponseViewModel> SavePurchaseOrder(PurchaseOrderViewModel vm,string userName);
     List<PurchaseOrderSummaryViewModel> GetAllPurchseOrder();
-    PurchaseOrderViewModel GetPurchaseOrderById(int id);
+    PurchaseOrderViewModel GetPurchaseOrderById(int id, string username);
     Task<ResponseViewModel> DeletePurchaseOrder(int id,string userName);
     PurchaseOrderMasterData GetPurchaseOrderMasterData();
   }

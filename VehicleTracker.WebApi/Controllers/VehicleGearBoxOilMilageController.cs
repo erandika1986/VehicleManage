@@ -11,9 +11,10 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize]
+
   public class VehicleGearBoxOilMilageController : ControllerBase
   {
     private readonly IVehicleGearBoxOilMilageService _vehicleGearBoxOilMilageService;

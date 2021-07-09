@@ -1,0 +1,177 @@
+@use '~@angular/material' as mat;
+@import "src/@fuse/scss/fuse";
+
+po-list {
+    #assets {
+        .top-bg {
+            @include media-breakpoint("lt-md") {
+                height: 256px;
+            }
+        }
+
+        > .center {
+            > .header {
+                .search-wrapper {
+                    width: 100%;
+                    max-width: 480px;
+                    border-radius: 28px;
+                    overflow: hidden;
+                    @include mat.elevation(1);
+
+                    @include media-breakpoint("xs") {
+                        width: 100%;
+                    }
+
+                    .search {
+                        width: 100%;
+                        height: 48px;
+                        line-height: 48px;
+                        padding: 0 18px;
+
+                        input {
+                            width: 100%;
+                            height: 48px;
+                            min-height: 48px;
+                            max-height: 48px;
+                            padding: 0 16px;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+
+                @include media-breakpoint("lt-md") {
+                    padding: 8px 0;
+                    height: 192px !important;
+                    min-height: 192px !important;
+                    max-height: 192px !important;
+                }
+            }
+        }
+    }
+
+    .products-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .mat-row,
+        .mat-header-row {
+            background: white;
+            min-width: 4500px;
+        }
+
+        .mat-header-row {
+            min-height: 64px;
+        }
+
+        .product {
+            position: relative;
+            cursor: pointer;
+            height: 54px;
+        }
+
+        .mat-cell {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .mat-column-buttons {
+            flex: 0 0 4%;
+            text-align: center;
+        }
+        .mat-header-buttons {
+            flex: 0 0 4%;
+            text-align: center;
+        }
+
+        .quantity-indicator {
+            display: inline-block;
+            vertical-align: middle;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+
+            & + span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .active-icon {
+            border-radius: 50%;
+        }
+    }
+}
+
+.mat-column-id {
+    flex: 0 0 250px;
+}
+
+.mat-column-engineOilChangeMilage {
+    flex: 0 0 250px;
+}
+
+.mat-column-fuelFilterChangeMilage {
+    flex: 0 0 250px;
+}
+
+.mat-column-gearBoxChangeMilage {
+    flex: 0 0 250px;
+}
+
+.mat-column-differentialOilChangeMilage {
+    flex: 0 0 250px;
+}
+
+.mat-column-engineOilNumber {
+    flex: 0 0 250px;
+}
+
+.mat-column-fuelFilterNumber {
+    flex: 0 0 250px;
+}
+
+.mat-column-gearBoxOilNumber {
+    flex: 0 0 250px;
+}
+
+.mat-column-differentialOilNumber {
+    flex: 0 0 250px;
+}
+
+.mat-column-airCleanerAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-greeceNipleAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-insuranceAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-fitnessReportAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-emitionTestAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-revenueLicenceAge {
+    flex: 0 0 250px;
+}
+
+.mat-column-fuelTypeName {
+    flex: 0 0 250px;
+}
+
+.mat-column-buttons {
+    flex: 0 0 250px;
+    border-bottom-style: none !important;
+}

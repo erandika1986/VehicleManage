@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class PurchaseOrderController : ControllerBase
@@ -36,7 +38,8 @@ namespace VehicleTracker.WebApi.Controllers
     [HttpGet("{id}")]
     public ActionResult Get(int id)
     {
-      var response = _purchaseOrderService.GetPurchaseOrderById(id);
+      var username = _identityService.GetUserName();
+      var response = _purchaseOrderService.GetPurchaseOrderById(id, username);
       return Ok(response);
     }
 
