@@ -253,6 +253,15 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public async Task<PONumber> GetPONumber()
+    {
+      var po = new PONumber()
+      {
+        Number = await GeneratePONumber()
+      };
+      return po;
+    }
+
     private void AddNewPOItems(PurchaseOrder po, List<PurchaseOrderItemViewModel> items)
     {
       foreach (var item in items)
@@ -274,7 +283,7 @@ namespace VehicleTracker.Business
       string newPO = string.Empty;
       var currentPO = _db.AppSettings.FirstOrDefault(x => x.Key == "PONumber");
 
-      if (string.IsNullOrEmpty(currentPO.Key))
+      if (string.IsNullOrEmpty(currentPO.Value))
       {
         currentPO.Value = "000001";
         _db.AppSettings.Update(currentPO);
@@ -293,5 +302,10 @@ namespace VehicleTracker.Business
       return newPO;
     }
 
+  }
+
+  public class PONumber
+  {
+    public string Number { get; set; }
   }
 }

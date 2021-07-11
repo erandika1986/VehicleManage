@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { PoListComponent } from './po-list/po-list.component';
 import { PoDetailComponent } from './po-detail/po-detail.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -29,6 +29,7 @@ const routes: Routes = [
     PoListComponent,
     PoDetailComponent
   ],
+  providers:[DecimalPipe],
   imports: [
     RouterModule.forChild(routes),
 

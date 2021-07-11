@@ -50,11 +50,11 @@ export class PoListComponent implements OnInit {
   }
 
   addNew() {
-    this._router.navigate(['admin/vehicle-types/list/' + 0 ]);
+    this._router.navigate(['inventory/purchase-order/list/' + 0 ]);
   }
 
   edit(item: PurchaseOrderSummary) {
-    this._router.navigate(['admin/vehicle-types/list/' + item.id ]);
+    this._router.navigate(['inventory/purchase-order/list/' + item.id ]);
   }
 
   delete(item: PurchaseOrderSummary) {

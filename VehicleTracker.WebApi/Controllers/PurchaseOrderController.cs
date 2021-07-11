@@ -71,5 +71,13 @@ namespace VehicleTracker.WebApi.Controllers
       var response = _purchaseOrderService.GetPurchaseOrderMasterData();
       return Ok(response);
     }
+
+    [HttpGet]
+    [Route("getPONumber")]
+    public async Task<ActionResult> GetPONumber()
+    {
+      var response = await _purchaseOrderService.GetPONumber();
+      return Ok(response);
+    }
   }
 }

@@ -15,5 +15,6 @@ namespace VehicleTracker.Business.Interfaces
     PurchaseOrderViewModel GetPurchaseOrderById(int id, string username);
     Task<ResponseViewModel> DeletePurchaseOrder(int id,string userName);
     PurchaseOrderMasterData GetPurchaseOrderMasterData();
+    Task<PONumber> GetPONumber();
   }
 }

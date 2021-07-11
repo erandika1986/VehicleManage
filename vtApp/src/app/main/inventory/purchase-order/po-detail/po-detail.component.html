@@ -1,1 +1,88 @@
-<p>po-detail works!</p>
+<div id="PoDetail" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="''">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    class="po-image mr-8 mr-sm-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
+                    <img [src]="'assets/images/ecommerce/po.png'" />
+                </div>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        {{ purchaseOrder?.poNumber }}
+                    </div>
+                    <div class="h2">{{ title }}</div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!--             <button
+                mat-raised-button
+                class="save-product-button"
+                [disabled]="vehicleTypeForm.invalid"
+                (click)="saveVahicleType()"
+            >
+                <span>SAVE</span>
+            </button> -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <mat-tab-group>
+                    <mat-tab label="Purchase Order Details">
+                        <div
+                            class="tab-content p-24"
+                            fusePerfectScrollbar
+                        ></div>
+                    </mat-tab>
+
+                    <mat-tab label="Purchase Order Item Details">
+                        <div
+                            class="tab-content p-24"
+                            fusePerfectScrollbar
+                        ></div>
+                    </mat-tab>
+                    <mat-tab label="Purchase Order Item Recieve">
+                        <div
+                            class="tab-content p-24"
+                            fusePerfectScrollbar
+                        ></div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
