@@ -217,6 +217,10 @@ namespace VehicleTracker.Business
           Total = item.Total,
           UnitPrice = item.UnitPrice
         };
+
+        poItem.Categories.AddRange(GetProductCategories());
+        poItem.SubCategories.AddRange(GetProductSubCategories(item.Product.SubProductCategory.ProductCategoryId));
+        poItem.Products.AddRange(GetProducts(item.Product.SubProductCategoryId));
       }
 
       return response;
@@ -229,20 +233,16 @@ namespace VehicleTracker.Business
       var suppliers = _db.Suppliers.Where(x => x.IsActive == true).ToList();
       foreach (var item in suppliers)
       {
-        response.ProductCategories.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+        response.Suppliers.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
       }
 
       var warehouses = _db.Wharehouses.Where(x => x.IsActive == true).ToList();
       foreach (var item in warehouses)
       {
-        response.ProductCategories.Add(new DropDownViewModal() { Id = item.Id, Name = item.Address });
+        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Address });
       }
 
-      var productCategories = _db.ProductCategories.Where(x => x.IsActive == true).ToList();
-      foreach (var item in productCategories)
-      {
-        response.ProductCategories.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
-      }
+      response.ProductCategories.AddRange(GetProductCategories());
 
 
       foreach (POStatus value in Enum.GetValues(typeof(POStatus)))
@@ -260,6 +260,26 @@ namespace VehicleTracker.Business
         Number = await GeneratePONumber()
       };
       return po;
+    }
+
+    public List<DropDownViewModal> GetProductSubCategories(int categoryId)
+    {
+      var productCategories = _db.ProductSubCategories
+        .Where(x => x.IsActive == true && x.ProductCategoryId == categoryId)
+        .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+
+
+      return productCategories;
+    }
+
+    public List<DropDownViewModal> GetProducts(int subCategoryId)
+    {
+      var productCategories = _db.Products
+        .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId)
+        .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.ProductName }).ToList();
+
+
+      return productCategories;
     }
 
     private void AddNewPOItems(PurchaseOrder po, List<PurchaseOrderItemViewModel> items)
@@ -301,6 +321,17 @@ namespace VehicleTracker.Business
       newPO = $"PO-{currentPO.Value}";
       return newPO;
     }
+
+    private List<DropDownViewModal> GetProductCategories()
+    {
+      var productCategories = _db.ProductCategories
+        .Where(x => x.IsActive == true)
+        .Select(c=>  new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+
+
+      return productCategories;
+    }
+
 
   }
 

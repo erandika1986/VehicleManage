@@ -60,18 +60,638 @@
             <div class="content">
                 <mat-tab-group>
                     <mat-tab label="Purchase Order Details">
-                        <div
-                            class="tab-content p-24"
-                            fusePerfectScrollbar
-                        ></div>
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <div class="horizontal-stepper-wrapper">
+                                <mat-horizontal-stepper
+                                    class="mat-elevation-z4"
+                                    [linear]="true"
+                                >
+                                    <mat-step [stepControl]="poStep1Form">
+                                        <form
+                                            fxLayout="column"
+                                            [formGroup]="poStep1Form"
+                                            style="
+                                                overflow-y: scroll !important;
+                                            "
+                                        >
+                                            <ng-template matStepLabel
+                                                >PO-Step 1</ng-template
+                                            >
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >PO Number</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        placeholder="PO Number"
+                                                        name="PO Number"
+                                                        formControlName="poNumber"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label>Date</mat-label>
+                                                    <input
+                                                        matInput
+                                                        [matDatepicker]="
+                                                            datePicker
+                                                        "
+                                                        formControlName="date"
+                                                        placeholder="Date"
+                                                    />
+                                                    <mat-datepicker-toggle
+                                                        matSuffix
+                                                        [for]="datePicker"
+                                                    ></mat-datepicker-toggle>
+                                                    <mat-datepicker
+                                                        #datePicker
+                                                    ></mat-datepicker>
+                                                    <mat-error
+                                                        >Date is
+                                                        required!</mat-error
+                                                    >
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start center"
+                                                fxFlex="1 0 auto"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Supplier</mat-label
+                                                    >
+                                                    <mat-select
+                                                        formControlName="selectedSupplierId"
+                                                        required
+                                                    >
+                                                        <mat-option
+                                                            *ngFor="
+                                                                let item of suppliers
+                                                            "
+                                                            [value]="item.id"
+                                                        >
+                                                            {{ item.name }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-icon
+                                                        matSuffix
+                                                        class="secondary-text"
+                                                        >outlined_flag</mat-icon
+                                                    >
+                                                    <mat-error
+                                                        >Supplier is
+                                                        required!</mat-error
+                                                    >
+                                                </mat-form-field>
+
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Warehouse
+                                                    </mat-label>
+                                                    <mat-select
+                                                        formControlName="selectedWarehouseId"
+                                                        required
+                                                    >
+                                                        <mat-option
+                                                            *ngFor="
+                                                                let item of warehouses
+                                                            "
+                                                            [value]="item.id"
+                                                        >
+                                                            {{ item.name }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-icon
+                                                        matSuffix
+                                                        class="secondary-text"
+                                                        >outlined_flag</mat-icon
+                                                    >
+                                                    <mat-error
+                                                        >Warehouse is
+                                                        required!</mat-error
+                                                    >
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start center"
+                                                fxFlex="1 0 auto"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Status</mat-label
+                                                    >
+                                                    <mat-select
+                                                        formControlName="status"
+                                                        required
+                                                    >
+                                                        <mat-option
+                                                            *ngFor="
+                                                                let item of statuses
+                                                            "
+                                                            [value]="item.id"
+                                                        >
+                                                            {{ item.name }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-icon
+                                                        matSuffix
+                                                        class="secondary-text"
+                                                        >outlined_flag</mat-icon
+                                                    >
+                                                    <mat-error
+                                                        >Status is
+                                                        required!</mat-error
+                                                    >
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="center center"
+                                            >
+                                                <!--                                                 <button
+                                                    mat-raised-button
+                                                    type="button"
+                                                    color="accent"
+                                                    style="margin-right: 10px"
+                                                    (click)="saveAndExit()"
+                                                    *ngIf="!isViewOnly"
+                                                >
+                                                    Save & Exit
+                                                </button> -->
+                                                <button
+                                                    mat-raised-button
+                                                    matStepperNext
+                                                    type="button"
+                                                    color="accent"
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                    <mat-step [stepControl]="poStep2Form">
+                                        <form
+                                            fxLayout="column"
+                                            [formGroup]="poStep2Form"
+                                        >
+                                            <ng-template matStepLabel
+                                                >PO-Step 2</ng-template
+                                            >
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <ng-container
+                                                    formArrayName="items"
+                                                >
+                                                    <mat-table
+                                                        class="po-table"
+                                                        #table
+                                                        [dataSource]="
+                                                            items.controls
+                                                        "
+                                                    >
+                                                        <ng-container
+                                                            matColumnDef="action"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                <button
+                                                                    mat-mini-fab
+                                                                    color="accent"
+                                                                    (click)="
+                                                                        addNewItem()
+                                                                    "
+                                                                    *ngIf="
+                                                                        !isViewOnly
+                                                                    "
+                                                                >
+                                                                    <mat-icon
+                                                                        >add</mat-icon
+                                                                    >
+                                                                </button>
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <a
+                                                                    (click)="
+                                                                        deletePOItem(
+                                                                            row,
+                                                                            index
+                                                                        )
+                                                                    "
+                                                                    *ngIf="
+                                                                        !isViewOnly
+                                                                    "
+                                                                    >Delete</a
+                                                                >
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="selectedCategoryId"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Category
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    appearance="outline"
+                                                                    fxFlex
+                                                                    floatLabel="always"
+                                                                    fxFlex="98"
+                                                                >
+                                                                    <mat-select
+                                                                        formControlName="selectedCategoryId"
+                                                                        (selectionChange)="
+                                                                            productCatgoryChanged(
+                                                                                $event.value,
+                                                                                index
+                                                                            )
+                                                                        "
+                                                                        required
+                                                                    >
+                                                                        <mat-option
+                                                                            *ngFor="
+                                                                                let item of purchaseOrder
+                                                                                    ?.items[
+                                                                                    index
+                                                                                ]
+                                                                                    .categories
+                                                                            "
+                                                                            [value]="
+                                                                                item.id
+                                                                            "
+                                                                        >
+                                                                            {{
+                                                                                item.name
+                                                                            }}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-icon
+                                                                        matSuffix
+                                                                        class="
+                                                                            secondary-text
+                                                                        "
+                                                                        >outlined_flag</mat-icon
+                                                                    >
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="selectedSubCategoryId"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Sub Category
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    appearance="outline"
+                                                                    fxFlex
+                                                                    floatLabel="always"
+                                                                    fxFlex="98"
+                                                                >
+                                                                    <mat-select
+                                                                        formControlName="selectedSubCategoryId"
+                                                                        (selectionChange)="
+                                                                            productSubCategoryChanged(
+                                                                                $event.value,
+                                                                                index
+                                                                            )
+                                                                        "
+                                                                        required
+                                                                    >
+                                                                        <mat-option
+                                                                            *ngFor="
+                                                                                let item of purchaseOrder
+                                                                                    ?.items[
+                                                                                    index
+                                                                                ]
+                                                                                    .subCategories
+                                                                            "
+                                                                            [value]="
+                                                                                item.id
+                                                                            "
+                                                                        >
+                                                                            {{
+                                                                                item.name
+                                                                            }}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-icon
+                                                                        matSuffix
+                                                                        class="
+                                                                            secondary-text
+                                                                        "
+                                                                        >outlined_flag</mat-icon
+                                                                    >
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="productId"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Product
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    appearance="outline"
+                                                                    fxFlex
+                                                                    floatLabel="always"
+                                                                    fxFlex="98"
+                                                                >
+                                                                    <mat-select
+                                                                        formControlName="productId"
+                                                                        required
+                                                                    >
+                                                                        <mat-option
+                                                                            *ngFor="
+                                                                                let item of purchaseOrder
+                                                                                    ?.items[
+                                                                                    index
+                                                                                ]
+                                                                                    .products
+                                                                            "
+                                                                            [value]="
+                                                                                item.id
+                                                                            "
+                                                                        >
+                                                                            {{
+                                                                                item.name
+                                                                            }}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-icon
+                                                                        matSuffix
+                                                                        class="
+                                                                            secondary-text
+                                                                        "
+                                                                        >outlined_flag</mat-icon
+                                                                    >
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="qty"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Quantity
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    floatLabel="never"
+                                                                >
+                                                                    <input
+                                                                        matInput
+                                                                        placeholder="Quantity"
+                                                                        formControlName="qty"
+                                                                        type="number"
+                                                                        min="0"
+                                                                    />
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="total"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Total
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    floatLabel="never"
+                                                                >
+                                                                    <input
+                                                                        matInput
+                                                                        placeholder="Total"
+                                                                        formControlName="total"
+                                                                        type="number"
+                                                                        min="0"
+                                                                        appAllowInput
+                                                                        [allowNumber]="
+                                                                            true
+                                                                        "
+                                                                        appThousandSeparator
+                                                                        required
+                                                                    />
+                                                                    <span
+                                                                        matPrefix
+                                                                        >$&nbsp;</span
+                                                                    >
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <ng-container
+                                                            matColumnDef="unitPrice"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Unit Price
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    floatLabel="never"
+                                                                >
+                                                                    <input
+                                                                        matInput
+                                                                        placeholder="Unit Price"
+                                                                        formControlName="unitPrice"
+                                                                        type="number"
+                                                                        min="0"
+                                                                        appAllowInput
+                                                                        [allowNumber]="
+                                                                            true
+                                                                        "
+                                                                        appThousandSeparator
+                                                                        required
+                                                                    />
+                                                                    <span
+                                                                        matPrefix
+                                                                        >$&nbsp;</span
+                                                                    >
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container>
+
+                                                        <!--                                                         <ng-container
+                                                            matColumnDef="description"
+                                                        >
+                                                            <mat-header-cell
+                                                                *matHeaderCellDef
+                                                            >
+                                                                Description
+                                                            </mat-header-cell>
+                                                            <mat-cell
+                                                                *matCellDef="
+                                                                    let row;
+                                                                    let index = index
+                                                                "
+                                                                [formGroupName]="
+                                                                    index
+                                                                "
+                                                            >
+                                                                <mat-form-field
+                                                                    floatLabel="never"
+                                                                >
+                                                                    <input
+                                                                        matInput
+                                                                        placeholder="Description"
+                                                                        formControlName="description"
+                                                                    />
+                                                                </mat-form-field>
+                                                            </mat-cell>
+                                                        </ng-container> -->
+
+                                                        <mat-header-row
+                                                            *matHeaderRowDef="
+                                                                displayedColumns
+                                                            "
+                                                        ></mat-header-row>
+                                                        <mat-row
+                                                            *matRowDef="
+                                                                let row;
+                                                                columns: displayedColumns
+                                                            "
+                                                        ></mat-row>
+                                                    </mat-table>
+                                                </ng-container>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="center center"
+                                                class="mt-5"
+                                            >
+                                                <button
+                                                    class="mr-8"
+                                                    mat-raised-button
+                                                    matStepperPrevious
+                                                    type="button"
+                                                    color="accent"
+                                                >
+                                                    Previous
+                                                </button>
+                                                <button
+                                                    mat-raised-button
+                                                    matStepperNext
+                                                    type="button"
+                                                    color="accent"
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                </mat-horizontal-stepper>
+                            </div>
+                        </div>
                     </mat-tab>
 
-                    <mat-tab label="Purchase Order Item Details">
-                        <div
-                            class="tab-content p-24"
-                            fusePerfectScrollbar
-                        ></div>
-                    </mat-tab>
                     <mat-tab label="Purchase Order Item Recieve">
                         <div
                             class="tab-content p-24"

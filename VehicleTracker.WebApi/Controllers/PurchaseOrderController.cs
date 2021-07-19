@@ -79,5 +79,22 @@ namespace VehicleTracker.WebApi.Controllers
       var response = await _purchaseOrderService.GetPONumber();
       return Ok(response);
     }
+
+
+    [HttpGet]
+    [Route("getProductSubCategories/{categoryId}")]
+    public ActionResult GetProductSubCategories(int categoryId)
+    {
+      var response = _purchaseOrderService.GetProductSubCategories(categoryId);
+      return Ok(response);
+    }
+
+    [HttpGet]
+    [Route("getProducts/{subCategoryId}")]
+    public ActionResult GetProducts(int subCategoryId)
+    {
+      var response = _purchaseOrderService.GetProducts(subCategoryId);
+      return Ok(response);
+    }
   }
 }

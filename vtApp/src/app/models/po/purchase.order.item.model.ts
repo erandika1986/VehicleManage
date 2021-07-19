@@ -1,6 +1,7 @@
 import { DecimalPipe } from "@angular/common";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { PoService } from "app/services/po/po.service";
+import { DropDownModel } from "../common/drop-down.modal";
 import { PurchaseOrder } from "./purchase.order.model";
 
 export class PurchaseOrderItem
@@ -14,17 +15,23 @@ export class PurchaseOrderItem
     unitPrice:number;
     total:number;
 
+    categories:DropDownModel[];
+    subCategories:DropDownModel[];
+    products:DropDownModel[];
+
     static asFormGroup(item: PurchaseOrderItem, isDisable: boolean,decimalPipe: DecimalPipe,poService:PoService): FormGroup {
 
         const unitPrice = decimalPipe.transform(
             item.unitPrice,
-            "1.2-10"
+            "1.2-2"
           );
 
           const total = decimalPipe.transform(
             item.total,
-            "1.2-10"
+            "1.2-2"
           );
+
+      
 
         const fg = new FormGroup({
             id: new FormControl(item.id),
@@ -41,7 +48,7 @@ export class PurchaseOrderItem
 
             const tot = decimalPipe.transform(
                 value*fg.get("unitPrice").value,
-                "1.2-10"
+                "1.2-2"
               );
             fg.get("total").setValue(tot);
             poService.onPODetailChanged.next(true);
@@ -50,7 +57,7 @@ export class PurchaseOrderItem
         fg.get("unitPrice").valueChanges.subscribe(value=>{
             const tot = decimalPipe.transform(
                 value*fg.get("quantity").value,
-                "1.2-10"
+                "1.2-2"
               );
             fg.get("total").setValue(tot);
             poService.onPODetailChanged.next(true);

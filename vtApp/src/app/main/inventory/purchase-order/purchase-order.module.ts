@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MaterialModule } from 'app/MaterialModule';
+import { SharedModule } from 'app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
     FuseWidgetModule,
     FuseSidebarModule,
     FuseWidgetModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class PurchaseOrderModule { }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
 import { PurchaseOrderMasterData } from 'app/models/po/purchase.order.master.data.model';
 import { PurchaseOrder } from 'app/models/po/purchase.order.model';
@@ -58,5 +59,14 @@ export class PoService {
   getPONumber(): Observable<any> {
     return this.httpClient.
       get<any>(environment.apiUrl + 'PurchaseOrder/getPONumber');
+  }
+
+  getProductSubCategories(categoryId:number): Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProductSubCategories/'+categoryId);
+  }
+  getProducts(subCategoryId:number): Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProducts/'+subCategoryId);
   }
 }

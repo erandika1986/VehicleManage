@@ -14,6 +14,7 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
       Items = new List<PurchaseOrderItemViewModel>();
     }
     public int Id { get; set; }
+    public DateTime Date { get; set; }
     public string PONumber { get; set; }
     public int SelectedSupplierId { get; set; }
     public int SelectedWarehouseId { get; set; }

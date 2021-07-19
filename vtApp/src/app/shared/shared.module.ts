@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
+import { ThousandSeparatorDirective } from './thousand-separator.directive';
 
 @NgModule({
-  declarations: [ConfirmationDialog],
-  imports: [],
-  exports: [CommonModule]
+  declarations: [ConfirmationDialog,ThousandSeparatorDirective],
+  imports: [CommonModule],
+  providers:[DecimalPipe],
+  exports: [ThousandSeparatorDirective]
 })
 export class SharedModule { }
