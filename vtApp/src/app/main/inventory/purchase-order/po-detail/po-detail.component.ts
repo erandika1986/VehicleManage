@@ -75,7 +75,7 @@ export class PoDetailComponent implements OnInit {
     this._activateRoute.params.subscribe(params => {
       this.poId = +params.id;
       this.pageType = this.poId === 0 ? 'new' : 'edit';
-      this.createNewPOForm();
+
 
       if (this.pageType === 'edit') {
         this.title = 'Edit Purchase Order';
@@ -83,6 +83,7 @@ export class PoDetailComponent implements OnInit {
       }
       else {
         this.title = 'New Purchase Order';
+        this.createNewPOForm();
         this.createPONumber();
       }
 
@@ -90,17 +91,30 @@ export class PoDetailComponent implements OnInit {
     });
 
 
+    this._poService.onPODetailChanged.subscribe(response=>{
+      
+      let sum:number=0;
+
+      this.poStep2Form.getRawValue().items.forEach(element => {
+        let total:number= +element.total;
+        sum = sum + total;    
+      });
+
+      this.poStep3Form.get('subTotal').setValue(sum);
+      this.calculateTotal();
+      
+    });
   }
 
   createNewPOForm()
   {
     this.poStep1Form = this._formBuilder.group({
       id: [0],
-      poNumber: ['',Validators.required],
-      date:[new Date(),Validators.required],
-      selectedSupplierId: [null,Validators.required],
-      selectedWarehouseId: [null,Validators.required],
-      status: [null,Validators.required],
+      poNumber: [{ value: '', disabled: true }, Validators.required],
+      date:[{ value: new Date(), disabled: this.isViewOnly },Validators.required],
+      selectedSupplierId: [{ value: null, disabled: this.isViewOnly },Validators.required],
+      selectedWarehouseId: [{ value: null, disabled: this.isViewOnly },Validators.required],
+      status: [{ value: null, disabled: this.isViewOnly },Validators.required],
     });
 
     this.poStep2Form = this._formBuilder.group({
@@ -109,15 +123,16 @@ export class PoDetailComponent implements OnInit {
     });
 
     this.poStep3Form = this._formBuilder.group({
-      subTotal: [0,Validators.required],
-      discount: [0,Validators.required],
-      taxRate: [0,Validators.required],
-      totalTaxAmout: [false],
-      shippingCharge: [0],
-      total: [0],
-      remarks: [0],
-      qty:[0]
+      subTotal: [{ value: 0, disabled: true },Validators.required],
+      discount: [{ value: 0, disabled: this.isViewOnly },Validators.required],
+      taxRate: [{ value: 0, disabled: this.isViewOnly },Validators.required],
+      totalTaxAmout: [{ value: 0, disabled: true }],
+      shippingCharge: [{ value: 0, disabled: this.isViewOnly }],
+      total: [{ value: 0, disabled: true }],
+      remarks: [{ value: '', disabled: this.isViewOnly }]
     });
+
+    this.makeForm3Subsriber();
   }
 
   createPONumber()
@@ -295,7 +310,58 @@ export class PoDetailComponent implements OnInit {
       })
   }
 
+  makeForm3Subsriber()
+  {
+      this.poStep3Form.get("discount").valueChanges.subscribe(value=>{
+        this.calculateTotal();
+      });
+
+      this.poStep3Form.get("taxRate").valueChanges.subscribe(value=>{
+
+        let taxAmount = ((this.subTotal-this.discount)*value)/100.00;
+        this.poStep3Form.get('totalTaxAmout').setValue(taxAmount);
+        this.calculateTotal();
+      });
+
+      this.poStep3Form.get("shippingCharge").valueChanges.subscribe(value=>{
+        this.calculateTotal();
+      });
+
+  }
+
+  calculateTotal()
+  {
+    let total = (this.subTotal-this.discount+this.totalTaxAmout+this.shippingCharge);
+    this.poStep3Form.get('total').setValue(total);
+  }
+
+
   get items(): FormArray {
     return this.poStep2Form.get('items') as FormArray;
+  }
+
+  get subTotal()
+  {
+    return this.poStep3Form.get("subTotal").value;
+  }
+
+  get discount()
+  {
+    return this.poStep3Form.get("discount").value;
+  }
+
+  get taxRate()
+  {
+    return this.poStep3Form.get("taxRate").value;
+  }
+
+  get totalTaxAmout()
+  {
+    return this.poStep3Form.get("totalTaxAmout").value;
+  }
+
+  get shippingCharge()
+  {
+    return this.poStep3Form.get("shippingCharge").value;
   }
 }

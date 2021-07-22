@@ -687,6 +687,163 @@
                                             </div>
                                         </form>
                                     </mat-step>
+
+                                    <mat-step [stepControl]="poStep3Form">
+                                        <form
+                                            fxLayout="column"
+                                            [formGroup]="poStep3Form"
+                                            style="
+                                                overflow-y: scroll !important;
+                                            "
+                                        >
+                                            <ng-template matStepLabel
+                                                >PO-Step 3</ng-template
+                                            >
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Sub Total</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        placeholder="Sub Total"
+                                                        name="Sub Total"
+                                                        formControlName="subTotal"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Discount</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        placeholder="Discount"
+                                                        name="Discount"
+                                                        formControlName="discount"
+                                                    />
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Tax Rate (%)</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        type="number"
+                                                        placeholder="Tax Rate"
+                                                        name="TaxRate"
+                                                        formControlName="taxRate"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Total Tax
+                                                        Amount</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        type="number"
+                                                        placeholder="totalTaxAmout"
+                                                        name="totalTaxAmout"
+                                                        formControlName="totalTaxAmout"
+                                                    />
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Shipping
+                                                        Charges</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        type="number"
+                                                        placeholder="shippingCharge"
+                                                        name="shippingCharge"
+                                                        formControlName="shippingCharge"
+                                                    />
+                                                </mat-form-field>
+
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    fxFlex="50"
+                                                    class="pr-4"
+                                                >
+                                                    <mat-label
+                                                        >Total Amount</mat-label
+                                                    >
+                                                    <input
+                                                        matInput
+                                                        type="number"
+                                                        placeholder="Total"
+                                                        name="Total"
+                                                        formControlName="total"
+                                                    />
+                                                </mat-form-field>
+                                            </div>
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="start start"
+                                            >
+                                                <mat-form-field
+                                                    appearance="outline"
+                                                    class="w-100-p"
+                                                >
+                                                    <mat-label
+                                                        >remarks</mat-label
+                                                    >
+                                                    <textarea
+                                                        matInput
+                                                        placeholder="Remarks"
+                                                        name="remarks"
+                                                        formControlName="remarks"
+                                                        rows="5"
+                                                        required
+                                                    >
+                                                    </textarea>
+                                                    <mat-error
+                                                        >Description is
+                                                        required!</mat-error
+                                                    >
+                                                </mat-form-field>
+                                            </div>
+                                        </form>
+                                    </mat-step>
                                 </mat-horizontal-stepper>
                             </div>
                         </div>
