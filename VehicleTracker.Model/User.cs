@@ -22,6 +22,7 @@ namespace VehicleTracker.Model
             ProductInventoryUdatedBies = new HashSet<ProductInventory>();
             ProductUpdatedBies = new HashSet<Product>();
             PurchaseOrderCreatedBies = new HashSet<PurchaseOrder>();
+            PurchaseOrderSendingHistories = new HashSet<PurchaseOrderSendingHistory>();
             PurchaseOrderUpdatedBies = new HashSet<PurchaseOrder>();
             SupplierCreatedBies = new HashSet<Supplier>();
             SupplierUpdatedBies = new HashSet<Supplier>();
@@ -85,6 +86,7 @@ namespace VehicleTracker.Model
         public virtual ICollection<ProductInventory> ProductInventoryUdatedBies { get; set; }
         public virtual ICollection<Product> ProductUpdatedBies { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBies { get; set; }
+        public virtual ICollection<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierCreatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierUpdatedBies { get; set; }

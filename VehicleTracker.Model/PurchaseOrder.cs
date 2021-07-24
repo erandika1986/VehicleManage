@@ -10,6 +10,7 @@ namespace VehicleTracker.Model
         public PurchaseOrder()
         {
             PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
+            PurchaseOrderSendingHistories = new HashSet<PurchaseOrderSendingHistory>();
         }
 
         public int Id { get; set; }
@@ -38,5 +39,6 @@ namespace VehicleTracker.Model
         public virtual Supplier Supplier { get; set; }
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public virtual ICollection<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
     }
 }

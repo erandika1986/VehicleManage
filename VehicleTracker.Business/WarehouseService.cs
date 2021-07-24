@@ -129,6 +129,9 @@ namespace VehicleTracker.Business
           //Updated existing record with given value;
           warehouse.Name = vm.Name;
           warehouse.Address = vm.Address;
+          warehouse.State = vm.State;
+          warehouse.City = vm.City;
+          warehouse.ZipCode = vm.ZipCode;
           warehouse.Phone = vm.Phone;
           warehouse.ManagerId = vm.SelectedManagerId;
           warehouse.FloorSpace = vm.FloorSpace;

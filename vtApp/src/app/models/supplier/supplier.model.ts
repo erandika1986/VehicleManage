@@ -4,6 +4,9 @@ export class SupplierModel
     name:string;
     description:string;
     address:string;
+    city:string;
+    state:string;
+    zipCode:string;
     phone1:string;
     phone2:string;
     email1:string;

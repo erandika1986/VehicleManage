@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleTracker.Model;
@@ -18,6 +18,9 @@ namespace System
             model.Name = vm.Name;
             model.Description = vm.Description;
             model.Address = vm.Address;
+            model.State = vm.State;
+            model.City = vm.City;
+            model.ZipCode = vm.ZipCode;
             model.Phone1 = vm.Phone1;
             model.Phone2 = vm.Phone2;
             model.Email1 = vm.Email1;
@@ -42,6 +45,9 @@ namespace System
             vm.Name = model.Name;
             vm.Description = model.Description;
             vm.Address = model.Address;
+            vm.State = model.State;
+            vm.City = model.City;
+            vm.ZipCode = model.ZipCode;
             vm.Phone1 = model.Phone1;
             vm.Phone2 = model.Phone2;
             vm.Email1 = model.Email1;

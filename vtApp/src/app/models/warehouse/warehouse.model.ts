@@ -4,6 +4,9 @@ export class WarehouseModel
     id:number;
     name:string;
     address:string;
+    city:string;
+    state:string;
+    zipCode:string;
     phone:string;
     managerName:string;
     floorSpace:number;

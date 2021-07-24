@@ -52,6 +52,9 @@ namespace VehicleTracker.Business
                     supplier.Name = vm.Name;
                     supplier.Description = vm.Description;
                     supplier.Address = vm.Address;
+                    supplier.State = vm.State;
+                    supplier.City = vm.City;
+                    supplier.ZipCode = vm.ZipCode;
                     supplier.Phone1 = vm.Phone1;
                     supplier.Phone2 = vm.Phone2;
                     supplier.Email1 = vm.Email1;

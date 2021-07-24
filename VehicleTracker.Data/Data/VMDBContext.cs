@@ -38,6 +38,7 @@ namespace VehicleTracker.Data
     public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
     public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
     public virtual DbSet<PurchaseOrderPayment> PurchaseOrderPayments { get; set; }
+    public virtual DbSet<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Route> Routes { get; set; }
     public virtual DbSet<Supplier> Suppliers { get; set; }
@@ -547,6 +548,37 @@ namespace VehicleTracker.Data
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
       });
 
+      modelBuilder.Entity<PurchaseOrderSendingHistory>(entity =>
+      {
+        entity.ToTable("PurchaseOrderSendingHistory");
+
+        entity.Property(e => e.Ccaddresses)
+            .HasMaxLength(4000)
+            .HasColumnName("CCAddresses");
+
+        entity.Property(e => e.PoorderPath)
+            .IsRequired()
+            .HasColumnName("POOrderPath");
+
+        entity.Property(e => e.SentOn).HasColumnType("datetime");
+
+        entity.Property(e => e.ToAddresses)
+            .IsRequired()
+            .HasMaxLength(4000);
+
+        entity.HasOne(d => d.PurchaseOrder)
+            .WithMany(p => p.PurchaseOrderSendingHistories)
+            .HasForeignKey(d => d.PurchaseOrderId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_PurchaseOrderSendingHistory_PurchaseOrder");
+
+        entity.HasOne(d => d.SentByNavigation)
+            .WithMany(p => p.PurchaseOrderSendingHistories)
+            .HasForeignKey(d => d.SentBy)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_PurchaseOrderSendingHistory_User");
+      });
+
       modelBuilder.Entity<Role>(entity =>
       {
         entity.ToTable("Role");
@@ -593,6 +625,8 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.BranchCode).HasMaxLength(20);
 
+        entity.Property(e => e.City).HasMaxLength(150);
+
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
         entity.Property(e => e.Email1).HasMaxLength(150);
@@ -613,7 +647,11 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.Phone2).HasMaxLength(15);
 
+        entity.Property(e => e.State).HasMaxLength(150);
+
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+        entity.Property(e => e.ZipCode).HasMaxLength(10);
 
         entity.HasOne(d => d.CreatedBy)
             .WithMany(p => p.SupplierCreatedBies)
@@ -1144,6 +1182,8 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.Address).IsRequired();
 
+        entity.Property(e => e.City).HasMaxLength(150);
+
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
         entity.Property(e => e.FloorSpace).HasColumnType("decimal(10, 2)");
@@ -1152,7 +1192,11 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.Phone).HasMaxLength(15);
 
+        entity.Property(e => e.State).HasMaxLength(150);
+
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+        entity.Property(e => e.ZipCode).HasMaxLength(10);
 
         entity.HasOne(d => d.CreatedBy)
             .WithMany(p => p.WharehouseCreatedBies)
