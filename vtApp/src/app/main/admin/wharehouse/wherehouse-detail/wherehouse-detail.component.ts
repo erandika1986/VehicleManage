@@ -58,6 +58,7 @@ ngOnInit(): void {
 createWarehouseForm() {
   return new FormGroup({
     id: new FormControl({ value: this.warehouse.id, disabled: true }),
+    name: new FormControl(this.warehouse.name, Validators.required),
     address: new FormControl(this.warehouse.address, Validators.required),
     phone: new FormControl(this.warehouse.phone,Validators.required),
     selectedManagerId: new FormControl(this.warehouse.selectedManagerId,Validators.required),

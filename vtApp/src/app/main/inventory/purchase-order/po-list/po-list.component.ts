@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
+import { POFilter } from 'app/models/po/po.filter.model';
 import { PurchaseOrderSummary } from 'app/models/po/purchase.order.summary.model';
 import { PoService } from 'app/services/po/po.service';
 
@@ -25,11 +27,15 @@ export class PoListComponent implements OnInit {
 
   dataSource = new MatTableDataSource([]);
 
+  filter:POFilter = new POFilter();
+  suppliers:DropDownModel[]=[];
+  warehouses:DropDownModel[]=[];
+  statuses:DropDownModel[]=[];
 
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  displayedColumns = ["buttons", "poNumber","supplierName","warehouseName","subTotal","discount","taxRate","totalTaxAmount","shippingCharges","total","status"];
+  displayedColumns = ["buttons", "poNumber","status","supplierName","warehouseName","date","subTotal","discount","taxRate","totalTaxAmount","shippingCharges","total"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -42,11 +48,14 @@ export class PoListComponent implements OnInit {
     public _router: Router,
     private _matDialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private _poService: PoService) { }
+    private _poService: PoService) { 
+      this.filter.selectedStatusId =0;
+      this.filter.selectedSupplierId=0;
+      this.filter.selectedWarehouseNameId =0;
+    }
 
   ngOnInit(): void {
-
-    this.loadAll();
+    this.getMasterData();
   }
 
   addNew() {
@@ -54,6 +63,7 @@ export class PoListComponent implements OnInit {
   }
 
   edit(item: PurchaseOrderSummary) {
+
     this._router.navigate(['inventory/purchase-order/list/' + item.id ]);
   }
 
@@ -61,11 +71,39 @@ export class PoListComponent implements OnInit {
 
   }
 
+  getMasterData()
+  {
+    this._fuseProgressBarService.show();
+    this._poService.getPurchaseOrderMasterData()
+        .subscribe(response=>{
+          this._fuseProgressBarService.hide();
+
+          let firstItem = new DropDownModel();
+          firstItem.id=0;
+          firstItem.name="--All--";
+          response.suppliers.unshift(firstItem);
+          response.warehouses.unshift(firstItem);
+          response.statuses.unshift(firstItem);
+
+          this.suppliers = response.suppliers;
+          this.warehouses = response.warehouses;
+          this.statuses = response.statuses;
+
+          this.loadAll();
+        },error=>{
+          this._fuseProgressBarService.hide();
+        });
+  }
+
+  filterChanged()
+  {
+    this.loadAll();
+  }
 
 
   loadAll() {
     this._fuseProgressBarService.show();
-    this._poService.getAll()
+    this._poService.getAll(this.filter)
       .subscribe(response => {
         this._fuseProgressBarService.hide();
         console.log(response);
@@ -85,5 +123,7 @@ export class PoListComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+
 
 }

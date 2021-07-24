@@ -19,5 +19,6 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public decimal ShippingCharges { get; set; }
     public decimal Total { get; set; }
     public string Status { get; set; }
+    public string Date { get; set; }
   }
 }

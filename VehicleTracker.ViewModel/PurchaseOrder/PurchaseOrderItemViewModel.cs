@@ -19,6 +19,8 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
 
     public int Id { get; set; }
     public int PurchaseOrderId { get; set; }
+    public int SelectedCategoryId { get; set; }
+    public int SelectedSubCategoryId { get; set; }
     public int ProductId { get; set; }
     public int Qty { get; set; }
     public decimal UnitPrice { get; set; }

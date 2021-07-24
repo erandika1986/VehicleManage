@@ -461,9 +461,9 @@ namespace VehicleTracker.Data
       {
         entity.ToTable("PurchaseOrder");
 
-        entity.Property(e => e.Id).ValueGeneratedNever();
-
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+        entity.Property(e => e.Date).HasColumnType("datetime");
 
         entity.Property(e => e.Discount).HasColumnType("decimal(10, 2)");
 
@@ -1147,6 +1147,8 @@ namespace VehicleTracker.Data
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
         entity.Property(e => e.FloorSpace).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.Name).HasMaxLength(500);
 
         entity.Property(e => e.Phone).HasMaxLength(15);
 

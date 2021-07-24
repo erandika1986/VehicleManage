@@ -44,19 +44,20 @@ namespace VehicleTracker.Business
 
         if (po == null)
         {
-          var poNumber = await GeneratePONumber();
+
           po = new PurchaseOrder()
           {
-            Ponumber = poNumber,
+            Ponumber = vm.PONumber,
             SupplierId = vm.SelectedSupplierId,
             ShippedToWharehouseId = vm.SelectedWarehouseId,
+            Date=vm.Date,
             Remark = vm.Remarks,
-            SubTotal = vm.Items.Sum(x => x.Qty * x.UnitPrice),
+            SubTotal = vm.SubTotal,
             Discount = vm.Discount,
             TaxRate = vm.TaxRate,
-            TotalTaxAmount = ((po.SubTotal - po.Discount) / 100) * vm.TaxRate,
+            TotalTaxAmount = vm.TotalTaxAmout,
             ShipingCharge = vm.ShippingCharge,
-            Total = (po.SubTotal - po.Discount + po.TotalTaxAmount + po.ShipingCharge),
+            Total = vm.Total,
             Status = (int)vm.Status,
             CreatedOn = DateTime.UtcNow,
             CreatedById = user.Id,
@@ -76,12 +77,13 @@ namespace VehicleTracker.Business
           po.SupplierId = vm.SelectedSupplierId;
           po.ShippedToWharehouseId = vm.SelectedWarehouseId;
           po.Remark = vm.Remarks;
-          po.SubTotal = vm.Items.Sum(x => x.Qty * x.UnitPrice);
+          po.Date = vm.Date;
+          po.SubTotal = vm.SubTotal;
           po.Discount = vm.Discount;
           po.TaxRate = vm.TaxRate;
-          po.TotalTaxAmount = ((po.SubTotal - po.Discount) / 100) * vm.TaxRate;
+          po.TotalTaxAmount = vm.TotalTaxAmout;
           po.ShipingCharge = vm.ShippingCharge;
-          po.Total = (po.SubTotal - po.Discount + po.TotalTaxAmount + po.ShipingCharge);
+          po.Total = vm.Total;
           po.Status = (int)vm.Status;
           po.UpdatedOn = DateTime.UtcNow;
           po.UpdatedById = user.Id;
@@ -153,11 +155,27 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public List<PurchaseOrderSummaryViewModel> GetAllPurchseOrder()
+    public List<PurchaseOrderSummaryViewModel> GetAllPurchseOrder(PurchaseOrderFilter filter, string username)
     {
       var response = new List<PurchaseOrderSummaryViewModel>();
-
+      var user = _db.Users.FirstOrDefault(t => t.Username == username);
       var pos = _db.PurchaseOrders.OrderByDescending(x => x.UpdatedOn);
+
+      if(filter.SelectedStatusId>0)
+      {
+        pos = pos.Where(x=>x.Status==filter.SelectedStatusId).OrderByDescending(x => x.UpdatedOn);
+      }
+
+      if (filter.SelectedSupplierId > 0)
+      {
+        pos = pos.Where(x => x.Status == filter.SelectedSupplierId).OrderByDescending(x => x.UpdatedOn);
+      }
+
+      if (filter.SelectedWarehouseNameId > 0)
+      {
+        pos = pos.Where(x => x.Status == filter.SelectedWarehouseNameId).OrderByDescending(x => x.UpdatedOn);
+      }
+
       foreach (var item in pos)
       {
         var summary = new PurchaseOrderSummaryViewModel()
@@ -172,8 +190,9 @@ namespace VehicleTracker.Business
           TaxRate = item.TaxRate,
           Total = item.Total,
           TotalTaxAmount = item.TotalTaxAmount,
-          WarehouseName = item.ShippedToWharehouse.Address
-        };
+          WarehouseName = item.ShippedToWharehouse.Name,
+          Date = item.Date.ConvertToUserTime(user.TimeZone.TimeZoneId).ToString("MM/dd/yyyy hh:mm tt") 
+      };
 
         response.Add(summary);
       }
@@ -200,6 +219,7 @@ namespace VehicleTracker.Business
       response.SubTotal = po.SubTotal;
       response.TaxRate = po.TaxRate;
       response.Total = po.Total;
+      response.Date = po.Date;
       response.TotalTaxAmout = po.TotalTaxAmount;
       response.CreatedOn = po.CreatedOn.ConvertToUserTime(user.TimeZone.TimeZoneId).ToString("MM/dd/yyyy hh:mm tt");
       response.CreatedBy = $"{po.CreatedBy.FirstName} {po.CreatedBy.LastName}";
@@ -212,6 +232,8 @@ namespace VehicleTracker.Business
         {
           Id = item.Id,
           ProductId = item.ProductId,
+          SelectedCategoryId = item.Product.SubProductCategory.ProductCategoryId,
+          SelectedSubCategoryId = item.Product.SubProductCategoryId,
           PurchaseOrderId = item.PurchaseOrderId,
           Qty = item.Qty,
           Total = item.Total,
@@ -221,6 +243,8 @@ namespace VehicleTracker.Business
         poItem.Categories.AddRange(GetProductCategories());
         poItem.SubCategories.AddRange(GetProductSubCategories(item.Product.SubProductCategory.ProductCategoryId));
         poItem.Products.AddRange(GetProducts(item.Product.SubProductCategoryId));
+
+        response.Items.Add(poItem);
       }
 
       return response;
@@ -239,7 +263,7 @@ namespace VehicleTracker.Business
       var warehouses = _db.Wharehouses.Where(x => x.IsActive == true).ToList();
       foreach (var item in warehouses)
       {
-        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Address });
+        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
       }
 
       response.ProductCategories.AddRange(GetProductCategories());

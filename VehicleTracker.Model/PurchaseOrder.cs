@@ -16,7 +16,9 @@ namespace VehicleTracker.Model
         public string Ponumber { get; set; }
         public int SupplierId { get; set; }
         public int ShippedToWharehouseId { get; set; }
+        public DateTime Date { get; set; }
         public string Terms { get; set; }
+        public string Remark { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Discount { get; set; }
         public decimal TaxRate { get; set; }
@@ -24,7 +26,6 @@ namespace VehicleTracker.Model
         public decimal ShipingCharge { get; set; }
         public decimal Total { get; set; }
         public int Status { get; set; }
-        public string Remark { get; set; }
         public string Attachment { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedById { get; set; }

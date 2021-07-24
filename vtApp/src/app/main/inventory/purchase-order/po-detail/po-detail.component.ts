@@ -10,7 +10,11 @@ import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { PurchaseOrderItem } from 'app/models/po/purchase.order.item.model';
 import { PurchaseOrderMasterData } from 'app/models/po/purchase.order.master.data.model';
 import { PurchaseOrder } from 'app/models/po/purchase.order.model';
+import { SupplierModel } from 'app/models/supplier/supplier.model';
+import { WarehouseModel } from 'app/models/warehouse/warehouse.model';
 import { PoService } from 'app/services/po/po.service';
+import { SupplierService } from 'app/services/supplier/supplier.service';
+import { WarehouseService } from 'app/services/warehouse/warehouse.service';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -28,6 +32,10 @@ export class PoDetailComponent implements OnInit {
   
   masterData: PurchaseOrderMasterData = new PurchaseOrderMasterData();
   purchaseOrder:PurchaseOrder;
+  warehouse:WarehouseModel;
+  supplier:SupplierModel;
+  selectedStatus:DropDownModel;
+
   pageType: string;
   title: string;
   poId:number;
@@ -59,6 +67,8 @@ export class PoDetailComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   
   constructor(private _poService: PoService, 
+    private _warehouseService:WarehouseService,
+    private _supplierService:SupplierService,
     private _route: ActivatedRoute,
     private decimalPipe: DecimalPipe,
     private _fuseProgressBarService: FuseProgressBarService,
@@ -76,17 +86,7 @@ export class PoDetailComponent implements OnInit {
       this.poId = +params.id;
       this.pageType = this.poId === 0 ? 'new' : 'edit';
 
-
-      if (this.pageType === 'edit') {
-        this.title = 'Edit Purchase Order';
-        this.getPODetails();
-      }
-      else {
-        this.title = 'New Purchase Order';
-        this.createNewPOForm();
-        this.createPONumber();
-      }
-
+      this.createNewPOForm();
       this.getMasterData();
     });
 
@@ -101,6 +101,8 @@ export class PoDetailComponent implements OnInit {
       });
 
       this.poStep3Form.get('subTotal').setValue(sum);
+      let taxAmount = ((this.subTotal-this.discount)*this.taxRate)/100.00;
+      this.poStep3Form.get('totalTaxAmout').setValue(taxAmount);
       this.calculateTotal();
       
     });
@@ -153,6 +155,16 @@ export class PoDetailComponent implements OnInit {
         this.suppliers =  this.masterData.suppliers;
         this.warehouses =  this.masterData.warehouses;
         this.statuses = this.masterData.statuses;
+
+        if (this.pageType === 'edit') {
+          this.title = 'Edit Purchase Order';
+          this.getPODetails();
+        }
+        else {
+          this.title = 'New Purchase Order';
+          this.createPONumber();
+        }
+
     },error=>{
 
     });
@@ -181,6 +193,8 @@ export class PoDetailComponent implements OnInit {
         const fArray = new FormArray(cf);
         this.poStep2Form.setControl('items', fArray);
 
+        this.updateView();
+
         this.purchaseOrder.items.forEach(element => {
           totalAmout = totalAmout + element.total;
         });
@@ -195,6 +209,9 @@ export class PoDetailComponent implements OnInit {
           remarks: [this.purchaseOrder.remarks],
         });
         
+        this.warehouseChanged(response.selectedWarehouseId);
+        this.supplierChanged(response.selectedSupplierId);
+        this.statusChanged(response.status);
       },error=>{
         this._fuseProgressBarService.hide();
       });
@@ -335,6 +352,116 @@ export class PoDetailComponent implements OnInit {
     this.poStep3Form.get('total').setValue(total);
   }
 
+  warehouseChanged(item:any)
+  {
+    this._fuseProgressBarService.show();
+    this._warehouseService.getWarehouseById(item)
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+        this.warehouse = response;
+      },error=>{
+        this._fuseProgressBarService.hide();
+      })
+  }
+
+  supplierChanged(item:any)
+  {
+    this._fuseProgressBarService.show();
+    this._supplierService.GetSupplierById(item)
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+        this.supplier=response;
+      },error=>{
+        this._fuseProgressBarService.hide();
+      })
+  }
+
+  statusChanged(item:any)
+  {
+    this.statuses.forEach(element => {
+      if(element.id==item)
+      {
+        this.selectedStatus = element;
+      }
+      
+    });
+  }
+
+  goToBack()
+  {
+    this._location.back();
+  }
+
+  updateView() {
+    this.dataSource.next(this.items.controls);
+  }
+
+
+  saveOrder(needExit: boolean): void {
+
+    let form1 = this.poStep1Form.getRawValue();
+    let form2 = this.poStep2Form.getRawValue();
+    let form3 = this.poStep3Form.getRawValue();
+
+    if(!this.purchaseOrder)
+    {
+      //this.purchaseOrder = new PurchaseOrder();
+      this.purchaseOrder.id=0;
+    }
+
+    this.purchaseOrder.poNumber = form1.poNumber;
+    this.purchaseOrder.date=form1.date;
+    this.purchaseOrder.selectedSupplierId = form1.selectedSupplierId;
+    this.purchaseOrder.selectedWarehouseId = form1.selectedWarehouseId;
+    this.purchaseOrder.status = form1.status;
+    //this.purchaseOrder.items = form2;
+    for (let index = 0; index < this.purchaseOrder.items.length; index++) {
+      
+      this.purchaseOrder.items[index].id=form2.items[index].id;
+      this.purchaseOrder.items[index].purchaseOrderId=form2.items[index].purchaseOrderId;
+      this.purchaseOrder.items[index].selectedCategoryId=form2.items[index].selectedCategoryId;
+      this.purchaseOrder.items[index].selectedSubCategoryId=form2.items[index].selectedSubCategoryId;
+      this.purchaseOrder.items[index].productId=form2.items[index].productId;
+      this.purchaseOrder.items[index].qty=form2.items[index].qty;
+      this.purchaseOrder.items[index].unitPrice=form2.items[index].unitPrice;
+      this.purchaseOrder.items[index].total=form2.items[index].total;
+      
+    }
+    this.purchaseOrder.subTotal= form3.subTotal;
+    this.purchaseOrder.discount= form3.discount;
+    this.purchaseOrder.taxRate= form3.taxRate;
+    this.purchaseOrder.totalTaxAmout= form3.totalTaxAmout;
+    this.purchaseOrder.shippingCharge= form3.shippingCharge;
+    this.purchaseOrder.total= form3.total;
+    this.purchaseOrder.remarks= form3.remarks;
+
+    console.log(this.purchaseOrder);
+    
+
+    this._fuseProgressBarService.show();
+    this._poService.save(this.purchaseOrder)
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+        this.goToBack();
+      },error=>{
+        this._fuseProgressBarService.hide();
+      })
+  }
+
+  get id()
+  {
+    return this.poStep1Form.get('id').value;
+  }
+
+  get poNumber()
+  {
+    return this.poStep1Form.get('poNumber').value;
+  }
+
+  get date()
+  {
+    return this.poStep1Form.get('date').value;
+  }
 
   get items(): FormArray {
     return this.poStep2Form.get('items') as FormArray;
@@ -363,5 +490,10 @@ export class PoDetailComponent implements OnInit {
   get shippingCharge()
   {
     return this.poStep3Form.get("shippingCharge").value;
+  }
+
+  get totalAmount()
+  {
+    return this.poStep3Form.get("total").value;
   }
 }

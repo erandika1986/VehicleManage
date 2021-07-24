@@ -13,7 +13,11 @@
         >
             <!-- APP TITLE -->
             <div fxLayout="row" fxLayoutAlign="start center">
-                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="''">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    (click)="goToBack()"
+                >
                     <mat-icon>arrow_back</mat-icon>
                 </button>
 
@@ -36,9 +40,12 @@
                     }"
                 >
                     <div class="h2">
-                        {{ purchaseOrder?.poNumber }}
+                        {{ purchaseOrder?.poNumber }} ( Total Amount -
+                        {{ totalAmount | currency }} )
                     </div>
-                    <div class="h2">{{ title }}</div>
+                    <div class="h2">
+                        {{ title }}
+                    </div>
                 </div>
             </div>
             <!-- / APP TITLE -->
@@ -141,6 +148,11 @@
                                                     >
                                                     <mat-select
                                                         formControlName="selectedSupplierId"
+                                                        (selectionChange)="
+                                                            supplierChanged(
+                                                                $event.value
+                                                            )
+                                                        "
                                                         required
                                                     >
                                                         <mat-option
@@ -173,6 +185,11 @@
                                                     </mat-label>
                                                     <mat-select
                                                         formControlName="selectedWarehouseId"
+                                                        (selectionChange)="
+                                                            warehouseChanged(
+                                                                $event.value
+                                                            )
+                                                        "
                                                         required
                                                     >
                                                         <mat-option
@@ -211,6 +228,11 @@
                                                     >
                                                     <mat-select
                                                         formControlName="status"
+                                                        (selectionChange)="
+                                                            statusChanged(
+                                                                $event.value
+                                                            )
+                                                        "
                                                         required
                                                     >
                                                         <mat-option
@@ -238,16 +260,18 @@
                                                 fxLayout="row"
                                                 fxLayoutAlign="center center"
                                             >
-                                                <!--                                                 <button
+                                                <button
                                                     mat-raised-button
                                                     type="button"
                                                     color="accent"
                                                     style="margin-right: 10px"
-                                                    (click)="saveAndExit()"
-                                                    *ngIf="!isViewOnly"
+                                                    (click)="saveOrder(false)"
+                                                    *ngIf="
+                                                        !isViewOnly && id > 0
+                                                    "
                                                 >
                                                     Save & Exit
-                                                </button> -->
+                                                </button>
                                                 <button
                                                     mat-raised-button
                                                     matStepperNext
@@ -385,6 +409,12 @@
                                                                         "
                                                                         >outlined_flag</mat-icon
                                                                     >
+                                                                    <mat-error
+                                                                        >Product
+                                                                        category
+                                                                        is
+                                                                        required!</mat-error
+                                                                    >
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
@@ -446,6 +476,13 @@
                                                                         "
                                                                         >outlined_flag</mat-icon
                                                                     >
+                                                                    <mat-error
+                                                                        >Product
+                                                                        sub
+                                                                        category
+                                                                        is
+                                                                        required!</mat-error
+                                                                    >
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
@@ -501,6 +538,11 @@
                                                                         "
                                                                         >outlined_flag</mat-icon
                                                                     >
+                                                                    <mat-error
+                                                                        >Product
+                                                                        is
+                                                                        required!</mat-error
+                                                                    >
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
@@ -532,6 +574,11 @@
                                                                         type="number"
                                                                         min="0"
                                                                     />
+                                                                    <mat-error
+                                                                        >Quantity
+                                                                        is
+                                                                        required!</mat-error
+                                                                    >
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
@@ -573,6 +620,11 @@
                                                                         matPrefix
                                                                         >$&nbsp;</span
                                                                     >
+                                                                    <mat-error
+                                                                        >Total
+                                                                        is
+                                                                        required!</mat-error
+                                                                    >
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
@@ -613,6 +665,11 @@
                                                                     <span
                                                                         matPrefix
                                                                         >$&nbsp;</span
+                                                                    >
+                                                                    <mat-error
+                                                                        >Unit
+                                                                        Price is
+                                                                        required!</mat-error
                                                                     >
                                                                 </mat-form-field>
                                                             </mat-cell>
@@ -665,7 +722,9 @@
                                             <div
                                                 fxLayout="row"
                                                 fxLayoutAlign="center center"
-                                                class="mt-5"
+                                                style="
+                                                    margin-top: 10px !important;
+                                                "
                                             >
                                                 <button
                                                     class="mr-8"
@@ -675,6 +734,18 @@
                                                     color="accent"
                                                 >
                                                     Previous
+                                                </button>
+                                                <button
+                                                    mat-raised-button
+                                                    type="button"
+                                                    color="accent"
+                                                    style="margin-right: 10px"
+                                                    (click)="saveOrder(false)"
+                                                    *ngIf="
+                                                        !isViewOnly && id > 0
+                                                    "
+                                                >
+                                                    Save & Exit
                                                 </button>
                                                 <button
                                                     mat-raised-button
@@ -814,6 +885,10 @@
                                                         name="Total"
                                                         formControlName="total"
                                                     />
+                                                    <mat-error
+                                                        >Total Amount is
+                                                        required!</mat-error
+                                                    >
                                                 </mat-form-field>
                                             </div>
                                             <div
@@ -833,16 +908,426 @@
                                                         name="remarks"
                                                         formControlName="remarks"
                                                         rows="5"
-                                                        required
                                                     >
                                                     </textarea>
-                                                    <mat-error
-                                                        >Description is
-                                                        required!</mat-error
-                                                    >
                                                 </mat-form-field>
                                             </div>
+
+                                            <div
+                                                fxLayout="row"
+                                                fxLayoutAlign="center center"
+                                                class="mt-5"
+                                            >
+                                                <button
+                                                    class="mr-8"
+                                                    mat-raised-button
+                                                    matStepperPrevious
+                                                    type="button"
+                                                    color="accent"
+                                                >
+                                                    Previous
+                                                </button>
+                                                <button
+                                                    mat-raised-button
+                                                    type="button"
+                                                    color="accent"
+                                                    style="margin-right: 10px"
+                                                    (click)="saveOrder(false)"
+                                                    *ngIf="
+                                                        !isViewOnly && id > 0
+                                                    "
+                                                >
+                                                    Save & Exit
+                                                </button>
+                                                <button
+                                                    mat-raised-button
+                                                    matStepperNext
+                                                    type="button"
+                                                    color="accent"
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>
                                         </form>
+                                    </mat-step>
+
+                                    <mat-step
+                                        style="max-height: 400px !important"
+                                    >
+                                        <ng-template matStepLabel
+                                            >PO - Summary</ng-template
+                                        >
+
+                                        <div
+                                            class="h2 m-16"
+                                            fxLayout="row"
+                                            fxLayoutAlign="center center"
+                                        >
+                                            Purchasing Order Summary.
+                                        </div>
+
+                                        <mat-list>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >PO
+                                                            Number</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            poNumber
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Date</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            date | date
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Supplier
+                                                            Name</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            supplier?.name
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Warehouse
+                                                            Name</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            warehouse?.name
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Warehouse
+                                                            Address</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            warehouse?.address
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Status</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            selectedStatus?.name
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Sub-Total</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            subTotal | currency
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Discount</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            discount | currency
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Tax-Rate</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >{{
+                                                                taxRate
+                                                            }}
+                                                            %</mat-label
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Total Tax
+                                                            Amount</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            totalTaxAmout
+                                                                | currency
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Shipping
+                                                            Charge</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            shippingCharge
+                                                                | currency
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Total
+                                                            Amount</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            totalAmount
+                                                                | currency
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                        </mat-list>
+
+                                        <div
+                                            fxLayout="row"
+                                            fxLayoutAlign="center center"
+                                        >
+                                            <button
+                                                class="mr-8"
+                                                mat-raised-button
+                                                matStepperPrevious
+                                                type="button"
+                                                color="accent"
+                                            >
+                                                Previous
+                                            </button>
+                                            <button
+                                                mat-raised-button
+                                                type="button"
+                                                color="accent"
+                                                (click)="saveOrder(false)"
+                                                *ngIf="!isViewOnly"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
                                     </mat-step>
                                 </mat-horizontal-stepper>
                             </div>

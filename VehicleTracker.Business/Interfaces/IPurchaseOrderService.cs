@@ -11,7 +11,7 @@ namespace VehicleTracker.Business.Interfaces
   public interface IPurchaseOrderService
   {
     Task<ResponseViewModel> SavePurchaseOrder(PurchaseOrderViewModel vm,string userName);
-    List<PurchaseOrderSummaryViewModel> GetAllPurchseOrder();
+    List<PurchaseOrderSummaryViewModel> GetAllPurchseOrder(PurchaseOrderFilter filter, string userName);
     PurchaseOrderViewModel GetPurchaseOrderById(int id, string username);
     Task<ResponseViewModel> DeletePurchaseOrder(int id,string userName);
     PurchaseOrderMasterData GetPurchaseOrderMasterData();

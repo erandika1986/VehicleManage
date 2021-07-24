@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
+import { POFilter } from 'app/models/po/po.filter.model';
 import { PurchaseOrderMasterData } from 'app/models/po/purchase.order.master.data.model';
 import { PurchaseOrder } from 'app/models/po/purchase.order.model';
 import { PurchaseOrderSummary } from 'app/models/po/purchase.order.summary.model';
@@ -31,9 +32,9 @@ export class PoService {
   }
 
 
-  getAll(): Observable<PurchaseOrderSummary[]> {
+  getAll(filter:POFilter): Observable<PurchaseOrderSummary[]> {
     return this.httpClient.
-      get<PurchaseOrderSummary[]>(environment.apiUrl + 'PurchaseOrder');
+      post<PurchaseOrderSummary[]>(environment.apiUrl + 'PurchaseOrder/getAllPurchseOrder',filter);
   }
   
   getById(id: number): Observable<PurchaseOrder> {

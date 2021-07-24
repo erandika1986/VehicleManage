@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.WebApi", "Ve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracker.NotificationService", "VehicleTracker.NotificationService\VehicleTracker.NotificationService.csproj", "{263DCBA3-7245-497F-B9B3-548E6EF27289}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracker.Report", "VehicleTracker.Report\VehicleTracker.Report.csproj", "{379F0B29-20B6-43FE-BA33-B8160DA54E07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{263DCBA3-7245-497F-B9B3-548E6EF27289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{379F0B29-20B6-43FE-BA33-B8160DA54E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{379F0B29-20B6-43FE-BA33-B8160DA54E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{379F0B29-20B6-43FE-BA33-B8160DA54E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{379F0B29-20B6-43FE-BA33-B8160DA54E07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

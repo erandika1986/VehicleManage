@@ -2,6 +2,7 @@
 export class WarehouseModel
 {
     id:number;
+    name:string;
     address:string;
     phone:string;
     managerName:string;

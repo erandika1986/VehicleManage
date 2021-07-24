@@ -27,4 +27,10 @@
     <ProjectReference Include="..\VehicleTracker.ViewModel\VehicleTracker.ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ExcelTemplates\Purchase-Order-Template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

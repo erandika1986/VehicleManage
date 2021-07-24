@@ -59,6 +59,7 @@ namespace VehicleTracker.Business
       }
       catch (Exception ex)
       {
+        _logger.LogError(ex.ToString());
         response.IsSuccess = false;
         response.Message = "Error has been occured.Please try again.";
       }
@@ -126,6 +127,7 @@ namespace VehicleTracker.Business
         else
         {
           //Updated existing record with given value;
+          warehouse.Name = vm.Name;
           warehouse.Address = vm.Address;
           warehouse.Phone = vm.Phone;
           warehouse.ManagerId = vm.SelectedManagerId;

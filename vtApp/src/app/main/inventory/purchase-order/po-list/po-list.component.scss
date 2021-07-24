@@ -2,7 +2,7 @@
 @import "src/@fuse/scss/fuse";
 
 po-list {
-    #assets {
+    #p-orders {
         .top-bg {
             @include media-breakpoint("lt-md") {
                 height: 256px;
@@ -50,7 +50,7 @@ po-list {
         }
     }
 
-    .products-table {
+    .po-table {
         flex: 1 1 auto;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         overflow: auto;
@@ -79,99 +79,67 @@ po-list {
         }
 
         .mat-column-buttons {
-            flex: 0 0 4%;
-            text-align: center;
-        }
-        .mat-header-buttons {
-            flex: 0 0 4%;
-            text-align: center;
+            flex: 0 0 100px;
+            border-bottom-style: none !important;
         }
 
-        .quantity-indicator {
-            display: inline-block;
-            vertical-align: middle;
-            width: 8px;
-            height: 8px;
-            border-radius: 4px;
-            margin-right: 8px;
-
-            & + span {
-                display: inline-block;
-                vertical-align: middle;
-            }
+        .mat-column-poNumber {
+            flex: 0 1 200px;
         }
 
-        .active-icon {
-            border-radius: 50%;
+        .mat-column-status {
+            flex: 0 1 200px;
+        }
+
+        .mat-column-supplierName {
+            flex: 0 1 200px;
+        }
+
+        .mat-column-warehouseName {
+            flex: 0 1 200px;
+        }
+
+        .mat-column-date {
+            flex: 0 1 200px;
+        }
+
+        .mat-column-subTotal {
+            flex: 0 1 150px;
+        }
+
+        .mat-column-discount {
+            flex: 0 1 150px;
+        }
+
+        .mat-column-taxRate {
+            flex: 0 1 150px;
+        }
+
+        .mat-column-totalTaxAmount {
+            flex: 0 1 150px;
+        }
+
+        .mat-column-shippingCharges {
+            flex: 0 1 150px;
+        }
+
+        .mat-column-total {
+            flex: 0 1 150px;
+        }
+
+        .mat-form-field-wrapper {
+            padding-bottom: 0em !important;
+        }
+
+        .mat-form-field-appearance-outline .mat-form-field-infix {
+            padding: 0.5em 0 0.5em 0 !important;
+        }
+
+        .mat-select-panel .mat-optgroup-label,
+        .mat-select-panel .mat-option {
+            font-size: inherit;
+            line-height: 2em;
+            height: 2em;
         }
     }
-}
-
-.mat-column-id {
-    flex: 0 0 250px;
-}
-
-.mat-column-engineOilChangeMilage {
-    flex: 0 0 250px;
-}
-
-.mat-column-fuelFilterChangeMilage {
-    flex: 0 0 250px;
-}
-
-.mat-column-gearBoxChangeMilage {
-    flex: 0 0 250px;
-}
-
-.mat-column-differentialOilChangeMilage {
-    flex: 0 0 250px;
-}
-
-.mat-column-engineOilNumber {
-    flex: 0 0 250px;
-}
-
-.mat-column-fuelFilterNumber {
-    flex: 0 0 250px;
-}
-
-.mat-column-gearBoxOilNumber {
-    flex: 0 0 250px;
-}
-
-.mat-column-differentialOilNumber {
-    flex: 0 0 250px;
-}
-
-.mat-column-airCleanerAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-greeceNipleAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-insuranceAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-fitnessReportAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-emitionTestAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-revenueLicenceAge {
-    flex: 0 0 250px;
-}
-
-.mat-column-fuelTypeName {
-    flex: 0 0 250px;
-}
-
-.mat-column-buttons {
-    flex: 0 0 250px;
-    border-bottom-style: none !important;
 }

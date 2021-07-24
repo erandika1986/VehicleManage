@@ -31,7 +31,7 @@ export class WherehouseListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  displayedColumns = ["buttons", "id", "address", "phone", "managerName", "floorSpace", "createdOn", "updatedOn"];
+  displayedColumns = ["buttons", "id","name", "address", "phone", "managerName", "floorSpace", "createdOn", "updatedOn"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

@@ -27,10 +27,12 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
 
-    [HttpGet]
-    public ActionResult Get()
+    [HttpPost]
+    [Route("getAllPurchseOrder")]
+    public ActionResult GetAllPurchseOrder(PurchaseOrderFilter filter)
     {
-      var response = _purchaseOrderService.GetAllPurchseOrder();
+      var username = _identityService.GetUserName();
+      var response = _purchaseOrderService.GetAllPurchseOrder(filter,username);
       return Ok(response);
     }
 

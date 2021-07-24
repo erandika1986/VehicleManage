@@ -44,7 +44,7 @@ export class PurchaseOrderItem
             total: new FormControl(total,Validators.required),
         });
 
-        fg.get("quantity").valueChanges.subscribe(value=>{
+        fg.get("qty").valueChanges.subscribe(value=>{
 
             const tot = decimalPipe.transform(
                 value*fg.get("unitPrice").value,
@@ -56,7 +56,7 @@ export class PurchaseOrderItem
 
         fg.get("unitPrice").valueChanges.subscribe(value=>{
             const tot = decimalPipe.transform(
-                value*fg.get("quantity").value,
+                value*fg.get("qty").value,
                 "1.2-2"
               );
             fg.get("total").setValue(tot);
