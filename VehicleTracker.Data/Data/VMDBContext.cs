@@ -627,6 +627,8 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.City).HasMaxLength(150);
 
+        entity.Property(e => e.Country).HasMaxLength(250);
+
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
         entity.Property(e => e.Email1).HasMaxLength(150);
@@ -1183,6 +1185,8 @@ namespace VehicleTracker.Data
         entity.Property(e => e.Address).IsRequired();
 
         entity.Property(e => e.City).HasMaxLength(150);
+
+        entity.Property(e => e.Country).HasMaxLength(250);
 
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 

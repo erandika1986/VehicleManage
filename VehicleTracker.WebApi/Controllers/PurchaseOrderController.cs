@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
 using VehicleTracker.ViewModel.PurchaseOrder;
@@ -97,6 +99,17 @@ namespace VehicleTracker.WebApi.Controllers
     {
       var response = _purchaseOrderService.GetProducts(subCategoryId);
       return Ok(response);
+    }
+
+    [HttpGet]
+    [Authorize]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("downloadPurchasingOrderForm/{id:int}")]
+    public FileStreamResult DownloadPurchasingOrderForm(int id)
+    {
+      var response = _purchaseOrderService.DownloadPurchasingOrderForm(id);
+
+      return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
     }
   }
 }

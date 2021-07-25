@@ -18,5 +18,6 @@ namespace VehicleTracker.Business.Interfaces
     Task<PONumber> GetPONumber();
     List<DropDownViewModal> GetProductSubCategories(int categoryId);
     List<DropDownViewModal> GetProducts(int subCategoryId);
+    DownloadFileViewModel DownloadPurchasingOrderForm(int id);
   }
 }

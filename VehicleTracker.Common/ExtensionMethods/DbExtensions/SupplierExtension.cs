@@ -20,6 +20,7 @@ namespace System
             model.Address = vm.Address;
             model.State = vm.State;
             model.City = vm.City;
+            model.Country = vm.Country;
             model.ZipCode = vm.ZipCode;
             model.Phone1 = vm.Phone1;
             model.Phone2 = vm.Phone2;
@@ -48,6 +49,7 @@ namespace System
             vm.State = model.State;
             vm.City = model.City;
             vm.ZipCode = model.ZipCode;
+            vm.Country = model.Country;
             vm.Phone1 = model.Phone1;
             vm.Phone2 = model.Phone2;
             vm.Email1 = model.Email1;

@@ -10,6 +10,7 @@ using VehicleTracker.Common;
 using VehicleTracker.Data;
 using VehicleTracker.Model;
 using VehicleTracker.Model.Enums;
+using VehicleTracker.Report;
 using VehicleTracker.ViewModel.Common;
 using VehicleTracker.ViewModel.PurchaseOrder;
 
@@ -306,6 +307,22 @@ namespace VehicleTracker.Business
       return productCategories;
     }
 
+    public DownloadFileViewModel DownloadPurchasingOrderForm(int id)
+    {
+      var reportFacotry = new ReportFactory();
+      var reportParams = new Dictionary<string, string>();
+
+      reportParams.Add("id", id.ToString());
+
+      reportParams.Add("ReportType", "PO");
+
+      var poReportGenerator = reportFacotry.GetPDFGenerator(reportParams, _db, _config);
+
+      var response = poReportGenerator.GeneratePDFReport();
+
+      return response;
+  }
+
     private void AddNewPOItems(PurchaseOrder po, List<PurchaseOrderItemViewModel> items)
     {
       foreach (var item in items)
@@ -355,7 +372,6 @@ namespace VehicleTracker.Business
 
       return productCategories;
     }
-
 
   }
 

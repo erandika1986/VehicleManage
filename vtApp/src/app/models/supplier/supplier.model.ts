@@ -7,6 +7,7 @@ export class SupplierModel
     city:string;
     state:string;
     zipCode:string;
+    country:string;
     phone1:string;
     phone2:string;
     email1:string;

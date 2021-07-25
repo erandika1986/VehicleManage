@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -69,6 +70,57 @@ export class PoListComponent implements OnInit {
 
   delete(item: PurchaseOrderSummary) {
 
+  }
+
+  downloadPercentage:number=0;
+  isDownloading:boolean;
+  downloadPurchasingOrderForm(item:PurchaseOrderSummary)
+  {
+    this._fuseProgressBarService.show();
+    this.isDownloading=true;
+    this._poService.downloadPurchasingOrderForm(item.id)
+      .subscribe(response=>{
+
+        console.log(response);
+        
+        if (response.type === HttpEventType.DownloadProgress) {
+          this.downloadPercentage = Math.round(100 * response.loaded / response.total);
+        }
+        
+        if (response.type === HttpEventType.Response) {
+          if(response.status == 204)
+          {
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+          else
+          {
+            const objectUrl: string = URL.createObjectURL(response.body);
+            const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+    
+            a.href = objectUrl;
+            a.download = item.poNumber+".pdf";
+            document.body.appendChild(a);
+            a.click();
+    
+            document.body.removeChild(a);
+            URL.revokeObjectURL(objectUrl);
+            this.isDownloading=false;
+            this.downloadPercentage=0;
+            this._fuseProgressBarService.hide();
+          }
+
+        }
+
+
+
+
+      },error=>{
+        this._fuseProgressBarService.hide();
+        this.isDownloading=false;
+        this.downloadPercentage=0;
+      });
   }
 
   getMasterData()

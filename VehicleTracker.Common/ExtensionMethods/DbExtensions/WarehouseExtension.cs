@@ -21,6 +21,7 @@ namespace System
       vm.State = warehouse.State;
       vm.City = warehouse.City;
       vm.ZipCode = warehouse.ZipCode;
+      vm.Country = warehouse.Country;
       vm.CreatedBy = string.Format("{0} {1}", warehouse.CreatedBy.FirstName, warehouse.CreatedBy.LastName);
       vm.CreatedOn = warehouse.CreatedOn.ToString("MMMM dd, yyyy");
       vm.FloorSpace = warehouse.FloorSpace;
@@ -43,6 +44,7 @@ namespace System
       model.Address = vm.Address;
       model.State = vm.State;
       model.City = vm.City;
+      model.Country = vm.Country;
       model.ZipCode = vm.ZipCode;
       model.CreatedOn = DateTime.UtcNow;
       model.FloorSpace = vm.FloorSpace;

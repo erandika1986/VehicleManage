@@ -59,6 +59,7 @@ createSupplierForm() {
     city:new FormControl(this.supplier.city),
     state:new FormControl(this.supplier.state),
     zipCode:new FormControl(this.supplier.zipCode),
+    country:new FormControl(this.supplier.country),
     phone1: new FormControl(this.supplier.phone1),
     phone2: new FormControl(this.supplier.phone2),
     email1: new FormControl(this.supplier.email1),

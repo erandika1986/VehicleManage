@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace VehicleTracker.Report
 {
 	public class ReportFactory
 	{
-    public BaseReportGenerator GetPDFGenerator(Dictionary<string, string> reportParams, VMDBContext db)
+    public BaseReportGenerator GetPDFGenerator(Dictionary<string, string> reportParams, VMDBContext db, IConfiguration config)
     {
-      switch (reportParams.FirstOrDefault().Value)
+      switch (reportParams["ReportType"])
       {
         case "PO":
           {
-            return new POReportGenerator(reportParams, db);
+            return new POReportGenerator(reportParams, db, config);
           }
       }
 

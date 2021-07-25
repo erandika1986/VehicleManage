@@ -20,6 +20,7 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public string CompanyZipCode { get; set; }
     public string CompanyEmail { get; set; }
     public string CompanyPhoneNo { get; set; }
+    public string CompanyCountry { get; set; }
 
     public string OrderDate { get; set; }
     public string PONumber { get; set; }
@@ -32,6 +33,8 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public string SupplierZipCode { get; set; }
     public string SupplierEmail { get; set; }
     public string SupplierPhoneNo { get; set; }
+    public string SupplierCountry { get; set; }
+    public string CustomerRef { get; set; }
 
 
     public string WarehouseName { get; set; }
@@ -39,13 +42,17 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public string WarehouseCity { get; set; }
     public string WarehouseState { get; set; }
     public string WarehouseZipCode { get; set; }
+    public string WarehouseCountry { get; set; }
     public string WarehouseEmail { get; set; }
     public string WarehousePhoneNo { get; set; }
 
     public string ShippingMethod { get; set; }
     public string ShippingTerm { get; set; }
+    public string ShipVia { get; set; }
     public string Payment { get; set; }
     public string DeliveryDate { get; set; }
+
+    public string Remarks { get; set; }
 
     public List<PurshaseOrderReportItemViewModel> POItems { get; set; }
 

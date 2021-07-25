@@ -7,6 +7,7 @@ export class WarehouseModel
     city:string;
     state:string;
     zipCode:string;
+    country:string;
     phone:string;
     managerName:string;
     floorSpace:number;

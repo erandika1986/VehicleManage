@@ -63,6 +63,7 @@ createWarehouseForm() {
     city:new FormControl(this.warehouse.city),
     state:new FormControl(this.warehouse.state),
     zipCode:new FormControl(this.warehouse.zipCode),
+    country:new FormControl(this.warehouse.country),
     phone: new FormControl(this.warehouse.phone,Validators.required),
     selectedManagerId: new FormControl(this.warehouse.selectedManagerId,Validators.required),
     floorSpace: new FormControl(this.warehouse.floorSpace, Validators.required),

@@ -70,4 +70,8 @@ export class PoService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProducts/'+subCategoryId);
   }
+
+  downloadPurchasingOrderForm(id: number): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl +'PurchaseOrder/downloadPurchasingOrderForm/'+id,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }
