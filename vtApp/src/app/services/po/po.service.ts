@@ -66,9 +66,9 @@ export class PoService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProductSubCategories/'+categoryId);
   }
-  getProducts(subCategoryId:number): Observable<DropDownModel[]> {
+  getProducts(subCategoryId:number,supplierId:number): Observable<DropDownModel[]> {
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProducts/'+subCategoryId);
+      get<DropDownModel[]>(environment.apiUrl + 'PurchaseOrder/getProducts/'+subCategoryId+'/'+supplierId);
   }
 
   downloadPurchasingOrderForm(id: number): Observable<any> {

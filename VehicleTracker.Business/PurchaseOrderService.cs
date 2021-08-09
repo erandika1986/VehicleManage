@@ -243,7 +243,7 @@ namespace VehicleTracker.Business
 
         poItem.Categories.AddRange(GetProductCategories());
         poItem.SubCategories.AddRange(GetProductSubCategories(item.Product.SubProductCategory.ProductCategoryId));
-        poItem.Products.AddRange(GetProducts(item.Product.SubProductCategoryId));
+        poItem.Products.AddRange(GetProducts(item.Product.SubProductCategoryId, po.SupplierId));
 
         response.Items.Add(poItem);
       }
@@ -297,10 +297,10 @@ namespace VehicleTracker.Business
       return productCategories;
     }
 
-    public List<DropDownViewModal> GetProducts(int subCategoryId)
+    public List<DropDownViewModal> GetProducts(int subCategoryId,int supplierId)
     {
       var productCategories = _db.Products
-        .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId)
+        .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId && x.SupplierId==supplierId)
         .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.ProductName }).ToList();
 
 

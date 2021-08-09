@@ -17,7 +17,7 @@ namespace VehicleTracker.Business.Interfaces
     PurchaseOrderMasterData GetPurchaseOrderMasterData();
     Task<PONumber> GetPONumber();
     List<DropDownViewModal> GetProductSubCategories(int categoryId);
-    List<DropDownViewModal> GetProducts(int subCategoryId);
+    List<DropDownViewModal> GetProducts(int subCategoryId,int supplierId);
     DownloadFileViewModel DownloadPurchasingOrderForm(int id);
   }
 }

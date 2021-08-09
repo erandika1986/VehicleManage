@@ -317,7 +317,7 @@ export class PoDetailComponent implements OnInit {
   productSubCategoryChanged(item:any,index:number)
   {
     this._fuseProgressBarService.show();
-    this._poService.getProducts(item)
+    this._poService.getProducts(item,this.selectedSupplierId)
       .subscribe(response=>{
         this._fuseProgressBarService.hide();
         this.purchaseOrder.items[index].products = response;
@@ -451,6 +451,11 @@ export class PoDetailComponent implements OnInit {
   get id()
   {
     return this.poStep1Form.get('id').value;
+  }
+
+  get selectedSupplierId()
+  {
+    return this.poStep1Form.get('selectedSupplierId').value;
   }
 
   get poNumber()

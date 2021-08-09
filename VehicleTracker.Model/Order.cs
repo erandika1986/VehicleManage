@@ -11,6 +11,8 @@ namespace VehicleTracker.Model
         {
             DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrder>();
             OrderItems = new HashSet<OrderItem>();
+            ProductInventoryOrders = new HashSet<ProductInventoryOrder>();
+            ProductReturns = new HashSet<ProductReturn>();
         }
 
         public long Id { get; set; }
@@ -30,5 +32,7 @@ namespace VehicleTracker.Model
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<ProductInventoryOrder> ProductInventoryOrders { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturns { get; set; }
     }
 }

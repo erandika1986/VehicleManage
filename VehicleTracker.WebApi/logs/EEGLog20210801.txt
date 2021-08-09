@@ -1,0 +1,422 @@
+2021-08-01 12:16:41.733 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5005/api/PurchaseOrder/getPurchaseOrderMasterData - -
+2021-08-01 12:16:44.974 +05:30 [DBG] OPTIONS requests are not supported
+2021-08-01 12:16:44.974 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:16:44.974 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:16:44.975 +05:30 [DBG] The request is a preflight request.
+2021-08-01 12:16:45.241 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/api/PurchaseOrder/getPurchaseOrderMasterData - -
+2021-08-01 12:16:45.241 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5005/api/PurchaseOrder/getPurchaseOrderMasterData - - - 204 - - 3507.9480ms
+2021-08-01 12:16:45.241 +05:30 [DBG] The request path  does not match the path filter
+2021-08-01 12:16:45.473 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:16:45.473 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:16:45.911 +05:30 [DBG] 2 candidate(s) found for the request path '/api/PurchaseOrder/getPurchaseOrderMasterData'
+2021-08-01 12:16:45.912 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.GetPurchaseOrderMasterData (VehicleTracker.WebApi)' with route pattern 'api/PurchaseOrder/getPurchaseOrderMasterData' is valid for the request path '/api/PurchaseOrder/getPurchaseOrderMasterData'
+2021-08-01 12:16:45.912 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi)' with route pattern 'api/PurchaseOrder/{id}' is valid for the request path '/api/PurchaseOrder/getPurchaseOrderMasterData'
+2021-08-01 12:16:45.912 +05:30 [DBG] Request matched endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.GetPurchaseOrderMasterData (VehicleTracker.WebApi)'
+2021-08-01 12:16:45.914 +05:30 [INF] Successfully validated the token.
+2021-08-01 12:16:45.914 +05:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2021-08-01 12:16:45.915 +05:30 [INF] Authorization was successful.
+2021-08-01 12:16:45.915 +05:30 [INF] Executing endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.GetPurchaseOrderMasterData (VehicleTracker.WebApi)'
+2021-08-01 12:16:45.915 +05:30 [INF] Route matched with {action = "GetPurchaseOrderMasterData", controller = "PurchaseOrder"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult GetPurchaseOrderMasterData() on controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi).
+2021-08-01 12:16:45.915 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-08-01 12:16:45.916 +05:30 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2021-08-01 12:16:45.916 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-08-01 12:16:45.916 +05:30 [DBG] Execution plan of exception filters (in the following order): ["VehicleTracker.WebApi.Infrastructure.Filters.HttpGlobalExceptionFilter"]
+2021-08-01 12:16:45.916 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter","Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-08-01 12:16:45.916 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi)
+2021-08-01 12:16:45.918 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi)
+2021-08-01 12:16:45.920 +05:30 [INF] Entity Framework Core 5.0.7 initialized 'VMDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+2021-08-01 12:16:45.922 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:16:45.922 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:16:45.922 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:46.241 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:46.241 +05:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[AccountNo], [s].[Address], [s].[Bank], [s].[Branch], [s].[BranchCode], [s].[City], [s].[Country], [s].[CreatedById], [s].[CreatedOn], [s].[Description], [s].[Email1], [s].[Email2], [s].[IsActive], [s].[Name], [s].[OurRefNo], [s].[Phone1], [s].[Phone2], [s].[State], [s].[UpdatedById], [s].[UpdatedOn], [s].[ZipCode]
+FROM [Supplier] AS [s]
+WHERE [s].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.081 +05:30 [INF] Executed DbCommand (841ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[AccountNo], [s].[Address], [s].[Bank], [s].[Branch], [s].[BranchCode], [s].[City], [s].[Country], [s].[CreatedById], [s].[CreatedOn], [s].[Description], [s].[Email1], [s].[Email2], [s].[IsActive], [s].[Name], [s].[OurRefNo], [s].[Phone1], [s].[Phone2], [s].[State], [s].[UpdatedById], [s].[UpdatedOn], [s].[ZipCode]
+FROM [Supplier] AS [s]
+WHERE [s].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.301 +05:30 [DBG] Context 'VMDBContext' started tracking 'Supplier' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:16:47.302 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:16:47.302 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.302 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.303 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:16:47.303 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:16:47.303 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.303 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.303 +05:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[Address], [w].[City], [w].[Country], [w].[CreatedById], [w].[CreatedOn], [w].[FloorSpace], [w].[IsActive], [w].[ManagerId], [w].[Name], [w].[Phone], [w].[State], [w].[UpdatedById], [w].[UpdatedOn], [w].[ZipCode]
+FROM [Wharehouse] AS [w]
+WHERE [w].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.306 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[Address], [w].[City], [w].[Country], [w].[CreatedById], [w].[CreatedOn], [w].[FloorSpace], [w].[IsActive], [w].[ManagerId], [w].[Name], [w].[Phone], [w].[State], [w].[UpdatedById], [w].[UpdatedOn], [w].[ZipCode]
+FROM [Wharehouse] AS [w]
+WHERE [w].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.307 +05:30 [DBG] Context 'VMDBContext' started tracking 'Wharehouse' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:16:47.307 +05:30 [DBG] Context 'VMDBContext' started tracking 'Wharehouse' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:16:47.307 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:16:47.307 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.308 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.308 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:16:47.308 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:16:47.308 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.309 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.309 +05:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductCategory] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.311 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductCategory] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:16:47.312 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:16:47.312 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.312 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:47.497 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2021-08-01 12:16:47.497 +05:30 [DBG] No information found on request to perform content negotiation.
+2021-08-01 12:16:47.498 +05:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-08-01 12:16:47.498 +05:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-08-01 12:16:47.498 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-08-01 12:16:47.498 +05:30 [INF] Executing OkObjectResult, writing value of type 'VehicleTracker.ViewModel.PurchaseOrder.PurchaseOrderMasterData'.
+2021-08-01 12:16:47.499 +05:30 [INF] Executed action VehicleTracker.WebApi.Controllers.PurchaseOrderController.GetPurchaseOrderMasterData (VehicleTracker.WebApi) in 1583.202ms
+2021-08-01 12:16:47.499 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.GetPurchaseOrderMasterData (VehicleTracker.WebApi)'
+2021-08-01 12:16:47.505 +05:30 [DBG] 'VMDBContext' disposed.
+2021-08-01 12:16:47.505 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/PurchaseOrder/getPurchaseOrderMasterData - - - 200 - application/json;+charset=utf-8 2270.1351ms
+2021-08-01 12:16:47.847 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5005/api/PurchaseOrder/2 - -
+2021-08-01 12:16:47.847 +05:30 [DBG] OPTIONS requests are not supported
+2021-08-01 12:16:47.847 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:16:47.847 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:16:47.847 +05:30 [DBG] The request is a preflight request.
+2021-08-01 12:16:47.848 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5005/api/PurchaseOrder/2 - - - 204 - - 0.7137ms
+2021-08-01 12:16:47.990 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/api/PurchaseOrder/2 - -
+2021-08-01 12:16:47.990 +05:30 [DBG] The request path  does not match the path filter
+2021-08-01 12:16:47.990 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:16:47.991 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:16:47.991 +05:30 [DBG] 1 candidate(s) found for the request path '/api/PurchaseOrder/2'
+2021-08-01 12:16:47.991 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi)' with route pattern 'api/PurchaseOrder/{id}' is valid for the request path '/api/PurchaseOrder/2'
+2021-08-01 12:16:47.991 +05:30 [DBG] Request matched endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:16:47.991 +05:30 [INF] Successfully validated the token.
+2021-08-01 12:16:47.992 +05:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2021-08-01 12:16:47.992 +05:30 [INF] Authorization was successful.
+2021-08-01 12:16:47.992 +05:30 [INF] Executing endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:16:47.992 +05:30 [INF] Route matched with {action = "Get", controller = "PurchaseOrder"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Get(Int32) on controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi).
+2021-08-01 12:16:47.992 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-08-01 12:16:47.992 +05:30 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2021-08-01 12:16:47.992 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-08-01 12:16:47.992 +05:30 [DBG] Execution plan of exception filters (in the following order): ["VehicleTracker.WebApi.Infrastructure.Filters.HttpGlobalExceptionFilter"]
+2021-08-01 12:16:47.992 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter","Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-08-01 12:16:47.992 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi)
+2021-08-01 12:16:47.993 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.PurchaseOrderController (VehicleTracker.WebApi)
+2021-08-01 12:16:48.275 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int32' ...
+2021-08-01 12:16:48.275 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ...
+2021-08-01 12:16:48.275 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int32'.
+2021-08-01 12:16:48.275 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int32'.
+2021-08-01 12:16:48.275 +05:30 [DBG] Attempting to validate the bound parameter 'id' of type 'System.Int32' ...
+2021-08-01 12:16:48.275 +05:30 [DBG] Done attempting to validate the bound parameter 'id' of type 'System.Int32'.
+2021-08-01 12:16:48.276 +05:30 [INF] Entity Framework Core 5.0.7 initialized 'VMDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+2021-08-01 12:16:48.276 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:16:48.277 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:16:48.277 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:48.277 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:48.277 +05:30 [DBG] Executing DbCommand [Parameters=[@__username_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Username] = @__username_0
+2021-08-01 12:16:49.366 +05:30 [INF] Executed DbCommand (1,089ms) [Parameters=[@__username_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Username] = @__username_0
+2021-08-01 12:16:49.367 +05:30 [DBG] Context 'VMDBContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:16:49.367 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:16:49.367 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:16:49.367 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:18.225 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:18.227 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (2ms).
+2021-08-01 12:17:18.227 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:18.379 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:18.379 +05:30 [DBG] Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Attachment], [p].[CreatedById], [p].[CreatedOn], [p].[Date], [p].[Discount], [p].[IsActive], [p].[PONumber], [p].[Remark], [p].[ShipingCharge], [p].[ShippedToWharehouseId], [p].[Status], [p].[SubTotal], [p].[SupplierId], [p].[TaxRate], [p].[Terms], [p].[Total], [p].[TotalTaxAmount], [p].[UpdatedById], [p].[UpdatedOn]
+FROM [PurchaseOrder] AS [p]
+WHERE [p].[Id] = @__id_0
+2021-08-01 12:17:18.581 +05:30 [INF] Executed DbCommand (202ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Attachment], [p].[CreatedById], [p].[CreatedOn], [p].[Date], [p].[Discount], [p].[IsActive], [p].[PONumber], [p].[Remark], [p].[ShipingCharge], [p].[ShippedToWharehouseId], [p].[Status], [p].[SubTotal], [p].[SupplierId], [p].[TaxRate], [p].[Terms], [p].[Total], [p].[TotalTaxAmount], [p].[UpdatedById], [p].[UpdatedOn]
+FROM [PurchaseOrder] AS [p]
+WHERE [p].[Id] = @__id_0
+2021-08-01 12:17:18.582 +05:30 [DBG] Context 'VMDBContext' started tracking 'PurchaseOrder' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:18.582 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:18.582 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:18.582 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:18.582 +05:30 [DBG] The navigation 'TimeZone.UserProxy' is being lazy-loaded.
+2021-08-01 12:17:19.589 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:19.590 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:19.590 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:19.590 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:19.590 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DisplayName], [t].[TimeZoneID]
+FROM [TimeZoneDetails] AS [t]
+WHERE [t].[Id] = @__p_0
+2021-08-01 12:17:19.593 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DisplayName], [t].[TimeZoneID]
+FROM [TimeZoneDetails] AS [t]
+WHERE [t].[Id] = @__p_0
+2021-08-01 12:17:19.593 +05:30 [DBG] Context 'VMDBContext' started tracking 'TimeZoneDetail' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:19.593 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:19.593 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:19.593 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:19.594 +05:30 [DBG] The navigation 'PurchaseOrderDetails.PurchaseOrderProxy' is being lazy-loaded.
+2021-08-01 12:17:20.253 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:20.356 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (102ms).
+2021-08-01 12:17:20.356 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.356 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.356 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[ProductId], [p].[PurchaseOrderId], [p].[Qty], [p].[Remark], [p].[Total], [p].[UnitPrice]
+FROM [PurchaseOrderDetail] AS [p]
+WHERE [p].[PurchaseOrderId] = @__p_0
+2021-08-01 12:17:20.359 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[ProductId], [p].[PurchaseOrderId], [p].[Qty], [p].[Remark], [p].[Total], [p].[UnitPrice]
+FROM [PurchaseOrderDetail] AS [p]
+WHERE [p].[PurchaseOrderId] = @__p_0
+2021-08-01 12:17:20.359 +05:30 [DBG] Context 'VMDBContext' started tracking 'PurchaseOrderDetail' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:20.359 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:20.359 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.359 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.359 +05:30 [DBG] The navigation 'Product.PurchaseOrderDetailProxy' is being lazy-loaded.
+2021-08-01 12:17:20.360 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:20.361 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:20.361 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.361 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.361 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[AvailableQty], [p].[CreatedById], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[MaxOrderQty], [p].[MinOrderQty], [p].[ProductCode], [p].[ProductName], [p].[SubProductCategoryId], [p].[SupplierId], [p].[UnitPrice], [p].[UpdatedById], [p].[UpdatedOn]
+FROM [Product] AS [p]
+WHERE [p].[Id] = @__p_0
+2021-08-01 12:17:20.363 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[AvailableQty], [p].[CreatedById], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[MaxOrderQty], [p].[MinOrderQty], [p].[ProductCode], [p].[ProductName], [p].[SubProductCategoryId], [p].[SupplierId], [p].[UnitPrice], [p].[UpdatedById], [p].[UpdatedOn]
+FROM [Product] AS [p]
+WHERE [p].[Id] = @__p_0
+2021-08-01 12:17:20.363 +05:30 [DBG] Context 'VMDBContext' started tracking 'Product' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:20.363 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:20.363 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.363 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.363 +05:30 [DBG] The navigation 'SubProductCategory.ProductProxy' is being lazy-loaded.
+2021-08-01 12:17:20.364 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:20.364 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:20.364 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.364 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.364 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Description], [p].[IsActive], [p].[Name], [p].[Picture], [p].[ProductCategoryId]
+FROM [ProductSubCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2021-08-01 12:17:20.366 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Description], [p].[IsActive], [p].[Name], [p].[Picture], [p].[ProductCategoryId]
+FROM [ProductSubCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2021-08-01 12:17:20.366 +05:30 [DBG] Context 'VMDBContext' started tracking 'ProductSubCategory' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:20.366 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:20.366 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.366 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.366 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:20.366 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:20.366 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.367 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:20.367 +05:30 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductCategory] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:17:21.197 +05:30 [INF] Executed DbCommand (830ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductCategory] AS [p]
+WHERE [p].[IsActive] = CAST(1 AS bit)
+2021-08-01 12:17:21.197 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:21.197 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.197 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.197 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:21.197 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:21.197 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.198 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.198 +05:30 [DBG] Executing DbCommand [Parameters=[@__categoryId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductSubCategory] AS [p]
+WHERE ([p].[IsActive] = CAST(1 AS bit)) AND ([p].[ProductCategoryId] = @__categoryId_0)
+2021-08-01 12:17:21.199 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__categoryId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[Name]
+FROM [ProductSubCategory] AS [p]
+WHERE ([p].[IsActive] = CAST(1 AS bit)) AND ([p].[ProductCategoryId] = @__categoryId_0)
+2021-08-01 12:17:21.199 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:21.199 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.199 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.200 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:21.200 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:21.200 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.200 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.200 +05:30 [DBG] Executing DbCommand [Parameters=[@__subCategoryId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[ProductName] AS [Name]
+FROM [Product] AS [p]
+WHERE ([p].[IsActive] = CAST(1 AS bit)) AND ([p].[SubProductCategoryId] = @__subCategoryId_0)
+2021-08-01 12:17:21.203 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__subCategoryId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST([p].[Id] AS bigint) AS [Id], [p].[ProductName] AS [Name]
+FROM [Product] AS [p]
+WHERE ([p].[IsActive] = CAST(1 AS bit)) AND ([p].[SubProductCategoryId] = @__subCategoryId_0)
+2021-08-01 12:17:21.203 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:21.203 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.203 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.203 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2021-08-01 12:17:21.203 +05:30 [DBG] No information found on request to perform content negotiation.
+2021-08-01 12:17:21.203 +05:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-08-01 12:17:21.203 +05:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-08-01 12:17:21.203 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-08-01 12:17:21.203 +05:30 [INF] Executing OkObjectResult, writing value of type 'VehicleTracker.ViewModel.PurchaseOrder.PurchaseOrderViewModel'.
+2021-08-01 12:17:21.205 +05:30 [INF] Executed action VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi) in 33212.1093ms
+2021-08-01 12:17:21.205 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.PurchaseOrderController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.207 +05:30 [DBG] 'VMDBContext' disposed.
+2021-08-01 12:17:21.207 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/PurchaseOrder/2 - - - 200 - application/json;+charset=utf-8 33216.7058ms
+2021-08-01 12:17:21.632 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5005/api/Warehouse/2 - -
+2021-08-01 12:17:21.632 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5005/api/Supplier/1 - -
+2021-08-01 12:17:21.633 +05:30 [DBG] OPTIONS requests are not supported
+2021-08-01 12:17:21.633 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:17:21.633 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:17:21.633 +05:30 [DBG] The request is a preflight request.
+2021-08-01 12:17:21.633 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5005/api/Supplier/1 - - - 204 - - 0.8498ms
+2021-08-01 12:17:21.633 +05:30 [DBG] OPTIONS requests are not supported
+2021-08-01 12:17:21.633 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:17:21.633 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:17:21.634 +05:30 [DBG] The request is a preflight request.
+2021-08-01 12:17:21.634 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5005/api/Warehouse/2 - - - 204 - - 2.0018ms
+2021-08-01 12:17:21.636 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/api/Supplier/1 - -
+2021-08-01 12:17:21.636 +05:30 [DBG] The request path  does not match the path filter
+2021-08-01 12:17:21.636 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:17:21.637 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:17:21.637 +05:30 [DBG] 1 candidate(s) found for the request path '/api/Supplier/1'
+2021-08-01 12:17:21.637 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi)' with route pattern 'api/Supplier/{id}' is valid for the request path '/api/Supplier/1'
+2021-08-01 12:17:21.637 +05:30 [DBG] Request matched endpoint 'VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.638 +05:30 [INF] Successfully validated the token.
+2021-08-01 12:17:21.638 +05:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2021-08-01 12:17:21.638 +05:30 [INF] Authorization was successful.
+2021-08-01 12:17:21.638 +05:30 [INF] Executing endpoint 'VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.638 +05:30 [INF] Route matched with {action = "Get", controller = "Supplier"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Get(Int64) on controller VehicleTracker.WebApi.Controllers.SupplierController (VehicleTracker.WebApi).
+2021-08-01 12:17:21.638 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-08-01 12:17:21.639 +05:30 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2021-08-01 12:17:21.639 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-08-01 12:17:21.639 +05:30 [DBG] Execution plan of exception filters (in the following order): ["VehicleTracker.WebApi.Infrastructure.Filters.HttpGlobalExceptionFilter"]
+2021-08-01 12:17:21.639 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter","Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-08-01 12:17:21.639 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.SupplierController (VehicleTracker.WebApi)
+2021-08-01 12:17:21.639 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.SupplierController (VehicleTracker.WebApi)
+2021-08-01 12:17:21.639 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int64' ...
+2021-08-01 12:17:21.640 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int64' using the name 'id' in request data ...
+2021-08-01 12:17:21.640 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int64'.
+2021-08-01 12:17:21.640 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int64'.
+2021-08-01 12:17:21.640 +05:30 [DBG] Attempting to validate the bound parameter 'id' of type 'System.Int64' ...
+2021-08-01 12:17:21.640 +05:30 [DBG] Done attempting to validate the bound parameter 'id' of type 'System.Int64'.
+2021-08-01 12:17:21.640 +05:30 [INF] Entity Framework Core 5.0.7 initialized 'VMDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+2021-08-01 12:17:21.641 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:21.641 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:21.641 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.641 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.641 +05:30 [DBG] Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[AccountNo], [s].[Address], [s].[Bank], [s].[Branch], [s].[BranchCode], [s].[City], [s].[Country], [s].[CreatedById], [s].[CreatedOn], [s].[Description], [s].[Email1], [s].[Email2], [s].[IsActive], [s].[Name], [s].[OurRefNo], [s].[Phone1], [s].[Phone2], [s].[State], [s].[UpdatedById], [s].[UpdatedOn], [s].[ZipCode]
+FROM [Supplier] AS [s]
+WHERE CAST([s].[Id] AS bigint) = @__id_0
+2021-08-01 12:17:21.645 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[AccountNo], [s].[Address], [s].[Bank], [s].[Branch], [s].[BranchCode], [s].[City], [s].[Country], [s].[CreatedById], [s].[CreatedOn], [s].[Description], [s].[Email1], [s].[Email2], [s].[IsActive], [s].[Name], [s].[OurRefNo], [s].[Phone1], [s].[Phone2], [s].[State], [s].[UpdatedById], [s].[UpdatedOn], [s].[ZipCode]
+FROM [Supplier] AS [s]
+WHERE CAST([s].[Id] AS bigint) = @__id_0
+2021-08-01 12:17:21.645 +05:30 [DBG] Context 'VMDBContext' started tracking 'Supplier' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:21.645 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:21.645 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.645 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.646 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2021-08-01 12:17:21.646 +05:30 [DBG] No information found on request to perform content negotiation.
+2021-08-01 12:17:21.646 +05:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-08-01 12:17:21.646 +05:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-08-01 12:17:21.646 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-08-01 12:17:21.646 +05:30 [INF] Executing OkObjectResult, writing value of type 'VehicleTracker.ViewModel.Supplier.SupplierViewModel'.
+2021-08-01 12:17:21.646 +05:30 [INF] Executed action VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi) in 7.4314ms
+2021-08-01 12:17:21.646 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.SupplierController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.647 +05:30 [DBG] 'VMDBContext' disposed.
+2021-08-01 12:17:21.647 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/Supplier/1 - - - 200 - application/json;+charset=utf-8 10.9139ms
+2021-08-01 12:17:21.809 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/api/Warehouse/2 - -
+2021-08-01 12:17:21.809 +05:30 [DBG] The request path  does not match the path filter
+2021-08-01 12:17:21.809 +05:30 [DBG] The request has an origin header: 'http://localhost:4200'.
+2021-08-01 12:17:21.810 +05:30 [INF] CORS policy execution successful.
+2021-08-01 12:17:21.810 +05:30 [DBG] 1 candidate(s) found for the request path '/api/Warehouse/2'
+2021-08-01 12:17:21.810 +05:30 [DBG] Endpoint 'VehicleTracker.WebApi.Controllers.WarehouseController.Get (VehicleTracker.WebApi)' with route pattern 'api/Warehouse/{id}' is valid for the request path '/api/Warehouse/2'
+2021-08-01 12:17:21.810 +05:30 [DBG] Request matched endpoint 'VehicleTracker.WebApi.Controllers.WarehouseController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.810 +05:30 [INF] Successfully validated the token.
+2021-08-01 12:17:21.810 +05:30 [DBG] AuthenticationScheme: Bearer was successfully authenticated.
+2021-08-01 12:17:21.810 +05:30 [INF] Authorization was successful.
+2021-08-01 12:17:21.811 +05:30 [INF] Executing endpoint 'VehicleTracker.WebApi.Controllers.WarehouseController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:21.811 +05:30 [INF] Route matched with {action = "Get", controller = "Warehouse"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Get(Int32) on controller VehicleTracker.WebApi.Controllers.WarehouseController (VehicleTracker.WebApi).
+2021-08-01 12:17:21.811 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-08-01 12:17:21.811 +05:30 [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2021-08-01 12:17:21.811 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-08-01 12:17:21.811 +05:30 [DBG] Execution plan of exception filters (in the following order): ["VehicleTracker.WebApi.Infrastructure.Filters.HttpGlobalExceptionFilter"]
+2021-08-01 12:17:21.811 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter","Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-08-01 12:17:21.811 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.WarehouseController (VehicleTracker.WebApi)
+2021-08-01 12:17:21.811 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.WarehouseController (VehicleTracker.WebApi)
+2021-08-01 12:17:21.812 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int32' ...
+2021-08-01 12:17:21.812 +05:30 [DBG] Attempting to bind parameter 'id' of type 'System.Int32' using the name 'id' in request data ...
+2021-08-01 12:17:21.812 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int32'.
+2021-08-01 12:17:21.812 +05:30 [DBG] Done attempting to bind parameter 'id' of type 'System.Int32'.
+2021-08-01 12:17:21.812 +05:30 [DBG] Attempting to validate the bound parameter 'id' of type 'System.Int32' ...
+2021-08-01 12:17:21.812 +05:30 [DBG] Done attempting to validate the bound parameter 'id' of type 'System.Int32'.
+2021-08-01 12:17:21.812 +05:30 [INF] Entity Framework Core 5.0.7 initialized 'VMDBContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+2021-08-01 12:17:21.813 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:21.813 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:21.813 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.813 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.813 +05:30 [DBG] Executing DbCommand [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [w].[Id], [w].[Address], [w].[City], [w].[Country], [w].[CreatedById], [w].[CreatedOn], [w].[FloorSpace], [w].[IsActive], [w].[ManagerId], [w].[Name], [w].[Phone], [w].[State], [w].[UpdatedById], [w].[UpdatedOn], [w].[ZipCode]
+FROM [Wharehouse] AS [w]
+WHERE [w].[Id] = @__id_0
+2021-08-01 12:17:21.815 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [w].[Id], [w].[Address], [w].[City], [w].[Country], [w].[CreatedById], [w].[CreatedOn], [w].[FloorSpace], [w].[IsActive], [w].[ManagerId], [w].[Name], [w].[Phone], [w].[State], [w].[UpdatedById], [w].[UpdatedOn], [w].[ZipCode]
+FROM [Wharehouse] AS [w]
+WHERE [w].[Id] = @__id_0
+2021-08-01 12:17:21.816 +05:30 [DBG] Context 'VMDBContext' started tracking 'Wharehouse' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:21.816 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:21.816 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.816 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:21.816 +05:30 [DBG] The navigation 'CreatedBy.WharehouseProxy' is being lazy-loaded.
+2021-08-01 12:17:22.126 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:22.126 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:22.126 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.127 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.127 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Id] = @__p_0
+2021-08-01 12:17:22.129 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Id] = @__p_0
+2021-08-01 12:17:22.130 +05:30 [DBG] Context 'VMDBContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:22.130 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:22.130 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.130 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.303 +05:30 [DBG] The navigation 'Manager.WharehouseProxy' is being lazy-loaded.
+2021-08-01 12:17:22.388 +05:30 [DBG] Creating DbCommand for 'ExecuteReader'.
+2021-08-01 12:17:22.388 +05:30 [DBG] Created DbCommand for 'ExecuteReader' (0ms).
+2021-08-01 12:17:22.388 +05:30 [DBG] Opening connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.388 +05:30 [DBG] Opened connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.388 +05:30 [DBG] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Id] = @__p_0
+2021-08-01 12:17:22.389 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[DrivingLicenceBackImage], [u].[DrivingLicenceFrontImage], [u].[DrivingLicenceNo], [u].[Email], [u].[FirstName], [u].[Image], [u].[IsActive], [u].[LastName], [u].[MobileNo], [u].[NICBackImage], [u].[NICFrontImage], [u].[NICNo], [u].[Password], [u].[PersonalAddress], [u].[TimeZoneId], [u].[Username]
+FROM [User] AS [u]
+WHERE [u].[Id] = @__p_0
+2021-08-01 12:17:22.389 +05:30 [DBG] Context 'VMDBContext' started tracking 'User' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2021-08-01 12:17:22.389 +05:30 [DBG] A data reader was disposed.
+2021-08-01 12:17:22.389 +05:30 [DBG] Closing connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.389 +05:30 [DBG] Closed connection to database 'VMDB' on server 'DESKTOP-4B3H53F'.
+2021-08-01 12:17:22.390 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2021-08-01 12:17:22.390 +05:30 [DBG] No information found on request to perform content negotiation.
+2021-08-01 12:17:22.390 +05:30 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-08-01 12:17:22.390 +05:30 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-08-01 12:17:22.390 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-08-01 12:17:22.390 +05:30 [INF] Executing OkObjectResult, writing value of type 'VehicleTracker.ViewModel.WarehouseViewModel'.
+2021-08-01 12:17:22.390 +05:30 [INF] Executed action VehicleTracker.WebApi.Controllers.WarehouseController.Get (VehicleTracker.WebApi) in 579.2058ms
+2021-08-01 12:17:22.390 +05:30 [INF] Executed endpoint 'VehicleTracker.WebApi.Controllers.WarehouseController.Get (VehicleTracker.WebApi)'
+2021-08-01 12:17:22.391 +05:30 [DBG] 'VMDBContext' disposed.
+2021-08-01 12:17:22.391 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/api/Warehouse/2 - - - 200 - application/json;+charset=utf-8 581.9327ms

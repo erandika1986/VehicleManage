@@ -11,6 +11,7 @@ namespace VehicleTracker.Model
         {
             CustomerProductPrices = new HashSet<CustomerProductPrice>();
             Orders = new HashSet<Order>();
+            ProductReturns = new HashSet<ProductReturn>();
         }
 
         public int Id { get; set; }
@@ -35,5 +36,6 @@ namespace VehicleTracker.Model
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<CustomerProductPrice> CustomerProductPrices { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturns { get; set; }
     }
 }

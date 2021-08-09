@@ -94,10 +94,10 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
     [HttpGet]
-    [Route("getProducts/{subCategoryId}")]
-    public ActionResult GetProducts(int subCategoryId)
+    [Route("getProducts/{subCategoryId}/{supplierId}")]
+    public ActionResult GetProducts(int subCategoryId,int supplierId)
     {
-      var response = _purchaseOrderService.GetProducts(subCategoryId);
+      var response = _purchaseOrderService.GetProducts(subCategoryId, supplierId);
       return Ok(response);
     }
 

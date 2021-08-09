@@ -19,7 +19,11 @@ namespace VehicleTracker.Model
             OrderUpdatedBies = new HashSet<Order>();
             ProductCreatedBies = new HashSet<Product>();
             ProductInventoryCreatedBies = new HashSet<ProductInventory>();
+            ProductInventoryReceivedHistoryCreatedBies = new HashSet<ProductInventoryReceivedHistory>();
+            ProductInventoryReceivedHistoryUpdatedBies = new HashSet<ProductInventoryReceivedHistory>();
             ProductInventoryUdatedBies = new HashSet<ProductInventory>();
+            ProductReturnCreatedBies = new HashSet<ProductReturn>();
+            ProductReturnUpdatedBies = new HashSet<ProductReturn>();
             ProductUpdatedBies = new HashSet<Product>();
             PurchaseOrderCreatedBies = new HashSet<PurchaseOrder>();
             PurchaseOrderSendingHistories = new HashSet<PurchaseOrderSendingHistory>();
@@ -83,7 +87,11 @@ namespace VehicleTracker.Model
         public virtual ICollection<Order> OrderUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductCreatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }
+        public virtual ICollection<ProductInventoryReceivedHistory> ProductInventoryReceivedHistoryCreatedBies { get; set; }
+        public virtual ICollection<ProductInventoryReceivedHistory> ProductInventoryReceivedHistoryUpdatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryUdatedBies { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturnCreatedBies { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturnUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductUpdatedBies { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBies { get; set; }
         public virtual ICollection<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
