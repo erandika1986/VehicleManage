@@ -7,6 +7,11 @@ namespace VehicleTracker.Model
 {
     public partial class ProductReturn
     {
+        public ProductReturn()
+        {
+            ProductInventories = new HashSet<ProductInventory>();
+        }
+
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int ClientId { get; set; }
@@ -26,5 +31,6 @@ namespace VehicleTracker.Model
         public virtual Product Product { get; set; }
         public virtual Order SaleOrder { get; set; }
         public virtual User UpdatedBy { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventories { get; set; }
     }
 }

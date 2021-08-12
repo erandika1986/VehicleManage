@@ -10,6 +10,7 @@ namespace VehicleTracker.Model
         public Wharehouse()
         {
             ProductInventories = new HashSet<ProductInventory>();
+            ProductInventoryOrders = new HashSet<ProductInventoryOrder>();
             PurchaseOrders = new HashSet<PurchaseOrder>();
         }
 
@@ -33,6 +34,7 @@ namespace VehicleTracker.Model
         public virtual User Manager { get; set; }
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<ProductInventory> ProductInventories { get; set; }
+        public virtual ICollection<ProductInventoryOrder> ProductInventoryOrders { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

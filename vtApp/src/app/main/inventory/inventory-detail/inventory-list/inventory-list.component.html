@@ -1,0 +1,257 @@
+<div id="p-orders" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div
+                class="logo mb-24 mb-md-0"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <mat-icon
+                    class="logo-icon s-32 mr-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
+                    shopping_basket
+                </mat-icon>
+                <span
+                    class="logo-text h1"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    Product Inventory
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div
+                    class="search"
+                    fxFlex
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
+                    <mat-icon>search</mat-icon>
+                    <input
+                        #input
+                        (keyup)="applyFilter($event.target.value)"
+                        placeholder="Search for Product Inventory"
+                    />
+                </div>
+            </div>
+            <!-- / SEARCH -->
+            <!-- ADD BUTTON -->
+            <button
+                mat-raised-button
+                (click)="addNew()"
+                class="add-product-button fuse-white mt-24 mt-md-0"
+                matTooltip="Add new route."
+            >
+                <span>ADD NEW</span>
+            </button>
+            <!-- / ADD BUTTON -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+
+        <div class="content-card">
+            <mat-table
+                class="po-table"
+                #table
+                [dataSource]="dataSource"
+                matSort
+                [@animateStagger]="{ value: '50' }"
+                fusePerfectScrollbar
+            >
+                <ng-container matColumnDef="productImage">
+                    <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <img
+                            class="product-image"
+                            [src]="item.productImage"
+                            style="
+                                height: 54px !important;
+                                width: 74px !important;
+                            "
+                            *ngIf="item.productImage"
+                        />
+                        <img
+                            class="product-image"
+                            [src]="
+                                'assets/images/ecommerce/Image-Not-Available.png'
+                            "
+                            style="
+                                height: 54px !important;
+                                width: 74px !important;
+                            "
+                            *ngIf="!item.productImage"
+                        />
+                    </mat-cell>
+                </ng-container>
+
+                <!-- supplierName -->
+                <ng-container matColumnDef="supplierName">
+                    <mat-header-cell
+                        *matHeaderCellDef
+                        style="padding: 5px !important"
+                    >
+                        <mat-form-field appearance="outline" class="w-100-p">
+                            <mat-label>Supplier</mat-label>
+                            <mat-select
+                                [(ngModel)]="filter.selectedSupplierId"
+                                (selectionChange)="filterChanged()"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let item of suppliers"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">
+                            {{ item.supplierName }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product Category -->
+                <ng-container matColumnDef="categoryName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Product Category</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.categoryName }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product Sub Category -->
+                <ng-container matColumnDef="subCategoryName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Product Sub Category</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.subCategoryName }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product -->
+                <ng-container matColumnDef="productName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Product</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.productName }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product -->
+                <ng-container matColumnDef="totalItemRecieved">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Total Item Recieved</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">
+                            {{ item.totalItemRecieved }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product -->
+                <ng-container matColumnDef="qtyInHand">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Qty In Hand</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.qtyInHand }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Product -->
+                <ng-container matColumnDef="totalItemReturn">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Total Item Return</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let item">
+                        <p class="text-truncate">{{ item.totalItemReturn }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Buttons Column -->
+                <ng-container matColumnDef="buttons">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let item">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button
+                                mat-icon-button
+                                [matMenuTriggerFor]="moreMenu"
+                                aria-label="More"
+                                (click)="$event.stopPropagation()"
+                            >
+                                <mat-icon class="secondary-text"
+                                    >more_vert</mat-icon
+                                >
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button
+                                    mat-menu-item
+                                    aria-label="edit"
+                                    (click)="edit(item)"
+                                >
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+                                <button
+                                    mat-menu-item
+                                    aria-label="remove"
+                                    (click)="delete(item)"
+                                >
+                                    <mat-icon>close</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let product; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[50, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

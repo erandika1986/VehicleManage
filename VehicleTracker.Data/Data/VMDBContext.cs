@@ -34,7 +34,6 @@ namespace VehicleTracker.Data
     public virtual DbSet<ProductImage> ProductImages { get; set; }
     public virtual DbSet<ProductInventory> ProductInventories { get; set; }
     public virtual DbSet<ProductInventoryOrder> ProductInventoryOrders { get; set; }
-    public virtual DbSet<ProductInventoryReceivedHistory> ProductInventoryReceivedHistories { get; set; }
     public virtual DbSet<ProductReturn> ProductReturns { get; set; }
     public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; }
     public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
@@ -411,8 +410,6 @@ namespace VehicleTracker.Data
 
         entity.Property(e => e.DateOfManufacture).HasColumnType("datetime");
 
-        entity.Property(e => e.DateRecieved).HasColumnType("datetime");
-
         entity.Property(e => e.IsActive)
             .IsRequired()
             .HasDefaultValueSql("((1))");
@@ -430,6 +427,11 @@ namespace VehicleTracker.Data
             .HasForeignKey(d => d.ProductId)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_ProductInventory_Product");
+
+        entity.HasOne(d => d.ProductReturn)
+            .WithMany(p => p.ProductInventories)
+            .HasForeignKey(d => d.ProductReturnId)
+            .HasConstraintName("FK_ProductInventory_ProductReturn");
 
         entity.HasOne(d => d.PurchaseOrder)
             .WithMany(p => p.ProductInventories)
@@ -453,46 +455,38 @@ namespace VehicleTracker.Data
       {
         entity.ToTable("ProductInventoryOrder");
 
-        entity.HasOne(d => d.Inventory)
-            .WithMany(p => p.ProductInventoryOrders)
-            .HasForeignKey(d => d.InventoryId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_ProductInventoryOrder_ProductInventory");
-
-        entity.HasOne(d => d.Order)
-            .WithMany(p => p.ProductInventoryOrders)
-            .HasForeignKey(d => d.OrderId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_ProductInventoryOrder_Order");
-      });
-
-      modelBuilder.Entity<ProductInventoryReceivedHistory>(entity =>
-      {
-        entity.ToTable("ProductInventoryReceivedHistory");
-
         entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-        entity.Property(e => e.ReceivedDate).HasColumnType("datetime");
 
         entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 
         entity.HasOne(d => d.CreatedBy)
-            .WithMany(p => p.ProductInventoryReceivedHistoryCreatedBies)
+            .WithMany(p => p.ProductInventoryOrderCreatedBies)
             .HasForeignKey(d => d.CreatedById)
             .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_ProductInventoryReceivedHistory_User");
+            .HasConstraintName("FK_ProductInventoryOrder_User");
 
-        entity.HasOne(d => d.ProductInventory)
-            .WithMany(p => p.ProductInventoryReceivedHistories)
-            .HasForeignKey(d => d.ProductInventoryId)
+        entity.HasOne(d => d.Order)
+            .WithMany(p => p.ProductInventoryOrders)
+            .HasForeignKey(d => d.OrderId)
+            .HasConstraintName("FK_ProductInventoryOrder_Order");
+
+        entity.HasOne(d => d.Product)
+            .WithMany(p => p.ProductInventoryOrders)
+            .HasForeignKey(d => d.ProductId)
             .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_ProductInventoryReceivedHistory_ProductInventory");
+            .HasConstraintName("FK_ProductInventoryOrder_Product");
 
         entity.HasOne(d => d.UpdatedBy)
-            .WithMany(p => p.ProductInventoryReceivedHistoryUpdatedBies)
+            .WithMany(p => p.ProductInventoryOrderUpdatedBies)
             .HasForeignKey(d => d.UpdatedById)
             .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_ProductInventoryReceivedHistory_User1");
+            .HasConstraintName("FK_ProductInventoryOrder_User1");
+
+        entity.HasOne(d => d.Warehouse)
+            .WithMany(p => p.ProductInventoryOrders)
+            .HasForeignKey(d => d.WarehouseId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_ProductInventoryOrder_Wharehouse");
       });
 
       modelBuilder.Entity<ProductReturn>(entity =>

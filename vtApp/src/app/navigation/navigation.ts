@@ -75,11 +75,11 @@ export const navigation: FuseNavigation[] = [
         children: [
 
             {
-                id: 'inventory',
+                id: 'inventory-detail',
                 title: 'Product Inventory',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
+                url: '/inventory/inventory-detail/list'
             },
             {
                 id: 'purchase-order',

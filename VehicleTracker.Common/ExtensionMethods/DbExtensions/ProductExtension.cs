@@ -75,29 +75,6 @@ namespace System
         }
       }
 
-      //foreach (var item in model.ProductImages)
-      //{
-      //  var image = new ProductImageViewModel()
-      //  {
-      //    Id = item.Id,
-      //    ImageName = item.Name,
-      //    ProductId = model.Id
-      //  };
-
-      //  var imagePath = string.Format(@"{0}{1}\{2}\{3}\{4}\{5}\{6}",
-      //          config.GetSection("FileUploadPath").Value,
-      //          FolderNames.PRODUCT_CATEGORY,
-      //          model.SubProductCategory.ProductCategoryId,
-      //          FolderNames.PRODUCT_SUB_CATEGORY,
-      //          model.SubProductCategoryId,
-      //          model.Id,
-      //          item.Name);
-      //  if (File.Exists(imagePath))
-      //  {
-      //    vm.DefaultImage = "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
-      //  }
-      //}
-
       return vm;
     }
 
@@ -159,6 +136,34 @@ namespace System
               model.Name);
 
       return folderPath;
+    }
+
+    public static string GetProductDefaultThumnialImage(this Product model, IConfiguration config)
+    {
+      if (model.ProductImages.Count > 0)
+      {
+        var image = model.ProductImages.FirstOrDefault(x => x.IsDefault == true);
+        if (image == null)
+        {
+          image = model.ProductImages.FirstOrDefault();
+        }
+
+        var imagePath = string.Format(@"{0}{1}\{2}\{3}\{4}\{5}\{6}",
+                config.GetSection("FileUploadPath").Value,
+                FolderNames.PRODUCT_CATEGORY,
+                model.SubProductCategory.ProductCategoryId,
+                FolderNames.PRODUCT_SUB_CATEGORY,
+                model.SubProductCategoryId,
+                model.Id,
+                image.Name);
+
+        if (File.Exists(imagePath))
+        {
+          return "data:image/jpg;base64," + ImageHelper.getThumnialImage(imagePath);
+        }
+      }
+
+      return string.Empty;
     }
   }
 }

@@ -45,18 +45,16 @@ namespace VehicleTracker.Business
 
           var productInventory = _db.ProductInventories.FirstOrDefault(x => x.Id == item.Id);
 
-          if(productInventory==null)
+          if (productInventory == null)
           {
             productInventory = new ProductInventory()
             {
-              DateRecieved = item.DateRecieved,
+              ProductId = item.ProductId,
+              WarehouseId = pOInventoryReceievedDetail.WarehouseId,
+              ReceivedQty = item.RecievedQty,
               BatchNo = item.BatchNo,
               DateOfManufacture = item.DateOfManufacture,
               DateOfExpiration = item.DateOfExpiration,
-              ProductId = item.ProductId,
-              WarehouseId = pOInventoryReceievedDetail.WarehouseId,
-              RecievedQty = item.RecievedQty,
-              AvailableQty = item.RecievedQty,
               Action = 0,
               IsActive = true,
               PurchaseOrderId = pOInventoryReceievedDetail.PuchaseOrderId,
@@ -66,40 +64,19 @@ namespace VehicleTracker.Business
               CreatedOn = DateTime.UtcNow
             };
 
-            productInventory.ProductInventoryReceivedHistories = new HashSet<ProductInventoryReceivedHistory>();
-
-            var productInventoryReceived = new ProductInventoryReceivedHistory()
-            {
-              ReceivedQty = item.RecievedQty,
-              ReceivedDate = item.DateRecieved,
-              CreatedOn = DateTime.UtcNow,
-              CreatedById = user.Id,
-              UpdatedOn = DateTime.UtcNow,
-              UpdatedById = user.Id
-            };
-
-            productInventory.ProductInventoryReceivedHistories.Add(productInventoryReceived);
-
             _db.ProductInventories.Add(productInventory);
           }
           else
           {
-            productInventory.AvailableQty = productInventory.AvailableQty + item.AvailableQty;
-            productInventory.IsActive = true;
+            productInventory.WarehouseId = pOInventoryReceievedDetail.WarehouseId;
+            productInventory.ReceivedQty = item.RecievedQty;
+            productInventory.BatchNo = item.BatchNo;
+            productInventory.DateOfManufacture = item.DateOfManufacture;
+            productInventory.DateOfExpiration = item.DateOfExpiration;
             productInventory.UdatedById = user.Id;
             productInventory.UpdatedOn = DateTime.UtcNow;
 
-            var productInventoryReceived = new ProductInventoryReceivedHistory()
-            {
-              ReceivedQty = item.RecievedQty,
-              ReceivedDate = item.DateRecieved,
-              CreatedOn = DateTime.UtcNow,
-              CreatedById = user.Id,
-              UpdatedOn = DateTime.UtcNow,
-              UpdatedById = user.Id
-            };
 
-            productInventory.ProductInventoryReceivedHistories.Add(productInventoryReceived);
             _db.ProductInventories.Update(productInventory);
 
           }
@@ -117,6 +94,65 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public POInventoryReceievedDetail GetInventoryDetailsForPO(int poId)
+    {
+      var response = new POInventoryReceievedDetail();
+
+      var po = _db.PurchaseOrders.FirstOrDefault(x => x.Id == poId);
+
+      response.PuchaseOrderId = poId;
+
+      response.WarehouseId = po.ShippedToWharehouseId;
+
+      if(po.ProductInventories.Count()>0)
+      {
+
+        var poProducts = po.PurchaseOrderDetails.GroupBy(x => x.ProductId).Select(p=> new { ProductId= p.Key, ProductList = p.ToList()}).ToList();
+
+        foreach (var item in poProducts)
+        {
+          var inventoryItem = new InventoryViewModel()
+          {
+            SupplierName = item.ProductList.FirstOrDefault().Product.Supplier.Name,
+            ProductName = item.ProductList.FirstOrDefault().Product.ProductName,
+            ProductCategoryName= item.ProductList.FirstOrDefault().Product.SubProductCategory.ProductCategory.Name,
+            ProductSubCategoryName=item.ProductList.FirstOrDefault().Product.SubProductCategory.Name,
+            Id=0,
+            IsActive=true,
+            ProductId=item.ProductId,
+            RecievedQty=0,
+            TotalOrderedQty=  item.ProductList.Sum(x=>x.Qty)
+          };
+
+          response.Inventories.Add(inventoryItem);
+        }
+      }
+      else
+      {
+        var existingInventories = po.ProductInventories.OrderBy(x => x.Product.ProductName).ToList();
+
+        foreach (var item in existingInventories)
+        {
+          var inventoryItem = new InventoryViewModel()
+          {
+            SupplierName = item.Product.Supplier.Name,
+            ProductName = item.Product.ProductName,
+            ProductCategoryName = item.Product.SubProductCategory.ProductCategory.Name,
+            ProductSubCategoryName = item.Product.SubProductCategory.Name,
+            Id = item.Id,
+            IsActive = true,
+            ProductId = item.ProductId,
+            RecievedQty = item.ReceivedQty,
+            TotalOrderedQty = po.PurchaseOrderDetails.Where(p=>p.ProductId==item.ProductId).Sum(x=>x.Qty)
+          };
+
+          response.Inventories.Add(inventoryItem);
+        }
+      }
+
+      return response;
+    }
+
     public async Task<ResponseViewModel> DeleteInventory(int id)
     {
       var response = new ResponseViewModel();
@@ -125,24 +161,24 @@ namespace VehicleTracker.Business
       {
         var productInventory = _db.ProductInventories.FirstOrDefault(x => x.Id == id && x.IsActive == true);
 
-        if(productInventory.ProductInventoryOrders.Count()==0)
-        {
-          foreach (var item in productInventory.ProductInventoryReceivedHistories)
-          {
-            _db.ProductInventoryReceivedHistories.Remove(item);
-          }
-          _db.ProductInventories.Remove(productInventory);
+        var otherInventoryRecords = _db.ProductInventories.Where(x => x.ProductId == productInventory.ProductId && x.PurchaseOrderId == productInventory.PurchaseOrderId && x.Id != productInventory.Id).ToList();
 
+        if(otherInventoryRecords.Count>0)
+        {
+          _db.ProductInventories.Remove(productInventory);
+        }
+        else
+        {
+          productInventory.ReceivedQty = 0;
+          _db.ProductInventories.Update(productInventory);
+        }
           await _db.SaveChangesAsync();
 
           response.IsSuccess = true;
           response.Message = "Product Inventory deleted successfully.";
-        }
-        else
-        {
-          response.IsSuccess = false;
-          response.Message = "Unable to delete the inventory record since it is already in use with sales order";
-        }
+
+        response.IsSuccess = false;
+        response.Message = "Unable to delete the inventory record since it is already in use with sales order";
       }
       catch (Exception ex)
       {
@@ -162,15 +198,20 @@ namespace VehicleTracker.Business
 
       foreach (var item in products)
       {
+        var totalItemReceived = item.ProductInventories.Where(x => x.ProductId == item.Id).Sum(x => x.ReceivedQty);
+
+        var qtyInHand = totalItemReceived - item.ProductInventoryOrders.Where(x => x.ProductId == item.Id).Sum(x => x.Qty);
+
         var inventoryBasicDetail = new InventoryBasicDetail()
         {
+          ProductImage = item.GetProductDefaultThumnialImage(_config),
           CategoryName = item.SubProductCategory.ProductCategory.Name,
           ProductId= item.Id,
           ProductName=item.ProductName,
           SubCategoryName=item.SubProductCategory.Name,
           SupplierName=item.Supplier.Name,
-          QtyInHand = item.ProductInventories.Where(p=>p.IsActive==true).Sum(x=>x.AvailableQty),
-          TotalItemRecieved = item.ProductInventories.SelectMany(x=>x.ProductInventoryReceivedHistories).Sum(x=>x.ReceivedQty),
+          TotalItemRecieved = totalItemReceived,
+          QtyInHand = qtyInHand,
           TotalItemReturn = item.ProductReturns.Sum(x=>x.Qty)
         };
 
@@ -180,20 +221,25 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public async Task<ResponseViewModel> UpdateInvetoryRecord(InventoryViewModel vm)
+    public InventoryMasterDataViewModel GetInventoryMasterData()
     {
-      var response = new ResponseViewModel();
+      var response = new InventoryMasterDataViewModel();
 
-      try
+      var suppliers = _db.Suppliers.Where(x => x.IsActive == true).ToList();
+      foreach (var item in suppliers)
       {
+        response.Suppliers.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+      }
 
-      }
-      catch (Exception ex)
+      var warehouses = _db.Wharehouses.Where(x => x.IsActive == true).ToList();
+      foreach (var item in warehouses)
       {
-        _logger.LogError(ex.ToString());
-        response.IsSuccess = false;
-        response.Message = "Error has been occured while updating inventory records.";
+        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
       }
+
+      response.ProductCategories.AddRange(_db.ProductCategories
+        .Where(x => x.IsActive == true)
+        .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList());
 
       return response;
     }

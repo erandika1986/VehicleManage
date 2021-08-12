@@ -12,7 +12,8 @@ namespace VehicleTracker.Business.Interfaces
   {
     List<InventoryBasicDetail> GetProductInvetorySummary();
     Task<ResponseViewModel> AddNewInventoryRecords(POInventoryReceievedDetail pOInventoryReceievedDetail, string userName);
-    Task<ResponseViewModel> UpdateInvetoryRecord(InventoryViewModel vm);
     Task<ResponseViewModel> DeleteInventory(int id);
+    POInventoryReceievedDetail GetInventoryDetailsForPO(int poId);
+    InventoryMasterDataViewModel GetInventoryMasterData();
   }
 }

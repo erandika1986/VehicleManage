@@ -14,7 +14,7 @@ namespace VehicleTracker.ViewModel.Inventory
       Inventories = new List<InventoryViewModel>();
     }
 
-    public int POId { get; set; }
+    public int Id { get; set; }
     public int WarehouseId { get; set; }
     public int PuchaseOrderId { get; set; }
     public List<InventoryViewModel> Inventories { get; set; }
@@ -26,9 +26,13 @@ namespace VehicleTracker.ViewModel.Inventory
     public string BatchNo { get; set; }
     public DateTime? DateOfManufacture { get; set; }
     public DateTime? DateOfExpiration { get; set; }
+    public string ProductCategoryName { get; set; }
+    public string ProductSubCategoryName { get; set; }
+    public string SupplierName { get; set; }
+    public string ProductName { get; set; }
     public int ProductId { get; set; }
+    public int TotalOrderedQty { get; set; }
     public int RecievedQty { get; set; }
-    public int AvailableQty { get; set; }
     public bool IsActive { get; set; }
   }
 
