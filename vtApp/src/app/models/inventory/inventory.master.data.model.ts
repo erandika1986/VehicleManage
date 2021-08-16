@@ -6,4 +6,5 @@ export class InventoryMasterDataModel {
     suppliers:DropDownModel[];
     warehouses:DropDownModel[];
     productCategories:DropDownModel[];
+    activePurchaseOrders:DropDownModel[];
 }

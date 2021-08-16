@@ -21,7 +21,7 @@ export class InventoryService {
 
   getInventoryDetailsForPO(poId: number): Observable<POInventoryReceievedDetailModel> {
     return this.httpClient.
-      get<POInventoryReceievedDetailModel>(environment.apiUrl + 'Inventory/getInventoryDetailsForPO' + poId);
+      get<POInventoryReceievedDetailModel>(environment.apiUrl + 'Inventory/getInventoryDetailsForPO/' + poId);
   }
 
   addNewInventoryRecords(vm: POInventoryReceievedDetailModel): Observable<ResponseModel> {

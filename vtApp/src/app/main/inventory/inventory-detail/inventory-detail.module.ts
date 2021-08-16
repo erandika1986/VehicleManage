@@ -6,6 +6,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MaterialModule } from 'app/MaterialModule';
 import { SharedModule } from 'app/shared/shared.module';
+import { AddInventoryComponent } from './add-inventory/add-inventory.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    InventoryListComponent
+    InventoryListComponent,
+    AddInventoryComponent
   ],
   imports: [
     RouterModule.forChild(routes),

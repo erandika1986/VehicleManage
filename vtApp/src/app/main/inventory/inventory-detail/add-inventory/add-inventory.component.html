@@ -1,0 +1,307 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row
+            fxFlex
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div
+        mat-dialog-content
+        class="p-16 pb-0 m-0"
+        style="padding-left: 10px; padding-right: 10px"
+        fusePerfectScrollbar
+    ></div>
+
+    <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+        style="padding: 10px !important"
+    >
+        <mat-form-field
+            appearance="outline"
+            fxFlex
+            floatLabel="always"
+            fxFlex="30"
+        >
+            <mat-label>PO</mat-label>
+            <mat-select
+                [(ngModel)]="selectedPurchaseOrderId"
+                (selectionChange)="seletedPOChanged($event.value)"
+                required
+            >
+                <mat-option
+                    *ngFor="let item of purchaseOrders"
+                    [value]="item.id"
+                >
+                    {{ item.name }}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            fxFlex
+            floatLabel="always"
+            fxFlex="30"
+        >
+            <mat-label>Warehouse</mat-label>
+            <mat-select [(ngModel)]="selectedWarehouseId" required>
+                <mat-option *ngFor="let item of warehouses" [value]="item.id">
+                    {{ item.name }}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            fxFlex
+            floatLabel="always"
+            fxFlex="30"
+        >
+            <mat-label>Supplier Name</mat-label>
+            <mat-select [(ngModel)]="selectedSupplierId" required disabled>
+                <mat-option *ngFor="let item of suppliers" [value]="item.id">
+                    {{ item.name }}
+                </mat-option>
+            </mat-select>
+            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <form
+        fxLayout="column"
+        [formGroup]="inventoryForm"
+        style="padding: 10px !important"
+    >
+        <ng-template matStepLabel>PO-Step 2</ng-template>
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <ng-container formArrayName="inventories">
+                <mat-table
+                    class="po-table"
+                    #table
+                    [dataSource]="inventories.controls"
+                >
+                    <ng-container matColumnDef="productName">
+                        <mat-header-cell *matHeaderCellDef>
+                            Product Name
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <input
+                                    matInput
+                                    placeholder="productName"
+                                    formControlName="productName"
+                                    type="text"
+                                />
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="batchNo">
+                        <mat-header-cell *matHeaderCellDef>
+                            Batch No
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <input
+                                    matInput
+                                    formControlName="batchNo"
+                                    type="text"
+                                />
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="dateOfExpiration">
+                        <mat-header-cell *matHeaderCellDef>
+                            Expiration Date
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <!--                                 <input
+                                    matInput
+                                    formControlName="dateOfExpiration"
+                                    type="text"
+                                /> -->
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    formControlName="dateOfExpiration"
+                                />
+                                <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="picker"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalOrderedQty">
+                        <mat-header-cell *matHeaderCellDef>
+                            Total Ordered Qty
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <input
+                                    matInput
+                                    placeholder="Total Ordered Qty"
+                                    formControlName="totalOrderedQty"
+                                    type="number"
+                                    min="0"
+                                />
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="alreadyRecievedQty">
+                        <mat-header-cell *matHeaderCellDef>
+                            Already Recieved Qty
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <input
+                                    matInput
+                                    placeholder="Already Recieved Qty"
+                                    formControlName="alreadyRecievedQty"
+                                    type="number"
+                                    min="0"
+                                />
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="currentReceivedQty">
+                        <mat-header-cell *matHeaderCellDef>
+                            Current Received Qty
+                        </mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let row; let index = index"
+                            [formGroupName]="index"
+                        >
+                            <mat-form-field
+                                floatLabel="never"
+                                appearance="outline"
+                            >
+                                <input
+                                    matInput
+                                    placeholder="Current Received Qty"
+                                    formControlName="currentReceivedQty"
+                                    type="number"
+                                    min="0"
+                                />
+                                <mat-error>Quantity is required!</mat-error>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!--                                                         <ng-container
+                matColumnDef="description"
+            >
+                <mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Description
+                </mat-header-cell>
+                <mat-cell
+                    *matCellDef="
+                        let row;
+                        let index = index
+                    "
+                    [formGroupName]="
+                        index
+                    "
+                >
+                    <mat-form-field
+                        floatLabel="never"
+                    >
+                        <input
+                            matInput
+                            placeholder="Description"
+                            formControlName="description"
+                        />
+                    </mat-form-field>
+                </mat-cell>
+            </ng-container> -->
+
+                    <mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                    ></mat-header-row>
+                    <mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                    ></mat-row>
+                </mat-table>
+            </ng-container>
+        </div>
+    </form>
+
+    <div
+        mat-dialog-actions
+        class="m-0 p-16"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+    >
+        <button
+            *ngIf="action !== 'edit'"
+            mat-button
+            color="primary"
+            class="save-button"
+            aria-label="ADD"
+        >
+            Close
+        </button>
+
+        <button
+            mat-button
+            color="primary"
+            class="save-button"
+            aria-label="SAVE"
+        >
+            SAVE
+        </button>
+    </div>
+</div>

@@ -82,6 +82,13 @@ export const navigation: FuseNavigation[] = [
                 url: '/inventory/inventory-detail/list'
             },
             {
+                id: 'product-return',
+                title: 'Product Return',
+                type: 'item',
+                icon: 'alarm',
+                url: '/inventory/product-return/list'
+            },
+            {
                 id: 'purchase-order',
                 title: 'Purchase Orders',
                 type: 'item',

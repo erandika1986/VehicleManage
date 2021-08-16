@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 @import "src/@fuse/scss/fuse";
 
-po-list {
+inventory-list {
     #p-orders {
         .top-bg {
             @include media-breakpoint("lt-md") {
@@ -83,47 +83,43 @@ po-list {
             border-bottom-style: none !important;
         }
 
-        .mat-column-poNumber {
-            flex: 0 1 200px;
+        .mat-column-productImage {
+            flex: 0 1 100px !important;
+            text-align: center;
+            align-items: center !important;
+
+            .product-image {
+                width: 52px !important;
+                height: 52px !important;
+                border: 1px solid rgba(0, 0, 0, 0.12);
+            }
         }
 
-        .mat-column-status {
+        .mat-column-categoryName {
+            flex: 0 1 160px;
+        }
+
+        .mat-column-subCategoryName {
+            flex: 0 1 180px;
+        }
+
+        .mat-column-productName {
             flex: 0 1 200px;
         }
 
         .mat-column-supplierName {
-            flex: 0 1 200px;
+            flex: 0 1 180px;
         }
 
-        .mat-column-warehouseName {
-            flex: 0 1 200px;
-        }
-
-        .mat-column-date {
-            flex: 0 1 200px;
-        }
-
-        .mat-column-subTotal {
+        .mat-column-totalItemRecieved {
             flex: 0 1 150px;
         }
 
-        .mat-column-discount {
+        .mat-column-qtyInHand {
             flex: 0 1 150px;
         }
 
-        .mat-column-taxRate {
-            flex: 0 1 150px;
-        }
-
-        .mat-column-totalTaxAmount {
-            flex: 0 1 150px;
-        }
-
-        .mat-column-shippingCharges {
-            flex: 0 1 150px;
-        }
-
-        .mat-column-total {
+        .mat-column-totalItemReturn {
             flex: 0 1 150px;
         }
 

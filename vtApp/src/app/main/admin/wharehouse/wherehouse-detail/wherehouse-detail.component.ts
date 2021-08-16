@@ -32,7 +32,7 @@ constructor(public matDialogRef: MatDialogRef<WherehouseDetailComponent>,
   @Inject(MAT_DIALOG_DATA) private _data: any) {
   this.warehouse = _data.warehouse;
   this.action = _data.action;
-console.log(this.warehouse);
+
 
   if (this.action === 'edit') {
     this.dialogTitle = "Edit Warehouse";

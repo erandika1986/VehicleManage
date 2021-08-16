@@ -17,6 +17,7 @@ namespace VehicleTracker.ViewModel.Inventory
     public int Id { get; set; }
     public int WarehouseId { get; set; }
     public int PuchaseOrderId { get; set; }
+    public int SupplierId { get; set; }
     public List<InventoryViewModel> Inventories { get; set; }
   }
   public class InventoryViewModel
@@ -32,7 +33,8 @@ namespace VehicleTracker.ViewModel.Inventory
     public string ProductName { get; set; }
     public int ProductId { get; set; }
     public int TotalOrderedQty { get; set; }
-    public int RecievedQty { get; set; }
+    public int AlreadyRecievedQty { get; set; }
+    public int CurrentReceivedQty { get; set; }
     public bool IsActive { get; set; }
   }
 

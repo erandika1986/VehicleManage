@@ -12,9 +12,10 @@ import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { InventoryBasicDetailModel } from 'app/models/inventory/inventory.basic.detail.model';
 import { InventoryService } from 'app/services/inventory/inventory.service';
 import { InventoryFilter } from '../../../../models/inventory/inventory.filter.model';
+import { AddInventoryComponent } from '../add-inventory/add-inventory.component';
 
 @Component({
-  selector: 'app-inventory-list',
+  selector: 'inventory-list',
   templateUrl: './inventory-list.component.html',
   styleUrls: ['./inventory-list.component.scss'],
   animations: fuseAnimations,
@@ -55,17 +56,32 @@ export class InventoryListComponent implements OnInit {
     this.getMasterData();
   }
 
-  addNew() {
+  viewReturn(item: InventoryBasicDetailModel) {
     //this._router.navigate(['inventory/purchase-order/list/' + 0 ]);
   }
 
-  edit(item: InventoryBasicDetailModel) {
+  viewStockDetails(item: InventoryBasicDetailModel) {
 
     //this._router.navigate(['inventory/purchase-order/list/' + item.id ]);
   }
 
-  delete(item: InventoryBasicDetailModel) {
+  addNewInventory() {
+    this.dialogRef = this._matDialog.open(AddInventoryComponent, {
+      panelClass: 'route-form-dialog',
+      data: {
+        action: "add"
+      }
+    });
 
+    this.dialogRef.afterClosed()
+      .subscribe(response => {
+        if (!response) {
+          return;
+        }
+
+
+
+      });
   }
 
   getMasterData()

@@ -7,5 +7,6 @@ export class POInventoryReceievedDetailModel {
     id:number;
     warehouseId:number;
     puchaseOrderId:number;
+    supplierId:number;
     inventories:InventoryModel[];
 }

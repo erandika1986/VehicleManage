@@ -14,8 +14,10 @@ namespace VehicleTracker.ViewModel.Inventory
       Suppliers = new List<DropDownViewModal>();
       Warehouses = new List<DropDownViewModal>();
       ProductCategories = new List<DropDownViewModal>();
+      ActivePurchaseOrders = new List<DropDownViewModal>();
     }
 
+    public List<DropDownViewModal> ActivePurchaseOrders { get; set; }
     public List<DropDownViewModal> Suppliers { get; set; }
     public List<DropDownViewModal> Warehouses { get; set; }
     public List<DropDownViewModal> ProductCategories { get; set; }
