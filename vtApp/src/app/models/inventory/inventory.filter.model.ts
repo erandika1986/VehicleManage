@@ -1,5 +1,8 @@
 export class InventoryFilter {
 
     selectedSupplierId:number;
-    selectedWarehouseNameId:number;
+    selectedProductCategoryId:number;
+    selectedProductSubCategoryId:number;
+    selectedProductId:number;
+
 }

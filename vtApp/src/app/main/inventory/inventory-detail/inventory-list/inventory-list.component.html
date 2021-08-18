@@ -64,7 +64,7 @@
                 class="add-product-button fuse-white mt-24 mt-md-0"
                 matTooltip="Add new route."
             >
-                <span>ADD NEW</span>
+                <span>Add New Inventory</span>
             </button>
             <!-- / ADD BUTTON -->
         </div>
@@ -138,9 +138,26 @@
 
                 <!-- Product Category -->
                 <ng-container matColumnDef="categoryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header
-                        >Product Category</mat-header-cell
+                    <mat-header-cell
+                        *matHeaderCellDef
+                        style="padding: 5px !important"
                     >
+                        <mat-form-field appearance="outline" class="w-100-p">
+                            <mat-label>Product Category</mat-label>
+                            <mat-select
+                                [(ngModel)]="filter.selectedProductCategoryId"
+                                (selectionChange)="filterChanged()"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let item of productCategories"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-header-cell>
                     <mat-cell *matCellDef="let item">
                         <p class="text-truncate">{{ item.categoryName }}</p>
                     </mat-cell>

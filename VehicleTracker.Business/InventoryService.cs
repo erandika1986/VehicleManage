@@ -33,7 +33,7 @@ namespace VehicleTracker.Business
       this._logger = logger;
     }
 
-    public async Task<ResponseViewModel> AddNewInventoryRecords(POInventoryReceievedDetail pOInventoryReceievedDetail, string userName)
+    public async Task<ResponseViewModel> AddNewInventoryRecords(POInventoryReceievedDetail vm, string userName)
     {
       var response = new ResponseViewModel();
 
@@ -41,24 +41,21 @@ namespace VehicleTracker.Business
       {
         var user = _userService.GetUserByUsername(userName);
 
-        foreach (var item in pOInventoryReceievedDetail.Inventories)
+        foreach (var item in vm.Inventories)
         {
-
-          var productInventory = _db.ProductInventories.FirstOrDefault(x => x.Id == item.Id);
-
-          if (productInventory == null)
+          if (item.CurrentReceivedQty > 0)
           {
-            productInventory = new ProductInventory()
+            var productInventory = new ProductInventory()
             {
               ProductId = item.ProductId,
-              WarehouseId = pOInventoryReceievedDetail.WarehouseId,
-              ReceivedQty = item.AlreadyRecievedQty,
+              WarehouseId = vm.WarehouseId,
+              ReceivedQty = item.CurrentReceivedQty,
               BatchNo = item.BatchNo,
               DateOfManufacture = item.DateOfManufacture,
               DateOfExpiration = item.DateOfExpiration,
               Action = 0,
               IsActive = true,
-              PurchaseOrderId = pOInventoryReceievedDetail.PuchaseOrderId,
+              PurchaseOrderId = vm.PuchaseOrderId,
               UdatedById = user.Id,
               UpdatedOn = DateTime.UtcNow,
               CreatedById = user.Id,
@@ -67,23 +64,14 @@ namespace VehicleTracker.Business
 
             _db.ProductInventories.Add(productInventory);
           }
-          else
-          {
-            productInventory.WarehouseId = pOInventoryReceievedDetail.WarehouseId;
-            productInventory.ReceivedQty = item.AlreadyRecievedQty;
-            productInventory.BatchNo = item.BatchNo;
-            productInventory.DateOfManufacture = item.DateOfManufacture;
-            productInventory.DateOfExpiration = item.DateOfExpiration;
-            productInventory.UdatedById = user.Id;
-            productInventory.UpdatedOn = DateTime.UtcNow;
-
-
-            _db.ProductInventories.Update(productInventory);
-
-          }
         }
 
         await _db.SaveChangesAsync();
+
+        await FullFillPO(vm.PuchaseOrderId, user);
+
+        response.IsSuccess = true;
+        response.Message = "Inventory has updated with provided figures.";
       }
       catch(Exception ex)
       {
@@ -125,34 +113,6 @@ namespace VehicleTracker.Business
         response.Inventories.Add(inventoryItem);
       }
 
-      //if (po.ProductInventories.Count()>0)
-      //{
-
-
-      //}
-      //else
-      //{
-      //  var existingInventories = po.ProductInventories.OrderBy(x => x.Product.ProductName).ToList();
-
-      //  foreach (var item in existingInventories)
-      //  {
-      //    var inventoryItem = new InventoryViewModel()
-      //    {
-      //      SupplierName = item.Product.Supplier.Name,
-      //      ProductName = item.Product.ProductName,
-      //      ProductCategoryName = item.Product.SubProductCategory.ProductCategory.Name,
-      //      ProductSubCategoryName = item.Product.SubProductCategory.Name,
-      //      Id = item.Id,
-      //      IsActive = true,
-      //      ProductId = item.ProductId,
-      //      AlreadyRecievedQty = item.ReceivedQty,
-      //      TotalOrderedQty = po.PurchaseOrderDetails.Where(p=>p.ProductId==item.ProductId).Sum(x=>x.Qty)
-      //    };
-
-      //    response.Inventories.Add(inventoryItem);
-      //  }
-      //}
-
       return response;
     }
 
@@ -193,11 +153,27 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public List<InventoryBasicDetail> GetProductInvetorySummary()
+    public List<InventoryBasicDetail> GetProductInvetorySummary(InventoryFilter filter)
     {
       var response = new List<InventoryBasicDetail>();
 
       var products = _db.Products.Where(x => x.IsActive == true).OrderBy(x => x.ProductName);
+
+      if(filter.SelectedSupplierId>0)
+      {
+        products = products.Where(x => x.SupplierId == filter.SelectedSupplierId).OrderBy(x => x.ProductName);
+      }
+
+
+      if(filter.SelectedProductSubCategoryId>0)
+      {
+        products = products.Where(x => x.SubProductCategoryId == filter.SelectedProductSubCategoryId).OrderBy(x => x.ProductName);
+      }
+
+      if(filter.SelectedProductId>0)
+      {
+        products = products.Where(x => x.Id == filter.SelectedProductId).OrderBy(x => x.ProductName);
+      }
 
       foreach (var item in products)
       {
@@ -240,11 +216,53 @@ namespace VehicleTracker.Business
         response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
       }
 
+      response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+
       var activePos = _db.PurchaseOrders.Where(x => x.Status == (int)POStatus.Released || x.Status == (int)POStatus.Received).OrderByDescending(p=>p.CreatedOn);
 
       response.ActivePurchaseOrders.AddRange(activePos.Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Ponumber }).ToList());
 
       return response;
+    }
+
+    private async Task<bool> FullFillPO(int poId,User updatedUser)
+    {
+
+      var isFullFilled = true;
+
+      var po = _db.PurchaseOrders.FirstOrDefault(x => x.Id == poId);
+
+      var poProducts = po.PurchaseOrderDetails.GroupBy(x => x.ProductId).Select(p => new { ProductId = p.Key, ProductList = p.ToList() }).ToList();
+
+      foreach (var item in poProducts)
+      {
+        var inventoryCount = po.ProductInventories.Where(x => x.ProductId == item.ProductId).Sum(x => x.ReceivedQty);
+
+        if(inventoryCount< item.ProductList.Sum(x=>x.Qty))
+        {
+          isFullFilled = false;
+
+          po.Status = (int)POStatus.Received;
+          po.UpdatedOn = DateTime.UtcNow;
+          po.UpdatedById = updatedUser.Id;
+
+          _db.PurchaseOrders.Update(po);
+
+          await _db.SaveChangesAsync();
+
+          return isFullFilled;
+        }
+      }
+
+      po.Status = (int)POStatus.Closed;
+      po.UpdatedOn = DateTime.UtcNow;
+      po.UpdatedById = updatedUser.Id;
+
+      _db.PurchaseOrders.Update(po);
+
+      await _db.SaveChangesAsync();
+
+      return isFullFilled;
     }
   }
 }

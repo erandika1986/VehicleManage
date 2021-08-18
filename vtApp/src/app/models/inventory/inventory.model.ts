@@ -6,8 +6,8 @@ export class InventoryModel {
     id:number;
     dateRecieved:Date;
     batchNo:string;
-    dateOfManufacture:Date;
-    dateOfExpiration:Date;
+    dateOfManufacture?:Date;
+    dateOfExpiration?:Date;
     productCategoryName:string;
     productSubCategoryName:string;
     supplierName:string;
@@ -18,14 +18,15 @@ export class InventoryModel {
     currentReceivedQty:number;
     isActive:boolean;
 
+
     static asFormGroup(item: InventoryModel, isDisable: boolean): FormGroup {
 
         const fg = new FormGroup({
             id: new FormControl(item.id),
             batchNo:new FormControl(item.batchNo),
-            dateRecieved: new FormControl(new Date(item.dateRecieved)),
+            dateRecieved: new FormControl(new Date()),
             dateOfManufacture: new FormControl(new Date(item.dateOfManufacture)),
-            dateOfExpiration: new FormControl(new Date(item.dateOfExpiration)),
+            dateOfExpiration: new FormControl(null),
             productCategoryName: new FormControl(item.productCategoryName),
             productSubCategoryName: new FormControl(item.productSubCategoryName),
             supplierName: new FormControl(item.supplierName),
@@ -41,6 +42,13 @@ export class InventoryModel {
         fg.get("productId").disable();
         fg.get("totalOrderedQty").disable();
         fg.get("alreadyRecievedQty").disable();
+
+        if(item.alreadyRecievedQty>=item.totalOrderedQty)
+        {
+            fg.get("currentReceivedQty").disable();
+            fg.get("batchNo").disable();
+            fg.get("dateOfExpiration").disable();
+        }
 
         if (isDisable) {
             fg.get("batchNo").disable();

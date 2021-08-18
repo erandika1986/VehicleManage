@@ -29,6 +29,8 @@ export class InventoryListComponent implements OnInit {
   dataSource = new MatTableDataSource([]);
   filter:InventoryFilter = new InventoryFilter();
   suppliers:DropDownModel[]=[];
+  productCategories:DropDownModel[]=[];
+  productSubCategories:DropDownModel[]=[];
   warehouses:DropDownModel[]=[];
   
   dialogRef: any;
@@ -49,7 +51,10 @@ export class InventoryListComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _inventoryService:  InventoryService) { 
       this.filter.selectedSupplierId=0;
-      this.filter.selectedWarehouseNameId =0;
+      this.filter.selectedProductCategoryId=0;
+      this.filter.selectedProductSubCategoryId=0;
+      this.filter.selectedProductId;
+      //this.filter.selectedWarehouseNameId =0;
     }
 
   ngOnInit(): void {
@@ -96,9 +101,10 @@ export class InventoryListComponent implements OnInit {
           firstItem.name="--All--";
           response.suppliers.unshift(firstItem);
           response.warehouses.unshift(firstItem);
-
+          response.productCategories.unshift(firstItem);
           this.suppliers = response.suppliers;
           this.warehouses = response.warehouses;
+          this.productCategories= response.productCategories;
 
 
           this.loadAll();
@@ -115,7 +121,7 @@ export class InventoryListComponent implements OnInit {
 
   loadAll() {
     this._fuseProgressBarService.show();
-    this._inventoryService.getProductInvetorySummary()
+    this._inventoryService.getProductInvetorySummary(this.filter)
       .subscribe(response => {
         this._fuseProgressBarService.hide();
         console.log(response);

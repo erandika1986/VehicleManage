@@ -10,7 +10,7 @@ namespace VehicleTracker.Business.Interfaces
 {
   public interface IInventoryService
   {
-    List<InventoryBasicDetail> GetProductInvetorySummary();
+    List<InventoryBasicDetail> GetProductInvetorySummary(InventoryFilter filter);
     Task<ResponseViewModel> AddNewInventoryRecords(POInventoryReceievedDetail pOInventoryReceievedDetail, string userName);
     Task<ResponseViewModel> DeleteInventory(int id);
     POInventoryReceievedDetail GetInventoryDetailsForPO(int poId);

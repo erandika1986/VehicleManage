@@ -8,6 +8,7 @@ import { POInventoryReceievedDetailModel } from 'app/models/inventory/po.invento
 import { InventoryModel } from 'app/models/inventory/inventory.model';
 import { InventoryService } from 'app/services/inventory/inventory.service';
 import { BehaviorSubject } from 'rxjs';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-add-inventory',
@@ -42,6 +43,7 @@ export class AddInventoryComponent implements OnInit {
   constructor(public matDialogRef: MatDialogRef<AddInventoryComponent>, 
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _formBuilder: FormBuilder,
+    private _fuseProgressBarService: FuseProgressBarService,
     private inventoryService:InventoryService) 
     { 
       this.dialogTitle="Add New Inventory";
@@ -51,6 +53,7 @@ export class AddInventoryComponent implements OnInit {
         warehouseId: [0],
         puchaseOrderId: [0],
         supplierId: [0],
+        id:[0]
       });
     }
 
@@ -86,12 +89,25 @@ export class AddInventoryComponent implements OnInit {
         const cf = this.inventoryDetail.inventories.map((value, index) => { return InventoryModel.asFormGroup(value, this.isViewOnly) });
         const fArray = new FormArray(cf);
         this.inventoryForm.setControl('inventories', fArray);
+        this.inventoryForm.get("id").patchValue(0);
         this.inventoryForm.get("warehouseId").patchValue(this.selectedWarehouseId);
         this.inventoryForm.get("puchaseOrderId").patchValue(response.puchaseOrderId);
         this.inventoryForm.get("supplierId").patchValue(this.selectedSupplierId);
         this.updateView();
       },error=>{
 
+      });
+  }
+
+  saveInventoryData()
+  {
+    this._fuseProgressBarService.show();
+    console.log(this.inventoryForm.getRawValue());
+    this.inventoryService.addNewInventoryRecords(this.inventoryForm.getRawValue())
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+      },error=>{
+        this._fuseProgressBarService.hide();
       });
   }
 

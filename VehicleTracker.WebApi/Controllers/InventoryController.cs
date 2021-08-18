@@ -24,21 +24,21 @@ namespace VehicleTracker.WebApi.Controllers
     }
 
 
-    [HttpGet]
+    [HttpPost]
     [Route("getProductInvetorySummary")]
-    public IActionResult GetProductInvetorySummary()
+    public IActionResult GetProductInvetorySummary(InventoryFilter filter)
     {
-      var response = inventoryService.GetProductInvetorySummary();
+      var response = inventoryService.GetProductInvetorySummary(filter);
 
       return Ok(response);
     }
 
     [HttpPost]
     [Route("addNewInventoryRecords")]
-    public async Task<IActionResult> AddNewInventoryRecords(POInventoryReceievedDetail pOInventoryReceievedDetail)
+    public async Task<IActionResult> AddNewInventoryRecords(POInventoryReceievedDetail vm)
     {
       var userName = identityService.GetUserName();
-      var response = await inventoryService.AddNewInventoryRecords(pOInventoryReceievedDetail, userName);
+      var response = await inventoryService.AddNewInventoryRecords(vm, userName);
 
       return Ok(response);
     }

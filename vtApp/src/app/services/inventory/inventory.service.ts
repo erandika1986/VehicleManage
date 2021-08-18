@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
 import { InventoryBasicDetailModel } from 'app/models/inventory/inventory.basic.detail.model';
+import { InventoryFilter } from 'app/models/inventory/inventory.filter.model';
 import { InventoryMasterDataModel } from 'app/models/inventory/inventory.master.data.model';
 import { POInventoryReceievedDetailModel } from 'app/models/inventory/po.inventory.receieved.detail.model';
 import { environment } from 'environments/environment';
@@ -12,11 +14,15 @@ import { Observable } from 'rxjs';
 })
 export class InventoryService {
 
+  selectedCategoryId:number=0;
+  selectedSubCategoryId:number=0;
+  selectedProductId:number=0;
+
   constructor(private httpClient: HttpClient) { }
 
-  getProductInvetorySummary(): Observable<InventoryBasicDetailModel[]> {
+  getProductInvetorySummary(filter:InventoryFilter): Observable<InventoryBasicDetailModel[]> {
     return this.httpClient.
-      get<InventoryBasicDetailModel[]>(environment.apiUrl + 'Inventory/getProductInvetorySummary');
+      post<InventoryBasicDetailModel[]>(environment.apiUrl + 'Inventory/getProductInvetorySummary',filter);
   }
 
   getInventoryDetailsForPO(poId: number): Observable<POInventoryReceievedDetailModel> {
@@ -37,5 +43,11 @@ export class InventoryService {
   getInventoryMasterData(): Observable<InventoryMasterDataModel> {
     return this.httpClient.
       get<InventoryMasterDataModel>(environment.apiUrl + 'Inventory/getInventoryMasterData');
+  }
+
+  getProductSubCategories(categoryId:number): Observable<DropDownModel[]> {
+    this.selectedCategoryId=categoryId;
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Product/getProductSubCategories/'+categoryId);
   }
 }
