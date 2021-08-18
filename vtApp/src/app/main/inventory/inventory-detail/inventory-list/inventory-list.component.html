@@ -146,7 +146,9 @@
                             <mat-label>Product Category</mat-label>
                             <mat-select
                                 [(ngModel)]="filter.selectedProductCategoryId"
-                                (selectionChange)="filterChanged()"
+                                (selectionChange)="
+                                    productCategoryChanged($event.value)
+                                "
                                 required
                             >
                                 <mat-option
@@ -165,8 +167,29 @@
 
                 <!-- Product Sub Category -->
                 <ng-container matColumnDef="subCategoryName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header
-                        >Product Sub Category</mat-header-cell
+                    <mat-header-cell
+                        *matHeaderCellDef
+                        style="padding: 5px !important"
+                    >
+                        <mat-form-field appearance="outline" class="w-100-p">
+                            <mat-label>Product Sub Category</mat-label>
+                            <mat-select
+                                [(ngModel)]="
+                                    filter.selectedProductSubCategoryId
+                                "
+                                (selectionChange)="
+                                    productSubCategoryChanged($event.value)
+                                "
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let item of productSubCategories"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field></mat-header-cell
                     >
                     <mat-cell *matCellDef="let item">
                         <p class="text-truncate">{{ item.subCategoryName }}</p>

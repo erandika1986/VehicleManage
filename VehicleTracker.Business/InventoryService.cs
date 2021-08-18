@@ -164,6 +164,11 @@ namespace VehicleTracker.Business
         products = products.Where(x => x.SupplierId == filter.SelectedSupplierId).OrderBy(x => x.ProductName);
       }
 
+      if(filter.SelectedProductCategoryId>0)
+      {
+        products = products.Where(x => x.SubProductCategory.ProductCategoryId == filter.SelectedProductCategoryId).OrderBy(x => x.ProductName);
+      }
+
 
       if(filter.SelectedProductSubCategoryId>0)
       {

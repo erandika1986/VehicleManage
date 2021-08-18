@@ -36,7 +36,7 @@ export class InventoryListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-  displayedColumns = ["buttons", "productImage","categoryName","subCategoryName","productName","supplierName","totalItemRecieved","qtyInHand","totalItemReturn"];
+  displayedColumns = ["buttons", "productImage","supplierName","categoryName","subCategoryName","productName","totalItemRecieved","qtyInHand","totalItemReturn"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -105,6 +105,7 @@ export class InventoryListComponent implements OnInit {
           this.suppliers = response.suppliers;
           this.warehouses = response.warehouses;
           this.productCategories= response.productCategories;
+          this.productSubCategories.unshift(firstItem);
 
 
           this.loadAll();
@@ -114,6 +115,31 @@ export class InventoryListComponent implements OnInit {
   }
 
   filterChanged()
+  {
+    this.loadAll();
+  }
+
+
+  productCategoryChanged(item:any)
+  {
+    this._inventoryService.getProductSubCategories(item)
+    .subscribe(response=>{
+      this._fuseProgressBarService.hide();
+
+/*       let firstItem = new DropDownModel();
+      firstItem.id=0;
+      firstItem.name="--All--"; 
+      response.unshift(firstItem);*/
+      this.productSubCategories = response;
+      this.filter.selectedProductSubCategoryId =this.productSubCategories[0].id;
+
+      this.loadAll();
+    },error=>{
+      this._fuseProgressBarService.hide();
+    });
+  }
+
+  productSubCategoryChanged(item:any)
   {
     this.loadAll();
   }
