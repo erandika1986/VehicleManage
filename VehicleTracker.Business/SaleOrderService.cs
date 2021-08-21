@@ -157,6 +157,24 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public SalesOrderMasterDataViewModel GetSalesOrderMasterData()
+    {
+      var response = new SalesOrderMasterDataViewModel();
+
+      response.Statuses = _db.SalesOrderStatuses.Where(x => x.IsActive == true).Select(s => new DropDownViewModal() { Id = s.Id, Name = s.Name }).ToList();
+
+      response.SalesPerson = _db.UserRoles.Where(x => x.RoleId == 4)
+        .Select(u => new DropDownViewModal()
+        {
+          Id = u.User.Id,
+          Name= string.Format("{0} {1}",u.User.FirstName,u.User.LastName)
+        }).ToList();
+
+      response.Customers = _db.Clients.Where(x => x.IsActive == true).Select(c => new DropDownViewModal { Id = c.Id, Name = c.Name }).ToList();
+
+      return response;
+    }
+
     public async Task<ResponseViewModel> SaveSalesOrder(SalesOrderViewModel vm, User loggedInUser)
     {
       var response = new ResponseViewModel();

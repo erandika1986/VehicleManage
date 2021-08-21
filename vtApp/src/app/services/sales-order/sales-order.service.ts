@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ResponseModel } from 'app/models/common/response.model';
 import { BasicSalesOrderDetailModel } from 'app/models/sales-order/basic.sales.order.detail.model';
 import { SalesOrderFilter } from 'app/models/sales-order/sales.order.filter';
+import { SalesOrderMasterDataModel } from 'app/models/sales-order/sales.order.master.data.model';
 import { SalesOrderModel } from 'app/models/sales-order/sales.order.model';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
@@ -32,5 +33,10 @@ export class SalesOrderService {
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSalesOrder/' + id);
+  }
+
+  getSalesOrderMasterData(): Observable<SalesOrderMasterDataModel> {
+    return this.httpClient.
+      get<SalesOrderMasterDataModel>(environment.apiUrl + 'SalesOrder/getSalesOrderMasterData');
   }
 }

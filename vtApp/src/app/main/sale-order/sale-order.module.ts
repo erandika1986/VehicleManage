@@ -7,6 +7,8 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MaterialModule } from 'app/MaterialModule';
 import { SharedModule } from 'app/shared/shared.module';
+import { MainComponent } from './sidebars/main/main.component';
+import { SaleOrdersComponent } from './sale-orders.component';
 
 const routes: Routes = [
   {
@@ -28,7 +30,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     SaleOrderListComponent,
-    SaleOrderDetailComponent
+    SaleOrderDetailComponent,
+    MainComponent,
+    SaleOrdersComponent
   ],
   imports: [
     RouterModule.forChild(routes),

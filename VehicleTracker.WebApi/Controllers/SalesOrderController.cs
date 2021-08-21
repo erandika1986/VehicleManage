@@ -66,5 +66,14 @@ namespace VehicleTracker.WebApi.Controllers
 
       return Ok(response);
     }
+
+    [HttpGet]
+    [Route("getSalesOrderMasterData")]
+    public IActionResult  GetSalesOrderMasterData()
+    {
+      var response =  saleOrderService.GetSalesOrderMasterData();
+
+      return Ok(response);
+    }
   }
 }
