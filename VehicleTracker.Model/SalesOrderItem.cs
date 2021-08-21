@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VehicleTracker.Model
 {
-    public partial class OrderItem
+    public partial class SalesOrderItem
     {
         public long Id { get; set; }
         public long OrderId { get; set; }
@@ -14,6 +14,6 @@ namespace VehicleTracker.Model
         public decimal UnitPrice { get; set; }
         public decimal Total { get; set; }
 
-        public virtual Order Order { get; set; }
+        public virtual SalesOrder Order { get; set; }
     }
 }

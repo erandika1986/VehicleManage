@@ -61,8 +61,8 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'order',
-        loadChildren: () => import('./main/order/order.module').then(m => m.OrderModule),
+        path: 'sale-order',
+        loadChildren: () => import('./main/sale-order/sale-order.module').then(m => m.SaleOrderModule),
         canActivate: [AuthGuard]
     },
     {

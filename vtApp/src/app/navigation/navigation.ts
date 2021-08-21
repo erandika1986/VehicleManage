@@ -63,7 +63,7 @@ export const navigation: FuseNavigation[] = [
                 title: 'Sales Order',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
+                url: '/sale-order/list'
             }
         ]
     },

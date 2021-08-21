@@ -29,7 +29,7 @@ namespace VehicleTracker.Model
         public virtual Client Client { get; set; }
         public virtual User CreatedBy { get; set; }
         public virtual Product Product { get; set; }
-        public virtual Order SaleOrder { get; set; }
+        public virtual SalesOrder SaleOrder { get; set; }
         public virtual User UpdatedBy { get; set; }
         public virtual ICollection<ProductInventory> ProductInventories { get; set; }
     }

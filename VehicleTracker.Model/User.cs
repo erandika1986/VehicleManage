@@ -15,8 +15,6 @@ namespace VehicleTracker.Model
             CustomerProductPriceUpdatedBies = new HashSet<CustomerProductPrice>();
             DailyVehicleBeatCreatedByNavigations = new HashSet<DailyVehicleBeat>();
             DailyVehicleBeatUpdatedByNavigations = new HashSet<DailyVehicleBeat>();
-            OrderCreatedBies = new HashSet<Order>();
-            OrderUpdatedBies = new HashSet<Order>();
             ProductCreatedBies = new HashSet<Product>();
             ProductInventoryCreatedBies = new HashSet<ProductInventory>();
             ProductInventoryOrderCreatedBies = new HashSet<ProductInventoryOrder>();
@@ -28,6 +26,8 @@ namespace VehicleTracker.Model
             PurchaseOrderCreatedBies = new HashSet<PurchaseOrder>();
             PurchaseOrderSendingHistories = new HashSet<PurchaseOrderSendingHistory>();
             PurchaseOrderUpdatedBies = new HashSet<PurchaseOrder>();
+            SalesOrderCreatedBies = new HashSet<SalesOrder>();
+            SalesOrderUpdatedBies = new HashSet<SalesOrder>();
             SupplierCreatedBies = new HashSet<Supplier>();
             SupplierUpdatedBies = new HashSet<Supplier>();
             UserRoles = new HashSet<UserRole>();
@@ -83,8 +83,6 @@ namespace VehicleTracker.Model
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBies { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigations { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigations { get; set; }
-        public virtual ICollection<Order> OrderCreatedBies { get; set; }
-        public virtual ICollection<Order> OrderUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductCreatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }
         public virtual ICollection<ProductInventoryOrder> ProductInventoryOrderCreatedBies { get; set; }
@@ -96,6 +94,8 @@ namespace VehicleTracker.Model
         public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBies { get; set; }
         public virtual ICollection<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBies { get; set; }
+        public virtual ICollection<SalesOrder> SalesOrderCreatedBies { get; set; }
+        public virtual ICollection<SalesOrder> SalesOrderUpdatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierCreatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierUpdatedBies { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }

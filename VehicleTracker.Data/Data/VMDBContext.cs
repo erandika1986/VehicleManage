@@ -26,8 +26,6 @@ namespace VehicleTracker.Data
     public virtual DbSet<EgineCoolant> EgineCoolants { get; set; }
     public virtual DbSet<EngineOilCode> EngineOilCodes { get; set; }
     public virtual DbSet<GearBoxOilCode> GearBoxOilCodes { get; set; }
-    public virtual DbSet<Order> Orders { get; set; }
-    public virtual DbSet<OrderItem> OrderItems { get; set; }
     public virtual DbSet<PowerSteeringOilCode> PowerSteeringOilCodes { get; set; }
     public virtual DbSet<Product> Products { get; set; }
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
@@ -42,6 +40,9 @@ namespace VehicleTracker.Data
     public virtual DbSet<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Route> Routes { get; set; }
+    public virtual DbSet<SalesOrder> SalesOrders { get; set; }
+    public virtual DbSet<SalesOrderItem> SalesOrderItems { get; set; }
+    public virtual DbSet<SalesOrderStatus> SalesOrderStatuses { get; set; }
     public virtual DbSet<Supplier> Suppliers { get; set; }
     public virtual DbSet<TimeZoneDetail> TimeZoneDetails { get; set; }
     public virtual DbSet<User> Users { get; set; }
@@ -255,60 +256,6 @@ namespace VehicleTracker.Data
         entity.Property(e => e.Code)
             .IsRequired()
             .HasMaxLength(50);
-      });
-
-      modelBuilder.Entity<Order>(entity =>
-      {
-        entity.ToTable("Order");
-
-        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-        entity.Property(e => e.DeliveredDate).HasColumnType("datetime");
-
-        entity.Property(e => e.IsActive)
-            .IsRequired()
-            .HasDefaultValueSql("((1))");
-
-        entity.Property(e => e.OrderDate).HasColumnType("datetime");
-
-        entity.Property(e => e.OrderNumber)
-            .IsRequired()
-            .HasMaxLength(50);
-
-        entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
-
-        entity.HasOne(d => d.CreatedBy)
-            .WithMany(p => p.OrderCreatedBies)
-            .HasForeignKey(d => d.CreatedById)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_Order_User");
-
-        entity.HasOne(d => d.Owner)
-            .WithMany(p => p.Orders)
-            .HasForeignKey(d => d.OwnerId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_Order_Client");
-
-        entity.HasOne(d => d.UpdatedBy)
-            .WithMany(p => p.OrderUpdatedBies)
-            .HasForeignKey(d => d.UpdatedById)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_Order_User1");
-      });
-
-      modelBuilder.Entity<OrderItem>(entity =>
-      {
-        entity.Property(e => e.Id).ValueGeneratedNever();
-
-        entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
-
-        entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
-
-        entity.HasOne(d => d.Order)
-            .WithMany(p => p.OrderItems)
-            .HasForeignKey(d => d.OrderId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_OrderItems_Order");
       });
 
       modelBuilder.Entity<PowerSteeringOilCode>(entity =>
@@ -701,6 +648,89 @@ namespace VehicleTracker.Data
             .HasMaxLength(250);
 
         entity.Property(e => e.TotalDistance).HasColumnType("decimal(6, 2)");
+      });
+
+      modelBuilder.Entity<SalesOrder>(entity =>
+      {
+        entity.ToTable("SalesOrder");
+
+        entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+        entity.Property(e => e.DeliveredDate).HasColumnType("datetime");
+
+        entity.Property(e => e.Discount).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.IsActive)
+            .IsRequired()
+            .HasDefaultValueSql("((1))");
+
+        entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+        entity.Property(e => e.OrderNumber)
+            .IsRequired()
+            .HasMaxLength(50);
+
+        entity.Property(e => e.ShippingCharge).HasColumnType("decimal(10, 4)");
+
+        entity.Property(e => e.SubTotal).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.TaxRate).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.TotalTaxAmount).HasColumnType("decimal(10, 2)");
+
+        entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+        entity.HasOne(d => d.CreatedBy)
+            .WithMany(p => p.SalesOrderCreatedBies)
+            .HasForeignKey(d => d.CreatedById)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Order_User");
+
+        entity.HasOne(d => d.Owner)
+            .WithMany(p => p.SalesOrders)
+            .HasForeignKey(d => d.OwnerId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Order_Client");
+
+        entity.HasOne(d => d.StatusNavigation)
+            .WithMany(p => p.SalesOrders)
+            .HasForeignKey(d => d.Status)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_SalesOrder_SalesOrderStatus");
+
+        entity.HasOne(d => d.UpdatedBy)
+            .WithMany(p => p.SalesOrderUpdatedBies)
+            .HasForeignKey(d => d.UpdatedById)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Order_User1");
+      });
+
+      modelBuilder.Entity<SalesOrderItem>(entity =>
+      {
+        entity.Property(e => e.Id).ValueGeneratedNever();
+
+        entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
+
+        entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
+
+        entity.HasOne(d => d.Order)
+            .WithMany(p => p.SalesOrderItems)
+            .HasForeignKey(d => d.OrderId)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_OrderItems_Order");
+      });
+
+      modelBuilder.Entity<SalesOrderStatus>(entity =>
+      {
+        entity.ToTable("SalesOrderStatus");
+
+        entity.Property(e => e.ColorCode).HasMaxLength(50);
+
+        entity.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(100);
       });
 
       modelBuilder.Entity<Supplier>(entity =>

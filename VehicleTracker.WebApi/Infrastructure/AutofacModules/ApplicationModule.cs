@@ -29,6 +29,10 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
           .As<IIdentityService>()
           .SingleInstance();
 
+      builder.RegisterType<LoggedInUserService>()
+          .As<ILoggedInUserService>()
+          .InstancePerLifetimeScope();
+
       builder.RegisterType<UserService>()
           .As<IUserService>()
           .InstancePerLifetimeScope();
@@ -123,6 +127,10 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
 
       builder.RegisterType<InventoryService>()
           .As<IInventoryService>()
+          .InstancePerLifetimeScope();
+
+      builder.RegisterType<SaleOrderService>()
+          .As<ISaleOrderService>()
           .InstancePerLifetimeScope();
 
     }

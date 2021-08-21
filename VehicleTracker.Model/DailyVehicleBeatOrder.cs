@@ -12,6 +12,6 @@ namespace VehicleTracker.Model
         public long OrderId { get; set; }
 
         public virtual DailyVehicleBeat DailyVehicleBeat { get; set; }
-        public virtual Order Order { get; set; }
+        public virtual SalesOrder Order { get; set; }
     }
 }
