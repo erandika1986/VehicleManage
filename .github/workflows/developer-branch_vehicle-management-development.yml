@@ -34,6 +34,11 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: App setting entriers to appsettings json file
+        uses: microsoft/variable-substitution@v1
+        with:
+          file: ${{env.DOTNET_ROOT}}/myapp/appsettings.json
+
   deploy:
     runs-on: windows-latest
     needs: build

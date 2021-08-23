@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: SaleOrderListComponent
+    component: SaleOrdersComponent
 
   },
   {

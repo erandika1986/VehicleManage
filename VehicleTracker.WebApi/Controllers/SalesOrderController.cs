@@ -57,6 +57,15 @@ namespace VehicleTracker.WebApi.Controllers
       return Ok(response);
     }
 
+    [HttpGet]
+    [Route("getSalesOrderById/{id}")]
+    public IActionResult GetSalesOrderById(long id)
+    {
+      var response =  saleOrderService.GetSalesOrderById(id);
+
+      return Ok(response);
+    }
+
     [HttpDelete]
     [Route("deleteSalesOrder/{id:int}")]
     public async Task<IActionResult> DeleteSalesOrder(int id)
@@ -73,6 +82,23 @@ namespace VehicleTracker.WebApi.Controllers
     {
       var response =  saleOrderService.GetSalesOrderMasterData();
 
+      return Ok(response);
+    }
+
+    [HttpGet]
+    [Route("getCustomersByRouteId/{id:int}")]
+    public IActionResult GetCustomersByRouteId(int id)
+    {
+      var response = saleOrderService.GetCustomersByRouteId(id);
+
+      return Ok(response);
+    }
+
+    [HttpGet]
+    [Route("getSalesOrderNumber")]
+    public async Task<ActionResult> GetSalesOrderNumber()
+    {
+      var response = await saleOrderService.GetSalesOrderNumber();
       return Ok(response);
     }
   }

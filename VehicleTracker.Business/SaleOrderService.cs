@@ -65,7 +65,12 @@ namespace VehicleTracker.Business
 
       var allSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true).OrderByDescending(s=>s.CreatedOn);
 
-      if(filters.SelectedCustomerId>0)
+      if (filters.SelectedRouteId > 0)
+      {
+        allSalesOrders = allSalesOrders.Where(x => x.Owner.RouteId == filters.SelectedRouteId).OrderByDescending(s => s.CreatedOn);
+      }
+
+      if (filters.SelectedCustomerId>0)
       {
         allSalesOrders= allSalesOrders.Where(x => x.OwnerId==filters.SelectedCustomerId).OrderByDescending(s => s.CreatedOn);
       }
@@ -113,6 +118,11 @@ namespace VehicleTracker.Business
       var response = new List<BasicSalesOrderDetailViewModel>();
 
       var allSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true && x.OwnerId==loggedInUser.Id).OrderByDescending(s => s.CreatedOn);
+
+      if(filters.SelectedRouteId>0)
+      {
+        allSalesOrders = allSalesOrders.Where(x=>x.Owner.RouteId==filters.SelectedRouteId).OrderByDescending(s => s.CreatedOn);
+      }
 
       if (filters.SelectedCustomerId > 0)
       {
@@ -170,9 +180,18 @@ namespace VehicleTracker.Business
           Name= string.Format("{0} {1}",u.User.FirstName,u.User.LastName)
         }).ToList();
 
-      response.Customers = _db.Clients.Where(x => x.IsActive == true).Select(c => new DropDownViewModal { Id = c.Id, Name = c.Name }).ToList();
+      response.Customers = _db.Clients.Where(x => x.IsActive == true).OrderBy(c => c.Name).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+
+      response.Routes = _db.Routes.Where(x => x.IsActive == true).Select(r => new DropDownViewModal() { Id = r.Id, Name = r.Name }).ToList();
+
+      response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).OrderBy(o=>o.Name).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
 
       return response;
+    }
+
+    public List<DropDownViewModal> GetCustomersByRouteId(int routeId)
+    {
+      return _db.Clients.Where(x => x.IsActive == true && x.RouteId==routeId).Select(c => new DropDownViewModal { Id = c.Id, Name = c.Name }).ToList();
     }
 
     public async Task<ResponseViewModel> SaveSalesOrder(SalesOrderViewModel vm, User loggedInUser)
@@ -267,6 +286,54 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public async Task<SalesOrderNumber> GetSalesOrderNumber()
+    {
+      var so = new SalesOrderNumber()
+      {
+        Number = await GenerateSalesOrderNumber()
+      };
+      return so;
+    }
+
+    public SalesOrderViewModel GetSalesOrderById(long id)
+    {
+      var response = new SalesOrderViewModel();
+
+      var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == id);
+
+      response.DeliverDate = salesOrder.DeliveredDate;
+      response.Discount = salesOrder.Discount;
+      response.Id = salesOrder.Id;
+      response.IsActive = true;
+      response.OrderDate = salesOrder.OrderDate;
+      response.OrderNumber = salesOrder.OrderNumber;
+      response.OwnerId = salesOrder.OwnerId;
+      response.ShippingCharge = salesOrder.ShippingCharge;
+      response.Status = salesOrder.Status;
+      response.SubTotal = salesOrder.SubTotal;
+      response.TaxRate = salesOrder.TaxRate;
+      response.TotalAmount = salesOrder.TotalAmount;
+      response.TotalTaxAmount = salesOrder.TotalTaxAmount;
+
+      foreach (var item in salesOrder.SalesOrderItems)
+      {
+        var salesOrderItem = new SalesOrderItemViewModel()
+        {
+          Id = item.Id,
+          ProductId = item.ProductId,
+          SalesOrderId = item.OrderId,
+          Qty = item.Qty,
+          Total = item.Total,
+          UnitPrice = item.UnitPrice
+        };
+
+        response.Items.Add(salesOrderItem);
+      }
+
+
+      return response;
+    }
+
     private void AddNewSalesOrderItems(SalesOrder salesOrder,List<SalesOrderItemViewModel> items)
     {
       foreach (var item in items)
@@ -282,5 +349,33 @@ namespace VehicleTracker.Business
         salesOrder.SalesOrderItems.Add(sitem);
       }
     }
+
+
+
+    private async Task<string> GenerateSalesOrderNumber()
+    {
+      string newPO = string.Empty;
+      var currentPO = _db.AppSettings.FirstOrDefault(x => x.Key == "SaleOrderNumber");
+
+      if (string.IsNullOrEmpty(currentPO.Value))
+      {
+        currentPO.Value = "000001";
+        _db.AppSettings.Update(currentPO);
+        await _db.SaveChangesAsync();
+      }
+      else
+      {
+        var value = int.Parse(currentPO.Value);
+        value++;
+        currentPO.Value = value.ToString().PadLeft(6, '0');
+        _db.AppSettings.Update(currentPO);
+        await _db.SaveChangesAsync();
+      }
+
+      newPO = $"SO-{currentPO.Value}";
+      return newPO;
+    }
+
+
   }
 }

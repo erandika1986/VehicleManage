@@ -3,7 +3,7 @@
     $foreground: map-get($theme, foreground);
     $is-dark: map-get($theme, is-dark);
 
-    #users {
+    #sales-order {
         .header {
             .search-wrapper {
                 background: map-get($background, card);

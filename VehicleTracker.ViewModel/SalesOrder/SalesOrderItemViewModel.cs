@@ -8,8 +8,8 @@ namespace VehicleTracker.ViewModel.SalesOrder
 {
   public class SalesOrderItemViewModel
   {
-    public int Id { get; set; }
-    public int SalesOrderId { get; set; }
+    public long Id { get; set; }
+    public long SalesOrderId { get; set; }
     public int ProductId { get; set; }
     public int Qty { get; set; }
     public decimal UnitPrice { get; set; }
