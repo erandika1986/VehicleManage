@@ -33,6 +33,10 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
           .As<ILoggedInUserService>()
           .InstancePerLifetimeScope();
 
+      builder.RegisterType<DropDownService>()
+          .As<IDropDownService>()
+          .InstancePerLifetimeScope();
+
       builder.RegisterType<UserService>()
           .As<IUserService>()
           .InstancePerLifetimeScope();

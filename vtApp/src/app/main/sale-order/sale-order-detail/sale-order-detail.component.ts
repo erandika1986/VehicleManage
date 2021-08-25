@@ -1,14 +1,16 @@
 import { DecimalPipe, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
+import { SalesOrderItemModel } from 'app/models/sales-order/sales.order.item.model';
 import { SalesOrderMasterDataModel } from 'app/models/sales-order/sales.order.master.data.model';
 import { SalesOrderModel } from 'app/models/sales-order/sales.order.model';
+import { DropdownService } from 'app/services/common/dropdown.service';
 import { SalesOrderService } from 'app/services/sales-order/sales-order.service';
 import { SupplierService } from 'app/services/supplier/supplier.service';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
@@ -37,6 +39,7 @@ export class SaleOrderDetailComponent implements OnInit {
   customers:DropDownModel[]=[];
   status:DropDownModel[]=[];
 
+
   permissionId: number;
   isViewOnly: boolean = false;
 
@@ -57,6 +60,7 @@ export class SaleOrderDetailComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(private _salesOrderService: SalesOrderService,
+    private _dropDownService:DropdownService,
     private _supplierService:SupplierService,
     private _route: ActivatedRoute,
     private decimalPipe: DecimalPipe,
@@ -65,7 +69,9 @@ export class SaleOrderDetailComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _location: Location,
     private _formBuilder: FormBuilder,
-    public _router: Router) { }
+    public _router: Router) {
+      this.salesOrder = new SalesOrderModel();
+     }
 
   ngOnInit(): void {
     this._activateRoute.params.subscribe(params => {
@@ -77,7 +83,7 @@ export class SaleOrderDetailComponent implements OnInit {
     });
 
 
-    this._salesOrderService.onSalesOrderChanged.subscribe(response=>{
+    this._salesOrderService.onSalesOrderDetailChanged.subscribe(response=>{
       
       let sum:number=0;
 
@@ -86,10 +92,10 @@ export class SaleOrderDetailComponent implements OnInit {
         sum = sum + total;    
       });
 
-/*       this.salesOrderStep3Form.get('subTotal').setValue(sum);
+       this.salesOrderStep3Form.get('subTotal').setValue(sum);
       let taxAmount = ((this.subTotal-this.discount)*this.taxRate)/100.00;
       this.salesOrderStep3Form.get('totalTaxAmout').setValue(taxAmount);
-      this.calculateTotal(); */
+      this.calculateTotal();
       
     });
   }
@@ -122,11 +128,106 @@ export class SaleOrderDetailComponent implements OnInit {
     this.makeForm3Subsriber();
   }
 
+
+
+  productCatgoryChanged(item:any,index:number)
+  {
+    this._fuseProgressBarService.show();
+    this._dropDownService.getProductSubCategories(item)
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+        this.salesOrder.items[index].subCategories = response;
+      },error=>{
+        this._fuseProgressBarService.hide();
+
+      })
+    
+  }
+
+  productSubCategoryChanged(item:any,index:number)
+  {
+    this._fuseProgressBarService.show();
+    this._dropDownService.getProducts(item)
+      .subscribe(response=>{
+        this._fuseProgressBarService.hide();
+        this.salesOrder.items[index].products = response;
+      },error=>{
+        this._fuseProgressBarService.hide();
+
+      })
+  }
+
+  addNewItem() {
+
+    const zeroPrice = this.decimalPipe.transform(
+      0,
+      "1.2-10"
+    );
+    
+      const fg = this._formBuilder.group({
+        id: new FormControl(0),
+        selectedCategoryId:new FormControl(null,Validators.required), 
+        selectedSubCategoryId:new FormControl(null,Validators.required), 
+        productId:new FormControl(null,Validators.required), 
+        description: new FormControl(''),
+        qty: new FormControl(0,Validators.required),
+        unitPrice: new FormControl(zeroPrice,Validators.required),
+        total: new FormControl(zeroPrice,Validators.required)
+    });
+
+    fg.get("qty").valueChanges.subscribe(value=>{
+
+      const tot = 
+      this.decimalPipe.transform(value*fg.get("unitPrice").value,
+      "1.2-2"
+    );
+        
+      fg.get("total").setValue(tot);
+      this._salesOrderService.onSalesOrderDetailChanged.next(true);
+      
+  });
+  
+  fg.get("unitPrice").valueChanges.subscribe(value=>{
+      const tot = 
+      this.decimalPipe.transform(value*fg.get("qty").value,
+      "1.2-2"
+    );
+      fg.get("total").setValue(tot);
+      this._salesOrderService.onSalesOrderDetailChanged.next(true);
+  });
+
+  if (this.isViewOnly) {
+    fg.get("selectedCategoryId").disable();
+    fg.get("selectedSubCategoryId").disable();
+    fg.get("productId").disable();
+    fg.get("qty").disable();
+    fg.get("unitPrice").disable();
+    fg.get("total").disable();
+  }
+
+  let salesOrderItem = new SalesOrderItemModel();
+  salesOrderItem.categories = this.masterData.productCategories;
+
+  if(!this.salesOrder.items)
+  {
+    this.salesOrder.items=[];
+  }
+
+  this.salesOrder.items.push(salesOrderItem);
+
+  (this.salesOrderStep2Form.get('items') as FormArray).push(fg);
+
+  this.table.renderRows();
+}
+
   createSalesOrderNumber()
   {    this._fuseProgressBarService.show();
       this._salesOrderService.getSalesOrderNumber().subscribe(response=>{
+        console.log(this.salesOrderStep1Form);
+        
         this.salesOrder.orderNumber = response.number;
-        this.salesOrderStep1Form.patchValue({'poNumber':response.number});
+        //this.salesOrderStep1Form.get("orderNumber").setValue(response.number);
+        this.salesOrderStep1Form.patchValue({'orderNumber':response.number});
         this._fuseProgressBarService.hide();
       },error=>{
         this._fuseProgressBarService.hide();
@@ -157,25 +258,50 @@ export class SaleOrderDetailComponent implements OnInit {
   getSalesOrderDetails()
   {
     this._salesOrderService.getSalesOrderById(this.salesOrderId)
+        .subscribe(response=>{
 
+          this.salesOrderStep2Form = this._formBuilder.group({
+            items: this._formBuilder.array([]),
+          });
+      
+          this.salesOrderStep3Form = this._formBuilder.group({
+            subTotal: [{ value: response.subTotal, disabled: true },Validators.required],
+            discount: [{ value: response.discount, disabled: this.isViewOnly },Validators.required],
+            taxRate: [{ value: response.taxRate, disabled: this.isViewOnly },Validators.required],
+            totalTaxAmount: [{ value: response.totalTaxAmount, disabled: true }],
+            shippingCharge: [{ value: this.shippingCharge, disabled: this.isViewOnly }],
+            totalAmount: [{ value: response.totalAmount, disabled: true }],
+            remarks: [{ value: response.remarks, disabled: this.isViewOnly }]
+          });
+
+        },error=>{
+
+        });
+
+  }
+
+  calculateTotal()
+  {
+    let total = (this.subTotal-this.discount+this.totalTaxAmout+this.shippingCharge);
+    this.salesOrderStep3Form.get('total').setValue(total);
   }
 
   makeForm3Subsriber()
   {
-/*       this.poStep3Form.get("discount").valueChanges.subscribe(value=>{
+       this.salesOrderStep3Form.get("discount").valueChanges.subscribe(value=>{
         this.calculateTotal();
       });
 
-      this.poStep3Form.get("taxRate").valueChanges.subscribe(value=>{
+      this.salesOrderStep3Form.get("taxRate").valueChanges.subscribe(value=>{
 
         let taxAmount = ((this.subTotal-this.discount)*value)/100.00;
-        this.poStep3Form.get('totalTaxAmout').setValue(taxAmount);
+        this.salesOrderStep3Form.get('totalTaxAmout').setValue(taxAmount);
         this.calculateTotal();
       });
 
-      this.poStep3Form.get("shippingCharge").valueChanges.subscribe(value=>{
+      this.salesOrderStep3Form.get("shippingCharge").valueChanges.subscribe(value=>{
         this.calculateTotal();
-      }); */
+      }); 
 
   }
 
@@ -192,19 +318,24 @@ export class SaleOrderDetailComponent implements OnInit {
     return this.salesOrderStep1Form.get('id').value;
   }
 
-  get selectedCustomerId()
+  get ownerId()
   {
-    return this.salesOrderStep1Form.get('selectedSupplierId').value;
+    return this.salesOrderStep1Form.get('ownerId').value;
   }
 
   get salesOrderNumber()
   {
-    return this.salesOrderStep1Form.get('poNumber').value;
+    return this.salesOrderStep1Form.get('orderNumber').value;
   }
 
-  get date()
+  get orderDate()
   {
-    return this.salesOrderStep1Form.get('date').value;
+    return this.salesOrderStep1Form.get('orderDate').value;
+  }
+
+  get deliverDate()
+  {
+    return this.salesOrderStep1Form.get('deliverDate').value;
   }
 
   get items(): FormArray {

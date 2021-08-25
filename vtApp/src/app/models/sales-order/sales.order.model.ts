@@ -15,6 +15,7 @@ export class SalesOrderModel {
     totalTaxAmount :number;
     shippingCharge :number;
     totalAmount :number;
+    remarks:string;
     isActive :boolean
     items:SalesOrderItemModel[];
 }

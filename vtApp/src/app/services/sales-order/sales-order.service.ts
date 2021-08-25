@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
 import { BasicSalesOrderDetailModel } from 'app/models/sales-order/basic.sales.order.detail.model';
@@ -15,11 +16,18 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class SalesOrderService {
 
+  //Sales Order Details
+  onFilterChanged: Subject<any>;
+  onSearchTextChanged: Subject<any>;
+  onPaginationChanged: Subject<PageEvent>;
+  onPageIndexChanged: Subject<any>;
+  onNewRecordAdded: Subject<any>;
+  onSalesOrderDetailChanged:Subject<any>;
+
+
   onSalesOrderChanged: BehaviorSubject<any>;
   onSelectedSalesOrderChanged: BehaviorSubject<any>;
   onSalesOrderDataChanged: BehaviorSubject<any>;
-  onSearchTextChanged: Subject<any>;
-  onFilterChanged: Subject<any>;
   onMasterDataRecieved:Subject<any>;
   onSalesOrderUpdated:BehaviorSubject<any>;
   onNewSalesOrderAdded:Subject<any>;
@@ -32,11 +40,17 @@ export class SalesOrderService {
   filterBy: string;
   
   constructor(private httpClient: HttpClient) {
+
+    this.onSearchTextChanged = new Subject();
+    this.onFilterChanged = new Subject();
+    this.onPaginationChanged = new Subject();
+    this.onPageIndexChanged = new Subject();
+    this.onNewRecordAdded = new Subject();
+    this.onSalesOrderDetailChanged = new Subject();
+
     this.onSalesOrderChanged = new BehaviorSubject([]);
     this.onSelectedSalesOrderChanged = new BehaviorSubject([]); 
     this.onSalesOrderDataChanged = new BehaviorSubject([]);
-    this.onSearchTextChanged = new Subject();
-    this.onFilterChanged = new Subject();
     this.onMasterDataRecieved = new Subject();
     this.onSalesOrderUpdated = new BehaviorSubject([]);
     this.onNewSalesOrderAdded = new Subject();

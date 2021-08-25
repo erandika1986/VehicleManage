@@ -9,6 +9,7 @@ import { MaterialModule } from 'app/MaterialModule';
 import { SharedModule } from 'app/shared/shared.module';
 import { MainComponent } from './sidebars/main/main.component';
 import { SaleOrdersComponent } from './sale-orders.component';
+import { ProductSearchComponent } from './product-search/product-search.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
     SaleOrderListComponent,
     SaleOrderDetailComponent,
     MainComponent,
-    SaleOrdersComponent
+    SaleOrdersComponent,
+    ProductSearchComponent
   ],
   imports: [
     RouterModule.forChild(routes),
