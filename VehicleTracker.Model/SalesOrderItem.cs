@@ -15,5 +15,6 @@ namespace VehicleTracker.Model
         public decimal Total { get; set; }
 
         public virtual SalesOrder Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

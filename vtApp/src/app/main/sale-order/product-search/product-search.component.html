@@ -23,7 +23,7 @@
                     <form
                         fusePerfectScrollbar
                         name="routeForm"
-                        [formGroup]="productForm"
+                        [formGroup]="productSearchForm"
                         class="event-form w-100-p"
                         fxLayout="column"
                         fxFlex
@@ -205,7 +205,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div fxLayout="row" fxLayoutAlign="space-between">
+<!--                         <div fxLayout="row" fxLayoutAlign="space-between">
                             <mat-form-field
                                 appearance="outline"
                                 fxFlex
@@ -242,7 +242,9 @@
                             >
                             </textarea>
                             <mat-error>Description is required!</mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
+
+
                     </form>
                 </div>
                 <div
@@ -291,111 +293,7 @@
             </mat-tab>
             <mat-tab label="Product Images">
                 <div class="tab-content p-24" fusePerfectScrollbar>
-                    <mat-table
-                        class="photo-table"
-                        #table
-                        [dataSource]="eqDataSource"
-                        matSort
-                        [@animateStagger]="{ value: '50' }"
-                        fusePerfectScrollbar
-                    >
-                        <!-- Action Column -->
-                        <ng-container matColumnDef="action">
-                            <mat-header-cell *matHeaderCellDef>
-                                <button
-                                    mat-raised-button
-                                    class="
-                                        blue
-                                        small small-mat-raised-button-small
-                                    "
-                                    (click)="fileInput.click()"
-                                    matTooltip="Upload product images"
-                                >
-                                    <mat-icon class="small-mat-icon"
-                                        >cloud_upload</mat-icon
-                                    >
-                                    <input
-                                        #fileInput
-                                        type="file"
-                                        class="form-control"
-                                        accept="{{ accept }}"
-                                        name="documents"
-                                        (change)="onFileChange($event, item)"
-                                        style="display: none"
-                                    />
-                                </button>
-                            </mat-header-cell>
-                            <mat-cell *matCellDef="let row; let index = index">
-                                <a
-                                    href="javascript:void(0)"
-                                    (click)="deleteImage(row)"
-                                    >Delete</a
-                                >
-                                |
-                                <a href="javascript:void(0)">Download</a>
-                            </mat-cell>
-                        </ng-container>
 
-                        <!-- Image Column -->
-                        <ng-container matColumnDef="image">
-                            <mat-header-cell *matHeaderCellDef
-                                >Image</mat-header-cell
-                            >
-                            <mat-cell
-                                *matCellDef="let row"
-                                class="
-                                    mat-cell
-                                    cdk-cell cdk-column-image
-                                    mat-column-image
-                                "
-                            >
-                                <img
-                                    class="product-image"
-                                    [alt]="row.imageName"
-                                    [src]="row.image"
-                                />
-                            </mat-cell>
-                        </ng-container>
-
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="imageName">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header
-                                >Name</mat-header-cell
-                            >
-                            <mat-cell *matCellDef="let row">
-                                <p class="text-truncate">{{ row.imageName }}</p>
-                            </mat-cell>
-                        </ng-container>
-
-                        <ng-container matColumnDef="toogle">
-                            <mat-header-cell *matHeaderCellDef>
-                                Is Default
-                            </mat-header-cell>
-                            <mat-cell *matCellDef="let row; let i = index">
-                                <mat-slide-toggle
-                                    [(ngModel)]="row.isDefault"
-                                    [ngModelOptions]="{ standalone: true }"
-                                    (change)="onDefaultChangeEvent($event, row)"
-                                    [disabled]="row.isDefault == true"
-                                >
-                                    Make Default
-                                </mat-slide-toggle>
-                            </mat-cell>
-                        </ng-container>
-
-                        <mat-header-row
-                            *matHeaderRowDef="eqDisplayedColumns; sticky: true"
-                        ></mat-header-row>
-
-                        <mat-row
-                            *matRowDef="
-                                let product;
-                                columns: eqDisplayedColumns
-                            "
-                            class="product"
-                        >
-                        </mat-row>
-                    </mat-table>
                 </div>
             </mat-tab>
         </mat-tab-group>

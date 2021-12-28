@@ -14,7 +14,7 @@ namespace VehicleTracker.ViewModel.SalesOrder
     public int TotalQty { get; set; }
     public string Status { get; set; }
     public string OrderDate { get; set; }
-    public string OwnderName { get; set; }
+    public string OwnerName { get; set; }
     public string OwnerAddress { get; set; }
     public string Route { get; set; }
     public string CreatedBy { get; set; }

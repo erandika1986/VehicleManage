@@ -21,7 +21,7 @@ export class PurchaseOrderItem
 
     static asFormGroup(item: PurchaseOrderItem, isDisable: boolean,decimalPipe: DecimalPipe,poService:PoService): FormGroup {
 
-        const unitPrice = decimalPipe.transform(
+/*         const unitPrice = decimalPipe.transform(
             item.unitPrice,
             "1.2-2"
           );
@@ -29,7 +29,7 @@ export class PurchaseOrderItem
           const total = decimalPipe.transform(
             item.total,
             "1.2-2"
-          );
+          ); */
 
       
 
@@ -40,25 +40,19 @@ export class PurchaseOrderItem
             selectedSubCategoryId: new FormControl(item.selectedSubCategoryId,Validators.required),
             productId: new FormControl(item.productId,Validators.required),
             qty: new FormControl(item.qty,Validators.required),
-            unitPrice: new FormControl(unitPrice,Validators.required),
-            total: new FormControl(total,Validators.required),
+            unitPrice: new FormControl(item.unitPrice,Validators.required),
+            total: new FormControl(item.total,Validators.required),
         });
 
         fg.get("qty").valueChanges.subscribe(value=>{
 
-            const tot = decimalPipe.transform(
-                value*fg.get("unitPrice").value,
-                "1.2-2"
-              );
+            const tot = value*fg.get("unitPrice").value;
             fg.get("total").setValue(tot);
             poService.onPODetailChanged.next(true);
         });
 
         fg.get("unitPrice").valueChanges.subscribe(value=>{
-            const tot = decimalPipe.transform(
-                value*fg.get("qty").value,
-                "1.2-2"
-              );
+            const tot = value*fg.get("qty").value;
             fg.get("total").setValue(tot);
             poService.onPODetailChanged.next(true);
         });

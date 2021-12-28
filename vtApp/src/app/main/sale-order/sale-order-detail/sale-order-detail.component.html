@@ -348,7 +348,7 @@
                                                         </ng-container>
 
                                                         <ng-container
-                                                            matColumnDef="selectedCategoryId"
+                                                            matColumnDef="categoryName"
                                                         >
                                                             <mat-header-cell
                                                                 *matHeaderCellDef
@@ -370,52 +370,24 @@
                                                                     floatLabel="always"
                                                                     fxFlex="98"
                                                                 >
-                                                                    <mat-select
-                                                                        formControlName="selectedCategoryId"
-                                                                        (selectionChange)="
-                                                                            productCatgoryChanged(
-                                                                                $event.value,
-                                                                                index
-                                                                            )
-                                                                        "
-                                                                        required
-                                                                    >
-                                                                        <mat-option
-                                                                            *ngFor="
-                                                                                let item of salesOrder
-                                                                                    ?.items[
-                                                                                    index
-                                                                                ]
-                                                                                    .categories
-                                                                            "
-                                                                            [value]="
-                                                                                item.id
-                                                                            "
-                                                                        >
-                                                                            {{
-                                                                                item.name
-                                                                            }}
-                                                                        </mat-option>
-                                                                    </mat-select>
-                                                                    <mat-icon
-                                                                        matSuffix
-                                                                        class="
-                                                                            secondary-text
-                                                                        "
-                                                                        >outlined_flag</mat-icon
-                                                                    >
-                                                                    <mat-error
-                                                                        >Product
-                                                                        category
-                                                                        is
-                                                                        required!</mat-error
-                                                                    >
+                                                                <input
+                                                                matInput
+                                                                placeholder="Category Name"
+                                                                formControlName="categoryName"
+                                                                type="text"
+                                                                appAllowInput
+                                                                [allowNumber]="
+                                                                    true
+                                                                "
+                                                                appThousandSeparator
+                                                                required
+                                                            />
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
 
                                                         <ng-container
-                                                            matColumnDef="selectedSubCategoryId"
+                                                            matColumnDef="subCategoryName"
                                                         >
                                                             <mat-header-cell
                                                                 *matHeaderCellDef
@@ -437,53 +409,24 @@
                                                                     floatLabel="always"
                                                                     fxFlex="98"
                                                                 >
-                                                                    <mat-select
-                                                                        formControlName="selectedSubCategoryId"
-                                                                        (selectionChange)="
-                                                                            productSubCategoryChanged(
-                                                                                $event.value,
-                                                                                index
-                                                                            )
-                                                                        "
-                                                                        required
-                                                                    >
-                                                                        <mat-option
-                                                                            *ngFor="
-                                                                                let item of salesOrder
-                                                                                    ?.items[
-                                                                                    index
-                                                                                ]
-                                                                                    .subCategories
-                                                                            "
-                                                                            [value]="
-                                                                                item.id
-                                                                            "
-                                                                        >
-                                                                            {{
-                                                                                item.name
-                                                                            }}
-                                                                        </mat-option>
-                                                                    </mat-select>
-                                                                    <mat-icon
-                                                                        matSuffix
-                                                                        class="
-                                                                            secondary-text
-                                                                        "
-                                                                        >outlined_flag</mat-icon
-                                                                    >
-                                                                    <mat-error
-                                                                        >Product
-                                                                        sub
-                                                                        category
-                                                                        is
-                                                                        required!</mat-error
-                                                                    >
+                                                                <input
+                                                                matInput
+                                                                placeholder="Sub Category"
+                                                                formControlName="subCategoryName"
+                                                                type="text"
+                                                                appAllowInput
+                                                                [allowNumber]="
+                                                                    true
+                                                                "
+                                                                appThousandSeparator
+                                                                required
+                                                            />
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>
 
                                                         <ng-container
-                                                            matColumnDef="productId"
+                                                            matColumnDef="productName"
                                                         >
                                                             <mat-header-cell
                                                                 *matHeaderCellDef
@@ -505,39 +448,18 @@
                                                                     floatLabel="always"
                                                                     fxFlex="98"
                                                                 >
-                                                                    <mat-select
-                                                                        formControlName="productId"
-                                                                        required
-                                                                    >
-                                                                        <mat-option
-                                                                            *ngFor="
-                                                                                let item of salesOrder
-                                                                                    ?.items[
-                                                                                    index
-                                                                                ]
-                                                                                    .products
-                                                                            "
-                                                                            [value]="
-                                                                                item.id
-                                                                            "
-                                                                        >
-                                                                            {{
-                                                                                item.name
-                                                                            }}
-                                                                        </mat-option>
-                                                                    </mat-select>
-                                                                    <mat-icon
-                                                                        matSuffix
-                                                                        class="
-                                                                            secondary-text
-                                                                        "
-                                                                        >outlined_flag</mat-icon
-                                                                    >
-                                                                    <mat-error
-                                                                        >Product
-                                                                        is
-                                                                        required!</mat-error
-                                                                    >
+                                                                <input
+                                                                matInput
+                                                                placeholder="Product Name"
+                                                                formControlName="productName"
+                                                                type="text"
+                                                                appAllowInput
+                                                                [allowNumber]="
+                                                                    true
+                                                                "
+                                                                appThousandSeparator
+                                                                required
+                                                            />
                                                                 </mat-form-field>
                                                             </mat-cell>
                                                         </ng-container>

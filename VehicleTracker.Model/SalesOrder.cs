@@ -19,7 +19,7 @@ namespace VehicleTracker.Model
         public string OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? DeliveredDate { get; set; }
-        public int OwnerId { get; set; }
+        public int? OwnerId { get; set; }
         public int Status { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Discount { get; set; }

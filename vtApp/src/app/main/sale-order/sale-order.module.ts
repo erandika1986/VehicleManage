@@ -10,6 +10,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { MainComponent } from './sidebars/main/main.component';
 import { SaleOrdersComponent } from './sale-orders.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { ProductAvailabiltyComponent } from './product-availabilty/product-availabilty.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,8 @@ const routes: Routes = [
     SaleOrderDetailComponent,
     MainComponent,
     SaleOrdersComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    ProductAvailabiltyComponent
   ],
   imports: [
     RouterModule.forChild(routes),

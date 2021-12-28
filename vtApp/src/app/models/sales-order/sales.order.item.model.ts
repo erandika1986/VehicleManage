@@ -11,6 +11,9 @@ export class SalesOrderItemModel {
     selectedCategoryId:number;
     selectedSubCategoryId:number;
     productId :number;
+    productName:string;
+    categoryName:string;
+    subCategoryName:string;
     qty :number;
     unitPrice :number;
     total :number;
@@ -19,19 +22,7 @@ export class SalesOrderItemModel {
     subCategories:DropDownModel[];
     products:DropDownModel[];
 
-    static asFormGroup(item: SalesOrderItemModel, isDisable: boolean,decimalPipe: DecimalPipe,saleOrderService:SalesOrderService): FormGroup {
-
-        const unitPrice = decimalPipe.transform(
-            item.unitPrice,
-            "1.2-2"
-          );
-
-          const total = decimalPipe.transform(
-            item.total,
-            "1.2-2"
-          );
-
-      
+    static asFormGroup(item: SalesOrderItemModel, isDisable: boolean,saleOrderService:SalesOrderService): FormGroup {
 
         const fg = new FormGroup({
             id: new FormControl(item.id),
@@ -39,28 +30,12 @@ export class SalesOrderItemModel {
             selectedCategoryId: new FormControl(item.selectedCategoryId,Validators.required),
             selectedSubCategoryId: new FormControl(item.selectedSubCategoryId,Validators.required),
             productId: new FormControl(item.productId,Validators.required),
+            productName: new FormControl(item.productName,Validators.required),
+            categoryName: new FormControl(item.categoryName,Validators.required),
+            subCategoryName: new FormControl(item.subCategoryName,Validators.required),
             qty: new FormControl(item.qty,Validators.required),
-            unitPrice: new FormControl(unitPrice,Validators.required),
-            total: new FormControl(total,Validators.required),
-        });
-
-        fg.get("qty").valueChanges.subscribe(value=>{
-
-            const tot = decimalPipe.transform(
-                value*fg.get("unitPrice").value,
-                "1.2-2"
-              );
-            fg.get("total").setValue(tot);
-            saleOrderService.onSalesOrderDataChanged.next(true);
-        });
-
-        fg.get("unitPrice").valueChanges.subscribe(value=>{
-            const tot = decimalPipe.transform(
-                value*fg.get("qty").value,
-                "1.2-2"
-              );
-            fg.get("total").setValue(tot);
-            saleOrderService.onSalesOrderDataChanged.next(true);
+            unitPrice: new FormControl(item.unitPrice,Validators.required),
+            total: new FormControl(item.total,Validators.required),
         });
 
 
@@ -68,6 +43,9 @@ export class SalesOrderItemModel {
             fg.get("selectedCategoryId").disable();
             fg.get("selectedSubCategoryId").disable();
             fg.get("productId").disable();
+            fg.get("productName").disable();
+            fg.get("categoryName").disable();
+            fg.get("subCategoryName").disable();
             fg.get("qty").disable();
             fg.get("unitPrice").disable();
             fg.get("total").disable();

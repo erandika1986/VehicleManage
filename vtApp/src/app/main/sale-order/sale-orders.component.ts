@@ -102,4 +102,13 @@ export class SaleOrdersComponent implements OnInit, OnDestroy {
         this._salesOrderService.onNewSalesOrderAdded.next(salesOrder);
     }
 
+    addNew()
+    {
+        this._fuseProgressBarService.show();
+        this._salesOrderService.createNewSalesOrder()
+            .subscribe(response=>{
+                this._fuseProgressBarService.hide()
+                this._router.navigate(['sale-order/list/' + response ]);
+            });
+    }
 }

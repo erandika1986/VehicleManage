@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace VehicleTracker.ViewModel.SalesOrder
 {
-  public class SalesOrderItemViewModel
-  {
-    public long Id { get; set; }
-    public long SalesOrderId { get; set; }
-    public int ProductId { get; set; }
-    public int Qty { get; set; }
-    public decimal UnitPrice { get; set; }
-    public decimal Total { get; set; }
-  }
+    public class SalesOrderItemViewModel
+    {
+        public long Id { get; set; }
+        public string CategoryName { get; set; }
+        public string SubCategoryName { get; set; }
+        public long SalesOrderId { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int Qty { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal Total { get; set; }
+    }
 }

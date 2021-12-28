@@ -4,10 +4,12 @@ import { PageEvent } from '@angular/material/paginator';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { ResponseModel } from 'app/models/common/response.model';
 import { BasicSalesOrderDetailModel } from 'app/models/sales-order/basic.sales.order.detail.model';
+import { ProductAvailabilityModel } from 'app/models/sales-order/product.availability.model';
 import { SalesOrderFilter } from 'app/models/sales-order/sales.order.filter';
 import { SalesOrderMasterDataModel } from 'app/models/sales-order/sales.order.master.data.model';
 import { SalesOrderModel } from 'app/models/sales-order/sales.order.model';
 import { SalesOrderNumber } from 'app/models/sales-order/sales.order.number.model';
+import { SalesOrderProductModel } from 'app/models/sales-order/sales.order.product.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
@@ -66,6 +68,11 @@ export class SalesOrderService {
       post<BasicSalesOrderDetailModel[]>(environment.apiUrl + 'SalesOrder/getAllSalesOrders',filter);
   }
 
+  createNewSalesOrder(): Observable<number> {
+    return this.httpClient.
+      post<number>(environment.apiUrl + 'SalesOrder/createNewSalesOrder',null);
+  }
+
   saveSalesOrder(vm: SalesOrderModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'SalesOrder/saveSalesOrder', vm);
@@ -91,8 +98,28 @@ export class SalesOrderService {
       get<DropDownModel[]>(environment.apiUrl + 'SalesOrder/getCustomersByRouteId/' + id);
   }
 
+  getWarehouseProductAvailability(productId: number,salesOrderId:number): Observable<ProductAvailabilityModel[]> {
+    return this.httpClient.
+      get<ProductAvailabilityModel[]>(environment.apiUrl + 'SalesOrder/getWarehouseProductAvailability/' + productId +'/'+salesOrderId);
+  }
+
   getSalesOrderNumber(): Observable<SalesOrderNumber> {
     return this.httpClient.
       get<SalesOrderNumber>(environment.apiUrl + 'SalesOrder/getSalesOrderNumber');
+  }
+
+  addProductToSalesOrder(productDetail:SalesOrderProductModel): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'SalesOrder/addProductToSalesOrder',productDetail);
+  }
+
+  deleteSingleProductRoSalesOrder(productDetail:SalesOrderProductModel): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSingleProductRoSalesOrder',productDetail);
+  }
+
+  deleteSalesOrder(productId: number,salesOrderId:number): Observable<ResponseModel> {
+    return this.httpClient.
+      delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSalesOrder/' + productId +"/"+salesOrderId);
   }
 }

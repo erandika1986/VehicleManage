@@ -222,7 +222,7 @@ export class PoDetailComponent implements OnInit {
 
     const zeroPrice = this.decimalPipe.transform(
       0,
-      "1.2-10"
+      "1.2-2"
     );
     
       const fg = this._formBuilder.group({
@@ -238,21 +238,23 @@ export class PoDetailComponent implements OnInit {
 
     fg.get("qty").valueChanges.subscribe(value=>{
 
-      const tot = 
-      this.decimalPipe.transform(value*fg.get("unitPrice").value,
-      "1.2-2"
-    );
+      const tot = value*fg.get("unitPrice").value;
+
         
+    console.log(tot); 
+    
       fg.get("total").setValue(tot);
+      
       this._poService.onPODetailChanged.next(true);
       
   });
   
   fg.get("unitPrice").valueChanges.subscribe(value=>{
-      const tot = 
+    const tot = value*fg.get("qty").value;
+/*       const tot = 
       this.decimalPipe.transform(value*fg.get("qty").value,
       "1.2-2"
-    );
+    ); */
       fg.get("total").setValue(tot);
       this._poService.onPODetailChanged.next(true);
   });

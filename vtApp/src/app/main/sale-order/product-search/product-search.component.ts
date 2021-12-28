@@ -104,6 +104,11 @@ export class ProductSearchComponent implements OnInit {
     
   }
 
+  productCategoryChanged(item:any)
+  {
+    
+  }
+
   searchInventory()
   {
 

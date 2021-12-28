@@ -1,6 +1,7 @@
 import { DecimalPipe, Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +16,7 @@ import { SalesOrderService } from 'app/services/sales-order/sales-order.service'
 import { SupplierService } from 'app/services/supplier/supplier.service';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { ProductAvailabiltyComponent } from '../product-availabilty/product-availabilty.component';
 
 @Component({
   selector: 'app-sale-order-detail',
@@ -46,9 +48,11 @@ export class SaleOrderDetailComponent implements OnInit {
   isExistingRecord: boolean = false;
   previouslySelectedTab: number = 0;
 
+  dialogRef: any;
+
   dataSource = new BehaviorSubject<AbstractControl[]>([]);
   rows: FormArray = this._formBuilder.array([]);
-  displayedColumns = ['action','selectedCategoryId','selectedSubCategoryId','productId','qty','unitPrice','total'];
+  displayedColumns = ['action','categoryName','subCategoryName','productName','qty','unitPrice','total'];
   
 
   @ViewChild(DaterangepickerDirective, { static: true })
@@ -61,6 +65,7 @@ export class SaleOrderDetailComponent implements OnInit {
 
   constructor(private _salesOrderService: SalesOrderService,
     private _dropDownService:DropdownService,
+    private _matDialog: MatDialog,
     private _supplierService:SupplierService,
     private _route: ActivatedRoute,
     private decimalPipe: DecimalPipe,
@@ -77,9 +82,9 @@ export class SaleOrderDetailComponent implements OnInit {
     this._activateRoute.params.subscribe(params => {
       this.salesOrderId = +params.id;
       this.pageType = this.salesOrderId === 0 ? 'new' : 'edit';
-
-      this.createNewPOForm();
+      this.createPOForm();
       this.getMasterData();
+
     });
 
 
@@ -100,7 +105,7 @@ export class SaleOrderDetailComponent implements OnInit {
     });
   }
 
-  createNewPOForm()
+  createPOForm()
   {
     this.salesOrderStep1Form = this._formBuilder.group({
       id: [0],
@@ -158,8 +163,16 @@ export class SaleOrderDetailComponent implements OnInit {
   }
 
   addNewItem() {
+    console.log(this.salesOrderId);
+    
+    this.dialogRef = this._matDialog.open(ProductAvailabiltyComponent, {
+      panelClass: 'product-search-form-dialog',
+      data: {
+        salesOrderId:this.salesOrderId
+      }
+    });
 
-    const zeroPrice = this.decimalPipe.transform(
+/*     const zeroPrice = this.decimalPipe.transform(
       0,
       "1.2-10"
     );
@@ -217,7 +230,7 @@ export class SaleOrderDetailComponent implements OnInit {
 
   (this.salesOrderStep2Form.get('items') as FormArray).push(fg);
 
-  this.table.renderRows();
+  this.table.renderRows(); */
 }
 
   createSalesOrderNumber()
@@ -245,11 +258,6 @@ export class SaleOrderDetailComponent implements OnInit {
           this.title = 'Edit Sales Order';
           this.getSalesOrderDetails();
         }
-        else {
-          this.title = 'New Sales Order';
-          this.createSalesOrderNumber();
-        }
-
     },error=>{
 
     });
@@ -257,13 +265,26 @@ export class SaleOrderDetailComponent implements OnInit {
 
   getSalesOrderDetails()
   {
+    this._fuseProgressBarService.show();
     this._salesOrderService.getSalesOrderById(this.salesOrderId)
         .subscribe(response=>{
 
-          this.salesOrderStep2Form = this._formBuilder.group({
-            items: this._formBuilder.array([]),
+          this._fuseProgressBarService.hide();
+          this.salesOrderStep1Form = this._formBuilder.group({
+            id: [response.id],
+            orderNumber: [{ value: response.orderNumber, disabled: true },Validators.required],
+            orderDate:[{ value: response.orderDate, disabled: this.isViewOnly },Validators.required],
+            deliverDate:[{ value: response.deliverDate, disabled: this.isViewOnly }],
+            ownerId: [{ value: response.ownerId, disabled: this.isViewOnly },Validators.required],
+            status: [{ value: response.status, disabled: this.isViewOnly }],
           });
-      
+
+          const cf = response.items.map((value, index) => { return SalesOrderItemModel.asFormGroup(value, true,this._salesOrderService) });
+          const fArray = new FormArray(cf);
+          this.salesOrderStep2Form.setControl('items', fArray);
+
+          this.updateView();
+
           this.salesOrderStep3Form = this._formBuilder.group({
             subTotal: [{ value: response.subTotal, disabled: true },Validators.required],
             discount: [{ value: response.discount, disabled: this.isViewOnly },Validators.required],
@@ -275,9 +296,13 @@ export class SaleOrderDetailComponent implements OnInit {
           });
 
         },error=>{
-
+          this._fuseProgressBarService.hide();
         });
 
+  }
+
+  updateView() {
+    this.dataSource.next(this.items.controls);
   }
 
   calculateTotal()

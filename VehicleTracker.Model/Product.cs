@@ -15,6 +15,7 @@ namespace VehicleTracker.Model
             ProductInventoryOrders = new HashSet<ProductInventoryOrder>();
             ProductReturns = new HashSet<ProductReturn>();
             PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
+            SalesOrderItems = new HashSet<SalesOrderItem>();
         }
 
         public int Id { get; set; }
@@ -43,5 +44,6 @@ namespace VehicleTracker.Model
         public virtual ICollection<ProductInventoryOrder> ProductInventoryOrders { get; set; }
         public virtual ICollection<ProductReturn> ProductReturns { get; set; }
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public virtual ICollection<SalesOrderItem> SalesOrderItems { get; set; }
     }
 }
