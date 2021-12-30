@@ -255,7 +255,7 @@
                                                     type="button"
                                                     color="accent"
                                                     style="margin-right: 10px"
-                                                    (click)="saveOrder(false)"
+                                                    (click)="saveAndExitOrderStep1(false)"
                                                     *ngIf="
                                                         !isViewOnly && id > 0
                                                     "
@@ -763,9 +763,9 @@
                                                     <input
                                                         matInput
                                                         type="number"
-                                                        placeholder="totalTaxAmout"
-                                                        name="totalTaxAmout"
-                                                        formControlName="totalTaxAmout"
+                                                        placeholder="Total Tax Amount"
+                                                        name="totalTaxAmount"
+                                                        formControlName="totalTaxAmount"
                                                     />
                                                 </mat-form-field>
                                             </div>
@@ -805,7 +805,7 @@
                                                         type="number"
                                                         placeholder="Total"
                                                         name="Total"
-                                                        formControlName="total"
+                                                        formControlName="totalAmount"
                                                     />
                                                     <mat-error
                                                         >Total Amount is

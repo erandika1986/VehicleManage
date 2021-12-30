@@ -11,6 +11,7 @@ import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { SalesOrderItemModel } from 'app/models/sales-order/sales.order.item.model';
 import { SalesOrderMasterDataModel } from 'app/models/sales-order/sales.order.master.data.model';
 import { SalesOrderModel } from 'app/models/sales-order/sales.order.model';
+import { SalesOrderStep1Model } from 'app/models/sales-order/sales.order.step1.model';
 import { DropdownService } from 'app/services/common/dropdown.service';
 import { SalesOrderService } from 'app/services/sales-order/sales-order.service';
 import { SupplierService } from 'app/services/supplier/supplier.service';
@@ -99,7 +100,7 @@ export class SaleOrderDetailComponent implements OnInit {
 
        this.salesOrderStep3Form.get('subTotal').setValue(sum);
       let taxAmount = ((this.subTotal-this.discount)*this.taxRate)/100.00;
-      this.salesOrderStep3Form.get('totalTaxAmout').setValue(taxAmount);
+      this.salesOrderStep3Form.get('totalTaxAmount').setValue(taxAmount);
       this.calculateTotal();
       
     });
@@ -124,9 +125,9 @@ export class SaleOrderDetailComponent implements OnInit {
       subTotal: [{ value: 0, disabled: true },Validators.required],
       discount: [{ value: 0, disabled: this.isViewOnly },Validators.required],
       taxRate: [{ value: 0, disabled: this.isViewOnly },Validators.required],
-      totalTaxAmout: [{ value: 0, disabled: true }],
+      totalTaxAmount: [{ value: 0, disabled: true }],
       shippingCharge: [{ value: 0, disabled: this.isViewOnly }],
-      total: [{ value: 0, disabled: true }],
+      totalAmount: [{ value: 0, disabled: true }],
       remarks: [{ value: '', disabled: this.isViewOnly }]
     });
 
@@ -295,6 +296,13 @@ export class SaleOrderDetailComponent implements OnInit {
             remarks: [{ value: response.remarks, disabled: this.isViewOnly }]
           });
 
+          let taxAmount = ((this.subTotal-this.discount)*this.taxRate)/100.00;
+          this.salesOrderStep3Form.get('totalTaxAmount').setValue(taxAmount);
+          this.calculateTotal();
+          
+          this.makeForm3Subsriber();
+
+
         },error=>{
           this._fuseProgressBarService.hide();
         });
@@ -305,11 +313,7 @@ export class SaleOrderDetailComponent implements OnInit {
     this.dataSource.next(this.items.controls);
   }
 
-  calculateTotal()
-  {
-    let total = (this.subTotal-this.discount+this.totalTaxAmout+this.shippingCharge);
-    this.salesOrderStep3Form.get('total').setValue(total);
-  }
+
 
   makeForm3Subsriber()
   {
@@ -330,7 +334,33 @@ export class SaleOrderDetailComponent implements OnInit {
 
   }
 
-  saveOrder(needExit: boolean): void {
+  calculateTotal()
+  {
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxx');
+    
+    console.log(this.subTotal);
+    console.log(this.discount);
+    console.log(this.totalTaxAmount);
+    console.log(this.shippingCharge);
+    
+    let total = (this.subTotal-this.discount+this.totalTaxAmount+this.shippingCharge);
+    this.salesOrderStep3Form.get('totalAmount').setValue(total);
+  }
+
+  saveAndExitOrderStep1(needExit: boolean): void {
+    let salesOrder = new SalesOrderStep1Model();
+    salesOrder.id = this.id;
+    salesOrder.deliverDate = this.deliverDate;
+    salesOrder.ownerId = this.ownerId;
+    salesOrder.status = this.salesOrderStep1Form.get('status').value;;
+
+    this._fuseProgressBarService.show();
+    this._salesOrderService.saveSalesOrderStep1(salesOrder)
+      .subscribe(respons=>{
+        this._fuseProgressBarService.hide();
+      },error=>{
+        this._fuseProgressBarService.hide();
+      });
   }
 
   goToBack()
@@ -382,9 +412,9 @@ export class SaleOrderDetailComponent implements OnInit {
     return this.salesOrderStep3Form.get("taxRate").value;
   }
 
-  get totalTaxAmout()
+  get totalTaxAmount()
   {
-    return this.salesOrderStep3Form.get("totalTaxAmout").value;
+    return this.salesOrderStep3Form.get("totalTaxAmount").value;
   }
 
   get shippingCharge()
@@ -394,7 +424,7 @@ export class SaleOrderDetailComponent implements OnInit {
 
   get totalAmount()
   {
-    return this.salesOrderStep3Form.get("total").value;
+    return this.salesOrderStep3Form.get("totalAmount").value;
   }
 
 }

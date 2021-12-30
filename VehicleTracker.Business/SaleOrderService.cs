@@ -324,6 +324,39 @@ namespace VehicleTracker.Business
             return response;
         }
 
+        public async Task<ResponseViewModel> SaveSalesOrderStep1(SalesOrderStep1ViewModel vm, User loggedInUser)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == vm.Id);
+                salesOrder.DeliveredDate = vm.DeliverDate;
+                salesOrder.OwnerId = vm.OwnerId;
+                salesOrder.Status = vm.Status;
+
+                _db.SalesOrders.Update(salesOrder);
+
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Sales order has been saved.";
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                response.IsSuccess = false;
+                response.Message = "Error has been occured while saving the sales order data.";
+            }
+
+            return response;
+        }
+
+        public async Task<ResponseViewModel> SaveSalesOrderStep3(SalesOrderStep3ViewModel vm, User loggedInUser)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<SalesOrderNumber> GetSalesOrderNumber()
         {
             var so = new SalesOrderNumber()

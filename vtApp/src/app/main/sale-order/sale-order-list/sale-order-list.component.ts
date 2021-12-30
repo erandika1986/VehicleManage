@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
+import { BasicSalesOrderDetailModel } from 'app/models/sales-order/basic.sales.order.detail.model';
 import { SalesOrderFilter } from 'app/models/sales-order/sales.order.filter';
 import { SalesOrderService } from 'app/services/sales-order/sales-order.service';
 
@@ -29,7 +30,7 @@ export class SaleOrderListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-  displayedColumns = ["buttons", "orderNumber","totalQty","total","status","orderDate","ownerName","route"];
+  displayedColumns = ["buttons", "orderNumber","status","total","orderDate","ownerName","route","createdOn"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -76,6 +77,55 @@ export class SaleOrderListComponent implements OnInit {
       }, error => {
         this._fuseProgressBarService.hide();
       })
+  }
+
+  editSalesOrder(item:BasicSalesOrderDetailModel)
+  {
+    this._router.navigate(['sale-order/list/' + item.id ]);
+  }
+
+  deleteSalesOrder(item:BasicSalesOrderDetailModel)
+  {
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false
+    });
+
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this record?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._fuseProgressBarService.show();
+        this._salesOrderService. deleteSalesOrder(item.id)
+          .subscribe(response => {
+
+            this._fuseProgressBarService.hide();
+            if (response.isSuccess) {
+              this._snackBar.open(response.message, 'Success', {
+                duration: 2500,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+              });
+
+              this.loadAll();
+            }
+            else {
+              this._snackBar.open(response.message, 'Error', {
+                duration: 2500,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+              });
+            }
+          }, error => {
+            this._fuseProgressBarService.hide();
+            this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          });
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
 }

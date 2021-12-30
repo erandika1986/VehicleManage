@@ -10,6 +10,8 @@ import { SalesOrderMasterDataModel } from 'app/models/sales-order/sales.order.ma
 import { SalesOrderModel } from 'app/models/sales-order/sales.order.model';
 import { SalesOrderNumber } from 'app/models/sales-order/sales.order.number.model';
 import { SalesOrderProductModel } from 'app/models/sales-order/sales.order.product.model';
+import { SalesOrderStep1Model } from 'app/models/sales-order/sales.order.step1.model';
+import { SalesOrderStep3Model } from 'app/models/sales-order/sales.order.step3.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
@@ -78,12 +80,23 @@ export class SalesOrderService {
       post<ResponseModel>(environment.apiUrl + 'SalesOrder/saveSalesOrder', vm);
   }
 
+  saveSalesOrderStep1(vm: SalesOrderStep1Model): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'SalesOrder/saveSalesOrderStep1', vm);
+  }
+
+  saveSalesOrderStep3(vm: SalesOrderStep3Model): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'SalesOrder/saveSalesOrderStep3', vm);
+  }
+
+
   getSalesOrderById(id: number): Observable<SalesOrderModel> {
     return this.httpClient.
       get<SalesOrderModel>(environment.apiUrl + 'SalesOrder/getSalesOrderById/' + id);
   }
 
-  delete(id: number): Observable<ResponseModel> {
+  deleteSalesOrder(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSalesOrder/' + id);
   }
@@ -118,8 +131,8 @@ export class SalesOrderService {
       post<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSingleProductRoSalesOrder',productDetail);
   }
 
-  deleteSalesOrder(productId: number,salesOrderId:number): Observable<ResponseModel> {
+  deleteAllProductFromSalesOrder(productId: number,salesOrderId:number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSalesOrder/' + productId +"/"+salesOrderId);
+      delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteAllProductFromSalesOrder/' + productId +"/"+salesOrderId);
   }
 }

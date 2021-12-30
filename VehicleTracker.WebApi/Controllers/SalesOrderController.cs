@@ -69,6 +69,26 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("saveSalesOrderStep1")]
+        public async Task<IActionResult> SaveSalesOrderStep1(SalesOrderStep1ViewModel vm)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+            var response = await saleOrderService.SaveSalesOrderStep1(vm, loggedInUser);
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("saveSalesOrderStep3")]
+        public async Task<IActionResult> SaveSalesOrderStep3(SalesOrderStep3ViewModel vm)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+            var response = await saleOrderService.SaveSalesOrderStep3(vm, loggedInUser);
+
+            return Ok(response);
+        }
+
         [HttpGet]
         [Route("getSalesOrderById/{id}")]
         public IActionResult GetSalesOrderById(long id)
@@ -140,7 +160,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
         [HttpDelete]
-        [Route("deleteSalesOrder/{productId}/{salesOrderId}")]
+        [Route("deleteAllProductFromSalesOrder/{productId}/{salesOrderId}")]
         public async Task<IActionResult> DeleteAllProductFromSalesOrder(int productId, int salesOrderId)
         {
             var response = await saleOrderService.DeleteAllProductFromSalesOrder(productId, salesOrderId);

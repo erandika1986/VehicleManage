@@ -12,18 +12,18 @@
 </ng-container>
 
 <!-- Roles Column -->
-<ng-container matColumnDef="totalQty">
-    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Roles</mat-header-cell>
+<ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
     <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
         <p class="email text-truncate">
-            {{order.totalQty}}
+            {{order.status}}
         </p>
     </mat-cell>
    </ng-container>
 
 <!-- Email Column -->
 <ng-container matColumnDef="total">
- <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Email</mat-header-cell>
+ <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Total</mat-header-cell>
  <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
      <p class="email text-truncate">
          {{order.total}}
@@ -32,27 +32,18 @@
 </ng-container>
 
 <!-- Phone Column -->
-<ng-container matColumnDef="status">
- <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Phone</mat-header-cell>
+<ng-container matColumnDef="orderDate">
+ <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Order Date</mat-header-cell>
  <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
      <p class="phone text-truncate">
-         {{order.status}}
+         {{order.orderDate}}
      </p>
  </mat-cell>
 </ng-container>
 
 <!-- Phone Column -->
-<ng-container matColumnDef="orderDate">
-    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Phone</mat-header-cell>
-    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
-        <p class="phone text-truncate">
-            {{order.orderDate}}
-        </p>
-    </mat-cell>
-   </ng-container>
-
-   <ng-container matColumnDef="ownerName">
-    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Owner Name</mat-header-cell>
+<ng-container matColumnDef="ownerName">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Customer Name</mat-header-cell>
     <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
         <p class="phone text-truncate">
             {{order.ownerName}}
@@ -61,10 +52,19 @@
    </ng-container>
 
    <ng-container matColumnDef="route">
-    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Phone</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Route</mat-header-cell>
     <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
         <p class="phone text-truncate">
             {{order.route}}
+        </p>
+    </mat-cell>
+   </ng-container>
+
+   <ng-container matColumnDef="createdOn">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
+    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+        <p class="phone text-truncate">
+            {{order.createdOn}}
         </p>
     </mat-cell>
    </ng-container>
@@ -73,29 +73,28 @@
 
 <!-- Buttons Column -->
 <ng-container matColumnDef="buttons">
- <mat-header-cell *matHeaderCellDef></mat-header-cell>
- <mat-cell *matCellDef="let contact">
-     <div fxFlex="row" fxLayoutAlign="end center">
+    <mat-header-cell *matHeaderCellDef>
+        <div fxFlex="row" fxLayoutAlign="center center">
+        </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let order">
+        <div fxFlex="row" fxLayoutAlign="center center">
 
+            <div class="button-row">
 
-         <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
-                 (click)="$event.stopPropagation();">
-             <mat-icon class="secondary-text">more_vert</mat-icon>
-         </button>
+                <button mat-raised-button class="orange  small small-mat-raised-button-small"  matTooltip="Edit sales order" (click)="editSalesOrder(order)"
+                >
+                    <mat-icon class="small-mat-icon">edit</mat-icon>
+                </button>
+                <button mat-raised-button class="red  small small-mat-raised-button-small"  matTooltip="Delete sales order" (click)="deleteSalesOrder(order)"
+                >
+                    <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
+                </button>
 
-         <mat-menu #moreMenu="matMenu">
-            <button mat-menu-item aria-label="remove">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-            </button>
-             <button mat-menu-item aria-label="remove">
-                 <mat-icon>delete</mat-icon>
-                 <span>Remove</span>
-             </button>
-         </mat-menu>
-     </div>
+              </div>
+        </div>
 
- </mat-cell>
+    </mat-cell>
 </ng-container>
 
 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
