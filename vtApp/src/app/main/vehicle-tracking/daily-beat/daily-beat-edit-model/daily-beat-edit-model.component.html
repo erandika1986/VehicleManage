@@ -1,0 +1,131 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+<!--         <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <img [src]="'assets/images/avatars/profile.jpg'" class="avatar contact-avatar huge m-0"
+                  *ngIf="!user?.image"/>
+            <img [src]="user?.image" class="avatar contact-avatar huge m-0"
+                  *ngIf="user?.image"/>
+            <div class="contact-name mt-8">{{user.firstName}} {{user.lastName}}</div>
+            <div class="contact-name mt-8">
+                <span style="font-size: 13px;cursor: pointer;" (click)="profileImageInput.click()">Upload Profile Image</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span style="font-size: 13px;cursor: pointer;" (click)="downloadFile(1,user?.imageName)">Download Profile Image</span>
+                <input #profileImageInput type="file" class="form-control" name="documents" (change)="onFileChange($event,1)" style="display:none;"/>
+            </div> 
+        </mat-toolbar-row>-->
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+
+
+            <form [formGroup]="dailyBeatForm" style="margin-top: 20px !important;">
+
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                        <mat-label>Vehicle</mat-label>
+                        <mat-select formControlName="vehicleId" required>
+                            <mat-option *ngFor="let item of masterData.vehicles" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                    </mat-form-field>
+    
+                     <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                        <mat-label>Route</mat-label>
+                        <mat-select formControlName="routeId" required>
+                            <mat-option *ngFor="let item of masterData?.routes" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                     <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                        <mat-label>Statuse</mat-label>
+                        <mat-select formControlName="status" required>
+                            <mat-option *ngFor="let item of masterData?.status" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                        <mat-label>Driver</mat-label>
+                        <mat-select formControlName="driverId" required>
+                            <mat-option *ngFor="let item of masterData?.drivers" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                    </mat-form-field>
+                </div>
+    
+                 <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                        <mat-label>Sales Rep</mat-label>
+                        <mat-select formControlName="salesRepId" required>
+                            <mat-option *ngFor="let item of masterData?.drivers" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                    </mat-form-field>
+    
+                </div>
+    
+
+    
+
+    
+            </form>
+
+
+
+
+
+
+    </div>
+<!-- 
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="mr-8"
+                (click)="matDialogRef.close(['delete',dailyBeatForm])"
+                aria-label="Delete"
+                matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(dailyBeatForm)"
+                [disabled]="dailyBeatForm.invalid"
+                aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(['save',dailyBeatForm])"
+                [disabled]="dailyBeatForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div> -->
+</div>

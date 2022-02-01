@@ -239,77 +239,25 @@ namespace VehicleTracker.Business
             try
             {
                 var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == vm.Id);
-                if (salesOrder == null)
+                salesOrder.Discount = vm.Discount;
+                salesOrder.OrderDate = new DateTime(vm.OrderDateYear, vm.DeliverDateMonth, vm.OrderDateDay, vm.OrderDateHour, vm.OrderDateMin, 0);
+                if(vm.DeliverDate.HasValue)
                 {
-                    salesOrder.IsActive = true;
-                    salesOrder.CreatedById = loggedInUser.Id;
-                    salesOrder.CreatedOn = DateTime.UtcNow;
-                    salesOrder.Discount = vm.Discount;
-                    salesOrder.OrderDate = vm.OrderDate;
-                    salesOrder.OrderNumber = vm.OrderNumber;
-                    salesOrder.OwnerId = vm.OwnerId;
-                    salesOrder.ShippingCharge = vm.ShippingCharge;
-                    salesOrder.Status = vm.Status;
-                    salesOrder.SubTotal = vm.SubTotal;
-                    salesOrder.TaxRate = vm.TaxRate;
-                    salesOrder.TotalTaxAmount = vm.TotalTaxAmount;
-                    salesOrder.TotalAmount = vm.TotalAmount;
-                    salesOrder.UpdatedById = loggedInUser.Id;
-                    salesOrder.UpdatedOn = DateTime.UtcNow;
-
-                    salesOrder.SalesOrderItems = new HashSet<SalesOrderItem>();
-
-                    AddNewSalesOrderItems(salesOrder, vm.Items);
-
-                    _db.SalesOrders.Add(salesOrder);
-
-                    response.Message = "New sales order has been added successfully.";
+                    salesOrder.DeliveredDate = new DateTime(vm.DeliverDateYear, vm.DeliverDateMonth, vm.DeliverDateDay, 0, 0, 0);
                 }
-                else
-                {
-                    salesOrder.Discount = vm.Discount;
-                    salesOrder.OrderDate = vm.OrderDate;
-                    salesOrder.OwnerId = vm.OwnerId;
-                    salesOrder.ShippingCharge = vm.ShippingCharge;
-                    salesOrder.Status = vm.Status;
-                    salesOrder.SubTotal = vm.SubTotal;
-                    salesOrder.TaxRate = vm.TaxRate;
-                    salesOrder.TotalTaxAmount = vm.TotalTaxAmount;
-                    salesOrder.TotalAmount = vm.TotalAmount;
-                    salesOrder.UpdatedById = loggedInUser.Id;
-                    salesOrder.UpdatedOn = DateTime.UtcNow;
+                salesOrder.OwnerId = vm.OwnerId;
+                salesOrder.ShippingCharge = vm.ShippingCharge;
+                salesOrder.Status = (int)VehicleTracker.Model.Enums.SalesOrderStatus.New;
+                salesOrder.SubTotal = vm.SubTotal;
+                salesOrder.TaxRate = vm.TaxRate;
+                salesOrder.TotalTaxAmount = vm.TotalTaxAmount;
+                salesOrder.TotalAmount = vm.TotalAmount;
+                salesOrder.UpdatedById = loggedInUser.Id;
+                salesOrder.UpdatedOn = DateTime.UtcNow;
 
-                    var existingItems = salesOrder.SalesOrderItems.ToList();
+                _db.SalesOrders.Update(salesOrder);
 
-                    //Add newly added sales order items
-                    var newlyAddedItems = (from u in vm.Items where !existingItems.Any(x => x.Id == u.Id) select u).ToList();
-
-                    AddNewSalesOrderItems(salesOrder, newlyAddedItems);
-
-                    //Updated existing order items
-                    var updateItems = (from u in vm.Items where existingItems.Any(x => x.Id == u.Id) select u).ToList();
-
-                    foreach (var item in updateItems)
-                    {
-                        var existingSalesOrderItem = existingItems.FirstOrDefault(x => x.Id == item.Id);
-
-                        existingSalesOrderItem.ProductId = item.ProductId;
-                        existingSalesOrderItem.Qty = item.Qty;
-                        existingSalesOrderItem.Total = item.Total;
-                        existingSalesOrderItem.UnitPrice = item.UnitPrice;
-
-                        _db.SalesOrderItems.Update(existingSalesOrderItem);
-                    }
-
-                    //Delete deleted items
-                    var deletedItems = (from d in existingItems where !vm.Items.Any(x => x.Id == d.Id) select d).ToList();
-                    foreach (var item in deletedItems)
-                    {
-                        _db.SalesOrderItems.Remove(item);
-                    }
-
-                    response.Message = string.Format("Existing sales order ({0}) has been updated successfully.", salesOrder.OrderNumber);
-                }
+                response.Message = string.Format("Existing sales order ({0}) has been submitted successfully.", salesOrder.OrderNumber);
 
                 await _db.SaveChangesAsync();
                 response.IsSuccess = true;
@@ -331,9 +279,16 @@ namespace VehicleTracker.Business
             try
             {
                 var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == vm.Id);
-                salesOrder.DeliveredDate = vm.DeliverDate;
+                salesOrder.OrderDate = new DateTime(vm.OrderDateYear, vm.DeliverDateMonth, vm.OrderDateDay, vm.OrderDateHour, vm.OrderDateMin, 0);
+                if (vm.DeliverDate.HasValue)
+                {
+                    salesOrder.DeliveredDate = new DateTime(vm.DeliverDateYear, vm.DeliverDateMonth, vm.DeliverDateDay, 0, 0, 0);
+                }
                 salesOrder.OwnerId = vm.OwnerId;
                 salesOrder.Status = vm.Status;
+                salesOrder.UpdatedById = loggedInUser.Id;
+                
+                salesOrder.UpdatedOn = DateTime.UtcNow;
 
                 _db.SalesOrders.Update(salesOrder);
 
@@ -354,7 +309,35 @@ namespace VehicleTracker.Business
 
         public async Task<ResponseViewModel> SaveSalesOrderStep3(SalesOrderStep3ViewModel vm, User loggedInUser)
         {
-            throw new NotImplementedException();
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == vm.Id);
+                salesOrder.Discount = vm.Discount;
+                salesOrder.TaxRate = vm.TaxRate;
+                salesOrder.TotalAmount = vm.TotalAmount;
+                salesOrder.ShippingCharge = vm.ShippingCharge;
+                salesOrder.TotalTaxAmount = vm.TotalTaxAmount;
+                salesOrder.UpdatedById = loggedInUser.Id;
+                salesOrder.UpdatedOn = DateTime.UtcNow;
+                salesOrder.Remarks = vm.Remarks;
+
+                _db.SalesOrders.Update(salesOrder);
+
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Sales order has been saved.";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                response.IsSuccess = false;
+                response.Message = "Error has been occured while saving the sales order data.";
+            }
+
+            return response;
         }
 
         public async Task<SalesOrderNumber> GetSalesOrderNumber()
@@ -379,12 +362,15 @@ namespace VehicleTracker.Business
             response.OrderDate = salesOrder.OrderDate;
             response.OrderNumber = salesOrder.OrderNumber;
             response.OwnerId = salesOrder.OwnerId.HasValue? salesOrder.OwnerId.Value:0;
+            response.RouteId = salesOrder.OwnerId.HasValue ? salesOrder.Owner.RouteId.Value : 0;
             response.ShippingCharge = salesOrder.ShippingCharge;
             response.Status = salesOrder.Status;
             response.SubTotal = salesOrder.SubTotal;
+            response.Discount = salesOrder.Discount;
             response.TaxRate = salesOrder.TaxRate;
             response.TotalAmount = salesOrder.TotalAmount;
             response.TotalTaxAmount = salesOrder.TotalTaxAmount;
+            response.Remarks = salesOrder.Remarks;
 
             foreach (var item in salesOrder.SalesOrderItems)
             {
@@ -394,7 +380,9 @@ namespace VehicleTracker.Business
                     ProductId = item.ProductId,
                     ProductName = item.Product.ProductName,
                     CategoryName = item.Product.SubProductCategory.ProductCategory.Name,
+                    SelectedCategoryId = item.Product.SubProductCategory.ProductCategoryId,
                     SubCategoryName = item.Product.SubProductCategory.Name,
+                    SelectedSubCategoryId = item.Product.SubProductCategoryId,
                     SalesOrderId = item.OrderId,
                     Qty = item.Qty,
                     Total = item.Total,
@@ -480,7 +468,7 @@ namespace VehicleTracker.Business
                 {
                     salesOrderItem.Qty = salesOrderItem.Qty + productDetail.Qty;
                     salesOrderItem.UnitPrice = productDetail.UntiPrice;
-                    salesOrderItem.Total = productDetail.Qty * productDetail.UntiPrice;
+                    salesOrderItem.Total = salesOrderItem.Qty * productDetail.UntiPrice;
 
                     if (productInventoryOrders == null)
                     {

@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace VehicleTracker.Model.Enums
 {
-  public enum POStatus
-  {
-    [Description("New")]
-    New=1,
-    [Description("Released")]
-    Released =2,
-    [Description("Received")]
-    Received =3,
-    [Description("Canceled")]
-    Canceled =4,
-    [Description("Closed")]
-    Closed =5
-  }
+    public enum POStatus
+    {
+        [Description("Pending")]
+        Pending = 1,
+        [Description("New")]
+        New = 2,
+        [Description("Released")]
+        Released = 3,
+        [Description("Received")]
+        Received = 4,
+        [Description("Canceled")]
+        Canceled = 5,
+        [Description("Closed")]
+        Closed = 6
+    }
 }

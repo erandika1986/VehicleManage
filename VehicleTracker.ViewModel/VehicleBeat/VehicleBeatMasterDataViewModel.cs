@@ -12,10 +12,14 @@ namespace VehicleTracker.ViewModel.VehicleBeat
             Vehicles = new List<DropDownViewModal>();
             Routes = new List<DropDownViewModal>();
             Status = new List<DropDownViewModal>();
+            Drivers = new List<DropDownViewModal>();
+            SalesReps = new List<DropDownViewModal>();
         }
 
         public List<DropDownViewModal> Vehicles { get; set; }
         public List<DropDownViewModal> Routes { get; set; }
         public List<DropDownViewModal> Status { get; set; }
+        public List<DropDownViewModal> Drivers { get; set; }
+        public List<DropDownViewModal> SalesReps { get; set; }
     }
 }

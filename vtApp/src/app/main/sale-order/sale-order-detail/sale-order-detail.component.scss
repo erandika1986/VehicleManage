@@ -213,3 +213,28 @@
         }
     }
 }
+
+.button-row {
+    display: table-cell;
+    width: 100% !important;
+}
+
+.button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+}
+
+button.small {
+    margin-right: 1vw;
+    font-size: 9px;
+    min-width: 20px !important;
+}
+
+.small-mat-raised-button-small {
+    padding: 0px 6px !important;
+}
+
+i,
+.small-mat-icon {
+    margin-top: 10px;
+    font-size: 15px !important;
+}

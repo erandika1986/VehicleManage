@@ -198,11 +198,21 @@ namespace VehicleTracker.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DailyVehicleBeat_User");
 
+                entity.HasOne(d => d.Driver)
+                    .WithMany(p => p.DailyVehicleBeatDrivers)
+                    .HasForeignKey(d => d.DriverId)
+                    .HasConstraintName("FK_DailyVehicleBeat_User3");
+
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.DailyVehicleBeats)
                     .HasForeignKey(d => d.RouteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DailyVehicleBeat_Route");
+
+                entity.HasOne(d => d.SalesRep)
+                    .WithMany(p => p.DailyVehicleBeatSalesReps)
+                    .HasForeignKey(d => d.SalesRepId)
+                    .HasConstraintName("FK_DailyVehicleBeat_User2");
 
                 entity.HasOne(d => d.UpdatedByNavigation)
                     .WithMany(p => p.DailyVehicleBeatUpdatedByNavigations)
@@ -219,6 +229,16 @@ namespace VehicleTracker.Data
 
             modelBuilder.Entity<DailyVehicleBeatOrder>(entity =>
             {
+                entity.Property(e => e.AssignedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DeliveredDateTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.AssignedBy)
+                    .WithMany(p => p.DailyVehicleBeatOrders)
+                    .HasForeignKey(d => d.AssignedById)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DailyVehicleBeatOrders_User");
+
                 entity.HasOne(d => d.DailyVehicleBeat)
                     .WithMany(p => p.DailyVehicleBeatOrders)
                     .HasForeignKey(d => d.DailyVehicleBeatId)
@@ -730,6 +750,8 @@ namespace VehicleTracker.Data
             modelBuilder.Entity<SalesOrderStatus>(entity =>
             {
                 entity.ToTable("SalesOrderStatus");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.ColorCode).HasMaxLength(50);
 

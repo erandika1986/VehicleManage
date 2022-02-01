@@ -18,7 +18,9 @@ namespace System
             model.Id = vm.Id;
             model.VehicleId = vm.VehicleId;
             model.RouteId = vm.RouteId;
-            model.Date = vm.Date;
+            model.DriverId = vm.DriverId;
+            model.SalesRepId = vm.SalesRepId;
+            model.Date = new DateTime(vm.DateYear, vm.DateMonth, vm.DateDay, 0, 0, 0); 
             model.Status = (int)vm.Status;
             model.StartingMilage = vm.StartingMilage;
             model.EndMilage = vm.EndMilage;
@@ -41,7 +43,16 @@ namespace System
             vm.VehicleNumber = model.Vehicle.RegistrationNo;
 
             vm.RouteId = model.RouteId;
-            vm.Route = model.Route.RouteCode;
+            vm.RouteName = model.Route.RouteCode;
+
+            vm.DriverId = model.DriverId;
+            if (model.DriverId.HasValue)
+                vm.DriverName = string.Format("{0} {1}", model.Driver.FirstName, model.Driver.LastName);
+
+            vm.SalesRepId = model.SalesRepId;
+            if(model.SalesRepId.HasValue)
+                vm.SalesRepName = string.Format("{0} {1}", model.SalesRep.FirstName, model.SalesRep.LastName);
+
 
             vm.Date = model.Date;
             vm.StartingMilage = model.StartingMilage.HasValue?model.StartingMilage.Value:0;

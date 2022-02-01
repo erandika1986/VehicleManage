@@ -29,7 +29,7 @@ export class SalesOrderService {
   onSalesOrderDetailChanged:Subject<any>;
 
 
-  onSalesOrderChanged: BehaviorSubject<any>;
+  onSalesOrderChanged: Subject<any>;
   onSelectedSalesOrderChanged: BehaviorSubject<any>;
   onSalesOrderDataChanged: BehaviorSubject<any>;
   onMasterDataRecieved:Subject<any>;
@@ -52,7 +52,7 @@ export class SalesOrderService {
     this.onNewRecordAdded = new Subject();
     this.onSalesOrderDetailChanged = new Subject();
 
-    this.onSalesOrderChanged = new BehaviorSubject([]);
+    this.onSalesOrderChanged = new Subject();
     this.onSelectedSalesOrderChanged = new BehaviorSubject([]); 
     this.onSalesOrderDataChanged = new BehaviorSubject([]);
     this.onMasterDataRecieved = new Subject();

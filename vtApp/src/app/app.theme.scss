@@ -87,6 +87,7 @@ $typography: mat.define-typography-config(
 @import "src/app/main/admin/user/users.theme.scss";
 @import "src/app/main/sale-order/sale-orders.theme.scss";
 @import "src/app/main/admin/product/product-list/product.theme.scss";
+@import "src/app/main/vehicle-tracking/daily-beat/daily-beats.theme.scss";
 
 @import "src/app/layout/components/chat-panel/chat-panel.theme";
 @import "src/app/layout/components/toolbar/toolbar.theme";
@@ -110,6 +111,9 @@ $typography: mat.define-typography-config(
     @include vehicle-list-theme($theme);
     @include users-theme($theme);
     @include product-list($theme);
+    @include daily-beats-theme($theme);
+
+    
     // Pages
     @include login-theme($theme);
     @include reset-password-theme($theme);

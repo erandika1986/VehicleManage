@@ -15,9 +15,23 @@ namespace VehicleTracker.ViewModel.SalesOrder
 
         public long Id { get; set; }
         public string OrderNumber { get; set; }
+
         public DateTime OrderDate { get; set; }
+        public int OrderDateYear { get; set; }
+        public int OrderDateMonth { get; set; }
+        public int OrderDateDay { get; set; }
+        public int OrderDateHour { get; set; }
+        public int OrderDateMin { get; set; }
+
         public DateTime? DeliverDate { get; set; }
+        public int DeliverDateYear { get; set; }
+        public int DeliverDateMonth { get; set; }
+        public int DeliverDateDay { get; set; }
+        public int DeliverDateHour { get; set; }
+        public int DeliverDateMin { get; set; }
+
         public int OwnerId { get; set; }
+        public long RouteId { get; set; }
         public int Status { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Discount { get; set; }
@@ -36,7 +50,18 @@ namespace VehicleTracker.ViewModel.SalesOrder
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
+        public int OrderDateYear { get; set; }
+        public int OrderDateMonth { get; set; }
+        public int OrderDateDay { get; set; }
+        public int OrderDateHour { get; set; }
+        public int OrderDateMin { get; set; }
+
         public DateTime? DeliverDate { get; set; }
+        public int DeliverDateYear { get; set; }
+        public int DeliverDateMonth { get; set; }
+        public int DeliverDateDay { get; set; }
+        public int DeliverDateHour { get; set; }
+        public int DeliverDateMin { get; set; }
         public int OwnerId { get; set; }
         public int Status { get; set; }
     }

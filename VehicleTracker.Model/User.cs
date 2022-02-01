@@ -14,6 +14,9 @@ namespace VehicleTracker.Model
             CustomerProductPriceCreatedBies = new HashSet<CustomerProductPrice>();
             CustomerProductPriceUpdatedBies = new HashSet<CustomerProductPrice>();
             DailyVehicleBeatCreatedByNavigations = new HashSet<DailyVehicleBeat>();
+            DailyVehicleBeatDrivers = new HashSet<DailyVehicleBeat>();
+            DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrder>();
+            DailyVehicleBeatSalesReps = new HashSet<DailyVehicleBeat>();
             DailyVehicleBeatUpdatedByNavigations = new HashSet<DailyVehicleBeat>();
             ProductCreatedBies = new HashSet<Product>();
             ProductInventoryCreatedBies = new HashSet<ProductInventory>();
@@ -82,6 +85,9 @@ namespace VehicleTracker.Model
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBies { get; set; }
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBies { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigations { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatDrivers { get; set; }
+        public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatSalesReps { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigations { get; set; }
         public virtual ICollection<Product> ProductCreatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }

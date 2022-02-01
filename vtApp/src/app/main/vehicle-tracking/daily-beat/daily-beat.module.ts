@@ -17,12 +17,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FuseWidgetModule } from '@fuse/components';
+import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from 'app/shared/shared.module';
-import { DailyBeatsComponent } from './daily-beats/daily-beats.component';
+import { DailyBeatListComponent } from './daily-beat-list/daily-beat-list.component';
+import { DailyBeatOrderDetailComponent } from './daily-beat-order-detail/daily-beat-order-detail.component';
+import { DailyBeatEditModelComponent } from './daily-beat-edit-model/daily-beat-edit-model.component';
+import { DailyBeatsComponent } from './daily-beats.component';
+import { MainComponent } from './sidebars/main/main.component';
+import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 const routes: Routes = [
   {
@@ -38,7 +43,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DailyBeatsComponent],
+  declarations: [DailyBeatsComponent, DailyBeatListComponent, DailyBeatOrderDetailComponent, DailyBeatEditModelComponent,  MainComponent],
   imports: [
     RouterModule.forChild(routes),
 
@@ -61,7 +66,11 @@ const routes: Routes = [
     FuseWidgetModule,
     MatMenuModule,
     MatSlideToggleModule,
-    SharedModule
+    FuseSharedModule,
+    FuseWidgetModule,
+    SharedModule,    
+    FuseSidebarModule,
+    MatToolbarModule
   ]
 })
 export class DailyBeatModule { }

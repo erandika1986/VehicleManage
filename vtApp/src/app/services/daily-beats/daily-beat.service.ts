@@ -1,26 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { VehicleBeatMasterDataModel } from 'app/models/dialy-beat/vehicle-beat-master-data.model';
 import { VehicleBeatFilterModel } from 'app/models/dialy-beat/vehicle-beat-filter.model';
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { VehicleDailyBeatPaginatedItemsModel } from 'app/models/dialy-beat/vehicle-daily-beat-paginated-items.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DailyBeatService {
 
-  constructor(private httpClient: HttpClient) { }
+  onFilterChanged: Subject<VehicleBeatFilterModel>;
+  onSearchTextChanged : Subject<string>;
+  onMasterDataRecieved:Subject<VehicleBeatMasterDataModel>;
+
+  constructor(private httpClient: HttpClient) {
+    this.onFilterChanged = new Subject();
+    this.onSearchTextChanged =  new Subject();
+    this.onMasterDataRecieved = new Subject();
+   }
 
   getMasterData(): Observable<VehicleBeatMasterDataModel> {
     return this.httpClient.
       get<VehicleBeatMasterDataModel>(environment.apiUrl + 'VehicleDailyBeat' + "/getMasterData");
   }
 
-  getAllVehicleBeatRecord(filter: VehicleBeatFilterModel): Observable<DailyVehicleBeatModel[]> {
-    return this.httpClient.post<DailyVehicleBeatModel[]>(environment.apiUrl + 'VehicleDailyBeat/getAllVehicleBeatRecord', filter);
+  getAllVehicleBeatRecord(filter: VehicleBeatFilterModel): Observable<VehicleDailyBeatPaginatedItemsModel> {
+    return this.httpClient.post<VehicleDailyBeatPaginatedItemsModel>(environment.apiUrl + 'VehicleDailyBeat/getAllVehicleBeatRecord', filter);
   }
 
   getVehicleBeatRecordById(id: number): Observable<DailyVehicleBeatModel> {

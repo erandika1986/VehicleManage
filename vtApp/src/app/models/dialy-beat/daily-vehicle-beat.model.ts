@@ -4,7 +4,13 @@ export class DailyVehicleBeatModel {
     vehicleNumber: string;
 
     routeId: number;
-    route: string;
+    routeName:string;
+
+    salesRepId:number;
+    salesRepName:string;
+
+    driverId:number;
+    driverName:string;
 
     date: Date;
     startingMilage: number;

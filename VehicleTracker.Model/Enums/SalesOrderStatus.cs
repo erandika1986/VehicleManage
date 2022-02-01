@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace VehicleTracker.Model.Enums
 {
-  public enum SalesOrderStatus
-  {
-    New=1,
-    PlannedForDelivery=2,
-    Shipped=3,
-    Completed=4,
-    OnHold=5,
-    Cancelled=6
-  }
+    public enum SalesOrderStatus
+    {
+        Pending = 1,
+        New = 2,
+        PlannedForDelivery = 3,
+        Shipped = 4,
+        Completed = 5,
+        OnHold = 6,
+        Cancelled = 7
+    }
 }

@@ -15,6 +15,8 @@ namespace VehicleTracker.Model
         public long Id { get; set; }
         public long VehicleId { get; set; }
         public long RouteId { get; set; }
+        public long? DriverId { get; set; }
+        public long? SalesRepId { get; set; }
         public DateTime Date { get; set; }
         public decimal? StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }
@@ -26,7 +28,9 @@ namespace VehicleTracker.Model
         public bool? IsActive { get; set; }
 
         public virtual User CreatedByNavigation { get; set; }
+        public virtual User Driver { get; set; }
         public virtual Route Route { get; set; }
+        public virtual User SalesRep { get; set; }
         public virtual User UpdatedByNavigation { get; set; }
         public virtual Vehicle Vehicle { get; set; }
         public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }

@@ -153,6 +153,7 @@
                                                     >
                                                     <mat-select
                                                         formControlName="ownerId"
+                                                        (selectionChange)="onCustomerChanged($event)"
                                                         required
                                                     >
                                                         <mat-option
@@ -332,9 +333,9 @@
                                                                     index
                                                                 "
                                                             >
-                                                                <a
+<!--                                                                 <a
                                                                     (click)="
-                                                                        deletePOItem(
+                                                                    deleteOrderItem(
                                                                             row,
                                                                             index
                                                                         )
@@ -343,7 +344,40 @@
                                                                         !isViewOnly
                                                                     "
                                                                     >Delete</a
-                                                                >
+                                                                ><span>&nbsp;&nbsp;</span>
+                                                                <a
+                                                                (click)="
+                                                                editOrderItem(
+                                                                        row,
+                                                                        index
+                                                                    )
+                                                                "
+                                                                *ngIf="
+                                                                    !isViewOnly
+                                                                "
+                                                                >Edit</a
+                                                            > -->
+                                                            <div fxFlex="row" fxLayoutAlign="center center">
+
+                                                                <div class="button-row">
+                                                    
+                                                                    <button mat-raised-button class="orange  small small-mat-raised-button-small"  matTooltip="Edit sales order item" (click)="editOrderItem(
+                                                                        row,
+                                                                        index
+                                                                    )"
+                                                                    >
+                                                                        <mat-icon class="small-mat-icon">edit</mat-icon>
+                                                                    </button>
+                                                                    <button mat-raised-button class="red  small small-mat-raised-button-small"  matTooltip="Delete sales order item" (click)="deleteOrderItem(
+                                                                        row,
+                                                                        index
+                                                                    )"
+                                                                    >
+                                                                        <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
+                                                                    </button>
+                                                    
+                                                                  </div>
+                                                            </div>
                                                             </mat-cell>
                                                         </ng-container>
 
@@ -854,7 +888,7 @@
                                                     type="button"
                                                     color="accent"
                                                     style="margin-right: 10px"
-                                                    (click)="saveOrder(false)"
+                                                    (click)="saveAndExitOrderStep3(false)"
                                                     *ngIf="
                                                         !isViewOnly && id > 0
                                                     "
@@ -891,7 +925,7 @@
                                             Sales Order Summary.
                                         </div>
 
-                                        <!--                                         <mat-list>
+                                        <mat-list>
                                             <mat-list-item>
                                                 <div
                                                     fxLayout="row"
@@ -904,7 +938,7 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label
-                                                            >PO
+                                                            >Sales Order
                                                             Number</mat-label
                                                         >
                                                     </div>
@@ -914,7 +948,7 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label>{{
-                                                            poNumber
+                                                            salesOrderNumber
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
@@ -941,7 +975,35 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label>{{
-                                                            date | date
+                                                            orderDate | date
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                             <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Customer
+                                                            Name</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            customerName
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
@@ -959,7 +1021,35 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label
-                                                            >Supplier
+                                                            >Customer
+                                                            Address</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            ownerAddress
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                           <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Route
                                                             Name</mat-label
                                                         >
                                                     </div>
@@ -969,7 +1059,7 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label>{{
-                                                            supplier?.name
+                                                            routeName
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
@@ -987,8 +1077,7 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label
-                                                            >Warehouse
-                                                            Name</mat-label
+                                                            >Status</mat-label
                                                         >
                                                     </div>
                                                     <div
@@ -997,13 +1086,13 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label>{{
-                                                            warehouse?.name
+                                                            selectedStatusName
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
                                             </mat-list-item>
                                             <mat-divider></mat-divider>
-                                            <mat-list-item>
+                                           <!--  <mat-list-item>
                                                 <div
                                                     fxLayout="row"
                                                     fxLayoutAlign="start center"
@@ -1056,7 +1145,7 @@
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
-                                            </mat-list-item>
+                                            </mat-list-item>-->
                                             <mat-divider></mat-divider>
                                             <mat-list-item>
                                                 <div
@@ -1164,7 +1253,7 @@
                                                         class="pr-4"
                                                     >
                                                         <mat-label>{{
-                                                            totalTaxAmout
+                                                            totalTaxAmount
                                                                 | currency
                                                         }}</mat-label>
                                                     </div>
@@ -1200,6 +1289,7 @@
                                                     </div>
                                                 </div>
                                             </mat-list-item>
+                                            <mat-divider></mat-divider>
                                             <mat-list-item>
                                                 <div
                                                     fxLayout="row"
@@ -1227,8 +1317,35 @@
                                                         }}</mat-label>
                                                     </div>
                                                 </div>
-                                            </mat-list-item>
-                                        </mat-list> -->
+                                            </mat-list-item> 
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <div
+                                                    fxLayout="row"
+                                                    fxLayoutAlign="start center"
+                                                    fxFlex="1 0 auto"
+                                                >
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="30"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label
+                                                            >Remarks</mat-label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        appearance="outline"
+                                                        fxFlex="70"
+                                                        class="pr-4"
+                                                    >
+                                                        <mat-label>{{
+                                                            remarks
+                                                        }}</mat-label>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item> 
+                                        </mat-list> 
 
                                         <div
                                             fxLayout="row"
@@ -1247,10 +1364,10 @@
                                                 mat-raised-button
                                                 type="button"
                                                 color="accent"
-                                                (click)="saveOrder(false)"
+                                                (click)="saveAndSubmit()"
                                                 *ngIf="!isViewOnly"
                                             >
-                                                Save
+                                                Save & Submit
                                             </button>
                                         </div>
                                     </mat-step>

@@ -22,6 +22,10 @@ export class ProductAvailabiltyComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   salesOrderId:number;
+  categoryId:number;
+  subCategoryId:number;
+  productId :number;
+
   action: string;
   //customer: CustomerModel;
   productSearchForm: FormGroup;
@@ -40,16 +44,14 @@ export class ProductAvailabiltyComponent implements OnInit {
     private salesOrderService:SalesOrderService,
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private dropdownService:DropdownService) { 
-      console.log(this._data);
-      
       this.salesOrderId = this._data.salesOrderId;
-      console.log(this.salesOrderId);
-      
+      this.categoryId=this._data.categoryId;
+      this.subCategoryId=this._data.subCategoryId;
+      this.productId=this._data.productId;
+
     }
 
   ngOnInit(): void {
-    //this.getMasterData();
-
     this.productSearchForm = this.createSearchForm();
     this.getProductCategory();
   }
@@ -57,9 +59,9 @@ export class ProductAvailabiltyComponent implements OnInit {
   createSearchForm()
   {
     return new FormGroup({
-      selectedCategoryId: new FormControl(null, Validators.required),
-      selectedSubCategoryId: new FormControl(null, Validators.required),
-      selectedProudctId: new FormControl(null, Validators.required)
+      selectedCategoryId: new FormControl(this.categoryId==0?null:this.categoryId, Validators.required),
+      selectedSubCategoryId: new FormControl(this.subCategoryId==0?null:this.subCategoryId, Validators.required),
+      selectedProudctId: new FormControl(this.productId==0?null:this.productId, Validators.required)
     });
 
 
@@ -73,7 +75,10 @@ export class ProductAvailabiltyComponent implements OnInit {
         this.productCategories = response;
         if(response.length>0)
         {
-          this.productSearchForm.get('selectedCategoryId').setValue(response[0].id);
+          if(this.categoryId==0)
+          {
+            this.productSearchForm.get('selectedCategoryId').setValue(response[0].id);
+          }
           this.getProductSubCategory();
         }
         else
@@ -87,7 +92,7 @@ export class ProductAvailabiltyComponent implements OnInit {
       });
   }
 
-  getProductSubCategory()
+  getProductSubCategory(fistTimeLoad:boolean=true)
   {
     this.dropdownService.getProductSubCategories(this.productSearchForm.get('selectedCategoryId').value)
       .subscribe(response=>{
@@ -95,8 +100,12 @@ export class ProductAvailabiltyComponent implements OnInit {
         this.productSubCategories = response;
         if(response.length>0)
         {
-          this.productSearchForm.get('selectedSubCategoryId').setValue(response[0].id);
-          this.getProducts();
+          if(!fistTimeLoad)
+          {
+            this.productSearchForm.get('selectedSubCategoryId').setValue(response[0].id);
+          }
+
+          this.getProducts(fistTimeLoad);
         }
         else
         {
@@ -109,7 +118,7 @@ export class ProductAvailabiltyComponent implements OnInit {
       });
   }
 
-  getProducts()
+  getProducts(fistTimeLoad:boolean=true)
   {
     this.dropdownService.getProducts(this.productSearchForm.get('selectedSubCategoryId').value)
       .subscribe(response=>{
@@ -117,7 +126,10 @@ export class ProductAvailabiltyComponent implements OnInit {
         this.products = response;
         if(response.length>0)
         {
-          this.productSearchForm.get('selectedProudctId').setValue(response[0].id);
+          if(!fistTimeLoad)
+          {
+            this.productSearchForm.get('selectedProudctId').setValue(response[0].id);
+          }
           this.getproductInventoryDetails();
         }
         else
@@ -134,12 +146,12 @@ export class ProductAvailabiltyComponent implements OnInit {
 
   onProductCategoryChanged(item:any)
   {
-    this.getProductSubCategory();
+    this.getProductSubCategory(false)
   }
 
   onProductSubCategoryChanged(item:any)
   {
-    this.getProducts();
+    this.getProducts(false);
   }
 
   onProductChanged(item:any)
@@ -149,7 +161,7 @@ export class ProductAvailabiltyComponent implements OnInit {
 
   getproductInventoryDetails()
   {
-    this.salesOrderService.getWarehouseProductAvailability(this.productId,this.salesOrderId)
+    this.salesOrderService.getWarehouseProductAvailability(this.selectedProductId,this.salesOrderId)
       .subscribe(response=>{
         this.productAvailabilities = response;        
 
@@ -178,6 +190,7 @@ export class ProductAvailabiltyComponent implements OnInit {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
           });
+          this.salesOrderService.onSalesOrderChanged.next(true);
           this.getproductInventoryDetails();
         },error=>{
           this._fuseProgressBarService.hide();
@@ -220,6 +233,7 @@ export class ProductAvailabiltyComponent implements OnInit {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
           });
+          this.salesOrderService.onSalesOrderChanged.next(true);
           this.getproductInventoryDetails();
         },error=>{
           this._fuseProgressBarService.hide();
@@ -259,6 +273,7 @@ export class ProductAvailabiltyComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
+        this.salesOrderService.onSalesOrderChanged.next(true);
         this.getproductInventoryDetails();
       },error=>{
         this._fuseProgressBarService.hide();
@@ -270,8 +285,17 @@ export class ProductAvailabiltyComponent implements OnInit {
       });
   }
 
+  get selectedCategoryId():number
+  {
+    return this.productSearchForm.get('selectedCategoryId').value;
+  }
 
-  get productId():number
+  get selectedSubCategoryId():number
+  {
+    return this.productSearchForm.get('selectedSubCategoryId').value;
+  }
+
+  get selectedProductId():number
   {
     return this.productSearchForm.get('selectedProudctId').value;
   }

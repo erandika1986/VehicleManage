@@ -8,6 +8,7 @@ namespace VehicleTracker.Model
     {
         Planned=1,
         Started=2,
-        Completed=3
+        Completed=3,
+        Cancel=4
     }
 }

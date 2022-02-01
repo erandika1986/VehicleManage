@@ -27,6 +27,7 @@ namespace VehicleTracker.Model
         public decimal TotalTaxAmount { get; set; }
         public decimal ShippingCharge { get; set; }
         public decimal TotalAmount { get; set; }
+        public string Remarks { get; set; }
         public long CreatedById { get; set; }
         public DateTime CreatedOn { get; set; }
         public long UpdatedById { get; set; }
