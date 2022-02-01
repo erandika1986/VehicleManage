@@ -354,8 +354,8 @@ namespace VehicleTracker.Business
         var user = _userService.GetUserByUsername(userName);
 
         var veom = vm.ToModel();
-        veom.UpdatedBy = user.Id;
-        veom.CreatedBy = user.Id;
+        //veom.UpdatedBy = user.Id;
+        //veom.CreatedBy = user.Id;
 
         _db.VehicleExpenses.Add(veom);
         await _db.SaveChangesAsync();

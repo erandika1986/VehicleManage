@@ -25,6 +25,9 @@ namespace VehicleTracker.Data
         public virtual DbSet<DifferentialOilCode> DifferentialOilCodes { get; set; }
         public virtual DbSet<EgineCoolant> EgineCoolants { get; set; }
         public virtual DbSet<EngineOilCode> EngineOilCodes { get; set; }
+        public virtual DbSet<Expense> Expenses { get; set; }
+        public virtual DbSet<ExpenseCategory> ExpenseCategories { get; set; }
+        public virtual DbSet<ExpenseImage> ExpenseImages { get; set; }
         public virtual DbSet<GearBoxOilCode> GearBoxOilCodes { get; set; }
         public virtual DbSet<PowerSteeringOilCode> PowerSteeringOilCodes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -271,6 +274,57 @@ namespace VehicleTracker.Data
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Expense>(entity =>
+            {
+                entity.ToTable("Expense");
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedBy)
+                    .WithMany(p => p.ExpenseCreatedBies)
+                    .HasForeignKey(d => d.CreatedById)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Expense_User");
+
+                entity.HasOne(d => d.ExpenseCategory)
+                    .WithMany(p => p.Expenses)
+                    .HasForeignKey(d => d.ExpenseCategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Expense_ExpenseCategory");
+
+                entity.HasOne(d => d.UpdatedBy)
+                    .WithMany(p => p.ExpenseUpdatedBies)
+                    .HasForeignKey(d => d.UpdatedById)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Expense_User1");
+            });
+
+            modelBuilder.Entity<ExpenseCategory>(entity =>
+            {
+                entity.ToTable("ExpenseCategory");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CategoryName).HasMaxLength(1000);
+            });
+
+            modelBuilder.Entity<ExpenseImage>(entity =>
+            {
+                entity.ToTable("ExpenseImage");
+
+                entity.HasOne(d => d.Expense)
+                    .WithMany(p => p.ExpenseImages)
+                    .HasForeignKey(d => d.ExpenseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ExpenseImage_Expense");
             });
 
             modelBuilder.Entity<GearBoxOilCode>(entity =>
@@ -1067,27 +1121,13 @@ namespace VehicleTracker.Data
 
             modelBuilder.Entity<VehicleExpense>(entity =>
             {
-                entity.Property(e => e.Amount).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.Date).HasColumnType("datetime");
-
-                entity.Property(e => e.Description).HasMaxLength(250);
-
-                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
-
-                entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany(p => p.VehicleExpenseCreatedByNavigations)
-                    .HasForeignKey(d => d.CreatedBy)
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.VehicleExpense)
+                    .HasForeignKey<VehicleExpense>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_VehicleExpenses_User");
-
-                entity.HasOne(d => d.UpdatedByNavigation)
-                    .WithMany(p => p.VehicleExpenseUpdatedByNavigations)
-                    .HasForeignKey(d => d.UpdatedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_VehicleExpenses_User1");
+                    .HasConstraintName("FK_VehicleExpenses_Expense");
 
                 entity.HasOne(d => d.Vehicle)
                     .WithMany(p => p.VehicleExpenses)

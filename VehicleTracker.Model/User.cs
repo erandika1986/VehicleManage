@@ -18,6 +18,8 @@ namespace VehicleTracker.Model
             DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrder>();
             DailyVehicleBeatSalesReps = new HashSet<DailyVehicleBeat>();
             DailyVehicleBeatUpdatedByNavigations = new HashSet<DailyVehicleBeat>();
+            ExpenseCreatedBies = new HashSet<Expense>();
+            ExpenseUpdatedBies = new HashSet<Expense>();
             ProductCreatedBies = new HashSet<Product>();
             ProductInventoryCreatedBies = new HashSet<ProductInventory>();
             ProductInventoryOrderCreatedBies = new HashSet<ProductInventoryOrder>();
@@ -42,8 +44,6 @@ namespace VehicleTracker.Model
             VehicleEmissiontTestUpdatedByNavigations = new HashSet<VehicleEmissiontTest>();
             VehicleEngineOilMilageCreatedByNavigations = new HashSet<VehicleEngineOilMilage>();
             VehicleEngineOilMilageUpdatedByNavigations = new HashSet<VehicleEngineOilMilage>();
-            VehicleExpenseCreatedByNavigations = new HashSet<VehicleExpense>();
-            VehicleExpenseUpdatedByNavigations = new HashSet<VehicleExpense>();
             VehicleFitnessReportCreatedByNavigations = new HashSet<VehicleFitnessReport>();
             VehicleFitnessReportUpdatedByNavigations = new HashSet<VehicleFitnessReport>();
             VehicleFuelFilterMilageCreatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
@@ -89,6 +89,8 @@ namespace VehicleTracker.Model
         public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatSalesReps { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigations { get; set; }
+        public virtual ICollection<Expense> ExpenseCreatedBies { get; set; }
+        public virtual ICollection<Expense> ExpenseUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductCreatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }
         public virtual ICollection<ProductInventoryOrder> ProductInventoryOrderCreatedBies { get; set; }
@@ -113,8 +115,6 @@ namespace VehicleTracker.Model
         public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTestUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageUpdatedByNavigations { get; set; }
-        public virtual ICollection<VehicleExpense> VehicleExpenseCreatedByNavigations { get; set; }
-        public virtual ICollection<VehicleExpense> VehicleExpenseUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageCreatedByNavigations { get; set; }
