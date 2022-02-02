@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ExpenseController : ControllerBase
@@ -26,7 +28,7 @@ namespace VehicleTracker.WebApi.Controllers
 
         [HttpPost]
         [Route("saveExpese")]
-        public async Task<IActionResult> SaveExpenses([FromBody] ExpensesViewModel vm)
+        public async Task<IActionResult> SaveExpenses(ExpensesViewModel vm)
         {
             var username = identityService.GetUserName();
             var response = await _expenseService.SaveExpenses(vm, username);

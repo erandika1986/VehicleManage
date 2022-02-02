@@ -34,15 +34,82 @@ namespace VehicleTracker.Business
         public async Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username)
         {
             var response = new ResponseViewModel();
-
-            var loggedInUser = _db.Users.Where(x => x.Username == username).FirstOrDefault();
-            
-            if(vm.Id == 0)
+            try
             {
-               
+                var loggedInUser = _db.Users.Where(x => x.Username == username).FirstOrDefault();
+                var expense = _db.Expenses.FirstOrDefault(x => x.Id == vm.Id);
+
+                var expenseDate = new DateTime(vm.ExpenseYear, vm.ExpenseMonth, vm.ExpenseDay);
+
+                if (expense == null)
+                {
+                    expense = new Expense()
+                    {
+                        Id = vm.Id,
+                        ExpenseCategoryId = vm.ExpenseCategoryId,
+                        Description = vm.Description,
+                        Date = expenseDate,
+                        Amount = vm.Amount,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
+
+                    };
+                    _db.Expenses.Add(expense);
+
+                    if(vm.VehicleId != 0)
+                    {
+                        var vehicleExpense = new VehicleExpense()
+                        {
+                            Id = vm.Id,
+                            VehicleExpenseType = vm.VehicleExpenseTypeId,
+                            VehicleId = vm.VehicleId
+                        };
+
+                        _db.VehicleExpenses.Add(vehicleExpense);
+                    }
+
+                    response.IsSuccess = true;
+                    response.Message = "Expenses has been Save SuccessFully";
+
+                }
+                else
+                {
+                    expense.ExpenseCategoryId = vm.ExpenseCategoryId;
+                    expense.Description = vm.Description;
+                    expense.Date = expenseDate;
+                    expense.Amount = vm.Amount;
+                    expense.UpdatedOn = DateTime.UtcNow;
+                    expense.UpdatedById = loggedInUser.Id;
+
+                    _db.Expenses.Update(expense);
+
+                    var vehicleExpense = _db.VehicleExpenses.Where(x => x.Id == vm.Id).FirstOrDefault();
+
+                    if (vehicleExpense != null)
+                    {
+                        vehicleExpense.VehicleExpenseType = vm.VehicleExpenseTypeId;
+                        vehicleExpense.VehicleId = vm.VehicleId;
+                       
+                        _db.VehicleExpenses.Update(vehicleExpense);
+                    }
+
+                    response.IsSuccess = true;
+                    response.Message = "Expenses has been Update SuccessFully";
+
+
+                }
+
+                await _db.SaveChangesAsync();
+
             }
-
-
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error has benn orrcured Plase try again";
+            }
+           
             return response;
         }
     }
