@@ -1121,7 +1121,7 @@ namespace VehicleTracker.Data
 
             modelBuilder.Entity<VehicleExpense>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.VehicleExpense)

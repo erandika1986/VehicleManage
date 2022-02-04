@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DropDownModel } from 'app/models/common/drop-down.modal';
 import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { Subject } from 'rxjs';
@@ -88,7 +89,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
   dropdownFilterChanged()
   {
-    this._dailyBeatService.onFilterChanged.next(this.filterForm.getRawValue())
+    this._dailyBeatService.onFilterChanged.next(this.filterForm.getRawValue());
+  }
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this._dailyBeatService.onFilterChanged.next(this.filterForm.getRawValue());
   }
 
 }

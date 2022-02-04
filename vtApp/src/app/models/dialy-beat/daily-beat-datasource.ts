@@ -10,6 +10,7 @@ import { VehicleBeatFilterModel } from "./vehicle-beat-filter.model";
 export class DailyBeatDataSource extends DataSource<any>
 {
     public _filterChange = new BehaviorSubject(true);
+    public _saveRecord = new BehaviorSubject(true);
     private _searchTextChange = new BehaviorSubject('');
     private _pageSize = new BehaviorSubject(25);
     private _status = new BehaviorSubject(1);
@@ -59,7 +60,8 @@ export class DailyBeatDataSource extends DataSource<any>
             this._matPaginator.page,
             this._searchTextChange,
             this._matSort.sortChange,
-            this._filterChange
+            this._filterChange,
+            this._saveRecord
         ];
 
         return merge(...displayDataChanges)

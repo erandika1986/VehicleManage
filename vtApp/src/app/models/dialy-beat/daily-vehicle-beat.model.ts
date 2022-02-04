@@ -13,8 +13,13 @@ export class DailyVehicleBeatModel {
     driverName:string;
 
     date: Date;
+    dateYear:number;
+    dateMonth:number;
+    dateDay:number;
+
     startingMilage: number;
     endMilage: number;
+    remarks:string;
     status: number;
     statusInText: string;
     createdOn?: Date;

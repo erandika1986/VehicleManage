@@ -35,12 +35,7 @@ export class DailyBeatEditModelComponent implements OnInit {
     private _formBuilder: FormBuilder) { 
       this.action = _data.action;
       this.masterData = _data.masterData;
-      this.masterData.drivers.shift();
-      this.masterData.routes.shift();
-      this.masterData.salesReps.shift();
-      this.masterData.vehicles.shift();
-      this.masterData.status.shift();
-      
+
       if ( this.action == 'edit' )
       {
           this.dialogTitle = 'Edit Daily Beat';
@@ -80,17 +75,20 @@ export class DailyBeatEditModelComponent implements OnInit {
   
     createExistingDailyBeatForm(model:DailyVehicleBeatModel):FormGroup
     {
+      console.log(model);
+
         return this._formBuilder.group({
           id: [model.id],
-          vehicleId: [model.vehicleId,Validators.required],
+           vehicleId: [model.vehicleId,Validators.required],
           routeId: [model.routeId,Validators.required],
           salesRepId: [model.salesRepId, Validators.required],
           driverId: [model.driverId],
-          date: [model.date,Validators.required],
+          date: [new Date(model.date),Validators.required],
           startingMilage: [model.startingMilage,Validators.required],
           endMilage:[model.endMilage,Validators.required],
           status:[model.status,Validators.required],
-          isActive: [true],
+          remarks:[model.remarks],
+          isActive: [true]
         });
 
     }
@@ -99,14 +97,15 @@ export class DailyBeatEditModelComponent implements OnInit {
     {
       return this._formBuilder.group({
         id: [0],
-        vehicleId: [0,Validators.required],
-        routeId: [0,Validators.required],
-        salesRepId: [0, Validators.required],
-        driverId: [0],
+        vehicleId: [null,Validators.required],
+        routeId: [null,Validators.required],
+        salesRepId: [null, Validators.required],
+        driverId: [null],
         date: [new Date(),Validators.required],
         startingMilage: [0,Validators.required],
         endMilage:[0,Validators.required],
-        status:[1,Validators.required],
+        status:[null,Validators.required],
+        remarks:[''],
         isActive: [true],
       });
     }
