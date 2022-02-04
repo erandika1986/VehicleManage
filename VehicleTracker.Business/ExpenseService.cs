@@ -10,6 +10,7 @@ using VehicleTracker.Business.Interfaces;
 using VehicleTracker.Data;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Common;
+using VehicleTracker.ViewModel.Common.Enums;
 using VehicleTracker.ViewModel.Expenses;
 
 namespace VehicleTracker.Business
@@ -19,16 +20,19 @@ namespace VehicleTracker.Business
         #region Member variable
         private readonly VMDBContext _db;
         private readonly IConfiguration _config;
-        private readonly IExpenseService _expenseService;
-        private readonly ILogger<IInventoryService> _logger; 
+        private readonly ILogger<IExpenseService> _logger; 
         #endregion
 
-        public ExpenseService(VMDBContext db, IConfiguration config, IExpenseService expenseService, ILogger<IInventoryService> logger)
+        public ExpenseService(VMDBContext db, IConfiguration config, ILogger<IExpenseService> logger)
         {
             this._db = db;
             this._config = config;
-            this._expenseService = expenseService;
             this._logger = logger;
+        }
+
+        public PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters, string userName)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username)
@@ -46,7 +50,7 @@ namespace VehicleTracker.Business
                     expense = new Expense()
                     {
                         Id = vm.Id,
-                        ExpenseCategoryId = vm.ExpenseCategoryId,
+                        ExpenseCategoryId = (int)vm.ExpenseCategoryId,
                         Description = vm.Description,
                         Date = expenseDate,
                         Amount = vm.Amount,
@@ -56,19 +60,22 @@ namespace VehicleTracker.Business
                         UpdatedById = loggedInUser.Id
 
                     };
-                    _db.Expenses.Add(expense);
+                  
 
-                    if(vm.VehicleId != 0)
+                    if(vm.ExpenseCategoryId == ExpenseCategoryTypes.VehicleExpenses)
                     {
-                        var vehicleExpense = new VehicleExpense()
+
+                        expense.VehicleExpense  = new VehicleExpense()
                         {
-                            Id = vm.Id,
-                            VehicleExpenseType = vm.VehicleExpenseTypeId,
+                          
+                            VehicleExpenseType = (int) vm.VehicleExpenseTypeId,
                             VehicleId = vm.VehicleId
                         };
 
-                        _db.VehicleExpenses.Add(vehicleExpense);
+                        
                     }
+
+                    _db.Expenses.Add(expense);
 
                     response.IsSuccess = true;
                     response.Message = "Expenses has been Save SuccessFully";
@@ -76,7 +83,7 @@ namespace VehicleTracker.Business
                 }
                 else
                 {
-                    expense.ExpenseCategoryId = vm.ExpenseCategoryId;
+                    expense.ExpenseCategoryId = (int)vm.ExpenseCategoryId;
                     expense.Description = vm.Description;
                     expense.Date = expenseDate;
                     expense.Amount = vm.Amount;
@@ -85,14 +92,34 @@ namespace VehicleTracker.Business
 
                     _db.Expenses.Update(expense);
 
-                    var vehicleExpense = _db.VehicleExpenses.Where(x => x.Id == vm.Id).FirstOrDefault();
+                   
 
-                    if (vehicleExpense != null)
+                    if (vm.ExpenseCategoryId == ExpenseCategoryTypes.VehicleExpenses)
                     {
-                        vehicleExpense.VehicleExpenseType = vm.VehicleExpenseTypeId;
-                        vehicleExpense.VehicleId = vm.VehicleId;
+                        if(expense.VehicleExpense == null)
+                        {
+                            expense.VehicleExpense = new VehicleExpense()
+                            {
+
+                                VehicleExpenseType = (int)vm.VehicleExpenseTypeId,
+                                VehicleId = vm.VehicleId
+                            };
+                        }
+                        else
+                        {
+                            expense.VehicleExpense.VehicleExpenseType = (int)vm.VehicleExpenseTypeId;
+                            expense.VehicleExpense.VehicleId = vm.VehicleId;
+                        }
+                        
                        
-                        _db.VehicleExpenses.Update(vehicleExpense);
+                        
+                    }
+                    else
+                    {
+                        if(expense.VehicleExpense != null)
+                        {
+                            _db.VehicleExpenses.Remove(expense.VehicleExpense);
+                        }
                     }
 
                     response.IsSuccess = true;

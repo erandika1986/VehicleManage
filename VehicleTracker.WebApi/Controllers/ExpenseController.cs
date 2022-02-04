@@ -1,39 +1,43 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
-using VehicleTracker.ViewModel.Common;
 using VehicleTracker.ViewModel.Expenses;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {
-        private readonly IExpenseService _expenseService;
+        private readonly IExpenseService expenseService;
         private readonly IIdentityService identityService;
 
-        public ExpenseController(IExpenseService _expenseService, IIdentityService identityService)
+        public ExpenseController(IExpenseService expenseService, IIdentityService identityService)
         {
-            this._expenseService = _expenseService;
+            this.expenseService = expenseService;
             this.identityService = identityService;
         }
 
         [HttpPost]
-        [Route("saveExpese")]
-        public async Task<IActionResult> SaveExpenses(ExpensesViewModel vm)
+        [Route("saveExpense")]
+        public async Task<IActionResult> SaveExpense(ExpensesViewModel vm)
         {
-            var username = identityService.GetUserName();
-            var response = await _expenseService.SaveExpenses(vm, username);
+            var userName = identityService.GetUserName();
+
+            var response = await expenseService.SaveExpenses(vm, userName);
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        public IActionResult GetId(int id)
+        {
+            return Ok(id);
         }
     }
 }

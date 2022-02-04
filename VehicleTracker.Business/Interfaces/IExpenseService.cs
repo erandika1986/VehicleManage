@@ -11,5 +11,8 @@ namespace VehicleTracker.Business.Interfaces
     public interface IExpenseService
     {
         Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username);
+        PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters, string userName);
+
+
     }
 }

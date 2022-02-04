@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using VehicleTracker.ViewModel.Common.Enums;
+using System.Threading.Tasks;
 
-namespace VehicleTracker.ViewModel.Vehicle
+namespace VehicleTracker.ViewModel.Expenses
 {
-    public class VehicleExpenseViewModel
+    public class BasicExpenseDetailViewModel
     {
         public long Id { get; set; }
-        public ExpenseCategoryTypes ExpenseType { get; set; }
-        public long VehicleId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
+        public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public long UpdatedBy { get; set; }
     }
 }
