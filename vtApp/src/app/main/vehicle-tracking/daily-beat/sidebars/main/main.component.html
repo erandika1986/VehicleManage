@@ -113,6 +113,19 @@
                         </mat-form-field>
                     </div>
 
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Plan Date</mat-label>
+                            <input matInput [matDatepicker]="planDatePicker" name="start" formControlName="date" (dateChange)="addEvent('change', $event)">
+                            <mat-datepicker-toggle matSuffix [for]="planDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #planDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
                 </form>
             </div>
         </div>

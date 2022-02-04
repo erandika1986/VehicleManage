@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { DailyBeatDataSource } from 'app/models/dialy-beat/daily-beat-datasource';
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { VehicleBeatMasterDataModel } from 'app/models/dialy-beat/vehicle-beat-master-data.model';
@@ -38,9 +39,9 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
     pageSizes:number[] =[25,50,75,100,200,500];
 
-    displayedColumns = ['routeName', 'vehicleNumber','driverName', 'date', 'statusInText', 'createdOn'];
+    displayedColumns = ["buttons",'routeName', 'vehicleNumber','driverName', 'date', 'statusInText'];
 
-  constructor(private _dailyBeatService:DailyBeatService,private _matDialog: MatDialog) {
+  constructor(private _dailyBeatService:DailyBeatService,private _fuseProgressBarService: FuseProgressBarService,private _matDialog: MatDialog) {
     this._unsubscribeAll = new Subject();
    }
 
@@ -61,7 +62,12 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
     this._dailyBeatService.onMasterDataRecieved.subscribe(response=>{
       this.masterData = response;
-    })
+    });
+
+    this._dailyBeatService.onDailyBeatSaved.subscribe(response=>{
+
+      this.saveDailyBeat(response);
+    });
     
   }
 
@@ -71,6 +77,8 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
   editDailyBeat(item:DailyVehicleBeatModel)
   {
+    console.log(item);
+    
     this.dialogRef = this._matDialog.open(DailyBeatEditModelComponent, {
       panelClass: 'daily-beat-edit-form-dialog',
       data      : {
@@ -86,7 +94,10 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
           {
               return;
           }
-          //this.saveUser(response.getRawValue())
+
+          console.log(response);
+          
+          this.saveDailyBeat(response[1].getRawValue())
       });
   }
 
@@ -95,10 +106,38 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
   }
 
+  view(item:DailyVehicleBeatModel)
+  {
+
+  }
+
+  manageSalesOrder(item:DailyVehicleBeatModel)
+  {
+    
+  }
+
   ngOnDestroy(): void
   {
       // Unsubscribe from all subscriptions
       this._unsubscribeAll.next();
       this._unsubscribeAll.complete();
+  }
+
+  saveDailyBeat(item:DailyVehicleBeatModel)
+  {
+      this._fuseProgressBarService.show();
+      
+      item.dateYear = item.date.getFullYear();
+      item.dateMonth = item.date.getMonth()+1;
+      item.dateDay = item.date.getDate();
+
+      this._dailyBeatService.saveDailyVehicleBeatRecord(item)
+        .subscribe(response=>
+        {
+          this.dataSource._saveRecord.next(true);
+          this._fuseProgressBarService.hide();
+        },error=>{
+          this._fuseProgressBarService.hide();
+        });
   }
 }

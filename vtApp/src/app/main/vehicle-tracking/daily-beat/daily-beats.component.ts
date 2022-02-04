@@ -99,7 +99,7 @@ export class DailyBeatsComponent  implements OnInit, OnDestroy {
           {
               return;
           }
-          //this.saveUser(response.getRawValue())
+          this._dailyBeatService.onDailyBeatSaved.next(response.getRawValue());
       });
   }
 }

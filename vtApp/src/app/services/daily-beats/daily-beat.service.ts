@@ -16,11 +16,13 @@ export class DailyBeatService {
   onFilterChanged: Subject<VehicleBeatFilterModel>;
   onSearchTextChanged : Subject<string>;
   onMasterDataRecieved:Subject<VehicleBeatMasterDataModel>;
+  onDailyBeatSaved:Subject<any>;
 
   constructor(private httpClient: HttpClient) {
     this.onFilterChanged = new Subject();
     this.onSearchTextChanged =  new Subject();
     this.onMasterDataRecieved = new Subject();
+    this.onDailyBeatSaved = new Subject();
    }
 
   getMasterData(): Observable<VehicleBeatMasterDataModel> {
