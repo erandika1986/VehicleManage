@@ -20,19 +20,63 @@ namespace VehicleTracker.Business
         #region Member variable
         private readonly VMDBContext _db;
         private readonly IConfiguration _config;
-        private readonly ILogger<IExpenseService> _logger; 
+        private readonly ILogger<IExpenseService> _logger;
+        private readonly IUserService userService;
         #endregion
 
-        public ExpenseService(VMDBContext db, IConfiguration config, ILogger<IExpenseService> logger)
+        public ExpenseService(VMDBContext db, IConfiguration config, ILogger<IExpenseService> logger, IUserService userService)
         {
             this._db = db;
             this._config = config;
             this._logger = logger;
+            this.userService = userService;
         }
 
         public PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters, string userName)
         {
-            throw new NotImplementedException();
+
+            int totalRecordCount = 0;
+            int totalPageCount = 0;
+
+            filters.FromDate = new DateTime(filters.FromYear, filters.FromMonth, filters.FromDay, 0, 0, 0);
+            filters.ToDate = new DateTime(filters.ToYear, filters.FromMonth, filters.ToDay, 0, 0, 0);
+
+            var query = _db.Expenses.Where(x=> x.Date >= filters.FromDate && x.Date <= filters.ToDate).OrderBy(x=>x.Date);
+
+            if(filters.ExpenseCategoryId > 0)
+            {
+                query.Where(x => x.ExpenseCategoryId == filters.ExpenseCategoryId).OrderBy(x => x.Date);
+            }
+
+            var data = new List<BasicExpenseDetailViewModel>();
+
+            totalRecordCount = query.Count();
+
+            totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalRecordCount) / filters.PageSize));
+
+            var pageData = query.Skip((filters.CurrentPage - 1) * filters.PageSize).Take(filters.PageSize).ToList();
+
+            pageData.ForEach(expese =>
+            {
+                var vm = new BasicExpenseDetailViewModel()
+                {
+                    Id = expese.Id,
+                    Description = expese.Description,
+                    Date = expese.Date,
+                    Amount = expese.Amount,
+                    CreatedOn = expese.CreatedOn,
+                    CreatedBy = expese.CreatedBy.Username,
+                    UpdatedOn = expese.UpdatedOn,
+                    UpdatedBy = expese.UpdatedBy.Username,
+                };
+
+                data.Add(vm);
+            });
+
+            var expeseDataSet = new PaginatedItemsViewModel<BasicExpenseDetailViewModel>(filters.CurrentPage, filters.PageSize, totalPageCount, totalRecordCount, data);
+
+            return expeseDataSet;
+
         }
 
         public async Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username)

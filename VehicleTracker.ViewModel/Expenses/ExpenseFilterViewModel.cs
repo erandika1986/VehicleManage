@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleTracker.ViewModel.Common.Enums;
 
 namespace VehicleTracker.ViewModel.Expenses
 {
@@ -17,5 +18,7 @@ namespace VehicleTracker.ViewModel.Expenses
         public int ToYear { get; set; }
         public int ToMonth { get; set; }
         public int ToDay { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageSize { get; set; }
     }
 }
