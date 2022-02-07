@@ -1,1 +1,237 @@
-<p>daily-beat-order-detail works!</p>
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Manage Daily Route Sales Order</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+
+        <h1>New Sales Orders</h1>
+        <div class="sales-order-table" style="width: 100% !important;">
+            <mat-table #table [dataSource]="newSalesOrders" matSort
+            [@animateStagger]="{value:'50'}">
+        
+        
+        <!-- Name Column -->
+        <ng-container matColumnDef="orderNumber">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header>Name</mat-header-cell>
+         <mat-cell *matCellDef="let order">
+             <p class="text-truncate font-weight-600">{{order.orderNumber}}</p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Roles Column -->
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                <p class="email text-truncate">
+                    {{order.status}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+        <!-- Email Column -->
+        <ng-container matColumnDef="total">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Total</mat-header-cell>
+         <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+             <p class="email text-truncate">
+                 {{order.total}}
+             </p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Phone Column -->
+        <ng-container matColumnDef="orderDate">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Order Date</mat-header-cell>
+         <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+             <p class="phone text-truncate">
+                 {{order.orderDate}}
+             </p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Phone Column -->
+        <ng-container matColumnDef="ownerName">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Customer Name</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.ownerName}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+           <ng-container matColumnDef="route">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Route</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.route}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+           <ng-container matColumnDef="createdOn">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.createdOn}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+        
+        
+        <!-- Buttons Column -->
+        <ng-container matColumnDef="buttons">
+            <mat-header-cell *matHeaderCellDef>
+                <div fxFlex="row" fxLayoutAlign="center center">
+                </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let order">
+                <div fxFlex="row" fxLayoutAlign="center center">
+        
+                    <div class="button-row">
+        
+                        <button mat-raised-button class="blue  small small-mat-raised-button-small"  matTooltip="Add sales order to selected daily route." (click)="assignSaleOrderToDailyBeat(order)"
+                        >
+                            <mat-icon class="small-mat-icon">add</mat-icon>
+                        </button>
+                      </div>
+                </div>
+        
+            </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let contact; columns: displayedColumns;"
+              class="contact"
+              [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+        </mat-table>
+        
+        <mat-paginator #paginator [length]="newSalesOrders.length" [pageIndex]="0" [pageSize]="25"
+        [pageSizeOptions]="[25, 50, 75, 100]">
+        </mat-paginator>
+        </div>
+        
+        
+        <br>
+
+
+        <h1>Assigned Sales Orders</h1>
+        <div class="sales-order-table" style="width: 100% !important;">
+            <mat-table #table [dataSource]="assignedSalesOrders" matSort
+            [@animateStagger]="{value:'50'}">
+        
+        
+        <!-- Name Column -->
+        <ng-container matColumnDef="orderNumber">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header>Name</mat-header-cell>
+         <mat-cell *matCellDef="let order">
+             <p class="text-truncate font-weight-600">{{order.orderNumber}}</p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Roles Column -->
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                <p class="email text-truncate">
+                    {{order.status}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+        <!-- Email Column -->
+        <ng-container matColumnDef="total">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Total</mat-header-cell>
+         <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+             <p class="email text-truncate">
+                 {{order.total}}
+             </p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Phone Column -->
+        <ng-container matColumnDef="orderDate">
+         <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Order Date</mat-header-cell>
+         <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+             <p class="phone text-truncate">
+                 {{order.orderDate}}
+             </p>
+         </mat-cell>
+        </ng-container>
+        
+        <!-- Phone Column -->
+        <ng-container matColumnDef="ownerName">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Customer Name</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.ownerName}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+           <ng-container matColumnDef="route">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Route</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.route}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+           <ng-container matColumnDef="createdOn">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
+            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+                <p class="phone text-truncate">
+                    {{order.createdOn}}
+                </p>
+            </mat-cell>
+           </ng-container>
+        
+        
+        
+        <!-- Buttons Column -->
+        <ng-container matColumnDef="buttons">
+            <mat-header-cell *matHeaderCellDef>
+                <div fxFlex="row" fxLayoutAlign="center center">
+                </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let order">
+                <div fxFlex="row" fxLayoutAlign="center center">
+        
+                    <div class="button-row">
+        
+                        <button mat-raised-button class="blue  small small-mat-raised-button-small"  matTooltip="Add sales order to selected daily route." (click)="assignSaleOrderToDailyBeat(order)"
+                        >
+                            <mat-icon class="small-mat-icon">add</mat-icon>
+                        </button>
+                      </div>
+                </div>
+        
+            </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let contact; columns: displayedColumns;"
+              class="contact"
+              [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+        </mat-table>
+        
+        <mat-paginator #paginator [length]="assignedSalesOrders.length" [pageIndex]="0" [pageSize]="25"
+        [pageSizeOptions]="[25, 50, 75, 100]">
+        </mat-paginator>
+        </div>
+        
+
+
+    </div>
+ 
+</div>

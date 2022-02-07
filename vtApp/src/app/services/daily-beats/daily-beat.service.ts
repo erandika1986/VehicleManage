@@ -7,6 +7,7 @@ import { VehicleBeatFilterModel } from 'app/models/dialy-beat/vehicle-beat-filte
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { ResponseModel } from 'app/models/common/response.model';
 import { VehicleDailyBeatPaginatedItemsModel } from 'app/models/dialy-beat/vehicle-daily-beat-paginated-items.model';
+import { BasicSalesOrderDetailModel } from 'app/models/sales-order/basic.sales.order.detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,5 @@ export class DailyBeatService {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'VehicleDailyBeat' + "/" + id);
   }
+
 }

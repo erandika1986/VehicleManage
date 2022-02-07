@@ -135,4 +135,21 @@ export class SalesOrderService {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteAllProductFromSalesOrder/' + productId +"/"+salesOrderId);
   }
+
+  getNewSalesOrdersForSelectedDailyBeat(dailyBeatId: number): Observable<BasicSalesOrderDetailModel[]> {
+    return this.httpClient.get<BasicSalesOrderDetailModel[]>(environment.apiUrl + 'SalesOrder/getNewSalesOrdersForSelectedDailyBeat/'+dailyBeatId);
+  }
+
+  getSalesOrdersForSelectedDailyBeat(dailyBeatId: number): Observable<BasicSalesOrderDetailModel[]> {
+    return this.httpClient.get<BasicSalesOrderDetailModel[]>(environment.apiUrl + 'SalesOrder/getSalesOrdersForSelectedDailyBeat/'+dailyBeatId);
+  }
+
+  addSalesOrderToSelectedDailyBeat(salesOrderId: number,dailyRouteId:number): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(environment.apiUrl + 'SalesOrder/addSalesOrderToSelectedDailyBeat/'+salesOrderId +'/'+dailyRouteId,null);
+  }
+
+  deleteSaleOrderFromDailyBeat(id: number): Observable<ResponseModel> {
+    return this.httpClient.
+      delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSaleOrderFromDailyBeat/' + id);
+  }
 }

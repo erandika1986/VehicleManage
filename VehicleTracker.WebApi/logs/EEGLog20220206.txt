@@ -1,0 +1,37 @@
+2022-02-06 12:59:40.396 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2022-02-06 12:59:44.546 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2022-02-06 12:59:44.552 +05:30 [DBG] Hosting starting
+2022-02-06 12:59:44.868 +05:30 [INF] User profile is available. Using 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-06 12:59:44.870 +05:30 [DBG] Reading data from file 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys\key-19401d3e-6a5a-499a-8c4e-175ef487623b.xml'.
+2022-02-06 12:59:44.900 +05:30 [DBG] Reading data from file 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys\key-cf48779b-10c1-4fc3-9a35-77488cf33f61.xml'.
+2022-02-06 12:59:44.909 +05:30 [DBG] Found key {19401d3e-6a5a-499a-8c4e-175ef487623b}.
+2022-02-06 12:59:44.919 +05:30 [DBG] Found key {cf48779b-10c1-4fc3-9a35-77488cf33f61}.
+2022-02-06 12:59:44.924 +05:30 [DBG] Considering key {cf48779b-10c1-4fc3-9a35-77488cf33f61} with expiration date 2022-04-27 21:22:35Z as default key.
+2022-02-06 12:59:44.932 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-06 12:59:44.934 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2022-02-06 12:59:44.935 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-06 12:59:44.938 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2022-02-06 12:59:44.939 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2022-02-06 12:59:44.942 +05:30 [DBG] Using key {cf48779b-10c1-4fc3-9a35-77488cf33f61} as the default key.
+2022-02-06 12:59:44.943 +05:30 [DBG] Key ring with default key {cf48779b-10c1-4fc3-9a35-77488cf33f61} was loaded during application startup.
+2022-02-06 12:59:44.946 +05:30 [DBG] Hosting started
+2022-02-06 12:59:44.947 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2022-02-06 12:59:44.998 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger - -
+2022-02-06 12:59:45.000 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2022-02-06 12:59:45.045 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2022-02-06 12:59:45.057 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger - - - 301 - - 62.5845ms
+2022-02-06 12:59:45.123 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 78.2096ms
+2022-02-06 12:59:45.138 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui.css - -
+2022-02-06 12:59:45.139 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui-bundle.js - -
+2022-02-06 12:59:45.141 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui-standalone-preset.js - -
+2022-02-06 12:59:45.192 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2022-02-06 12:59:45.194 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui.css - - - 200 143410 text/css 55.4113ms
+2022-02-06 12:59:45.309 +05:30 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2022-02-06 12:59:45.335 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui-bundle.js - - - 200 1097461 application/javascript 195.5597ms
+2022-02-06 12:59:45.420 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2022-02-06 12:59:45.425 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/swagger-ui-standalone-preset.js - - - 200 336841 application/javascript 284.2604ms
+2022-02-06 12:59:45.627 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2022-02-06 12:59:45.658 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/favicon-32x32.png - -
+2022-02-06 12:59:45.660 +05:30 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2022-02-06 12:59:45.662 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/favicon-32x32.png - - - 200 628 image/png 3.4314ms
+2022-02-06 12:59:45.755 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 127.7052ms

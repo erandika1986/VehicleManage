@@ -11,6 +11,7 @@ import { DailyBeatsComponent } from './daily-beats.component';
 import { MainComponent } from './sidebars/main/main.component';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import { MaterialModule } from 'app/MaterialModule';
+import { DailyBeatDetailComponent } from './daily-beat-detail/daily-beat-detail.component';
 
 const routes: Routes = [
   {
@@ -26,11 +27,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DailyBeatsComponent, DailyBeatListComponent, DailyBeatOrderDetailComponent, DailyBeatEditModelComponent,  MainComponent],
+  declarations: [DailyBeatsComponent, DailyBeatListComponent, DailyBeatOrderDetailComponent, DailyBeatEditModelComponent,  MainComponent, DailyBeatDetailComponent],
   imports: [
     RouterModule.forChild(routes),
-
-  
     CommonModule,
     MaterialModule,
     FuseSharedModule,
@@ -38,6 +37,9 @@ const routes: Routes = [
     SharedModule,    
     FuseSidebarModule,
     MatToolbarModule
-  ]
+  ],
+  entryComponents: [
+    DailyBeatEditModelComponent,DailyBeatOrderDetailComponent
+]
 })
 export class DailyBeatModule { }

@@ -13,6 +13,7 @@ import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DailyBeatEditModelComponent } from '../daily-beat-edit-model/daily-beat-edit-model.component';
+import { DailyBeatOrderDetailComponent } from '../daily-beat-order-detail/daily-beat-order-detail.component';
 
 @Component({
   selector: 'daily-beat-list',
@@ -113,7 +114,12 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
   manageSalesOrder(item:DailyVehicleBeatModel)
   {
-    
+    this.dialogRef = this._matDialog.open(DailyBeatOrderDetailComponent, {
+      panelClass: 'daily-beat-order-detail',
+      data      : {
+        model:item,
+      }
+  });
   }
 
   ngOnDestroy(): void
