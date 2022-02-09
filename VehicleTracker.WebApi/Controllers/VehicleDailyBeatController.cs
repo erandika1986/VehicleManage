@@ -19,11 +19,13 @@ namespace VehicleTracker.WebApi.Controllers
     {
         private readonly IVehicleBeatService _vehicleBeatService;
         private readonly IIdentityService identityService;
+        private readonly ILoggedInUserService loggedInUserService;
 
-        public VehicleDailyBeatController(IVehicleBeatService vehicleBeatService, IIdentityService identityService)
+        public VehicleDailyBeatController(IVehicleBeatService vehicleBeatService, ILoggedInUserService loggedInUserService, IIdentityService identityService)
         {
             this._vehicleBeatService = vehicleBeatService;
             this.identityService = identityService;
+            this.loggedInUserService = loggedInUserService;
         }
 
 
@@ -84,6 +86,29 @@ namespace VehicleTracker.WebApi.Controllers
         public ActionResult Get()
         {
             var response = _vehicleBeatService.GetMasterData();
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("completeDailyBeat/{id}")]
+        public async Task<ActionResult> CompleteDailyBeat(int id)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response = await  _vehicleBeatService.CompleteDailyBeat(id, loggedInUser);
+
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        [Route("makeDailyBeatPartiallyCompleted/{id}")]
+        public async Task<ActionResult> MakeDailyBeatPartiallyCompleted(int id)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response =  await _vehicleBeatService.MakeDailyBeatPartiallyCompleted(id, loggedInUser);
+
             return Ok(response);
         }
     }

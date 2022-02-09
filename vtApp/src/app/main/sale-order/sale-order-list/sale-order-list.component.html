@@ -12,11 +12,11 @@
 </ng-container>
 
 <!-- Roles Column -->
-<ng-container matColumnDef="status">
+<ng-container matColumnDef="statusInText">
     <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
     <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
         <p class="email text-truncate">
-            {{order.status}}
+            {{order.statusInText}}
         </p>
     </mat-cell>
    </ng-container>
@@ -82,11 +82,15 @@
 
             <div class="button-row">
 
-                <button mat-raised-button class="orange  small small-mat-raised-button-small"  matTooltip="Edit sales order" (click)="editSalesOrder(order)"
+                <button mat-raised-button class="primary  small small-mat-raised-button-small"  matTooltip="View sales order" (click)="viewSalesOrder(order)" 
+                >
+                    <mat-icon class="small-mat-icon">remove_red_eye</mat-icon>
+                </button>
+                <button mat-raised-button class="orange  small small-mat-raised-button-small"  matTooltip="Edit sales order" (click)="editSalesOrder(order)" [disabled]="order.status!=1 && order.status!=2"
                 >
                     <mat-icon class="small-mat-icon">edit</mat-icon>
                 </button>
-                <button mat-raised-button class="red  small small-mat-raised-button-small"  matTooltip="Delete sales order" (click)="deleteSalesOrder(order)"
+                <button mat-raised-button class="red  small small-mat-raised-button-small"  matTooltip="Delete sales order" (click)="deleteSalesOrder(order)" [disabled]="order.status!=1 && order.status!=2"
                 >
                     <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
                 </button>

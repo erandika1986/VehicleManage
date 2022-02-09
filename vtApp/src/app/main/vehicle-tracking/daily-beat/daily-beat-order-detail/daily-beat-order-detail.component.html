@@ -27,11 +27,11 @@
         </ng-container>
         
         <!-- Roles Column -->
-        <ng-container matColumnDef="status">
+        <ng-container matColumnDef="statusInText">
             <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
             <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
                 <p class="email text-truncate">
-                    {{order.status}}
+                    {{order.statusInText}}
                 </p>
             </mat-cell>
            </ng-container>
@@ -75,16 +75,6 @@
             </mat-cell>
            </ng-container>
         
-           <ng-container matColumnDef="createdOn">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
-            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
-                <p class="phone text-truncate">
-                    {{order.createdOn}}
-                </p>
-            </mat-cell>
-           </ng-container>
-        
-        
         
         <!-- Buttons Column -->
         <ng-container matColumnDef="buttons">
@@ -97,7 +87,7 @@
         
                     <div class="button-row">
         
-                        <button mat-raised-button class="blue  small small-mat-raised-button-small"  matTooltip="Add sales order to selected daily route." (click)="assignSaleOrderToDailyBeat(order)"
+                        <button mat-raised-button class="blue  small small-mat-raised-button-small"  matTooltip="Add sales order to selected daily route." (click)="assignSaleOrderToDailyBeat(order)" [disabled]="(order.status!=2) || isReadOnly"
                         >
                             <mat-icon class="small-mat-icon">add</mat-icon>
                         </button>
@@ -138,11 +128,11 @@
         </ng-container>
         
         <!-- Roles Column -->
-        <ng-container matColumnDef="status">
+        <ng-container matColumnDef="statusInText">
             <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
             <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
                 <p class="email text-truncate">
-                    {{order.status}}
+                    {{order.statusInText}}
                 </p>
             </mat-cell>
            </ng-container>
@@ -186,17 +176,6 @@
             </mat-cell>
            </ng-container>
         
-           <ng-container matColumnDef="createdOn">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
-            <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
-                <p class="phone text-truncate">
-                    {{order.createdOn}}
-                </p>
-            </mat-cell>
-           </ng-container>
-        
-        
-        
         <!-- Buttons Column -->
         <ng-container matColumnDef="buttons">
             <mat-header-cell *matHeaderCellDef>
@@ -208,9 +187,9 @@
         
                     <div class="button-row">
         
-                        <button mat-raised-button class="blue  small small-mat-raised-button-small"  matTooltip="Add sales order to selected daily route." (click)="assignSaleOrderToDailyBeat(order)"
+                        <button mat-raised-button class="red small small-mat-raised-button-small"  matTooltip="Remove sales order from selected daily route." (click)="removeSaleOrderFromDailyBeat(order)" [disabled]="(order.status!=3 && order.status!=4) || isReadOnly"
                         >
-                            <mat-icon class="small-mat-icon">add</mat-icon>
+                            <mat-icon class="small-mat-icon">delete_forever</mat-icon>
                         </button>
                       </div>
                 </div>

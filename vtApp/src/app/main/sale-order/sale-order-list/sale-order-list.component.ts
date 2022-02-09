@@ -30,7 +30,7 @@ export class SaleOrderListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-  displayedColumns = ["buttons", "orderNumber","status","total","orderDate","ownerName","route","createdOn"];
+  displayedColumns = ["buttons", "orderNumber","statusInText","total","orderDate","ownerName","route","createdOn"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -81,6 +81,7 @@ export class SaleOrderListComponent implements OnInit {
 
   editSalesOrder(item:BasicSalesOrderDetailModel)
   {
+    this._salesOrderService.onClickViewOnly.next(false);
     this._router.navigate(['sale-order/list/' + item.id ]);
   }
 
@@ -126,6 +127,12 @@ export class SaleOrderListComponent implements OnInit {
       }
       this.confirmDialogRef = null;
     });
+  }
+
+  viewSalesOrder(item:BasicSalesOrderDetailModel)
+  {
+    this._salesOrderService.onClickViewOnly.next(true);
+    this._router.navigate(['sale-order/list/' + item.id ]);
   }
 
 }

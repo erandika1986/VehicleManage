@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -30,7 +30,9 @@ export class DailyBeatOrderDetailComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
-  displayedColumns = ["buttons", "orderNumber","status","total","orderDate","ownerName","route","createdOn"];
+  displayedColumns = ["buttons", "orderNumber","ownerName","route","total","orderDate","statusInText"];
+
+  isReadOnly:boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -42,6 +44,7 @@ export class DailyBeatOrderDetailComponent implements OnInit {
   constructor(public matDialogRef: MatDialogRef<DailyBeatOrderDetailComponent>,
     private _fuseProgressBarService: FuseProgressBarService,
     private _dailyBeatService:DailyBeatService,
+    private _matDialog: MatDialog,
     private _salesOrder:SalesOrderService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private _data: any) {
@@ -49,6 +52,7 @@ export class DailyBeatOrderDetailComponent implements OnInit {
       console.log(_data);
       
       this.model = _data.model;
+      this.isReadOnly = _data.isReadOnly;
      }
 
   ngOnInit(): void {
@@ -92,6 +96,53 @@ export class DailyBeatOrderDetailComponent implements OnInit {
       },error=>{
 
       })
+  }
+
+  removeSaleOrderFromDailyBeat(item:BasicSalesOrderDetailModel)
+  {
+
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false
+    });
+
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this record?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._fuseProgressBarService.show();
+
+        this._salesOrder.deleteSaleOrderFromDailyBeat(item.dailyVehicleBeatOrderId)
+        .subscribe(response=>{
+  
+          if (response.isSuccess) {
+            this._snackBar.open(response.message, 'Success', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+
+            this._fuseProgressBarService.hide();
+            this.getNewSalesOrders();
+          }
+          else {
+            this._snackBar.open(response.message, 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          }   
+        },error=>{
+          this._fuseProgressBarService.hide();
+          this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+            duration: 2500,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        })
+
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
 }

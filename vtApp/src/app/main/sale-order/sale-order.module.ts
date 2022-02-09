@@ -11,6 +11,7 @@ import { MainComponent } from './sidebars/main/main.component';
 import { SaleOrdersComponent } from './sale-orders.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ProductAvailabiltyComponent } from './product-availabilty/product-availabilty.component';
+import { SalesOrderService } from 'app/services/sales-order/sales-order.service';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
     FuseSidebarModule,
     MaterialModule,
     SharedModule
-  ]
+  ],
+  providers :[SalesOrderService],
 })
 export class SaleOrderModule { }

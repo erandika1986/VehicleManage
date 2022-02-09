@@ -130,7 +130,7 @@ namespace VehicleTracker.Business
 
         public List<BasicSalesOrderDetailViewModel> GetMySalesOrders(SalesOrderFilter filters, User loggedInUser)
         {
-            var response = new List<BasicSalesOrderDetailViewModel>();
+
 
             var allSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true && x.OwnerId == loggedInUser.Id).OrderByDescending(s => s.CreatedOn);
 
@@ -156,28 +156,7 @@ namespace VehicleTracker.Business
 
             var salesOrderList = allSalesOrders.ToList();
 
-            foreach (var item in salesOrderList)
-            {
-                var salesOrder = new BasicSalesOrderDetailViewModel()
-                {
-                    CreatedBy = string.Format("{0} {1}", item.CreatedBy.FirstName, item.CreatedBy.LastName),
-                    CreatedOn = item.CreatedOn.ToString("MM/dd/yyyy"),
-                    OrderDate = item.OrderDate.ToString("MM/dd/yyyy"),
-                    OrderNumber = item.OrderNumber,
-                    OwnerAddress = item.Owner.Address,
-                    OwnerName = item.Owner.Name,
-                    Route = item.Owner.Route.Name,
-                    Status = item.StatusNavigation.Name,
-                    Id = item.Id,
-                    Total = item.TotalAmount,
-                    TotalQty = item.SalesOrderItems.Sum(x => x.Qty),
-                    UpdatedBy = string.Format("{0} {1}", item.UpdatedBy.FirstName, item.UpdatedBy.LastName),
-                    UpdatedOn = item.UpdatedOn.ToString("MM/dd/yyyy")
-
-                };
-
-                response.Add(salesOrder);
-            }
+            var response = GenerateBasicSalesOrderList(salesOrderList);
 
             return response;
         }
@@ -675,6 +654,8 @@ namespace VehicleTracker.Business
             {
                 var dailyVehicleBeatOrder = _db.DailyVehicleBeatOrders.FirstOrDefault(x => x.Id == id);
 
+                dailyVehicleBeatOrder.Order.Status = (int)Model.Enums.SalesOrderStatus.New;
+
                 _db.DailyVehicleBeatOrders.Remove(dailyVehicleBeatOrder);
 
                 await _db.SaveChangesAsync();
@@ -757,7 +738,10 @@ namespace VehicleTracker.Business
 
             foreach (var item in salesOrderList)
             {
-                response.Add(item.ToBasicVM());
+                var vm = item.ToBasicVM();
+
+                vm.DailyVehicleBeatOrderId = item.DailyVehicleBeatOrders.FirstOrDefault() != null ? item.DailyVehicleBeatOrders.FirstOrDefault().Id : 0; ;
+                response.Add(vm);
             }
 
             return response;

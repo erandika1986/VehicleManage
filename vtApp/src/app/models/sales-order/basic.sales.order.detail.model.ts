@@ -6,7 +6,8 @@ export class BasicSalesOrderDetailModel {
     orderNumber:string;
     total:number;
     totalQty:number;
-    status:string;
+    status:number;
+    statusInText:string;
     orderDate :string;
     ownerName :string;
     ownerAddress :string;
@@ -15,4 +16,9 @@ export class BasicSalesOrderDetailModel {
     createdOn :string;
     updatedBy :string;
     updatedOn :string;
+
+    dailyVehicleBeatOrderId:number;
+    assignedDate :string;
+    assignedBy :string;
+    deliveryDate :string;
 }

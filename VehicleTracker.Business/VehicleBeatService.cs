@@ -90,16 +90,27 @@ namespace VehicleTracker.Business
                 var user = _userService.GetUserByUsername(userName);
 
                 var model = _db.DailyVehicleBeats.FirstOrDefault(t => t.Id == id);
-                model.IsActive = false;
-                model.UpdatedBy = user.Id;
-                model.UpdatedOn = DateTime.UtcNow;
 
-                _db.DailyVehicleBeats.Update(model);
+                if(model.Status==(int)DailyBeatStatus.Planned)
+                {
+                    foreach (var item in model.DailyVehicleBeatOrders)
+                    {
+                        _db.DailyVehicleBeatOrders.Remove(item);
+                    }
 
-                await _db.SaveChangesAsync();
+                    _db.DailyVehicleBeats.Remove(model);
 
-                response.IsSuccess = true;
-                response.Message = "Selected Vehicle Beat record has been deleted successfully.";
+                    await _db.SaveChangesAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = "Selected Vehicle Beat record has been deleted successfully.";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "You can delete planned daily beats only.";
+                }
+
             }
             catch (Exception ex)
             {
@@ -287,6 +298,78 @@ namespace VehicleTracker.Business
             return vm;
         }
 
+        public async Task<ResponseViewModel> CompleteDailyBeat(int id, User loggedInUser)
+        {
+            var response = new ResponseViewModel();
 
+            try
+            {
+                var dailyBeat = _db.DailyVehicleBeats.FirstOrDefault(x => x.Id == id);
+
+                var uncompletedOrders = dailyBeat.DailyVehicleBeatOrders.Where(x => x.DeliveredDateTime == null).ToList();
+                if(uncompletedOrders.Count==0)
+                {
+                    dailyBeat.Status = (int)DailyBeatStatus.Completed;
+                    dailyBeat.UpdatedOn = DateTime.UtcNow;
+                    dailyBeat.CreatedBy = loggedInUser.Id;
+
+                    _db.DailyVehicleBeats.Update(dailyBeat);
+
+                    await _db.SaveChangesAsync();
+                    response.IsSuccess = true;
+                    response.Message = "Daily beat has been updated as completed.";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Unable to complete the daily beat since all the orders are nor delivered.";
+                }
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                response.IsSuccess = false;
+                response.Message = "Error has been occured while updating the daily beat as completed. Please try again.";
+            }
+
+            return response;
+        }
+
+        public async Task<ResponseViewModel> MakeDailyBeatPartiallyCompleted(int id, User loggedInUser)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var dailyBeat = _db.DailyVehicleBeats.FirstOrDefault(x => x.Id == id);
+
+                var uncompletedOrders = dailyBeat.DailyVehicleBeatOrders.Where(x => x.DeliveredDateTime == null).ToList();
+
+                foreach (var item in uncompletedOrders)
+                {
+                    _db.DailyVehicleBeatOrders.Remove(item);
+                }
+
+                dailyBeat.Status = (int)DailyBeatStatus.Completed;
+                dailyBeat.UpdatedOn = DateTime.UtcNow;
+                dailyBeat.CreatedBy = loggedInUser.Id;
+
+                _db.DailyVehicleBeats.Update(dailyBeat);
+
+                await _db.SaveChangesAsync();
+                response.IsSuccess = true;
+                response.Message = "Daily beat has been updated as partially completed.";
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                response.IsSuccess = false;
+                response.Message = "Error has been occured while updating the daily beat as completed. Please try again.";
+            }
+
+            return response;
+        }
     }
 }

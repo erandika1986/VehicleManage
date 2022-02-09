@@ -67,11 +67,11 @@
                 >
                     <mat-icon class="small-mat-icon" >remove_red_eye</mat-icon>
                 </button>
-                <button mat-raised-button class="orange  small small-mat-raised-button-small" (click)="editDailyBeat(item)" matTooltip="Edit daily route"
+                <button mat-raised-button class="orange  small small-mat-raised-button-small" (click)="editDailyBeat(item)" matTooltip="Edit daily route" [disabled]="item.status!=1 && item.status!=2" 
                 >
                     <mat-icon class="small-mat-icon">edit</mat-icon>
                 </button>
-                <button mat-raised-button class="red  small small-mat-raised-button-small" (click)="deleteDailyBeat(item)" matTooltip="Delete daily route"
+                <button mat-raised-button class="red  small small-mat-raised-button-small" (click)="deleteDailyBeat(item)" matTooltip="Delete daily route" [disabled]="item.status!=1"
                 >
                     <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
                 </button>

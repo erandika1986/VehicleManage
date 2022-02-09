@@ -39,7 +39,8 @@ namespace System
             vm.OwnerAddress = model.Owner != null ? model.Owner.Address : string.Empty;
             vm.OwnerName = model.Owner != null ? model.Owner.Name : string.Empty;
             vm.Route = model.Owner != null ? model.Owner.Route.Name : string.Empty;
-            vm.Status = model.StatusNavigation.Name;
+            vm.Status = (VehicleTracker.Model.Enums.SalesOrderStatus)model.Status;
+            vm.StatusInText = model.StatusNavigation.Name;
             vm.Id = model.Id;
             vm.Total = model.TotalAmount;
             vm.TotalQty = model.SalesOrderItems.Sum(x => x.Qty);
