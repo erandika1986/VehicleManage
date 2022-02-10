@@ -34,10 +34,23 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        public IActionResult GetId(int id)
+        [HttpPost]
+        [Route("gelAllExpenses")]
+        public ActionResult GellAllExpeses(ExpenseFilterViewModel filters)
         {
-            return Ok(id);
+            var response = expenseService.GellAllExpeses(filters);
+
+            return Ok(response);
         }
+
+        [HttpGet]
+        [Route("gelAllExpenses/{id:int}/{expenseCategoryId:int}")]
+        public IActionResult getExpenseById(int id, int expenseCategoryId)
+        {
+            var response = expenseService.GetExpenseById(id, expenseCategoryId);
+
+            return Ok(response);
+        }
+
     }
 }

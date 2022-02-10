@@ -32,7 +32,46 @@ namespace VehicleTracker.Business
             this.userService = userService;
         }
 
-        public PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters, string userName)
+        //public Task<ResponseViewModel> DeleteExpese(int id, int expenseCategoryId)
+        //{
+        //    var response = new ResponseViewModel();
+
+        //    try
+        //    {
+        //        if (expenseCategoryId == (int)ExpenseCategoryTypes.VehicleExpenses)
+        //        {
+        //            var ve = (from expense in _db.Expenses
+        //                         join vehicleExpense in _db.VehicleExpenses on expense.Id equals vehicleExpense.Id
+        //                         where expense.Id == id && expense.ExpenseCategoryId == expenseCategoryId
+        //                         select new
+        //                         {
+        //                             expense.Id,
+        //                             expense.VehicleExpense,
+        //                             expense.Date,
+        //                             expense.Amount,
+        //                             expense.ExpenseCategoryId,
+        //                             vehicleExpense.VehicleId,
+        //                             vehicleExpense.VehicleExpenseType
+
+        //                         }).FirstOrDefault();
+
+
+
+        //        }
+        //        else
+        //        {
+        //            var query = _db.Expenses.Where(x => x.Id == id && x.ExpenseCategoryId == expenseCategoryId).FirstOrDefault();
+              
+
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+
+        //    }
+        //}
+
+        public PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters)
         {
 
             int totalRecordCount = 0;
@@ -77,6 +116,62 @@ namespace VehicleTracker.Business
 
             return expeseDataSet;
 
+        }
+
+        public ExpensesViewModel GetExpenseById(int id, int expenseCategoryId)
+        {
+            var response = new ExpensesViewModel();
+
+            try
+            {
+
+              
+                if(expenseCategoryId == (int)ExpenseCategoryTypes.VehicleExpenses)
+                {
+                    var query = (from expense in _db.Expenses
+                                 join vehicleExpense in _db.VehicleExpenses on expense.Id equals vehicleExpense.Id
+                                 where expense.Id == id && expense.ExpenseCategoryId == expenseCategoryId
+                                 select new
+                                 {
+                                     expense.Id,
+                                     expense.Description,
+                                     expense.Date,
+                                     expense.Amount,
+                                     expense.ExpenseCategoryId,
+                                     vehicleExpense.VehicleId,
+                                     vehicleExpense.VehicleExpenseType
+
+                                 }).FirstOrDefault();
+
+
+
+                    response.Id = query.Id;
+                    response.Description = query.Description;
+                    response.Amount = query.Amount;
+                    response.ExpenseDate = query.Date;
+                    response.ExpenseCategoryId = (ExpenseCategoryTypes)query.ExpenseCategoryId;
+                    response.VehicleId = query.VehicleId != 0? query.VehicleId :0;
+                    response.VehicleExpenseTypeId = (VehicleExpensesTypes)query.VehicleExpenseType;
+
+                }
+                else
+                {
+                    var query = _db.Expenses.Where(x => x.Id == id && x.ExpenseCategoryId == expenseCategoryId).FirstOrDefault();
+                    response.Id = query.Id;
+                    response.Description = query.Description;
+                    response.Amount = query.Amount;
+                    response.ExpenseDate = query.Date;
+                    response.ExpenseCategoryId = (ExpenseCategoryTypes)query.ExpenseCategoryId;
+
+                }
+
+            }
+            catch(Exception ex)
+            {
+                
+            }
+
+            return response;
         }
 
         public async Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username)
@@ -183,5 +278,6 @@ namespace VehicleTracker.Business
            
             return response;
         }
+
     }
 }

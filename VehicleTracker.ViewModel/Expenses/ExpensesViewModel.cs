@@ -12,11 +12,12 @@ namespace VehicleTracker.ViewModel.Expenses
         public long Id { get; set; }
         public ExpenseCategoryTypes ExpenseCategoryId { get; set; }
         public string Description { get; set; }
+        public DateTime ExpenseDate { get; set; }
         public int ExpenseYear { get; set; }
         public int ExpenseMonth { get; set; }
         public int ExpenseDay { get; set; }
         public decimal Amount { get; set; }
-        public int VehicleId { get; set; }
+        public long VehicleId { get; set; }
         public VehicleExpensesTypes VehicleExpenseTypeId { get; set; }
 
     }
