@@ -27,7 +27,7 @@ export class SalesOrderService {
   onPageIndexChanged: Subject<any>;
   onNewRecordAdded: Subject<any>;
   onSalesOrderDetailChanged:Subject<any>;
-
+  onClickViewOnly:BehaviorSubject<boolean>;
 
   onSalesOrderChanged: Subject<any>;
   onSelectedSalesOrderChanged: BehaviorSubject<any>;
@@ -42,6 +42,9 @@ export class SalesOrderService {
 
   searchText: string;
   filterBy: string;
+
+  isViewOnly:boolean;
+
   
   constructor(private httpClient: HttpClient) {
 
@@ -58,6 +61,7 @@ export class SalesOrderService {
     this.onMasterDataRecieved = new Subject();
     this.onSalesOrderUpdated = new BehaviorSubject([]);
     this.onNewSalesOrderAdded = new Subject();
+    this.onClickViewOnly = new BehaviorSubject(true);
    }
 
   getMySalesOrders(filter:SalesOrderFilter): Observable<BasicSalesOrderDetailModel[]> {
@@ -134,5 +138,29 @@ export class SalesOrderService {
   deleteAllProductFromSalesOrder(productId: number,salesOrderId:number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteAllProductFromSalesOrder/' + productId +"/"+salesOrderId);
+  }
+
+  getNewSalesOrdersForSelectedDailyBeat(dailyBeatId: number): Observable<BasicSalesOrderDetailModel[]> {
+    return this.httpClient.get<BasicSalesOrderDetailModel[]>(environment.apiUrl + 'SalesOrder/getNewSalesOrdersForSelectedDailyBeat/'+dailyBeatId);
+  }
+
+  getSalesOrdersForSelectedDailyBeat(dailyBeatId: number): Observable<BasicSalesOrderDetailModel[]> {
+    return this.httpClient.get<BasicSalesOrderDetailModel[]>(environment.apiUrl + 'SalesOrder/getSalesOrdersForSelectedDailyBeat/'+dailyBeatId);
+  }
+
+  addSalesOrderToSelectedDailyBeat(salesOrderId: number,dailyRouteId:number): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(environment.apiUrl + 'SalesOrder/addSalesOrderToSelectedDailyBeat/'+salesOrderId +'/'+dailyRouteId,null);
+  }
+
+  deleteSaleOrderFromDailyBeat(id: number): Observable<ResponseModel> {
+    return this.httpClient.
+      delete<ResponseModel>(environment.apiUrl + 'SalesOrder/deleteSaleOrderFromDailyBeat/' + id);
+  }
+
+  clickViewButton()
+  {
+    this.onClickViewOnly.subscribe(response=>{
+      this.isViewOnly = response;
+    })
   }
 }

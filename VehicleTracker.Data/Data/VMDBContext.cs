@@ -185,11 +185,15 @@ namespace VehicleTracker.Data
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
+                entity.Property(e => e.EndDateTime).HasColumnType("datetime");
+
                 entity.Property(e => e.EndMilage).HasColumnType("decimal(10, 2)");
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.StartDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.StartingMilage).HasColumnType("decimal(10, 2)");
 
@@ -285,6 +289,10 @@ namespace VehicleTracker.Data
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 

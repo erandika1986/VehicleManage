@@ -21,6 +21,7 @@ namespace VehicleTracker.Model
         public long CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
         public long UpdatedById { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual User CreatedBy { get; set; }
         public virtual ExpenseCategory ExpenseCategory { get; set; }

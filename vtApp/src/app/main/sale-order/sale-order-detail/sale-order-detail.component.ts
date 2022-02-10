@@ -83,6 +83,12 @@ export class SaleOrderDetailComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public _router: Router) {
       this.salesOrder = new SalesOrderModel();
+      this._salesOrderService.onClickViewOnly.subscribe(response=>{
+
+        console.log(response);
+        this.isViewOnly = response;
+      });
+
      }
 
   ngOnInit(): void {
@@ -259,6 +265,8 @@ export class SaleOrderDetailComponent implements OnInit {
 
   getSalesOrderDetails()
   {
+    console.log(this.isViewOnly);
+    
     this._fuseProgressBarService.show();
     this._salesOrderService.getSalesOrderById(this.salesOrderId)
         .subscribe(response=>{

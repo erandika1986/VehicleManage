@@ -24,7 +24,11 @@ namespace VehicleTracker.Business.Interfaces
         List<ProductAvailabilityViewModel> GetWarehouseProductAvailability(int productId,int salesOrderId);
         Task<long> CreateNewSalesOrder(User loggedInUser);
         Task<ResponseViewModel> AddProductToSalesOrder(SalesOrderProduct productDetail, User loggedInUser);
-        Task<ResponseViewModel> DeleteSingleProductRoSalesOrder(SalesOrderProduct productDetail, User loggedInUser);
+        Task<ResponseViewModel> DeleteSingleProductFromSalesOrder(SalesOrderProduct productDetail, User loggedInUser);
         Task<ResponseViewModel> DeleteAllProductFromSalesOrder(int productId, int salesOrderId);
+        List<BasicSalesOrderDetailViewModel> GetNewSalesOrdersForSelectedDailyBeat(long dailyBeatId, User loggedInUser);
+        List<BasicSalesOrderDetailViewModel> GetSalesOrdersForSelectedDailyBeat(long dailyBeatId, User loggedInUser);
+        Task<ResponseViewModel> AddSalesOrderToSelectedDailyBeat(long salesOrderId, long dailyRouteId, User loggedInUser);
+        Task<ResponseViewModel> DeleteSaleOrderFromDailyBeat(int id, User loggedInUser);
     }
 }

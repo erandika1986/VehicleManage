@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { DailyBeatDataSource } from 'app/models/dialy-beat/daily-beat-datasource';
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
@@ -13,6 +15,7 @@ import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DailyBeatEditModelComponent } from '../daily-beat-edit-model/daily-beat-edit-model.component';
+import { DailyBeatOrderDetailComponent } from '../daily-beat-order-detail/daily-beat-order-detail.component';
 
 @Component({
   selector: 'daily-beat-list',
@@ -22,6 +25,9 @@ import { DailyBeatEditModelComponent } from '../daily-beat-edit-model/daily-beat
   animations   : fuseAnimations
 })
 export class DailyBeatListComponent implements OnInit, OnDestroy {
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
     masterData:VehicleBeatMasterDataModel;
     // Private
@@ -34,6 +40,7 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
     sort: MatSort;
   
     dialogRef: any;
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
     dataSource: DailyBeatDataSource;
 
@@ -41,7 +48,10 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
     displayedColumns = ["buttons",'routeName', 'vehicleNumber','driverName', 'date', 'statusInText'];
 
-  constructor(private _dailyBeatService:DailyBeatService,private _fuseProgressBarService: FuseProgressBarService,private _matDialog: MatDialog) {
+  constructor(private _dailyBeatService:DailyBeatService,
+    private _fuseProgressBarService: FuseProgressBarService,
+    private _matDialog: MatDialog,
+    private _snackBar: MatSnackBar) {
     this._unsubscribeAll = new Subject();
    }
 
@@ -103,7 +113,48 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
   deleteDailyBeat(item:DailyVehicleBeatModel)
   {
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false
+    });
 
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this record?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._fuseProgressBarService.show();
+
+        this._dailyBeatService.delete(item.id)
+        .subscribe(response=>{
+  
+          if (response.isSuccess) {
+            this._snackBar.open(response.message, 'Success', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+
+            this._fuseProgressBarService.hide();
+            this.dataSource._saveRecord.next(true);
+          }
+          else {
+            this._snackBar.open(response.message, 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          }   
+        },error=>{
+          this._fuseProgressBarService.hide();
+          this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+            duration: 2500,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        })
+
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
   view(item:DailyVehicleBeatModel)
@@ -113,7 +164,13 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
 
   manageSalesOrder(item:DailyVehicleBeatModel)
   {
-    
+    this.dialogRef = this._matDialog.open(DailyBeatOrderDetailComponent, {
+      panelClass: 'daily-beat-order-detail',
+      data      : {
+        model:item,
+        isReadOnly:item.status!=1?true:false
+      }
+  });
   }
 
   ngOnDestroy(): void

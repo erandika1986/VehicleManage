@@ -99,8 +99,6 @@ namespace VehicleTracker.Business
 
         public List<BasicSalesOrderDetailViewModel> GetAllSalesOrders(SalesOrderFilter filters)
         {
-            var response = new List<BasicSalesOrderDetailViewModel>();
-
             var allSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true).OrderByDescending(s => s.CreatedOn);
 
             if (filters.SelectedRouteId > 0)
@@ -125,35 +123,14 @@ namespace VehicleTracker.Business
 
             var salesOrderList = allSalesOrders.ToList();
 
-            foreach (var item in salesOrderList)
-            {
-                var salesOrder = new BasicSalesOrderDetailViewModel()
-                {
-                    CreatedBy = string.Format("{0} {1}", item.CreatedBy.FirstName, item.CreatedBy.LastName),
-                    CreatedOn = item.CreatedOn.ToString("MM/dd/yyyy"),
-                    OrderDate = item.OrderDate.ToString("MM/dd/yyyy"),
-                    OrderNumber = item.OrderNumber,
-                    OwnerAddress = item.Owner != null ? item.Owner.Address : string.Empty,
-                    OwnerName = item.Owner!=null? item.Owner.Name:string.Empty,
-                    Route = item.Owner!=null? item.Owner.Route.Name:string.Empty,
-                    Status = item.StatusNavigation.Name,
-                    Id = item.Id,
-                    Total = item.TotalAmount,
-                    TotalQty = item.SalesOrderItems.Sum(x => x.Qty),
-                    UpdatedBy = string.Format("{0} {1}", item.UpdatedBy.FirstName, item.UpdatedBy.LastName),
-                    UpdatedOn = item.UpdatedOn.ToString("MM/dd/yyyy")
-
-                };
-
-                response.Add(salesOrder);
-            }
+            var response = GenerateBasicSalesOrderList(salesOrderList);
 
             return response;
         }
 
         public List<BasicSalesOrderDetailViewModel> GetMySalesOrders(SalesOrderFilter filters, User loggedInUser)
         {
-            var response = new List<BasicSalesOrderDetailViewModel>();
+
 
             var allSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true && x.OwnerId == loggedInUser.Id).OrderByDescending(s => s.CreatedOn);
 
@@ -179,28 +156,7 @@ namespace VehicleTracker.Business
 
             var salesOrderList = allSalesOrders.ToList();
 
-            foreach (var item in salesOrderList)
-            {
-                var salesOrder = new BasicSalesOrderDetailViewModel()
-                {
-                    CreatedBy = string.Format("{0} {1}", item.CreatedBy.FirstName, item.CreatedBy.LastName),
-                    CreatedOn = item.CreatedOn.ToString("MM/dd/yyyy"),
-                    OrderDate = item.OrderDate.ToString("MM/dd/yyyy"),
-                    OrderNumber = item.OrderNumber,
-                    OwnerAddress = item.Owner.Address,
-                    OwnerName = item.Owner.Name,
-                    Route = item.Owner.Route.Name,
-                    Status = item.StatusNavigation.Name,
-                    Id = item.Id,
-                    Total = item.TotalAmount,
-                    TotalQty = item.SalesOrderItems.Sum(x => x.Qty),
-                    UpdatedBy = string.Format("{0} {1}", item.UpdatedBy.FirstName, item.UpdatedBy.LastName),
-                    UpdatedOn = item.UpdatedOn.ToString("MM/dd/yyyy")
-
-                };
-
-                response.Add(salesOrder);
-            }
+            var response = GenerateBasicSalesOrderList(salesOrderList);
 
             return response;
         }
@@ -511,7 +467,7 @@ namespace VehicleTracker.Business
             return response;
         }
 
-        public async Task<ResponseViewModel> DeleteSingleProductRoSalesOrder(SalesOrderProduct productDetail, User loggedInUser)
+        public async Task<ResponseViewModel> DeleteSingleProductFromSalesOrder(SalesOrderProduct productDetail, User loggedInUser)
         {
             var response = new ResponseViewModel();
 
@@ -618,6 +574,104 @@ namespace VehicleTracker.Business
             return response;
         }
 
+        public List<BasicSalesOrderDetailViewModel> GetNewSalesOrdersForSelectedDailyBeat(long dailyBeatId, User loggedInUser)
+        {
+
+            var route = _db.DailyVehicleBeats.FirstOrDefault(x => x.Id == dailyBeatId);
+
+            var newSalesOrders = _db.SalesOrders.Where(x => x.IsActive == true && 
+                x.Status == (int)Model.Enums.SalesOrderStatus.New && x.Owner.RouteId== route.RouteId)
+                .OrderByDescending(s => s.CreatedOn);
+
+            var salesOrderList = newSalesOrders.ToList();
+
+            var response = GenerateBasicSalesOrderList(salesOrderList);
+
+            return response;
+        }
+
+        public async Task<ResponseViewModel> AddSalesOrderToSelectedDailyBeat(long salesOrderId, long dailyBeatId, User loggedInUser)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var salesOrder = _db.SalesOrders.FirstOrDefault(x => x.Id == salesOrderId);
+                salesOrder.Status = (int)Model.Enums.SalesOrderStatus.PlannedForDelivery;
+                salesOrder.UpdatedOn = DateTime.Now;
+                salesOrder.UpdatedById = loggedInUser.Id;
+
+                salesOrder.DailyVehicleBeatOrders.Add(new DailyVehicleBeatOrder()
+                {
+                    AssignedById = loggedInUser.Id,
+                    DailyVehicleBeatId = dailyBeatId,
+                    OrderId = salesOrderId,
+                    AssignedDate = DateTime.UtcNow,
+                });
+
+                _db.SalesOrders.Update(salesOrder);
+                
+                //var dailyVehicleBeatOrder = 
+
+                //_db.DailyVehicleBeatOrders.Add(dailyVehicleBeatOrder);
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Sales order has been successfully added to the selected daily beat for deliver";
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                response.IsSuccess = false;
+                response.Message = "Failuer to add sales order to selected daily beat. Please try again.";
+            }
+
+
+            return response;
+        }
+
+        public List<BasicSalesOrderDetailViewModel> GetSalesOrdersForSelectedDailyBeat(long dailyBeatId, User loggedInUser)
+        {
+            var dailyBeat = _db.DailyVehicleBeats.FirstOrDefault(x => x.Id == dailyBeatId);
+
+            var assignedSalesOrders = _db.DailyVehicleBeatOrders.Where(x => x.DailyVehicleBeatId == dailyBeat.Id)
+                .Select(x=>x.Order)
+                .OrderByDescending(s => s.CreatedOn);
+
+            var salesOrderList = assignedSalesOrders.ToList();
+
+            var response = GenerateBasicSalesOrderList(salesOrderList);
+
+            return response;
+        }
+
+        public async Task<ResponseViewModel> DeleteSaleOrderFromDailyBeat(int id,User loggedInUser)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var dailyVehicleBeatOrder = _db.DailyVehicleBeatOrders.FirstOrDefault(x => x.Id == id);
+
+                dailyVehicleBeatOrder.Order.Status = (int)Model.Enums.SalesOrderStatus.New;
+
+                _db.DailyVehicleBeatOrders.Remove(dailyVehicleBeatOrder);
+
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Selected sales order has been deleted from selected daily beat.";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error has been occured while deleting sales order from daily beat.";
+            }
+
+            return response;
+        }
+
 
 
         private void AddNewSalesOrderItems(SalesOrder salesOrder, List<SalesOrderItemViewModel> items)
@@ -676,6 +730,21 @@ namespace VehicleTracker.Business
             };
 
             salesOrder.ProductInventoryOrders.Add(productInventoryOrders);
+        }
+
+        private List<BasicSalesOrderDetailViewModel> GenerateBasicSalesOrderList(List<SalesOrder> salesOrderList)
+        {
+            var response = new List<BasicSalesOrderDetailViewModel>();
+
+            foreach (var item in salesOrderList)
+            {
+                var vm = item.ToBasicVM();
+
+                vm.DailyVehicleBeatOrderId = item.DailyVehicleBeatOrders.FirstOrDefault() != null ? item.DailyVehicleBeatOrders.FirstOrDefault().Id : 0; ;
+                response.Add(vm);
+            }
+
+            return response;
         }
 
     }

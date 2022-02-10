@@ -149,11 +149,11 @@ namespace VehicleTracker.WebApi.Controllers
 
         [HttpPost]
         [Route("deleteSingleProductRoSalesOrder")]
-        public async Task<IActionResult> DeleteSingleProductRoSalesOrder(SalesOrderProduct productDetail)
+        public async Task<IActionResult> DeleteSingleProductFromSalesOrder(SalesOrderProduct productDetail)
         {
             var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
 
-            var response = await saleOrderService.DeleteSingleProductRoSalesOrder(productDetail, loggedInUser);
+            var response = await saleOrderService.DeleteSingleProductFromSalesOrder(productDetail, loggedInUser);
 
             return Ok(response);
         }
@@ -173,6 +173,50 @@ namespace VehicleTracker.WebApi.Controllers
         public async Task<ActionResult> GetSalesOrderNumber()
         {
             var response = await saleOrderService.GetSalesOrderNumber();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getNewSalesOrdersForSelectedDailyBeat/{dailyBeatId}")]
+        public IActionResult GetNewSalesOrdersForSelectedDailyBeat(long dailyBeatId)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response = saleOrderService.GetNewSalesOrdersForSelectedDailyBeat(dailyBeatId, loggedInUser);
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getSalesOrdersForSelectedDailyBeat/{dailyBeatId}")]
+        public IActionResult GetSalesOrdersForSelectedDailyBeat(long dailyBeatId)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response = saleOrderService.GetSalesOrdersForSelectedDailyBeat(dailyBeatId, loggedInUser);
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("addSalesOrderToSelectedDailyBeat/{salesOrderId}/{dailyRouteId}")]
+        public async Task<IActionResult> AddSalesOrderToSelectedDailyBeat(long salesOrderId,long dailyRouteId)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response = await saleOrderService.AddSalesOrderToSelectedDailyBeat(salesOrderId, dailyRouteId, loggedInUser);
+
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("deleteSaleOrderFromDailyBeat/{id}")]
+        public async Task<IActionResult> DeleteSaleOrderFromDailyBeat(int id)
+        {
+            var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());
+
+            var response = await saleOrderService.DeleteSaleOrderFromDailyBeat(id, loggedInUser);
+
             return Ok(response);
         }
     }

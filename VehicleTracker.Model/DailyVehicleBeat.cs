@@ -19,7 +19,9 @@ namespace VehicleTracker.Model
         public long? SalesRepId { get; set; }
         public DateTime Date { get; set; }
         public decimal? StartingMilage { get; set; }
+        public DateTime? StartDateTime { get; set; }
         public decimal? EndMilage { get; set; }
+        public DateTime? EndDateTime { get; set; }
         public int Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public long CreatedBy { get; set; }
