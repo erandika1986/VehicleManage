@@ -50,14 +50,22 @@ export const navigation: FuseNavigation[] = [
                 icon: 'alarm',
                 url: '/vehicle-tracking/daily-beats/list'
             },
+        ]
+    },
+    {
+        id: 'expenses',
+        title: 'Expenses',
+        type: 'group',
+        icon: 'pages',
+        children: [
             {
                 id: 'expenses',
                 title: 'Expenses',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/expenses/list'
-            }
-
+                url: '/expenses-tracking/expenses/list'
+               
+            },
         ]
     },
     {

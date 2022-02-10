@@ -29,6 +29,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MaterialModule } from './MaterialModule';
 
+
 const appRoutes: Routes = [
     {
         path: '',
@@ -48,6 +49,11 @@ const appRoutes: Routes = [
     {
         path: 'vehicle-tracking',
         loadChildren: () => import('./main/vehicle-tracking/vehicle-tracking.module').then(m => m.VehicleTrackingModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'expense-tracking',
+        loadChildren: () => import('./main/expenses-tracking/expenses-tracking.module').then(m => m.ExpensesTrackingModule),
         canActivate: [AuthGuard]
     },
     {
@@ -74,7 +80,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+    
     ],
     imports: [
         BrowserModule,
