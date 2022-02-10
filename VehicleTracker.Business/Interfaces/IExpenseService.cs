@@ -13,7 +13,7 @@ namespace VehicleTracker.Business.Interfaces
         Task<ResponseViewModel> SaveExpenses(ExpensesViewModel vm, string username);
         PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters);
         ExpensesViewModel GetExpenseById(int id, int expenseCategoryId);
-        //Task<ResponseViewModel> DeleteExpese(int id, int expenseCategoryId);
+        Task<ResponseViewModel> DeleteExpese(long id);
 
 
     }

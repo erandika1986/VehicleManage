@@ -49,7 +49,15 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'alarm',
                 url: '/vehicle-tracking/daily-beats/list'
+            },
+            {
+                id: 'expenses',
+                title: 'Expenses',
+                type: 'item',
+                icon: 'alarm',
+                url: '/vehicle-tracking/expenses/list'
             }
+
         ]
     },
     {

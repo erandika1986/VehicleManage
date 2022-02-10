@@ -52,5 +52,13 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteExpense(long id)
+        {
+            var response = await expenseService.DeleteExpese(id);
+
+            return Ok(response);
+        }
+
     }
 }

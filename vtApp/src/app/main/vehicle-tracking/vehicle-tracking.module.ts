@@ -13,6 +13,15 @@ const routes = [
     path: 'daily-beats',
     loadChildren: () => import('./daily-beat/daily-beat.module').then(m => m.DailyBeatModule)
   },
+  {
+    path: '',
+    redirectTo: 'expenses',
+    pathMatch: 'full'
+  },
+  {
+     path: 'expenses',
+    loadChildren: () => import('./expenses/expenses.module').then(m => m.ExpensesModule)
+  },
 ];
 
 @NgModule({

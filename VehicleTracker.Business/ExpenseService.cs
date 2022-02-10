@@ -32,44 +32,32 @@ namespace VehicleTracker.Business
             this.userService = userService;
         }
 
-        //public Task<ResponseViewModel> DeleteExpese(int id, int expenseCategoryId)
-        //{
-        //    var response = new ResponseViewModel();
+        public async Task<ResponseViewModel> DeleteExpese(long id)
+        {
+            var response = new ResponseViewModel();
 
-        //    try
-        //    {
-        //        if (expenseCategoryId == (int)ExpenseCategoryTypes.VehicleExpenses)
-        //        {
-        //            var ve = (from expense in _db.Expenses
-        //                         join vehicleExpense in _db.VehicleExpenses on expense.Id equals vehicleExpense.Id
-        //                         where expense.Id == id && expense.ExpenseCategoryId == expenseCategoryId
-        //                         select new
-        //                         {
-        //                             expense.Id,
-        //                             expense.VehicleExpense,
-        //                             expense.Date,
-        //                             expense.Amount,
-        //                             expense.ExpenseCategoryId,
-        //                             vehicleExpense.VehicleId,
-        //                             vehicleExpense.VehicleExpenseType
+            try
+            {
+                 var expense = _db.Expenses.Where(x => x.Id == id).FirstOrDefault();
 
-        //                         }).FirstOrDefault();
+                expense.IsActive = false;
+
+                _db.Expenses.Update(expense);
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Expense Has Been Delete Successfully";
 
 
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error Orrered Please Try Again";
+            }
 
-        //        }
-        //        else
-        //        {
-        //            var query = _db.Expenses.Where(x => x.Id == id && x.ExpenseCategoryId == expenseCategoryId).FirstOrDefault();
-              
-
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-
-        //    }
-        //}
+            return response;
+        }
 
         public PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters)
         {
@@ -80,7 +68,7 @@ namespace VehicleTracker.Business
             filters.FromDate = new DateTime(filters.FromYear, filters.FromMonth, filters.FromDay, 0, 0, 0);
             filters.ToDate = new DateTime(filters.ToYear, filters.FromMonth, filters.ToDay, 0, 0, 0);
 
-            var query = _db.Expenses.Where(x=> x.Date >= filters.FromDate && x.Date <= filters.ToDate).OrderBy(x=>x.Date);
+            var query = _db.Expenses.Where(x=> x.Date >= filters.FromDate && x.Date <= filters.ToDate && x.IsActive == true).OrderBy(x=>x.Date);
 
             if(filters.ExpenseCategoryId > 0)
             {
