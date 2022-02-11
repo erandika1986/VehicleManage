@@ -1,0 +1,79 @@
+<div class="sidebar-content">
+    <div class="card">
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+            <div class="nav material2">
+                <form
+                    [formGroup]="filterForm"
+                    style="margin-left: 5px !important"
+                >
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>From Date Date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="fromDatePicker"
+                                name="start"
+                                formControlName="fromDate"
+                                (dateChange)="addEvent('change', $event)"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="fromDatePicker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #fromDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>To Date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="toDatePicker"
+                                name="start"
+                                formControlName="toDate"
+                                (dateChange)="addEvent('change', $event)"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="toDatePicker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #toDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Expense Category</mat-label>
+                            <mat-select
+                                formControlName="selectedStatus"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of status"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->

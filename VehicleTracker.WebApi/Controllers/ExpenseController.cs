@@ -35,7 +35,7 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("gelAllExpenses")]
+        [Route("getAllExpenses")]
         public ActionResult GellAllExpeses(ExpenseFilterViewModel filters)
         {
             var response = expenseService.GellAllExpeses(filters);

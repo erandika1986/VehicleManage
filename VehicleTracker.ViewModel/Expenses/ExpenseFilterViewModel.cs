@@ -9,7 +9,7 @@ namespace VehicleTracker.ViewModel.Expenses
 {
     public class ExpenseFilterViewModel
     {
-        public int ExpenseCategoryId { get; set; }
+        public int SelectedExpenseCategoryId { get; set; }
         public DateTime FromDate { get; set; }
         public int FromYear { get; set; }
         public int FromMonth { get; set; }

@@ -1,11 +1,12 @@
 import { DataSource } from "@angular/cdk/collections";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { DailyBeatService } from "app/services/daily-beats/daily-beat.service";
+
 import { BehaviorSubject, merge, Observable, of as observableOf} from "rxjs";
 import { catchError, map, startWith, switchMap } from "rxjs/operators";
 import { DailyVehicleBeatModel } from "./daily-vehicle-beat.model";
 import { VehicleBeatFilterModel } from "./vehicle-beat-filter.model";
+import { DailyBeatService } from './../../services/daily-beats/daily-beat.service';
 
 export class DailyBeatDataSource extends DataSource<any>
 {

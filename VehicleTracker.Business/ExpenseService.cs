@@ -70,9 +70,9 @@ namespace VehicleTracker.Business
 
             var query = _db.Expenses.Where(x=> x.Date >= filters.FromDate && x.Date <= filters.ToDate && x.IsActive == true).OrderBy(x=>x.Date);
 
-            if(filters.ExpenseCategoryId > 0)
+            if(filters.SelectedExpenseCategoryId > 0)
             {
-                query.Where(x => x.ExpenseCategoryId == filters.ExpenseCategoryId).OrderBy(x => x.Date);
+                query.Where(x => x.ExpenseCategoryId == filters.SelectedExpenseCategoryId).OrderBy(x => x.Date);
             }
 
             var data = new List<BasicExpenseDetailViewModel>();

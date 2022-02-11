@@ -52,7 +52,7 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'expense-tracking',
+        path: 'expenses-tracking',
         loadChildren: () => import('./main/expenses-tracking/expenses-tracking.module').then(m => m.ExpensesTrackingModule),
         canActivate: [AuthGuard]
     },
