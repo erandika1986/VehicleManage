@@ -66,11 +66,12 @@
             <!-- CONTENT -->
             <div class="content">
                 <mat-tab-group>
-                    <mat-tab label="Purchase Order Details">
+                    <mat-tab label="Sales Order Details">
                         <div class="tab-content p-24" fusePerfectScrollbar>
                             <div class="horizontal-stepper-wrapper">
                                 <mat-horizontal-stepper
                                     class="mat-elevation-z4"
+                                    #stepper
                                     [linear]="true"
                                 >
                                     <mat-step
@@ -256,7 +257,7 @@
                                                     type="button"
                                                     color="accent"
                                                     style="margin-right: 10px"
-                                                    (click)="saveAndExitOrderStep1(false)"
+                                                    (click)="saveAndExitOrderStep1(true,null)"
                                                     *ngIf="
                                                         !isViewOnly && id > 0
                                                     "
@@ -265,7 +266,7 @@
                                                 </button>
                                                 <button
                                                     mat-raised-button
-                                                    matStepperNext
+                                                    (click)="saveAndExitOrderStep1(false,stepper)"
                                                     type="button"
                                                     [disabled]="
                                                         salesOrderStep1Form.invalid
@@ -686,7 +687,7 @@
                                                 >
                                                     Previous
                                                 </button>
-                                                <button
+<!--                                                 <button
                                                     mat-raised-button
                                                     type="button"
                                                     color="accent"
@@ -697,7 +698,7 @@
                                                     "
                                                 >
                                                     Save & Exit
-                                                </button>
+                                                </button> -->
                                                 <button
                                                     mat-raised-button
                                                     matStepperNext
@@ -888,7 +889,7 @@
                                                     type="button"
                                                     color="accent"
                                                     style="margin-right: 10px"
-                                                    (click)="saveAndExitOrderStep3(false)"
+                                                    (click)="saveAndExitOrderStep3(true,null)"
                                                     *ngIf="
                                                         !isViewOnly && id > 0
                                                     "
@@ -897,6 +898,7 @@
                                                 </button>
                                                 <button
                                                     mat-raised-button
+                                                    (click)="saveAndExitOrderStep3(false,stepper)"
                                                     matStepperNext
                                                     type="button"
                                                     color="accent"
@@ -1376,7 +1378,7 @@
                         </div>
                     </mat-tab>
 
-                    <mat-tab label="Purchase Order Item Recieve">
+                     <mat-tab label="Sales order delivery">
                         <div
                             class="tab-content p-24"
                             fusePerfectScrollbar

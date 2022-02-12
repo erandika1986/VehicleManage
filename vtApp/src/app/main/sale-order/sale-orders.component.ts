@@ -67,6 +67,7 @@ export class SaleOrdersComponent implements OnInit, OnDestroy {
 
     newSalesOrder(): void
     {
+        this._salesOrderService.onClickViewOnly.next(false);
         this._router.navigate(['sale-order/list/' + 0 ]);
 /*         this.dialogRef = this._matDialog.open(UserDetailComponent, {
             panelClass: 'user-form-dialog',
@@ -108,6 +109,7 @@ export class SaleOrdersComponent implements OnInit, OnDestroy {
         this._salesOrderService.createNewSalesOrder()
             .subscribe(response=>{
                 this._fuseProgressBarService.hide()
+                this._salesOrderService.onClickViewOnly.next(false);
                 this._router.navigate(['sale-order/list/' + response ]);
             });
     }
