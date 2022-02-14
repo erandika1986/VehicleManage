@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Common;
 using VehicleTracker.Data;
 using VehicleTracker.Model;
 using VehicleTracker.ViewModel.Common;
@@ -157,6 +158,25 @@ namespace VehicleTracker.Business
             catch(Exception ex)
             {
                 
+            }
+
+            return response;
+        }
+
+        public ExpensesMasterDataViewModel GetExpensesMasterData()
+        {
+            var response = new ExpensesMasterDataViewModel();
+
+            response.Vehicles = _db.Vehicles.Where(x => x.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = v.RegistrationNo }).ToList();
+
+            foreach (ExpenseCategoryTypes expenses in (ExpenseCategoryTypes[])Enum.GetValues(typeof(ExpenseCategoryTypes)))
+            {
+                response.ExpensesCategories.Add(new DropDownViewModal() { Id = (int)expenses, Name = EnumHelper.GetEnumDescription(expenses) });
+            }
+
+            foreach (VehicleExpensesTypes vehicleExpenses in (VehicleExpensesTypes[])Enum.GetValues(typeof(VehicleExpensesTypes)))
+            {
+                response.VehicleExpenses.Add(new DropDownViewModal() { Id = (int)vehicleExpenses, Name = EnumHelper.GetEnumDescription(vehicleExpenses) });
             }
 
             return response;

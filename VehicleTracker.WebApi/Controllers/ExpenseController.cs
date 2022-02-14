@@ -60,5 +60,12 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getExpensesMasterData")]
+        public ActionResult GetExpensesMasterData()
+        {
+            var response = expenseService.GetExpensesMasterData();
+            return Ok(response);
+        }
+
     }
 }

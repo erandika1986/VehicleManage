@@ -14,7 +14,6 @@ namespace VehicleTracker.Business.Interfaces
         PaginatedItemsViewModel<BasicExpenseDetailViewModel> GellAllExpeses(ExpenseFilterViewModel filters);
         ExpensesViewModel GetExpenseById(int id, int expenseCategoryId);
         Task<ResponseViewModel> DeleteExpese(long id);
-
-
+        ExpensesMasterDataViewModel GetExpensesMasterData();
     }
 }

@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { DailyBeatService } from './../../../../../services/daily-beats/daily-beat.service';
+import { ExpensesService } from './../../../../../services/expenses/expenses.service';
 
 
 @Component({
@@ -16,21 +17,22 @@ export class MainComponent implements OnInit {
 
   user: any;
   filterBy: string;
-  status:DropDownModel[]=[];
-  routes:DropDownModel[]=[];
   vehicles:DropDownModel[]=[];
-  drivers:DropDownModel[]=[];
-  salesReps:DropDownModel[]=[];
+  expensesCategories:DropDownModel[]=[];
+  vehicleExpenses:DropDownModel[]=[];
+
   filterForm:FormGroup;
 
   private _unsubscribeAll: Subject<any>;
 
-  constructor(private _dailyBeatService:DailyBeatService) {
+  constructor(
+    private _expensesService:ExpensesService
+    ) {
     this._unsubscribeAll = new Subject();
    }
 
   ngOnInit(): void {
-    this.getAllMasterData();
+    this.getExpesesMasterData();
     this.filterForm = this.createFilterForm();
   }
 
@@ -43,56 +45,37 @@ export class MainComponent implements OnInit {
   createFilterForm(): FormGroup {
     return new FormGroup({
    
-      selectExpenseCategory: new FormControl(0),
+      selectedExpenseCategoryId: new FormControl(0),
       fromDate: new FormControl(new Date()),
       toDate: new FormControl(new Date())
     });
   }
 
-  getAllMasterData()
+  getExpesesMasterData()
   {
-    this._dailyBeatService.getMasterData()
+    this._expensesService.getExpensesMasterData()
       .subscribe(response=>{
-
+        console.log(response);
         
-
-
         let firstItem = new DropDownModel();
         firstItem.id=0;
         firstItem.name="--All--";
 
-
-
-        this.status = response.status;
-        this.status.unshift(firstItem);
-
-        this.salesReps = response.salesReps;
-        this.salesReps.unshift(firstItem);
-
-        this.drivers = response.drivers;
-        this.drivers.unshift(firstItem);
-
-        this.routes = response.routes;
-        this.routes.unshift(firstItem);
-
         this.vehicles = response.vehicles;
-        this.vehicles.unshift(firstItem);
 
+        this.expensesCategories = response.expensesCategories;
+        this.expensesCategories.unshift(firstItem);
 
-        this._dailyBeatService.onMasterDataRecieved.next(response);
-
-      },error=>{
-
-      });
+        this.vehicleExpenses = response.vehicleExpenses;
+      })
   }
-
   dropdownFilterChanged()
   {
-    this._dailyBeatService.onFilterChanged.next(this.filterForm.getRawValue());
+    this._expensesService.onFilterChanged.next(this.filterForm.getRawValue());
   }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this._dailyBeatService.onFilterChanged.next(this.filterForm.getRawValue());
+    this._expensesService.onFilterChanged.next(this.filterForm.getRawValue());
   }
 
 }

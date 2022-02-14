@@ -59,11 +59,11 @@
                         >
                             <mat-label>Expense Category</mat-label>
                             <mat-select
-                                formControlName="selectedStatus"
+                                formControlName="selectedExpenseCategoryId"
                                 (selectionChange)="dropdownFilterChanged()"
                             >
                                 <mat-option
-                                    *ngFor="let item of status"
+                                    *ngFor="let item of expensesCategories"
                                     [value]="item.id"
                                 >
                                     {{ item.name }}

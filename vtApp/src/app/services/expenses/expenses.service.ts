@@ -4,7 +4,9 @@ import { filter } from 'rxjs/operators';
 import { ExpensesFilterModel } from './../../models/expenses/expenses.filter.model';
 import { Subject, Observable } from 'rxjs';
 import { ExpensesPaginatedItemsModel } from './../../models/expenses/expenses-paginated-items.model';
-import { environment } from './../../../environments/environment';
+import { ExpensesMasterDataModel } from './../../models/expenses/expenses.master.data.model';
+import { environment } from 'environments/environment';
+import { ExpensesModel } from 'app/models/expenses/expenses.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,8 @@ export class ExpensesService {
 
   onFilterChanged: Subject<ExpensesFilterModel>;
   onSearchTextChanged : Subject<string>;
- // onMasterDataRecieved:Subject<VehicleBeatMasterDataModel>;
-  onDailyBeatSaved:Subject<any>;
+  onExpensesMasterDataRecieved:Subject<ExpensesMasterDataModel>;
+  onExpensesDetailsSaved:Subject<any>;
 
 
   constructor(
@@ -22,13 +24,26 @@ export class ExpensesService {
   ) {
     this.onFilterChanged = new Subject();
     this.onSearchTextChanged =  new Subject();
-   // this.onMasterDataRecieved = new Subject();
-    this.onDailyBeatSaved = new Subject();
+    this.onExpensesMasterDataRecieved = new Subject();
+    this.onExpensesDetailsSaved = new Subject();
    }
 
   gellAllExpeses(filter:ExpensesFilterModel): Observable<ExpensesPaginatedItemsModel>{
-    return this.httpClient.post<ExpensesPaginatedItemsModel>(environment.apiUrl + 'Expenses/getAllExpenses',filter);
+    return this.httpClient
+      .post<ExpensesPaginatedItemsModel>
+            (environment.apiUrl + 'Expense/getAllExpenses',filter);
+  }
+  
+  getExpensesMasterData():Observable<ExpensesMasterDataModel>{
+    return this.httpClient
+      .get<ExpensesMasterDataModel>
+            (environment.apiUrl+'Expense/getExpensesMasterData');
   }
 
+  getExpensesById(id:number,expenseCategoryId:number):Observable<ExpensesModel>{
+    return this.httpClient
+      .get<ExpensesModel>
+            (environment.apiUrl+'Expense/gelAllExpenses'+'/'+id+'/'+expenseCategoryId);
+  }
   
 }

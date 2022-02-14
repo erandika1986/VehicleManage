@@ -6,11 +6,12 @@ import {  fromEvent, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from './../../../../@fuse/components/progress-bar/progress-bar.service';
 import { FuseSidebarService } from './../../../../@fuse/components/sidebar/sidebar.service';
-
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { VehicleBeatMasterDataModel } from './../../../models/dialy-beat/vehicle-beat-master-data.model';
 import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
+import { ExpensesService } from './../../../services/expenses/expenses.service';
+import { ExpensesMasterDataModel } from './../../../models/expenses/expenses.master.data.model';
 
 @Component({
   selector: 'app-expenses',
@@ -29,10 +30,10 @@ export class ExpensesComponent implements OnInit {
   hasSelectedContacts: boolean;
 
   private _unsubscribeAll: Subject<any>;
-  masterData:VehicleBeatMasterDataModel;
+  expensesMasterData:ExpensesMasterDataModel;
 
   constructor(
-    private _dailyBeatService:DailyBeatService,
+    private _expensesService:ExpensesService,
     private _fuseSidebarService: FuseSidebarService,
     private _fuseProgressBarService: FuseProgressBarService,
     public _router: Router,
@@ -51,11 +52,11 @@ export class ExpensesComponent implements OnInit {
     )
     .subscribe(() => {
 
-      this._dailyBeatService.onSearchTextChanged.next(this.filter.nativeElement.value)
+      this._expensesService.onSearchTextChanged.next(this.filter.nativeElement.value)
     });
 
-    this._dailyBeatService.onMasterDataRecieved.subscribe(response=>{
-      this.masterData = response;
+    this._expensesService.onExpensesMasterDataRecieved.subscribe(response=>{
+      this.expensesMasterData = response;
     })
   }
 
@@ -69,7 +70,7 @@ export class ExpensesComponent implements OnInit {
 
   newDailyBeat(): void
   {
-
+      
   }
 
   toggleSidebar(name): void
@@ -85,12 +86,12 @@ export class ExpensesComponent implements OnInit {
 
   addNew()
   {
-    console.log(this.masterData);
+    console.log(this.expensesMasterData);
     
     this.dialogRef = this._matDialog.open(ExpensesEditModelComponent, {
       panelClass: 'daily-beat-edit-form-dialog',
       data      : {
-          masterData:this.masterData,
+          masterData:this.expensesMasterData,
           action: 'new'
       }
   });
@@ -101,7 +102,7 @@ export class ExpensesComponent implements OnInit {
           {
               return;
           }
-          this._dailyBeatService.onDailyBeatSaved.next(response.getRawValue());
+          this._expensesService.onExpensesDetailsSaved.next(response.getRawValue());
       });
   }
 

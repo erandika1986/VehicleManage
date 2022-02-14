@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { BasicExpensesModel } from './basic-expenses.model';
 import { startWith, switchMap, catchError, map } from 'rxjs/operators';
 export class ExpensesDataSource extends DataSource<any>{
+
     public _filterChange = new BehaviorSubject(true);
     public _saveRecord = new BehaviorSubject(true);
     private _searchTextChange = new BehaviorSubject('');
@@ -23,17 +24,19 @@ export class ExpensesDataSource extends DataSource<any>{
         super();
         let fromDate = new Date();
         let toDate = new Date();
+        
         this.expensesFilter = new ExpensesFilterModel();
+
         this.expensesFilter.fromDate = fromDate;
         this.expensesFilter.toDate = toDate;
 
-        this.expensesFilter.fromYear = fromDate.getDate();
-        this.expensesFilter.fromMonth = fromDate.getMonth()+1;
         this.expensesFilter.fromYear = fromDate.getFullYear();
+        this.expensesFilter.fromMonth = fromDate.getMonth()+1;
+        this.expensesFilter.fromDay = fromDate.getDate();
         
-        this.expensesFilter.toYear = toDate.getDate();
-        this.expensesFilter.toMonth = toDate.getMonth()+1;
         this.expensesFilter.toYear = toDate.getFullYear();
+        this.expensesFilter.toMonth = toDate.getMonth()+1;
+        this.expensesFilter.toDay = toDate.getDate();
        
         this._expensesService.onFilterChanged.subscribe(response=>{
 
@@ -116,12 +119,12 @@ export class ExpensesDataSource extends DataSource<any>{
         this._pageSize.next(value);
     }
 
-    get status():number
+    get expenseCategory():number
     {
         return this._expensesCategory.value;
     }
 
-    set status(value:number)
+    set expenseCategory(value:number)
     {
         this._expensesCategory.next(value);
     }
