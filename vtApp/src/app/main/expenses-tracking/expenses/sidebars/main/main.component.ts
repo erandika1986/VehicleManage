@@ -60,13 +60,15 @@ export class MainComponent implements OnInit {
         let firstItem = new DropDownModel();
         firstItem.id=0;
         firstItem.name="--All--";
-
+        this._expensesService.onExpensesMasterDataRecieved.next(response);
         this.vehicles = response.vehicles;
 
         this.expensesCategories = response.expensesCategories;
         this.expensesCategories.unshift(firstItem);
 
         this.vehicleExpenses = response.vehicleExpenses;
+
+       
       })
   }
   dropdownFilterChanged()

@@ -43,7 +43,7 @@ export class ExpensesListComponent implements OnInit {
 
     pageSizes:number[] =[25,50,75,100,200,500];
 
-    displayedColumns = ["buttons",'expenseCategoryName'];
+    displayedColumns = ["buttons",'expenseCategoryName','amount','createdBy'];
 
   constructor(private _expensesService:ExpensesService,
     private _fuseProgressBarService: FuseProgressBarService,

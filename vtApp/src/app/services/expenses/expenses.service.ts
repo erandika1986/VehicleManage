@@ -7,6 +7,7 @@ import { ExpensesPaginatedItemsModel } from './../../models/expenses/expenses-pa
 import { ExpensesMasterDataModel } from './../../models/expenses/expenses.master.data.model';
 import { environment } from 'environments/environment';
 import { ExpensesModel } from 'app/models/expenses/expenses.model';
+import { ResponseModel } from 'app/models/common/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,11 @@ export class ExpensesService {
     return this.httpClient
       .get<ExpensesModel>
             (environment.apiUrl+'Expense/gelAllExpenses'+'/'+id+'/'+expenseCategoryId);
+  }
+
+  saveDxpenseDetail(vm: ExpensesModel): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'Expense/saveExpense', vm);
   }
   
 }

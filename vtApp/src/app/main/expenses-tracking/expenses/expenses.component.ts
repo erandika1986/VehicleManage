@@ -12,6 +12,7 @@ import { VehicleBeatMasterDataModel } from './../../../models/dialy-beat/vehicle
 import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { ExpensesService } from './../../../services/expenses/expenses.service';
 import { ExpensesMasterDataModel } from './../../../models/expenses/expenses.master.data.model';
+import { ExpensesDetailComponent } from './expenses-detail/expenses-detail.component';
 
 @Component({
   selector: 'app-expenses',
@@ -88,10 +89,10 @@ export class ExpensesComponent implements OnInit {
   {
     console.log(this.expensesMasterData);
     
-    this.dialogRef = this._matDialog.open(ExpensesEditModelComponent, {
-      panelClass: 'daily-beat-edit-form-dialog',
+    this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
+      panelClass: 'expense-form-dialog',
       data      : {
-          masterData:this.expensesMasterData,
+          expensesMasterData:this.expensesMasterData,
           action: 'new'
       }
   });

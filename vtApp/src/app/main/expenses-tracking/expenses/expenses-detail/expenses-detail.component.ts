@@ -33,12 +33,10 @@ export class ExpensesDetailComponent implements OnInit {
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _formBuilder: FormBuilder) { 
-
-      console.log(_data);
-      
+        
               // Set the defaults
               this.action = _data.action;
-              this.expensesMasterData = _data.masterData;
+              this.expensesMasterData = _data.expensesMasterData;
 
 
               if ( this.action === 'edit' )
@@ -49,9 +47,9 @@ export class ExpensesDetailComponent implements OnInit {
               }
               else
               {
-                  this.dialogTitle = 'New User';
+                  this.dialogTitle = 'New Expense';
                   this.expense = new ExpensesModel();
-                  this.expenseFrom = this.createContactForm();
+                  this.expenseFrom = this.createExpenseForm();
               }
       
           
@@ -76,7 +74,7 @@ export class ExpensesDetailComponent implements OnInit {
     });
   }
 
-  createContactForm(): FormGroup
+  createExpenseForm(): FormGroup
   {
       return this._formBuilder.group({
         id: [0],

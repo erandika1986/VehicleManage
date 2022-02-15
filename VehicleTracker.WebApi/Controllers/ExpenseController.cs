@@ -44,7 +44,7 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("gelAllExpenses/{id:int}/{expenseCategoryId:int}")]
+        [Route("getAllExpenses/{id:int}/{expenseCategoryId:int}")]
         public IActionResult getExpenseById(int id, int expenseCategoryId)
         {
             var response = expenseService.GetExpenseById(id, expenseCategoryId);

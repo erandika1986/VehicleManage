@@ -41,7 +41,10 @@ const routes: Routes = [
     FuseWidgetModule,
     SharedModule,    
     FuseSidebarModule,
-    MatToolbarModule
-  ]
+    MatToolbarModule,
+  ],
+  entryComponents: [
+    ExpensesDetailComponent
+]
 })
 export class ExpensesModule { }

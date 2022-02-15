@@ -17,6 +17,28 @@
             </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let expense">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.amount }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Created by</mat-header-cell
+            >
+            <mat-cell *matCellDef="let expense">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.createdBy }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="buttons">
             <mat-header-cell *matHeaderCellDef>
                 <div fxFlex="row" fxLayoutAlign="center center"></div>
