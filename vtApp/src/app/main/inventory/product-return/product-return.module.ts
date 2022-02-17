@@ -6,6 +6,9 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule, FuseWidgetModule } from '@fuse/components';
 import { MaterialModule } from 'app/MaterialModule';
 import { SharedModule } from 'app/shared/shared.module';
+import { MainComponent } from './sidebars/main/main.component';
+import { ProductReturnDetailComponent } from './product-return-detail/product-return-detail.component';
+import { ProductReturnsComponent } from './product-returns.component';
 
 const routes: Routes = [
   {
@@ -22,7 +25,10 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ProductReturnListComponent
+    ProductReturnListComponent,
+    MainComponent,
+    ProductReturnDetailComponent,
+    ProductReturnsComponent
   ],
   imports: [
     RouterModule.forChild(routes),

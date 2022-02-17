@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
 import { MatTable } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
@@ -346,7 +347,7 @@ export class SaleOrderDetailComponent implements OnInit {
     this.salesOrderStep3Form.get('totalAmount').setValue(total);
   }
 
-  saveAndExitOrderStep1(needExit: boolean): void {
+  saveAndExitOrderStep1(needExit: boolean,stepper: MatStepper): void {
     let salesOrder = new SalesOrderStep1Model();
     salesOrder.id = this.id;
     salesOrder.orderDate = this.orderDate;
@@ -379,7 +380,15 @@ export class SaleOrderDetailComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
-        this._location.back()
+        if(needExit)
+        {
+          this._location.back()
+        }
+        else
+        {
+          stepper.next();
+        }
+
       },error=>{
         this._fuseProgressBarService.hide();
         this._snackBar.open("Error has been occured in client application.", 'Error', {
@@ -390,7 +399,7 @@ export class SaleOrderDetailComponent implements OnInit {
       });
   }
 
-  saveAndExitOrderStep3(needExit: boolean): void {
+  saveAndExitOrderStep3(needExit: boolean,stepper: MatStepper): void {
     let salesOrder = new SalesOrderStep3Model();
     salesOrder.id = this.id;
     salesOrder.subTotal = this.subTotal;
@@ -410,7 +419,15 @@ export class SaleOrderDetailComponent implements OnInit {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
-        this._location.back()
+        if(needExit)
+        {
+          this._location.back();
+        }
+        else
+        {
+          stepper.next();
+        }
+
       },error=>{
         this._fuseProgressBarService.hide();
         this._snackBar.open("Error has been occured in client application.", 'Error', {
