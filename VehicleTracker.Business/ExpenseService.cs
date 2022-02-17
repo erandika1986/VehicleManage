@@ -89,6 +89,7 @@ namespace VehicleTracker.Business
                 var vm = new BasicExpenseDetailViewModel()
                 {
                     Id = expese.Id,
+                    ExpenseCategoryId = expese.ExpenseCategoryId,
                     Description = expese.Description,
                     Date = expese.Date,
                     Amount = expese.Amount,

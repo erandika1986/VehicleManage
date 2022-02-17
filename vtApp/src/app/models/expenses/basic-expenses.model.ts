@@ -1,5 +1,6 @@
 export class BasicExpensesModel{
     id:number;
+    expenseCategoryId:number;
     description:string;
     date:Date;
     amount:number;

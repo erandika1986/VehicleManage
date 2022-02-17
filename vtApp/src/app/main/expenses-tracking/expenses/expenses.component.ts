@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { fuseAnimations } from './../../../../@fuse/animations/index';
 import { FormGroup } from '@angular/forms';
-import { ExpensesEditModelComponent } from './expenses-edit-model/expenses-edit-model.component';
 import {  fromEvent, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from './../../../../@fuse/components/progress-bar/progress-bar.service';
@@ -68,21 +67,9 @@ export class ExpensesComponent implements OnInit {
       this._unsubscribeAll.complete();
   }
 
-
-  newDailyBeat(): void
-  {
-      
-  }
-
   toggleSidebar(name): void
   {
       this._fuseSidebarService.getSidebar(name).toggleOpen();
-  }
-  
-
-  saveUser()
-  {
-
   }
 
   addNew()
@@ -92,7 +79,7 @@ export class ExpensesComponent implements OnInit {
     this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
       panelClass: 'expense-form-dialog',
       data      : {
-          expensesMasterData:this.expensesMasterData,
+          masterData:this.expensesMasterData,
           action: 'new'
       }
   });
@@ -103,6 +90,10 @@ export class ExpensesComponent implements OnInit {
           {
               return;
           }
+          console.log("Add New");
+          
+          console.log(response);
+          
           this._expensesService.onExpensesDetailsSaved.next(response.getRawValue());
       });
   }

@@ -50,7 +50,7 @@
                             mat-raised-button
                             class="primary small small-mat-raised-button-small"
                             (click)="view(item)"
-                            matTooltip="View daily route"
+                            matTooltip="View Expense"
                         >
                             <mat-icon class="small-mat-icon"
                                 >remove_red_eye</mat-icon
@@ -59,31 +59,19 @@
                         <button
                             mat-raised-button
                             class="orange small small-mat-raised-button-small"
-                            (click)="editDailyBeat(item)"
-                            matTooltip="Edit daily route"
-                            [disabled]="item.status != 1 && item.status != 2"
+                            (click)="editExpense(item)"
+                            matTooltip="Edit Expense"
                         >
                             <mat-icon class="small-mat-icon">edit</mat-icon>
                         </button>
                         <button
                             mat-raised-button
                             class="red small small-mat-raised-button-small"
-                            (click)="deleteDailyBeat(item)"
-                            matTooltip="Delete daily route"
-                            [disabled]="item.status != 1"
+                            (click)="deleteExpense(item)"
+                            matTooltip="Delete Expense"
                         >
                             <mat-icon class="small-mat-icon"
                                 >delete_forever</mat-icon
-                            >
-                        </button>
-                        <button
-                            mat-raised-button
-                            class="yellow small small-mat-raised-button-small"
-                            (click)="manageSalesOrder(item)"
-                            matTooltip="Manage sale order for daily route"
-                        >
-                            <mat-icon class="small-mat-icon"
-                                >monetization_on</mat-icon
                             >
                         </button>
                     </div>

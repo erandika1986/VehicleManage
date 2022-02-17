@@ -10,7 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ExpensesComponent } from './expenses.component';
 import { MainComponent } from './sidebars/main/main.component';
 import { ExpensesDetailComponent } from './expenses-detail/expenses-detail.component';
-import { ExpensesEditModelComponent } from './expenses-edit-model/expenses-edit-model.component';
 
 const routes: Routes = [
   {
@@ -31,7 +30,6 @@ const routes: Routes = [
     ExpensesListComponent,
     MainComponent,
     ExpensesDetailComponent,
-    ExpensesEditModelComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

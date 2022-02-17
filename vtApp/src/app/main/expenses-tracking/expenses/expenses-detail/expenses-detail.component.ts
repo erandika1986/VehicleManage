@@ -36,13 +36,15 @@ export class ExpensesDetailComponent implements OnInit {
         
               // Set the defaults
               this.action = _data.action;
-              this.expensesMasterData = _data.expensesMasterData;
-
-
+              this.expensesMasterData = _data.masterData;
+              console.log("_data");
+              
+              console.log(_data.data);
+              
               if ( this.action === 'edit' )
               {
                   this.dialogTitle = 'Edit Expense';
-                  this.expense = _data.expense;
+                  this.expense = _data.data;
                   this.expenseFrom = this.createExistingExpenseForm();
               }
               else
@@ -60,6 +62,8 @@ export class ExpensesDetailComponent implements OnInit {
 
   createExistingExpenseForm():FormGroup
   {
+    console.log("form");
+    
     console.log(this.expense);
     
     return this._formBuilder.group({

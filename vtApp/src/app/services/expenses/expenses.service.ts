@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { filter } from 'rxjs/operators';
 import { ExpensesFilterModel } from './../../models/expenses/expenses.filter.model';
 import { Subject, Observable } from 'rxjs';
 import { ExpensesPaginatedItemsModel } from './../../models/expenses/expenses-paginated-items.model';
@@ -44,12 +43,19 @@ export class ExpensesService {
   getExpensesById(id:number,expenseCategoryId:number):Observable<ExpensesModel>{
     return this.httpClient
       .get<ExpensesModel>
-            (environment.apiUrl+'Expense/gelAllExpenses'+'/'+id+'/'+expenseCategoryId);
+            (environment.apiUrl+'Expense/getExpenseById' + '/' + id + '/' + expenseCategoryId);
   }
 
-  saveDxpenseDetail(vm: ExpensesModel): Observable<ResponseModel> {
+  saveExpenseDetail(vm: ExpensesModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'Expense/saveExpense', vm);
+      post<ResponseModel>
+            (environment.apiUrl + 'Expense/saveExpense', vm);
+  }
+
+  deleteExpense(id:number):Observable<ResponseModel>{
+    return this.httpClient
+      .delete<ResponseModel>
+            (environment.apiUrl + 'Expense/deleteExpense' + '/' + id);
   }
   
 }

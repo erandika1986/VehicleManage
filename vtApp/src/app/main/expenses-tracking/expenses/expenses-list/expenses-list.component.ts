@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -8,18 +8,24 @@ import { FuseConfirmDialogComponent } from './../../../../../@fuse/components/co
 import { FuseProgressBarService } from './../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { DailyBeatEditModelComponent } from 'app/main/vehicle-tracking/daily-beat/daily-beat-edit-model/daily-beat-edit-model.component';
-import { ExpensesEditModelComponent } from './../expenses-edit-model/expenses-edit-model.component';
+
 import { FormGroup } from '@angular/forms';
 import { DailyBeatOrderDetailComponent } from './../../../vehicle-tracking/daily-beat/daily-beat-order-detail/daily-beat-order-detail.component';
 import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { ExpensesDataSource } from './../../../../models/expenses/expenses-datasource';
 import { ExpensesService } from './../../../../services/expenses/expenses.service';
 import { ExpensesMasterDataModel } from './../../../../models/expenses/expenses.master.data.model';
+import { BasicExpensesModel } from 'app/models/expenses/basic-expenses.model';
+import { ExpensesModel } from 'app/models/expenses/expenses.model';
+import { ExpensesDetailComponent } from '../expenses-detail/expenses-detail.component';
+import { fuseAnimations } from '@fuse/animations';
 
 @Component({
   selector: 'expenses-list',
   templateUrl: './expenses-list.component.html',
-  styleUrls: ['./expenses-list.component.scss']
+  styleUrls: ['./expenses-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations   : fuseAnimations
 })
 export class ExpensesListComponent implements OnInit {
 
@@ -27,6 +33,7 @@ export class ExpensesListComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
     expensesMasterData:ExpensesMasterDataModel;
+    
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -71,10 +78,10 @@ export class ExpensesListComponent implements OnInit {
        this.expensesMasterData = response;
      });
 
-  /*   this._expensesService.onDailyBeatSaved.subscribe(response=>{
+    this._expensesService.onExpensesDetailsSaved.subscribe(response=>{
 
-      this.saveDailyBeat(response);
-    }); */
+      this.saveExpense(response);
+    });
     
   }
 
@@ -82,20 +89,24 @@ export class ExpensesListComponent implements OnInit {
     this.dataSource.pageSize = pe.pageSize;
   }
 
-  editDailyBeat(item:DailyVehicleBeatModel)
+  editExpense(item:BasicExpensesModel)
   {
-    console.log(item);
     
-    this.dialogRef = this._matDialog.open(ExpensesEditModelComponent, {
-      panelClass: 'daily-beat-edit-form-dialog',
-      data      : {
-          masterData:this.expensesMasterData,
-          data:item,
-          action: 'edit'
-      }
-  });
+     this._expensesService.getExpensesById(item.id,item.expenseCategoryId).subscribe(response=>{
+      
+        console.log("dev");
+        console.log(response);
+        
+        this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
+          panelClass: 'expense-form-dialog',
+          data      : {
+              masterData:this.expensesMasterData,
+              data: response,
+              action: 'edit'   
+          }
+      });
 
-  this.dialogRef.afterClosed()
+      this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
           if ( !response )
           {
@@ -104,11 +115,16 @@ export class ExpensesListComponent implements OnInit {
 
           console.log(response);
           
-          this.saveDailyBeat(response[1].getRawValue())
+          this.saveExpense(response[1].getRawValue())
       });
+    
+     })
+    
+  
+ 
   }
 
-  deleteDailyBeat(item:DailyVehicleBeatModel)
+  deleteExpense(item:BasicExpensesModel)
   {
     this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
       disableClose: false
@@ -120,34 +136,34 @@ export class ExpensesListComponent implements OnInit {
       if (result) {
         this._fuseProgressBarService.show();
 
-        // this._expensesService.delete(item.id)
-        // .subscribe(response=>{
+        this._expensesService.deleteExpense(item.id)
+        .subscribe(response=>{
   
-        //   if (response.isSuccess) {
-        //     this._snackBar.open(response.message, 'Success', {
-        //       duration: 2500,
-        //       horizontalPosition: this.horizontalPosition,
-        //       verticalPosition: this.verticalPosition,
-        //     });
+          if (response.isSuccess) {
+            this._snackBar.open(response.message, 'Success', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
 
-        //     this._fuseProgressBarService.hide();
-        //     this.dataSource._saveRecord.next(true);
-        //   }
-        //   else {
-        //     this._snackBar.open(response.message, 'Error', {
-        //       duration: 2500,
-        //       horizontalPosition: this.horizontalPosition,
-        //       verticalPosition: this.verticalPosition,
-        //     });
-        //   }   
-        // },error=>{
-        //   this._fuseProgressBarService.hide();
-        //   this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
-        //     duration: 2500,
-        //     horizontalPosition: this.horizontalPosition,
-        //     verticalPosition: this.verticalPosition,
-        //   });
-        // })
+            this._fuseProgressBarService.hide();
+            this.dataSource._saveRecord.next(true);
+          }
+          else {
+            this._snackBar.open(response.message, 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          }   
+        },error=>{
+          this._fuseProgressBarService.hide();
+          this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+            duration: 2500,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        })
 
       }
       this.confirmDialogRef = null;
@@ -159,16 +175,6 @@ export class ExpensesListComponent implements OnInit {
 
   }
 
-/*   manageSalesOrder(item:DailyVehicleBeatModel)
-  {
-    this.dialogRef = this._matDialog.open(DailyBeatOrderDetailComponent, {
-      panelClass: 'daily-beat-order-detail',
-      data      : {
-        model:item,
-        isReadOnly:item.status!=1?true:false
-      }
-  });
-  } */
 
   ngOnDestroy(): void
   {
@@ -177,21 +183,21 @@ export class ExpensesListComponent implements OnInit {
       this._unsubscribeAll.complete();
   }
 
-  saveDailyBeat(item:DailyVehicleBeatModel)
+  saveExpense(item:ExpensesModel)
   {
-      /* this._fuseProgressBarService.show();
+      this._fuseProgressBarService.show();
       
-      item.dateYear = item.date.getFullYear();
-      item.dateMonth = item.date.getMonth()+1;
-      item.dateDay = item.date.getDate();
+      item.expenseYear = item.expenseDate.getFullYear();
+      item.expenseMonth = item.expenseDate.getMonth()+1;
+      item.expenseDay = item.expenseDate.getDate();
 
-      this._expensesService.saveDailyVehicleBeatRecord(item)
+      this._expensesService.saveExpenseDetail(item)
         .subscribe(response=>
         {
           this.dataSource._saveRecord.next(true);
           this._fuseProgressBarService.hide();
         },error=>{
           this._fuseProgressBarService.hide();
-        }); */
+        });
   }
 }

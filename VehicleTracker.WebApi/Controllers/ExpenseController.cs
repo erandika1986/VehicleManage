@@ -44,7 +44,7 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("getAllExpenses/{id:int}/{expenseCategoryId:int}")]
+        [Route("getExpenseById/{id:int}/{expenseCategoryId:int}")]
         public IActionResult getExpenseById(int id, int expenseCategoryId)
         {
             var response = expenseService.GetExpenseById(id, expenseCategoryId);
@@ -52,7 +52,8 @@ namespace VehicleTracker.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("deleteExpense/{id}")]
         public async Task<ActionResult> DeleteExpense(long id)
         {
             var response = await expenseService.DeleteExpese(id);
