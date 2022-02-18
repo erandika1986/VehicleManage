@@ -54,10 +54,6 @@ export class DailyBeatsComponent  implements OnInit, OnDestroy {
 
     this._dailyBeatService.onMasterDataRecieved.subscribe(response=>{
       this.masterData = response;
-      console.log("MasterDataBeats");
-      console.log(response);
-      
-      
     })
   }
 

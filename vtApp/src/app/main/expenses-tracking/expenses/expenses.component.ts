@@ -86,13 +86,13 @@ export class ExpensesComponent implements OnInit {
 
   this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
+        console.log("Add New");     
+        console.log(response);
           if ( !response )
           {
               return;
           }
-          console.log("Add New");
-          
-          console.log(response);
+       
           
           this._expensesService.onExpensesDetailsSaved.next(response.getRawValue());
       });

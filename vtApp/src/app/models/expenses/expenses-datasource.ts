@@ -26,9 +26,6 @@ export class ExpensesDataSource extends DataSource<any>{
         
         this.expensesFilter = new ExpensesFilterModel();
 
-        this.expensesFilter.fromDate = fromDate;
-        this.expensesFilter.toDate = toDate;
-
         this.expensesFilter.fromYear = fromDate.getFullYear();
         this.expensesFilter.fromMonth = fromDate.getMonth()+1;
         this.expensesFilter.fromDay = fromDate.getDate();
@@ -38,9 +35,6 @@ export class ExpensesDataSource extends DataSource<any>{
         this.expensesFilter.toDay = toDate.getDate();
        
         this._expensesService.onFilterChanged.subscribe(response=>{
-
-            this.expensesFilter.fromDate = response.fromDate;
-            this.expensesFilter.toDate = response.toDate;
 
             this.expensesFilter.fromYear = response.fromDate.getFullYear();
             this.expensesFilter.fromMonth = response.fromDate.getMonth()+1;

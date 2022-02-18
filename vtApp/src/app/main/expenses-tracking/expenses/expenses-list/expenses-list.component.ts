@@ -94,9 +94,8 @@ export class ExpensesListComponent implements OnInit {
     
      this._expensesService.getExpensesById(item.id,item.expenseCategoryId).subscribe(response=>{
       
-        console.log("dev");
-        console.log(response);
-        
+       console.log("gggggggggggg");
+       
         this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
           panelClass: 'expense-form-dialog',
           data      : {
@@ -185,6 +184,8 @@ export class ExpensesListComponent implements OnInit {
 
   saveExpense(item:ExpensesModel)
   {
+    console.log("dev");
+    
       this._fuseProgressBarService.show();
       
       item.expenseYear = item.expenseDate.getFullYear();

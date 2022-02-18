@@ -24,10 +24,10 @@ export class ExpensesDetailComponent implements OnInit {
   action: string;
   expense: ExpensesModel;
   expensesMasterData:ExpensesMasterDataModel;
-  expenseFrom: FormGroup;
+  expenseForm: FormGroup;
   dialogTitle: string;
 
-  constructor(public matDialogRef: MatDialogRef<UserDetailComponent>,
+  constructor(public matDialogRef: MatDialogRef<ExpensesDetailComponent>,
     private _fuseProgressBarService: FuseProgressBarService,
     private _expensesService:ExpensesService,
     private _snackBar: MatSnackBar,
@@ -37,21 +37,18 @@ export class ExpensesDetailComponent implements OnInit {
               // Set the defaults
               this.action = _data.action;
               this.expensesMasterData = _data.masterData;
-              console.log("_data");
-              
-              console.log(_data.data);
-              
+            
               if ( this.action === 'edit' )
               {
                   this.dialogTitle = 'Edit Expense';
                   this.expense = _data.data;
-                  this.expenseFrom = this.createExistingExpenseForm();
+                  this.expenseForm = this.createExistingExpenseForm();
               }
               else
               {
                   this.dialogTitle = 'New Expense';
                   this.expense = new ExpensesModel();
-                  this.expenseFrom = this.createExpenseForm();
+                  this.expenseForm = this.createExpenseForm();
               }
       
           
@@ -62,9 +59,6 @@ export class ExpensesDetailComponent implements OnInit {
 
   createExistingExpenseForm():FormGroup
   {
-    console.log("form");
-    
-    console.log(this.expense);
     
     return this._formBuilder.group({
       id: [this.expense.id],
@@ -86,110 +80,11 @@ export class ExpensesDetailComponent implements OnInit {
         description: ['',Validators.required],
         expenseDate: ['',Validators.required],
         amount: ['',Validators.required],
-        vehicleId: [null],
-        vehicleExpenseTypeId: [null],
+        vehicleId: [0],
+        vehicleExpenseTypeId: [0],
       });
   }
 
-//   upload$: Observable<Upload> = EMPTY;
-//   precentage:any;
-//   onFileChange(event: any,type:number) 
-//   {
-
-//     let fi = event.srcElement;
-//     const formData = new FormData();
-//     formData.set("id",this.user.id.toString());
-//     formData.set("type",type.toString());
-    
-//     if(fi.files.length>0)
-//     {
-//         this._fuseProgressBarService.show();
-//         for (let index = 0; index < fi.files.length; index++) {
-          
-//           formData.append('file', fi.files[index], fi.files[index].name);
-//         }
-
-//         this._userService.uploadUserImage(formData).subscribe(res=>
-//           {
-//             this.precentage =res;
-//             if(res.state=="DONE")
-//             {
-//               //item.isUploading=false;
-//               this._fuseProgressBarService.hide();
-//               this._userService.onUserUpdated.next(true);
-//               this.getUser(this.user.id);
-//               //this.getVehicleFitnessreportList();
-//               this._snackBar.open("Image has been uploaded successfully", 'Success', {
-//                 duration: 2500,
-//                 horizontalPosition: this.horizontalPosition,
-//                 verticalPosition: this.verticalPosition,
-//               });
-//             }
-//             //progress
-//           },error=>{
-//             this._fuseProgressBarService.hide();
-//             //item.isUploading=false;
-//             this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
-//               duration: 2500,
-//               horizontalPosition: this.horizontalPosition,
-//               verticalPosition: this.verticalPosition,
-//             });
-//           });
-// /*         this._quotationService.uploadQuotationFiles(formData)
-//           .subscribe(response=>{
- 
-//           },error=>{
-//             console.log("Error occured");
-            
-//           }); */
-//     }    
-/*   }
-
-  downloadPercentage:number=0;
-  isDownloading:boolean;
-  downloadFile(type:number,fileName:string)
-  {
-    this._fuseProgressBarService.show();
-    this.isDownloading=true;
-    this._userService.downloadUserImage(this.user.id,type)
-      .subscribe(response=>{
-
-        if (response.type === HttpEventType.DownloadProgress) {
-          this.downloadPercentage = Math.round(100 * response.loaded / response.total);
-        }
-        
-        if (response.type === HttpEventType.Response) {
-          if(response.status == 204)
-          {
-            this.isDownloading=false;
-            this.downloadPercentage=0;
-            this._fuseProgressBarService.hide();
-          }
-          else
-          {
-            const objectUrl: string = URL.createObjectURL(response.body);
-            const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
-    
-            a.href = objectUrl;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-    
-            document.body.removeChild(a);
-            URL.revokeObjectURL(objectUrl);
-            this.isDownloading=false;
-            this.downloadPercentage=0;
-            this._fuseProgressBarService.hide();
-          }
-
-        }
-      },error=>{
-        this._fuseProgressBarService.hide();
-        this.isDownloading=false;
-        this.downloadPercentage=0;
-      });
-  }
- */
   getExpenseById(id:number,expenseCategoryId:number)
   {
     this._fuseProgressBarService.show();
@@ -197,7 +92,7 @@ export class ExpensesDetailComponent implements OnInit {
       .subscribe(response=>{
         this._fuseProgressBarService.hide();
         this.expense = response;
-        this.expenseFrom = this.createExistingExpenseForm();
+        this.expenseForm = this.createExistingExpenseForm();
       },error=>{
         this._fuseProgressBarService.hide();
       });
@@ -205,13 +100,13 @@ export class ExpensesDetailComponent implements OnInit {
 
   get expeseCatagoryId()
   {
-    return this.expenseFrom.get('expenseCategoryId').value;
+    return this.expenseForm.get('expenseCategoryId').value;
   }
 
 
   get id()
   {
-    return this.expenseFrom.get('id').value;
+    return this.expenseForm.get('id').value;
   }
 
 
