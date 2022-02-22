@@ -12,6 +12,7 @@ import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
 import { ExpensesService } from './../../../services/expenses/expenses.service';
 import { ExpensesMasterDataModel } from './../../../models/expenses/expenses.master.data.model';
 import { ExpensesDetailComponent } from './expenses-detail/expenses-detail.component';
+import { ExpensesModel } from 'app/models/expenses/expenses.model';
 
 @Component({
   selector: 'app-expenses',
@@ -75,7 +76,7 @@ export class ExpensesComponent implements OnInit {
   addNew()
   {
     console.log(this.expensesMasterData);
-    
+    this._expensesService.onClickViewOnly.next(false);
     this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
       panelClass: 'expense-form-dialog',
       data      : {
@@ -92,9 +93,13 @@ export class ExpensesComponent implements OnInit {
           {
               return;
           }
-       
-          
-          this._expensesService.onExpensesDetailsSaved.next(response.getRawValue());
+          let expenseModel = new ExpensesModel();
+
+          expenseModel = response.getRawValue();
+          //let expenseModel:any = response.getRawValue();
+
+          this._expensesService.onExpensesDetailsSaved.next(expenseModel);
+          this._unsubscribeAll;
       });
   }
 

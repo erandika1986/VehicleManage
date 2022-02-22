@@ -4,9 +4,7 @@ import { DropDownModel } from './../../../../../models/common/drop-down.modal';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { DailyBeatService } from './../../../../../services/daily-beats/daily-beat.service';
 import { ExpensesService } from './../../../../../services/expenses/expenses.service';
-
 
 @Component({
   selector: 'expenses-main-sidebar',
@@ -67,10 +65,10 @@ export class MainComponent implements OnInit {
         this.expensesCategories.unshift(firstItem);
 
         this.vehicleExpenses = response.vehicleExpenses;
-
        
       })
   }
+  
   dropdownFilterChanged()
   {
     this._expensesService.onFilterChanged.next(this.filterForm.getRawValue());

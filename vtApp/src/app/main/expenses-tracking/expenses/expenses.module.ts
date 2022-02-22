@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'list',
     component: ExpensesComponent
 
+  },
+  {
+    path: 'list/:id',
+    component: ExpensesDetailComponent,
   }
 ];
 
@@ -41,8 +45,7 @@ const routes: Routes = [
     FuseSidebarModule,
     MatToolbarModule,
   ],
-  entryComponents: [
-    ExpensesDetailComponent
-]
+
+
 })
 export class ExpensesModule { }

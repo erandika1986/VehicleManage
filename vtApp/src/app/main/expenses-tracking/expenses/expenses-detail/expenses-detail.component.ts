@@ -4,10 +4,10 @@ import { ExpensesMasterDataModel } from 'app/models/expenses/expenses.master.dat
 import { ExpensesModel } from './../../../../models/expenses/expenses.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserDetailComponent } from './../../../admin/user/user-detail/user-detail.component';
 import { FuseProgressBarService } from './../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { ExpensesService } from './../../../../services/expenses/expenses.service';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-expenses-detail',
@@ -17,7 +17,6 @@ import { Observable } from 'rxjs';
 })
 export class ExpensesDetailComponent implements OnInit {
 
-  
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   
@@ -26,22 +25,45 @@ export class ExpensesDetailComponent implements OnInit {
   expensesMasterData:ExpensesMasterDataModel;
   expenseForm: FormGroup;
   dialogTitle: string;
+  isViewOnly:boolean = false;
+  expenseId:number;
+
+  private _unsubscribeAll: BehaviorSubject<any>;
 
   constructor(public matDialogRef: MatDialogRef<ExpensesDetailComponent>,
     private _fuseProgressBarService: FuseProgressBarService,
     private _expensesService:ExpensesService,
     private _snackBar: MatSnackBar,
+    public _activateRoute: ActivatedRoute,
+   
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _formBuilder: FormBuilder) { 
-        
+              this._unsubscribeAll = new BehaviorSubject(false);
               // Set the defaults
               this.action = _data.action;
+              console.log(this.action);
+              
               this.expensesMasterData = _data.masterData;
-            
-              if ( this.action === 'edit' )
+
+              
+              if ( this.action === 'edit' || this.action === 'view')
               {
-                  this.dialogTitle = 'Edit Expense';
+                  if(this.action === 'view'){
+
+                    this._expensesService.onClickViewOnly.subscribe(response=>{
+  
+                      console.log('click'+ response + this.action);
+                      this.isViewOnly = response;
+                    });
+
+                  }
+
+                  this.dialogTitle = this.action === 'edit'?'Edit Expense' : 'View Expennse';
                   this.expense = _data.data;
+                  console.log("data");
+                  
+                  console.log(this.expense);
+                  
                   this.expenseForm = this.createExistingExpenseForm();
               }
               else
@@ -56,18 +78,23 @@ export class ExpensesDetailComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  ngOnDestroy(): void
+  {
+      // Unsubscribe from all subscriptions
+      this._unsubscribeAll.next(false);
+      this._unsubscribeAll.complete();
+  }
   createExistingExpenseForm():FormGroup
   {
     
     return this._formBuilder.group({
       id: [this.expense.id],
-      expenseCategoryId: [this.expense.expenseCategoryId,Validators.required],
-      description: [this.expense.description,Validators.required],
-      expenseDate: [this.expense.expenseDate,Validators.required],
-      amount: [this.expense.amount,Validators.required],
-      vehicleId: [this.expense.vehicleId],
-      vehicleExpenseTypeId: [this.expense.vehicleExpenseTypeId],
+      expenseCategoryId: [{value:this.expense.expenseCategoryId, disabled: this.isViewOnly}, Validators.required],
+      description: [{value:this.expense.description, disabled: this.isViewOnly},Validators.required],
+      expenseDate: [{value:this.expense.expenseDate, disabled: this.isViewOnly},Validators.required],
+      amount: [{value:this.expense.amount, disabled: this.isViewOnly},Validators.required],
+      vehicleId: [{value:this.expense.vehicleId, disabled: this.isViewOnly}],
+      vehicleExpenseTypeId: [{value:this.expense.vehicleExpenseTypeId, disabled: this.isViewOnly}],
       
     });
   }
@@ -78,7 +105,7 @@ export class ExpensesDetailComponent implements OnInit {
         id: [0],
         expenseCategoryId: [[null],Validators.required],
         description: ['',Validators.required],
-        expenseDate: ['',Validators.required],
+        expenseDate: [new Date(),Validators.required],
         amount: ['',Validators.required],
         vehicleId: [0],
         vehicleExpenseTypeId: [0],
@@ -102,7 +129,6 @@ export class ExpensesDetailComponent implements OnInit {
   {
     return this.expenseForm.get('expenseCategoryId').value;
   }
-
 
   get id()
   {

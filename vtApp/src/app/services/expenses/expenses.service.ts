@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ExpensesFilterModel } from './../../models/expenses/expenses.filter.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { ExpensesPaginatedItemsModel } from './../../models/expenses/expenses-paginated-items.model';
 import { ExpensesMasterDataModel } from './../../models/expenses/expenses.master.data.model';
 import { environment } from 'environments/environment';
@@ -17,6 +17,7 @@ export class ExpensesService {
   onSearchTextChanged : Subject<string>;
   onExpensesMasterDataRecieved:Subject<ExpensesMasterDataModel>;
   onExpensesDetailsSaved:Subject<any>;
+  onClickViewOnly:BehaviorSubject<boolean>;
 
 
   constructor(
@@ -26,6 +27,7 @@ export class ExpensesService {
     this.onSearchTextChanged =  new Subject();
     this.onExpensesMasterDataRecieved = new Subject();
     this.onExpensesDetailsSaved = new Subject();
+    this.onClickViewOnly = new BehaviorSubject(true);
    }
 
   gellAllExpeses(filter:ExpensesFilterModel): Observable<ExpensesPaginatedItemsModel>{

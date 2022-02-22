@@ -76,6 +76,8 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
     });
 
     this._dailyBeatService.onDailyBeatSaved.subscribe(response=>{
+      console.log('Beat');
+      
 
       this.saveDailyBeat(response);
     });
