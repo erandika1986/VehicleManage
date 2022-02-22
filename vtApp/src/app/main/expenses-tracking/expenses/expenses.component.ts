@@ -75,8 +75,6 @@ export class ExpensesComponent implements OnInit {
 
   addNew()
   {
-    console.log(this.expensesMasterData);
-    this._expensesService.onClickViewOnly.next(false);
     this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
       panelClass: 'expense-form-dialog',
       data      : {

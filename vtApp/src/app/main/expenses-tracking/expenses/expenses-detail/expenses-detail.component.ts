@@ -41,11 +41,8 @@ export class ExpensesDetailComponent implements OnInit {
               this._unsubscribeAll = new BehaviorSubject(false);
               // Set the defaults
               this.action = _data.action;
-              console.log(this.action);
-              
               this.expensesMasterData = _data.masterData;
 
-              
               if ( this.action === 'edit' || this.action === 'view')
               {
                   if(this.action === 'view'){
@@ -60,10 +57,6 @@ export class ExpensesDetailComponent implements OnInit {
 
                   this.dialogTitle = this.action === 'edit'?'Edit Expense' : 'View Expennse';
                   this.expense = _data.data;
-                  console.log("data");
-                  
-                  console.log(this.expense);
-                  
                   this.expenseForm = this.createExistingExpenseForm();
               }
               else
@@ -78,6 +71,7 @@ export class ExpensesDetailComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   ngOnDestroy(): void
   {
       // Unsubscribe from all subscriptions
@@ -91,7 +85,7 @@ export class ExpensesDetailComponent implements OnInit {
       id: [this.expense.id],
       expenseCategoryId: [{value:this.expense.expenseCategoryId, disabled: this.isViewOnly}, Validators.required],
       description: [{value:this.expense.description, disabled: this.isViewOnly},Validators.required],
-      expenseDate: [{value:this.expense.expenseDate, disabled: this.isViewOnly},Validators.required],
+      expenseDate: [{value:new Date(this.expense.expenseDate), disabled: this.isViewOnly},Validators.required],
       amount: [{value:this.expense.amount, disabled: this.isViewOnly},Validators.required],
       vehicleId: [{value:this.expense.vehicleId, disabled: this.isViewOnly}],
       vehicleExpenseTypeId: [{value:this.expense.vehicleExpenseTypeId, disabled: this.isViewOnly}],

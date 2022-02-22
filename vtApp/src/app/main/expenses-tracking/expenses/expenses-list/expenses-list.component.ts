@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from './../../../../../@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FuseProgressBarService } from './../../../../../@fuse/components/progress-bar/progress-bar.service';
-import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { FormGroup } from '@angular/forms';
 import { ExpensesDataSource } from './../../../../models/expenses/expenses-datasource';
 import { ExpensesService } from './../../../../services/expenses/expenses.service';
@@ -74,8 +73,10 @@ export class ExpensesListComponent implements OnInit {
     this._expensesService.onExpensesDetailsSaved.subscribe(response=>{
 
       console.log("dev Call ");
-      
-     //this.saveExpense(response);
+      if(response != null){
+           this.saveExpense(response);
+      }
+    
 
     });
    }
@@ -116,6 +117,27 @@ export class ExpensesListComponent implements OnInit {
       });
     
      })
+  }
+
+  viewExpense(item:ExpensesModel)
+  {
+    
+    this._expensesService.getExpensesById(item.id, item.expenseCategoryId).subscribe(response=>{
+      this._expensesService.onClickViewOnly.next(true);
+
+      this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
+        panelClass: 'expense-form-dialog',
+        
+        data      : {
+            masterData:this.expensesMasterData,
+            data: response,
+            action: 'view'   
+        }
+        
+    });
+    })
+  
+   
   }
 
   deleteExpense(item:BasicExpensesModel)
@@ -164,21 +186,7 @@ export class ExpensesListComponent implements OnInit {
     });
   }
 
-  viewExpense(item:ExpensesModel)
-  {
-    this._expensesService.onClickViewOnly.next(true);
-    this.dialogRef = this._matDialog.open(ExpensesDetailComponent, {
-      panelClass: 'expense-form-dialog',
-      
-      data      : {
-          masterData:this.expensesMasterData,
-          data: item,
-          action: 'view'   
-      }
-      
-  });
-   
-  }
+ 
 
 
   ngOnDestroy(): void
@@ -189,9 +197,9 @@ export class ExpensesListComponent implements OnInit {
   }
 
   saveExpense(item:ExpensesModel)
-  {
-     
+  { 
       this._fuseProgressBarService.show();
+      console.log(item.expenseDate.getFullYear);
       
       item.expenseYear = item.expenseDate.getFullYear();
       item.expenseMonth = item.expenseDate.getMonth()+1;
@@ -201,7 +209,6 @@ export class ExpensesListComponent implements OnInit {
         .subscribe(response=>
         {
           this.dataSource._saveRecord.next(true);
-          this._expensesService.onExpensesDetailsSaved.complete();
           this._fuseProgressBarService.hide();
 
           this._snackBar.open(response.message, 'Success', {

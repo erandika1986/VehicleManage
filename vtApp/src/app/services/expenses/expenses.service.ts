@@ -15,7 +15,7 @@ export class ExpensesService {
 
   onFilterChanged: Subject<ExpensesFilterModel>;
   onSearchTextChanged : Subject<string>;
-  onExpensesMasterDataRecieved:Subject<ExpensesMasterDataModel>;
+  onExpensesMasterDataRecieved:Subject<ExpensesMasterDataModel>;  
   onExpensesDetailsSaved:Subject<any>;
   onClickViewOnly:BehaviorSubject<boolean>;
 
