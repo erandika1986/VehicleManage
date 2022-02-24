@@ -9,4 +9,5 @@ export class ExpensesModel{
     amount:number;
     vehicleId:number;
     vehicleExpenseTypeId:number;
+    expenseReceiptImage:string;
 }

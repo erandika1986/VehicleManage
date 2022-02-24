@@ -7,6 +7,8 @@ import { ExpensesMasterDataModel } from './../../models/expenses/expenses.master
 import { environment } from 'environments/environment';
 import { ExpensesModel } from 'app/models/expenses/expenses.model';
 import { ResponseModel } from 'app/models/common/response.model';
+import { Upload } from './../../models/common/upload';
+import { upload } from 'app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +61,12 @@ export class ExpensesService {
       .delete<ResponseModel>
             (environment.apiUrl + 'Expense/deleteExpense' + '/' + id);
   }
+
+  uploadExpenseReceiptImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post
+                        (environment.apiUrl + 'Expense/uploadExpenseReceiptImage',
+                         data,{reportProgress: true,observe: 'events'}).pipe(upload());;
+  }
+
   
 }

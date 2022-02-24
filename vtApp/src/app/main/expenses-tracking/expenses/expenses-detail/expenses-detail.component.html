@@ -10,47 +10,6 @@
                 <mat-icon>close</mat-icon>
             </button>
         </mat-toolbar-row>
-
-        <!-- <mat-toolbar-row
-            class="toolbar-bottom py-16"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-        >
-            <img
-                [src]="'assets/images/avatars/profile.jpg'"
-                class="avatar contact-avatar huge m-0"
-                *ngIf="!user?.image"
-            />
-            <img
-                [src]="user?.image"
-                class="avatar contact-avatar huge m-0"
-                *ngIf="user?.image"
-            />
-            <div class="contact-name mt-8">
-                {{ user.firstName }} {{ user.lastName }}
-            </div>
-            <div class="contact-name mt-8">
-                <span
-                    style="font-size: 13px; cursor: pointer"
-                    (click)="profileImageInput.click()"
-                    >Upload Profile Image</span
-                >
-                <span>&nbsp;|&nbsp;</span>
-                <span
-                    style="font-size: 13px; cursor: pointer"
-                    (click)="downloadFile(1, user?.imageName)"
-                    >Download Profile Image</span
-                >
-                <input
-                    #profileImageInput
-                    type="file"
-                    class="form-control"
-                    name="documents"
-                    (change)="onFileChange($event, 1)"
-                    style="display: none"
-                />
-            </div>
-        </mat-toolbar-row> -->
     </mat-toolbar>
 
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
@@ -188,6 +147,94 @@
                         </mat-form-field>
                     </div>
                 </form>
+            </mat-tab>
+
+            <mat-tab label="Expense Bill" *ngIf="id != 0">
+                <div class="products tab-content p-24" fusePerfectScrollbar>
+                    <button
+                        mat-raised-button
+                        class="blue small small-mat-raised-button-small"
+                        (click)="nicfpfileInput.click()"
+                    >
+                        Upload Bill
+                        <input
+                            #nicfpfileInput
+                            type="file"
+                            class="form-control"
+                            name="documents"
+                            (change)="onFileChange($event, 2)"
+                            style="display: none"
+                        />
+                    </button>
+
+                    <table
+                        class="simple"
+                        *ngIf="expense.expenseReceiptImage != null"
+                    >
+                        <thead>
+                            <tr>
+                                <th style="width: 20% !important">Image</th>
+                                <th style="width: 20% !important">Delete</th>
+                                <th style="width: 20% !important">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="product-row">
+                                <td>
+                                    <img
+                                        class="product-image"
+                                        [src]="
+                                            'assets/images/logos/id-card.png'
+                                        "
+                                        *ngIf="!expense?.expenseReceiptImage"
+                                    />
+                                    <img
+                                        class="product-image"
+                                        [src]="expense.expenseReceiptImage"
+                                        *ngIf="expense?.expenseReceiptImage"
+                                    />
+                                </td>
+
+                                <td>
+                                    <button
+                                        mat-raised-button
+                                        class="blue small small-mat-raised-button-small"
+                                        (click)="nicfpfileInput.click()"
+                                    >
+                                        <mat-icon class="small-mat-icon"
+                                            >cloud_upload</mat-icon
+                                        >
+                                        <input
+                                            #nicfpfileInput
+                                            type="file"
+                                            class="form-control"
+                                            name="documents"
+                                            (change)="onFileChange($event, 2)"
+                                            style="display: none"
+                                        />
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        mat-raised-button
+                                        class="green small small-mat-raised-button-small"
+                                        *ngIf="user?.nicFrontImage"
+                                        (click)="
+                                            downloadFile(
+                                                2,
+                                                user?.nicFrontImageName
+                                            )
+                                        "
+                                    >
+                                        <mat-icon class="small-mat-icon"
+                                            >cloud_download</mat-icon
+                                        >
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>

@@ -7,7 +7,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseProgressBarService } from './../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { ExpensesService } from './../../../../services/expenses/expenses.service';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
+import { Upload } from './../../../../models/common/upload';
 
 @Component({
   selector: 'app-expenses-detail',
@@ -89,7 +90,7 @@ export class ExpensesDetailComponent implements OnInit {
       amount: [{value:this.expense.amount, disabled: this.isViewOnly},Validators.required],
       vehicleId: [{value:this.expense.vehicleId, disabled: this.isViewOnly}],
       vehicleExpenseTypeId: [{value:this.expense.vehicleExpenseTypeId, disabled: this.isViewOnly}],
-      
+      expenseReceiptImage:['']
     });
   }
 
@@ -103,6 +104,7 @@ export class ExpensesDetailComponent implements OnInit {
         amount: ['',Validators.required],
         vehicleId: [0],
         vehicleExpenseTypeId: [0],
+        expenseReceiptImage:['']
       });
   }
 
@@ -117,6 +119,78 @@ export class ExpensesDetailComponent implements OnInit {
       },error=>{
         this._fuseProgressBarService.hide();
       });
+  }
+
+  getExpenseDetailsById()
+  {
+    this._fuseProgressBarService.show();
+    this._expensesService.getExpensesById(this.expense.id, this.expense.expenseCategoryId)
+    .subscribe(response=>
+    {
+      this.expense = response;
+
+      this._fuseProgressBarService.hide();
+      this.expenseForm = this.createExistingExpenseForm();
+
+    },error=>{
+
+      this._fuseProgressBarService.hide();
+
+    })
+  }
+
+  upload$: Observable<Upload> = EMPTY;
+  precentage:any;
+
+  onFileChange(event:any, type:number)
+  {
+    let file = event.srcElement;
+    const formData = new FormData();
+
+    formData.set("id",this.expense.id.toString());
+    formData.set("type", type.toString());
+
+    if(file.files.length > 0)
+    {
+      this._fuseProgressBarService.show();
+
+      for (let index = 0; index < file.files.length; index++) 
+      {
+        formData.append('file',file.files[index], file.files[index].name);
+        
+      }
+
+      console.log(formData.get("id"));
+
+      this._expensesService.uploadExpenseReceiptImage(formData).subscribe(response=>{
+
+        this.precentage = response;
+        if(response.state === "DONE")
+        {
+
+          this._fuseProgressBarService.hide();
+          this._expensesService.onExpensesDetailsSaved.next(true);
+          this.getExpenseDetailsById();
+
+          this._snackBar.open("Image has been uploaded successfully", 'Success',
+          {
+                duration: 2500,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+          });
+
+        }
+      },error=>{
+
+        this._fuseProgressBarService.hide();
+        this._snackBar.open("Error has been occured image upload please try again","Eroor",
+        {
+            duration:2500,
+            horizontalPosition:this.horizontalPosition,
+            verticalPosition:this.verticalPosition,
+        });
+      })
+    }
   }
 
   get expeseCatagoryId()

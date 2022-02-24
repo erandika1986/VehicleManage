@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -195,21 +196,11 @@ namespace VehicleTracker.Business
 
                 if (expense == null)
                 {
-                    expense = new Expense()
-                    {
-                        Id = vm.Id,
-                        ExpenseCategoryId = (int)vm.ExpenseCategoryId,
-                        Description = vm.Description,
-                        Date = expenseDate,
-                        Amount = vm.Amount,
-                        CreatedOn = DateTime.UtcNow,
-                        CreatedById = loggedInUser.Id,
-                        UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = loggedInUser.Id
-
-                    };
-                  
-
+                    expense = vm.ToNewModel();
+                    expense.Date = expenseDate;
+                    expense.CreatedById = loggedInUser.Id;
+                    expense.UpdatedById = loggedInUser.Id;
+                    
                     if(vm.ExpenseCategoryId == ExpenseCategoryTypes.VehicleExpenses)
                     {
 
@@ -288,5 +279,70 @@ namespace VehicleTracker.Business
             return response;
         }
 
+        public async Task<ResponseViewModel> UploadExpenseReceiptImage(FileContainerModel container)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var expense = _db.Expenses.Where(x => x.Id == container.Id).FirstOrDefault();
+                var folderPath = GetExpenseImageFolderPath(expense, _config);
+                var firstFile = container.Files.FirstOrDefault();
+
+                if(!string.IsNullOrEmpty(expense.ExpenseImages.FirstOrDefault().Attachment))
+                {
+                    var exsistingImagePath = string.Format(@"{0}\{1}", folderPath, expense.ExpenseImages.FirstOrDefault().Attachment);
+
+                    if (File.Exists(exsistingImagePath))
+                    {
+                        File.Delete(exsistingImagePath);
+                    }
+                }
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                if(firstFile != null && firstFile.Length > 0)
+                {
+                    var fileName = GetExpenseImageName(expense, Path.GetExtension(firstFile.FileName));
+                    var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await firstFile.CopyToAsync(stream);
+
+                        expense.ExpenseImages.FirstOrDefault().Attachment= fileName;
+                        response.Message = "Expense image has been uploaded succesfully";
+                    }
+                }
+
+                _db.Expenses.Update(expense);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            { 
+                response.IsSuccess = false;
+                response.Message = "Image upload has been failed,Please try again";
+            }
+
+
+            return response;
+        }
+
+        #region Private Methods
+        private string GetExpenseImageFolderPath(Expense model, IConfiguration config)
+        {
+            return string.Format(@"{0}{1}\{2}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.Id);
+        }
+
+        public static string GetExpenseImageName(Expense model, string extension)
+        {
+            return string.Format(@"Expense-Image-{0}{1}", model.Id, extension);
+        }
+
+        #endregion
     }
+
+
 }

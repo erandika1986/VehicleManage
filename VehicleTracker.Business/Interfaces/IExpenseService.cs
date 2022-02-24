@@ -15,5 +15,6 @@ namespace VehicleTracker.Business.Interfaces
         ExpensesViewModel GetExpenseById(int id, int expenseCategoryId);
         Task<ResponseViewModel> DeleteExpese(long id);
         ExpensesMasterDataViewModel GetExpensesMasterData();
+        Task<ResponseViewModel> UploadExpenseReceiptImage(FileContainerModel container);
     }
 }

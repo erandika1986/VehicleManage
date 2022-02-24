@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.ViewModel.Common;
 using VehicleTracker.ViewModel.Expenses;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
@@ -65,6 +66,25 @@ namespace VehicleTracker.WebApi.Controllers
         public ActionResult GetExpensesMasterData()
         {
             var response = expenseService.GetExpensesMasterData();
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("uploadExpenseReceiptImage")]
+        public async Task<IActionResult> UploadExpenseReceiptImage()
+        {
+            var container = new FileContainerModel();
+
+            var request = await Request.ReadFormAsync();
+
+            foreach (var file in request.Files)
+            {
+                container.Files.Add(file);
+            }
+
+            var response = await expenseService.UploadExpenseReceiptImage(container);
+
             return Ok(response);
         }
 
