@@ -78,6 +78,9 @@ namespace VehicleTracker.WebApi.Controllers
 
             var request = await Request.ReadFormAsync();
 
+            container.Id = int.Parse(request["id"]);
+            container.Type = int.Parse(request["type"]);
+
             foreach (var file in request.Files)
             {
                 container.Files.Add(file);

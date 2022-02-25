@@ -18139,3 +18139,44 @@ WHERE ([e].[Id] = @__p_0) AND ([e].[ExpenseCategoryId] = @__expenseCategoryId_1)
 2022-02-24 12:51:22.651 +05:30 [DBG] Executing controller factory for controller VehicleTracker.WebApi.Controllers.ExpenseController (VehicleTracker.WebApi)
 2022-02-24 12:51:22.651 +05:30 [DBG] Executed controller factory for controller VehicleTracker.WebApi.Controllers.ExpenseController (VehicleTracker.WebApi)
 2022-02-24 12:51:22.670 +05:30 [INF] Executing action method VehicleTracker.WebApi.Controllers.ExpenseController.UploadExpenseReceiptImage (VehicleTracker.WebApi) - Validation state: "Valid"
+2022-02-24 17:08:41.454 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2022-02-24 17:08:44.172 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2022-02-24 17:08:44.184 +05:30 [DBG] Hosting starting
+2022-02-24 17:08:44.734 +05:30 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-24 17:08:44.738 +05:30 [DBG] Reading data from file 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys\key-65b0abaf-8c3d-4fb2-8a14-5da308db9465.xml'.
+2022-02-24 17:08:44.832 +05:30 [DBG] Reading data from file 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys\key-6ed04cce-1256-4aad-82c4-2e8589d4a0a3.xml'.
+2022-02-24 17:08:44.833 +05:30 [DBG] Reading data from file 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys\key-bddf991a-a6c8-4724-9146-88296fe31486.xml'.
+2022-02-24 17:08:44.834 +05:30 [DBG] Reading data from file 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys\key-df609622-ff7a-4cef-bfcc-e2399d610597.xml'.
+2022-02-24 17:08:44.845 +05:30 [DBG] Found key {65b0abaf-8c3d-4fb2-8a14-5da308db9465}.
+2022-02-24 17:08:44.859 +05:30 [DBG] Found key {6ed04cce-1256-4aad-82c4-2e8589d4a0a3}.
+2022-02-24 17:08:44.859 +05:30 [DBG] Found key {bddf991a-a6c8-4724-9146-88296fe31486}.
+2022-02-24 17:08:44.859 +05:30 [DBG] Found key {df609622-ff7a-4cef-bfcc-e2399d610597}.
+2022-02-24 17:08:44.867 +05:30 [DBG] Considering key {65b0abaf-8c3d-4fb2-8a14-5da308db9465} with expiration date 2022-05-15 03:50:07Z as default key.
+2022-02-24 17:08:44.885 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-24 17:08:44.888 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2022-02-24 17:08:44.889 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-24 17:08:44.893 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2022-02-24 17:08:44.895 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2022-02-24 17:08:44.898 +05:30 [DBG] Using key {65b0abaf-8c3d-4fb2-8a14-5da308db9465} as the default key.
+2022-02-24 17:08:44.899 +05:30 [DBG] Key ring with default key {65b0abaf-8c3d-4fb2-8a14-5da308db9465} was loaded during application startup.
+2022-02-24 17:08:44.904 +05:30 [DBG] Hosting started
+2022-02-24 17:08:44.904 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2022-02-24 17:08:45.031 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2022-02-24 17:08:45.042 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2022-02-24 17:08:45.680 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 650.6623ms
+2022-02-24 17:08:45.895 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2022-02-24 17:08:45.899 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/favicon-32x32.png - -
+2022-02-24 17:08:45.939 +05:30 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2022-02-24 17:08:45.940 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/favicon-32x32.png - - - 200 628 image/png 40.8655ms
+2022-02-24 17:08:46.084 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 183.7880ms
+2022-02-24 17:08:53.613 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2022-02-24 17:08:53.615 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 2.0946ms
+2022-02-24 17:08:53.742 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2022-02-24 17:08:53.812 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 69.3752ms
+2022-02-24 17:08:58.601 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/ - -
+2022-02-24 17:08:58.602 +05:30 [DBG] The request path  does not match the path filter
+2022-02-24 17:08:58.618 +05:30 [DBG] Initializing Razor view compiler with no compiled views.
+2022-02-24 17:08:58.649 +05:30 [DBG] No candidates found for the request path '/'
+2022-02-24 17:08:58.650 +05:30 [DBG] Request did not match any endpoints
+2022-02-24 17:08:58.985 +05:30 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2022-02-24 17:08:58.992 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/ - - - 404 - - 390.8854ms

@@ -434,6 +434,7 @@ namespace VehicleTracker.Business
         _logger.LogError(ex.ToString());
         response.IsSuccess = false;
         response.Message = "Error has been occured while uploading the file. Please try again.";
+
       }
 
       return response;

@@ -289,35 +289,30 @@ namespace VehicleTracker.Business
                 var folderPath = GetExpenseImageFolderPath(expense, _config);
                 var firstFile = container.Files.FirstOrDefault();
 
-                if(!string.IsNullOrEmpty(expense.ExpenseImages.FirstOrDefault().Attachment))
-                {
-                    var exsistingImagePath = string.Format(@"{0}\{1}", folderPath, expense.ExpenseImages.FirstOrDefault().Attachment);
-
-                    if (File.Exists(exsistingImagePath))
-                    {
-                        File.Delete(exsistingImagePath);
-                    }
-                }
-
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
                 }
 
-                if(firstFile != null && firstFile.Length > 0)
+                if (firstFile != null && firstFile.Length > 0)
                 {
                     var fileName = GetExpenseImageName(expense, Path.GetExtension(firstFile.FileName));
                     var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await firstFile.CopyToAsync(stream);
+                        var expenseImage = new ExpenseImage()
+                        {
+                            AttachementName = fileName,
+                            Attachment = filePath
+                         
+                        };
 
-                        expense.ExpenseImages.FirstOrDefault().Attachment= fileName;
+                        expense.ExpenseImages.Add(expenseImage);
                         response.Message = "Expense image has been uploaded succesfully";
                     }
                 }
 
-                _db.Expenses.Update(expense);
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex)
