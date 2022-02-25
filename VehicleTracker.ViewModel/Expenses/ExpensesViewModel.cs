@@ -9,6 +9,10 @@ namespace VehicleTracker.ViewModel.Expenses
 {
     public class ExpensesViewModel
     {
+        public ExpensesViewModel()
+        {
+            ExpenseImages = new List<ExpenseImageViewModel>();
+        }
         public long Id { get; set; }
         public ExpenseCategoryTypes ExpenseCategoryId { get; set; }
         public string Description { get; set; }
@@ -18,7 +22,14 @@ namespace VehicleTracker.ViewModel.Expenses
         public int ExpenseDay { get; set; }
         public decimal Amount { get; set; }
         public long VehicleId { get; set; }
-        public VehicleExpensesTypes VehicleExpenseTypeId { get; set; }
+        public int VehicleExpenseTypeId { get; set; }
+        public List<ExpenseImageViewModel> ExpenseImages { get; set; }
 
+    }
+
+    public class ExpenseImageViewModel
+    {
+        public string Attachment { get; set; }
+        public string AttachmentName { get; set; }
     }
 }

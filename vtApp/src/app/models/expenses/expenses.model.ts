@@ -1,4 +1,6 @@
+import { ExpenseImageModel } from './expense.Image.model';
 export class ExpensesModel{
+
     id:number;
     expenseCategoryId:number;
     description:string;
@@ -9,5 +11,6 @@ export class ExpensesModel{
     amount:number;
     vehicleId:number;
     vehicleExpenseTypeId:number;
-    expenseReceiptImage:string;
+    expenseImages:ExpenseImageModel[];
+
 }

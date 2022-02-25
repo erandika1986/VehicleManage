@@ -116,44 +116,37 @@ namespace VehicleTracker.Business
             try
             {
 
-              
-                if(expenseCategoryId == (int)ExpenseCategoryTypes.VehicleExpenses)
-                {
-                    var query = (from expense in _db.Expenses
-                                 join vehicleExpense in _db.VehicleExpenses on expense.Id equals vehicleExpense.Id
-                                 where expense.Id == id && expense.ExpenseCategoryId == expenseCategoryId
-                                 select new
-                                 {
-                                     expense.Id,
-                                     expense.Description,
-                                     expense.Date,
-                                     expense.Amount,
-                                     expense.ExpenseCategoryId,
-                                     vehicleExpense.VehicleId,
-                                     vehicleExpense.VehicleExpenseType
-
-                                 }).FirstOrDefault();
-
-
-
-                    response.Id = query.Id;
-                    response.Description = query.Description;
-                    response.Amount = query.Amount;
-                    response.ExpenseDate = query.Date;
-                    response.ExpenseCategoryId = (ExpenseCategoryTypes)query.ExpenseCategoryId;
-                    response.VehicleId = query.VehicleId != 0? query.VehicleId :0;
-                    response.VehicleExpenseTypeId = (VehicleExpensesTypes)query.VehicleExpenseType;
-
-                }
-                else
-                {
                     var query = _db.Expenses.Where(x => x.Id == id && x.ExpenseCategoryId == expenseCategoryId).FirstOrDefault();
                     response.Id = query.Id;
                     response.Description = query.Description;
                     response.Amount = query.Amount;
                     response.ExpenseDate = query.Date;
                     response.ExpenseCategoryId = (ExpenseCategoryTypes)query.ExpenseCategoryId;
+                    response.VehicleId = query.VehicleExpense != null? query.VehicleExpense.VehicleId:0;
+                    response.VehicleExpenseTypeId = query.VehicleExpense != null ? query.VehicleExpense.VehicleExpenseType : 0;
 
+                    var expenseImages = query.ExpenseImages.ToList();
+
+                    foreach(var item in expenseImages)
+                    {
+                    if (!string.IsNullOrEmpty(item.AttachementName))
+                    {
+                        var expenseImage = string.Format(@"{0}{1}\{2}\{3}", _config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, query.Id, item.AttachementName);
+
+                        if (File.Exists(expenseImage))
+                        {
+                            response.ExpenseImages.Add(new ExpenseImageViewModel()
+                            {
+                                AttachmentName = item.AttachementName,
+                                Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(expenseImage),
+
+
+                            });
+                        }
+                     
+                    }
+
+      
                 }
 
             }
@@ -210,8 +203,7 @@ namespace VehicleTracker.Business
                             VehicleExpenseType = (int) vm.VehicleExpenseTypeId,
                             VehicleId = vm.VehicleId
                         };
-
-                        
+                   
                     }
 
                     _db.Expenses.Add(expense);
@@ -249,9 +241,7 @@ namespace VehicleTracker.Business
                             expense.VehicleExpense.VehicleExpenseType = (int)vm.VehicleExpenseTypeId;
                             expense.VehicleExpense.VehicleId = vm.VehicleId;
                         }
-                        
-                       
-                        
+                     
                     }
                     else
                     {

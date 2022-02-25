@@ -156,7 +156,7 @@
                         class="blue small small-mat-raised-button-small"
                         (click)="nicfpfileInput.click()"
                     >
-                        Upload Bill
+                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
                         <input
                             #nicfpfileInput
                             type="file"
@@ -169,7 +169,7 @@
 
                     <table
                         class="simple"
-                        *ngIf="expense.expenseReceiptImage != null"
+                        *ngIf="expense.expenseImages.length > 0"
                     >
                         <thead>
                             <tr>
@@ -178,20 +178,12 @@
                                 <th style="width: 20% !important">Download</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let item of expense.expenseImages">
                             <tr class="product-row">
                                 <td>
                                     <img
                                         class="product-image"
-                                        [src]="
-                                            'assets/images/logos/id-card.png'
-                                        "
-                                        *ngIf="!expense?.expenseReceiptImage"
-                                    />
-                                    <img
-                                        class="product-image"
-                                        [src]="expense.expenseReceiptImage"
-                                        *ngIf="expense?.expenseReceiptImage"
+                                        [src]="item.attachment"
                                     />
                                 </td>
 

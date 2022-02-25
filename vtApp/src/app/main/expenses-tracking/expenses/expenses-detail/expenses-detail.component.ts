@@ -58,6 +58,8 @@ export class ExpensesDetailComponent implements OnInit {
 
                   this.dialogTitle = this.action === 'edit'?'Edit Expense' : 'View Expennse';
                   this.expense = _data.data;
+                  console.log(this.expense);
+                  
                   this.expenseForm = this.createExistingExpenseForm();
               }
               else
@@ -90,7 +92,7 @@ export class ExpensesDetailComponent implements OnInit {
       amount: [{value:this.expense.amount, disabled: this.isViewOnly},Validators.required],
       vehicleId: [{value:this.expense.vehicleId, disabled: this.isViewOnly}],
       vehicleExpenseTypeId: [{value:this.expense.vehicleExpenseTypeId, disabled: this.isViewOnly}],
-      expenseReceiptImage:['']
+      expenseImages:['']
     });
   }
 
@@ -104,7 +106,7 @@ export class ExpensesDetailComponent implements OnInit {
         amount: ['',Validators.required],
         vehicleId: [0],
         vehicleExpenseTypeId: [0],
-        expenseReceiptImage:['']
+     
       });
   }
 
