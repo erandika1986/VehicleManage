@@ -356,6 +356,47 @@ namespace VehicleTracker.Business
             return response;
         }
 
+        public async Task<ResponseViewModel> DeleteExpenseReceiptImage(int expenseId, int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var expense = _db.Expenses.Where(x => x.Id == expenseId).FirstOrDefault();
+
+                var existingImagePath = GetExpenseImagePath(expense, _config, expense.Id);
+
+                foreach(var item in expense.ExpenseImages)
+                {
+                    if(item.Id == id)
+                    {
+                        if (File.Exists(existingImagePath))
+                        {
+                            File.Delete(existingImagePath);
+                        }
+                        break;
+                    }
+                }
+
+                var deleteImageRecord = _db.ExpenseImages.FirstOrDefault(x => x.Id == id);
+
+                _db.ExpenseImages.Remove(deleteImageRecord);
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Expense image has benn deleted";
+
+                
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error has been orccured,Please try again";
+            }
+
+            return response;
+        }
+
         #region Private Methods
         private string GetExpenseImageFolderPath(Expense model, IConfiguration config)
         {
@@ -381,7 +422,6 @@ namespace VehicleTracker.Business
             return path;
             
         }
-
         #endregion
     }
 

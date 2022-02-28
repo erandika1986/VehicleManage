@@ -3,7 +3,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { ExpensesMasterDataModel } from 'app/models/expenses/expenses.master.data.model';
 import { ExpensesModel } from './../../../../models/expenses/expenses.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseProgressBarService } from './../../../../../@fuse/components/progress-bar/progress-bar.service';
 import { ExpensesService } from './../../../../services/expenses/expenses.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
 import { Upload } from './../../../../models/common/upload';
 import { HttpEventType } from '@angular/common/http';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -23,6 +24,9 @@ export class ExpensesDetailComponent implements OnInit {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+
   
   action: string;
   expense: ExpensesModel;
@@ -38,6 +42,7 @@ export class ExpensesDetailComponent implements OnInit {
     private _fuseProgressBarService: FuseProgressBarService,
     private _expensesService:ExpensesService,
     private _snackBar: MatSnackBar,
+    private _matDialog: MatDialog,
     public _activateRoute: ActivatedRoute,
    
     @Inject(MAT_DIALOG_DATA) private _data: any,
@@ -248,6 +253,56 @@ export class ExpensesDetailComponent implements OnInit {
 
   }
   
+
+  deleteExpeseImage(id:number)
+  {
+
+    this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
+      disableClose: false
+    });
+
+    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete this record?';
+
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._fuseProgressBarService.show();
+
+        this._expensesService.deleteExpenseReciptImage(this.expense.id, id)
+        .subscribe(response=>{
+          console.log("dev11111111111111");
+          console.log(response);
+          
+          
+          if (response.isSuccess) {
+            this._snackBar.open(response.message, 'Success', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+
+            this._fuseProgressBarService.hide();
+            this.getExpenseDetailsById();
+          }
+          else {
+            this._snackBar.open(response.message, 'Error', {
+              duration: 2500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+          }   
+        },error=>{
+          this._fuseProgressBarService.hide();
+          this._snackBar.open("Network error has been occured. Please try again.", 'Error', {
+            duration: 2500,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        })
+
+      }
+      this.confirmDialogRef = null;
+    });
+  }
 
   get expeseCatagoryId()
   {

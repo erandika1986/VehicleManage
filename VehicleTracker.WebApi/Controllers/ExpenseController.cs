@@ -105,5 +105,14 @@ namespace VehicleTracker.WebApi.Controllers
             return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
         }
 
+        [HttpDelete]
+        [Route("deleteExpenseReceiptImage/{expenseId:int}/{id:int}")]
+        public async Task<ActionResult> DeleteExpenseReceiptImage(int expenseId, int id)
+        {
+            var response = await expenseService.DeleteExpenseReceiptImage(expenseId, id);
+
+            return Ok(response);
+        }
+
     }
 }

@@ -73,4 +73,9 @@ export class ExpensesService {
                       (environment.apiUrl +'Expense/downloadExpenseReceiptImage/'+  expenseId +"/" + id,
                       {headers:{'filedownload':''}, observe: 'events',reportProgress:true });
   }
+
+  deleteExpenseReciptImage(expenseId:number, id:number):Observable<ResponseModel>{
+    return this.httpClient.delete<ResponseModel>
+                    (environment.apiUrl + 'Expense/deleteExpenseReceiptImage/' + expenseId + "/" + id);
+  }
 }
