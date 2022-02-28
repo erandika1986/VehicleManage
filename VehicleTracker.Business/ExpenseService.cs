@@ -129,25 +129,26 @@ namespace VehicleTracker.Business
 
                     foreach(var item in expenseImages)
                     {
-                    if (!string.IsNullOrEmpty(item.AttachementName))
-                    {
-                        var expenseImage = string.Format(@"{0}{1}\{2}\{3}", _config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, query.Id, item.AttachementName);
-
-                        if (File.Exists(expenseImage))
+                        if (!string.IsNullOrEmpty(item.AttachementName))
                         {
-                            response.ExpenseImages.Add(new ExpenseImageViewModel()
-                            {
-                                AttachmentName = item.AttachementName,
-                                Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(expenseImage),
+                                var expenseImage = string.Format(@"{0}{1}\{2}\{3}", _config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, query.Id, item.AttachementName);
+
+                                if (File.Exists(expenseImage))
+                                {
+                                    response.ExpenseImages.Add(new ExpenseImageViewModel()
+                                    {
+                                        Id = item.Id,
+                                        AttachmentName = item.AttachementName,
+                                        Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(expenseImage),
 
 
-                            });
-                        }
+                                    });
+                                }
                      
-                    }
+                        }
 
       
-                }
+                    }
 
             }
             catch(Exception ex)
@@ -315,6 +316,46 @@ namespace VehicleTracker.Business
             return response;
         }
 
+        public DownloadFileViewModel DownloadExpenseReceiptImage(int expenseId, int id)
+        {
+            var response = new DownloadFileViewModel();
+
+            try
+            {
+             
+                var expense = _db.Expenses.Where(x => x.Id == expenseId).FirstOrDefault();
+
+                var imagePath = GetExpenseImagePath(expense, _config, expense.Id);
+                
+                foreach(var item in expense.ExpenseImages)
+                {
+                   if(item.Id == id)
+                    {
+                        response.FileName = item.AttachementName;
+
+                        byte[] fileContents = null;
+                        MemoryStream memoryStream = new MemoryStream();
+
+                        using (FileStream fileStream = File.OpenRead(imagePath))
+                        {
+                            fileStream.CopyTo(memoryStream);
+                            fileContents = memoryStream.ToArray();
+                            memoryStream.Dispose();
+                            response.FileData = fileContents;
+                        }
+
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+            }
+
+            return response;
+        }
+
         #region Private Methods
         private string GetExpenseImageFolderPath(Expense model, IConfiguration config)
         {
@@ -324,6 +365,21 @@ namespace VehicleTracker.Business
         public static string GetExpenseImageName(Expense model, string extension)
         {
             return string.Format(@"Expense-Image-{0}{1}", model.Id, extension);
+        }
+
+        public static string GetExpenseImagePath(Expense model, IConfiguration config, long expenseId)
+        {
+            var path = string.Empty;
+            foreach(var item in model.ExpenseImages)
+            {
+                if(item.ExpenseId == expenseId)
+                {
+                    path =  string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.Id, item.AttachementName);
+                }
+            }
+
+            return path;
+            
         }
 
         #endregion

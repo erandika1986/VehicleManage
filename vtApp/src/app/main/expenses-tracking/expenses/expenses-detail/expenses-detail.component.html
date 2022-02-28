@@ -174,8 +174,8 @@
                         <thead>
                             <tr>
                                 <th style="width: 20% !important">Image</th>
-                                <th style="width: 20% !important">Delete</th>
                                 <th style="width: 20% !important">Download</th>
+                                <th style="width: 20% !important">Delete</th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let item of expense.expenseImages">
@@ -190,36 +190,26 @@
                                 <td>
                                     <button
                                         mat-raised-button
-                                        class="blue small small-mat-raised-button-small"
-                                        (click)="nicfpfileInput.click()"
-                                    >
-                                        <mat-icon class="small-mat-icon"
-                                            >cloud_upload</mat-icon
-                                        >
-                                        <input
-                                            #nicfpfileInput
-                                            type="file"
-                                            class="form-control"
-                                            name="documents"
-                                            (change)="onFileChange($event, 2)"
-                                            style="display: none"
-                                        />
-                                    </button>
-                                </td>
-                                <td>
-                                    <button
-                                        mat-raised-button
                                         class="green small small-mat-raised-button-small"
-                                        *ngIf="user?.nicFrontImage"
                                         (click)="
-                                            downloadFile(
-                                                2,
-                                                user?.nicFrontImageName
+                                            downloadExpenseReceiptImage(
+                                                item.id,
+                                                item.attachmentName
                                             )
                                         "
                                     >
                                         <mat-icon class="small-mat-icon"
                                             >cloud_download</mat-icon
+                                        >
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        mat-raised-button
+                                        class="red small small-mat-raised-button-small"
+                                    >
+                                        <mat-icon class="small-mat-icon"
+                                            >delete_forever</mat-icon
                                         >
                                     </button>
                                 </td>

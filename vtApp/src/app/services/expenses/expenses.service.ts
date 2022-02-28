@@ -68,5 +68,9 @@ export class ExpensesService {
                          data,{reportProgress: true,observe: 'events'}).pipe(upload());;
   }
 
-  
+  downloadExpenseReceiptImage(expenseId :number, id: number): Observable<any> {
+    return this.httpClient.get<any>
+                      (environment.apiUrl +'Expense/downloadExpenseReceiptImage/'+  expenseId +"/" + id,
+                      {headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 }

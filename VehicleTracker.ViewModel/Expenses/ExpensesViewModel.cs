@@ -29,6 +29,7 @@ namespace VehicleTracker.ViewModel.Expenses
 
     public class ExpenseImageViewModel
     {
+        public long Id { get; set; }
         public string Attachment { get; set; }
         public string AttachmentName { get; set; }
     }

@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
 using VehicleTracker.ViewModel.Common;
@@ -89,6 +91,18 @@ namespace VehicleTracker.WebApi.Controllers
             var response = await expenseService.UploadExpenseReceiptImage(container);
 
             return Ok(response);
+        }
+
+
+        [HttpGet]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("downloadExpenseReceiptImage/{expenseId:int}/{id:int}")]
+        [ProducesResponseType(typeof(DownloadFileViewModel), (int)HttpStatusCode.OK)]
+        public FileStreamResult DownloadExpenseReceiptImage(int expenseId, int id)
+        {
+            var response = expenseService.DownloadExpenseReceiptImage(expenseId, id);
+
+            return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
         }
 
     }

@@ -169,11 +169,14 @@ export class UserDetailComponent implements OnInit {
   downloadPercentage:number=0;
   isDownloading:boolean;
   downloadFile(type:number,fileName:string)
-  {
+  { 
     this._fuseProgressBarService.show();
     this.isDownloading=true;
     this._userService.downloadUserImage(this.user.id,type)
       .subscribe(response=>{
+
+        console.log(response);
+        
 
         if (response.type === HttpEventType.DownloadProgress) {
           this.downloadPercentage = Math.round(100 * response.loaded / response.total);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ExpensesMasterDataModel } from 'app/models/expenses/expenses.master.data.model';
 import { ExpensesModel } from './../../../../models/expenses/expenses.model';
@@ -9,6 +9,9 @@ import { ExpensesService } from './../../../../services/expenses/expenses.servic
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
 import { Upload } from './../../../../models/common/upload';
+import { HttpEventType } from '@angular/common/http';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+
 
 @Component({
   selector: 'app-expenses-detail',
@@ -194,6 +197,57 @@ export class ExpensesDetailComponent implements OnInit {
       })
     }
   }
+
+  downloadPercentage:number = 0;
+  isDownloading:boolean;
+
+  downloadExpenseReceiptImage(id:number, attachmentName:string)
+  {
+    console.log(id,attachmentName);
+    
+    this._fuseProgressBarService.show();
+    this.isDownloading = true;
+
+    this._expensesService.downloadExpenseReceiptImage(this.expense.id, id).subscribe(response=>{
+      console.log(response);
+      
+      if (response.type === HttpEventType.DownloadProgress) {
+        this.downloadPercentage = Math.round(100 * response.loaded / response.total);
+      }
+      
+      if (response.type === HttpEventType.Response) {
+        if(response.status == 204)
+        {
+          this.isDownloading=false;
+          this.downloadPercentage=0;
+          this._fuseProgressBarService.hide();
+        }
+        else
+        {
+          const objectUrl: string = URL.createObjectURL(response.body);
+          const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+  
+          a.href = objectUrl;
+          a.download = attachmentName;
+          document.body.appendChild(a);
+          a.click();
+  
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+          this.isDownloading=false;
+          this.downloadPercentage=0;
+          this._fuseProgressBarService.hide();
+        }
+
+      }
+    },error=>{
+      this._fuseProgressBarService.hide();
+      this.isDownloading=false;
+      this.downloadPercentage=0;
+    });
+
+  }
+  
 
   get expeseCatagoryId()
   {
