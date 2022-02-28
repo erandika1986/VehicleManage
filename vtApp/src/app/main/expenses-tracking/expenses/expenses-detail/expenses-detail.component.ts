@@ -269,7 +269,6 @@ export class ExpensesDetailComponent implements OnInit {
 
         this._expensesService.deleteExpenseReciptImage(this.expense.id, id)
         .subscribe(response=>{
-          console.log("dev11111111111111");
           console.log(response);
           
           

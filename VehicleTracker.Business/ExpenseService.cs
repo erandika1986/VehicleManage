@@ -68,7 +68,7 @@ namespace VehicleTracker.Business
             int totalPageCount = 0;
 
             filters.FromDate = new DateTime(filters.FromYear, filters.FromMonth, filters.FromDay, 0, 0, 0);
-            filters.ToDate = new DateTime(filters.ToYear, filters.FromMonth, filters.ToDay, 0, 0, 0);
+            filters.ToDate = new DateTime(filters.ToYear, filters.ToMonth, filters.ToDay, 0, 0, 0);
 
             var query = _db.Expenses.Where(x=> x.Date >= filters.FromDate && x.Date <= filters.ToDate && x.IsActive == true).OrderBy(x=>x.Date);
 
