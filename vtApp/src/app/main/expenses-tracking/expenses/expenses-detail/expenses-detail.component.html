@@ -164,6 +164,7 @@
                             name="documents"
                             (change)="onFileChange($event, 2)"
                             style="display: none"
+                            [disabled]="isViewOnly"
                         />
                     </button>
 
@@ -208,6 +209,7 @@
                                         mat-raised-button
                                         class="red small small-mat-raised-button-small"
                                         (click)="deleteExpeseImage(item.id)"
+                                        [disabled]="isViewOnly"
                                     >
                                         <mat-icon class="small-mat-icon"
                                             >delete_forever</mat-icon
