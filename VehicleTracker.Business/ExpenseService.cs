@@ -323,15 +323,11 @@ namespace VehicleTracker.Business
             try
             {
              
-                var expense = _db.Expenses.Where(x => x.Id == expenseId).FirstOrDefault();
+                var expenseImage = _db.ExpenseImages.Where(x => x.Id == id).FirstOrDefault();
 
-                var imagePath = GetExpenseImagePath(expense, _config, expense.Id);
-                
-                foreach(var item in expense.ExpenseImages)
-                {
-                   if(item.Id == id)
-                    {
-                        response.FileName = item.AttachementName;
+                var imagePath = GetExpenseImagePath(expenseImage, _config, expenseImage.ExpenseId);
+
+                 response.FileName = expenseImage.AttachementName;
 
                         byte[] fileContents = null;
                         MemoryStream memoryStream = new MemoryStream();
@@ -344,8 +340,6 @@ namespace VehicleTracker.Business
                             response.FileData = fileContents;
                         }
 
-                    }
-                }
 
             }
             catch(Exception ex)
@@ -362,29 +356,19 @@ namespace VehicleTracker.Business
 
             try
             {
-                var expense = _db.Expenses.Where(x => x.Id == expenseId).FirstOrDefault();
+                var model = _db.ExpenseImages.Where(x => x.Id == id).FirstOrDefault();
 
-                var existingImagePath = GetExpenseImagePath(expense, _config, expense.Id);
+                //var existingImagePath = GetExpenseImagePath(model, _config, model.ExpenseId);
 
-                foreach(var item in expense.ExpenseImages)
+                if (File.Exists(model.Attachment))
                 {
-                    if(item.Id == id)
-                    {
-                        if (File.Exists(existingImagePath))
-                        {
-                            File.Delete(existingImagePath);
-                        }
-                        break;
-                    }
+                    File.Delete(model.Attachment);
+                    _db.ExpenseImages.Remove(model);
+                    await _db.SaveChangesAsync();
                 }
 
-                var deleteImageRecord = _db.ExpenseImages.FirstOrDefault(x => x.Id == id);
-
-                _db.ExpenseImages.Remove(deleteImageRecord);
-                await _db.SaveChangesAsync();
-
                 response.IsSuccess = true;
-                response.Message = "Expense image has benn deleted";
+                response.Message = "Expense image has been deleted";
 
                 
             }
@@ -405,22 +389,13 @@ namespace VehicleTracker.Business
 
         public static string GetExpenseImageName(Expense model, string extension)
         {
-            return string.Format(@"Expense-Image-{0}{1}", model.Id, extension);
+            return string.Format(@"Expense-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
         }
 
-        public static string GetExpenseImagePath(Expense model, IConfiguration config, long expenseId)
+        public static string GetExpenseImagePath(ExpenseImage model, IConfiguration config, long expenseId)
         {
-            var path = string.Empty;
-            foreach(var item in model.ExpenseImages)
-            {
-                if(item.ExpenseId == expenseId)
-                {
-                    path =  string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.Id, item.AttachementName);
-                }
-            }
-
-            return path;
-            
+             return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.ExpenseId, model.AttachementName);
+         
         }
         #endregion
     }

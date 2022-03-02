@@ -100,7 +100,7 @@ export class ExpensesDetailComponent implements OnInit {
       amount: [{value:this.expense.amount, disabled: this.isViewOnly},Validators.required],
       vehicleId: [{value:this.expense.vehicleId, disabled: this.isViewOnly}],
       vehicleExpenseTypeId: [{value:this.expense.vehicleExpenseTypeId, disabled: this.isViewOnly}],
-      expenseImages:[{disabled: this.isViewOnly},'']
+     
     });
   }
 
