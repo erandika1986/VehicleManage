@@ -18,7 +18,7 @@ namespace VehicleTracker.Business.Interfaces
         Task<ResponseViewModel> SaveSalesOrderStep3(SalesOrderStep3ViewModel vm, User loggedInUser);
         Task<ResponseViewModel> DeleteSalesOrder(int id, User loggedInUser);
         SalesOrderMasterDataViewModel GetSalesOrderMasterData();
-        List<DropDownViewModal> GetCustomersByRouteId(int routeId);
+        List<DropDownViewModel> GetCustomersByRouteId(int routeId);
         Task<SalesOrderNumber> GetSalesOrderNumber();
         SalesOrderViewModel GetSalesOrderById(long id);
         List<ProductAvailabilityViewModel> GetWarehouseProductAvailability(int productId,int salesOrderId);

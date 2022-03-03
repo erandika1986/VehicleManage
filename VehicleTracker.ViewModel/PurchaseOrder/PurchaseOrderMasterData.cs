@@ -11,15 +11,15 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
   {
     public PurchaseOrderMasterData()
     {
-      Suppliers = new List<DropDownViewModal>();
-      Warehouses = new List<DropDownViewModal>();
-      ProductCategories = new List<DropDownViewModal>();
-      Statuses= new List<DropDownViewModal>();
+      Suppliers = new List<DropDownViewModel>();
+      Warehouses = new List<DropDownViewModel>();
+      ProductCategories = new List<DropDownViewModel>();
+      Statuses= new List<DropDownViewModel>();
     }
 
-    public List<DropDownViewModal> Suppliers { get; set; }
-    public List<DropDownViewModal> Warehouses { get; set; }
-    public List<DropDownViewModal> Statuses { get; set; }
-    public List<DropDownViewModal> ProductCategories { get; set; }
+    public List<DropDownViewModel> Suppliers { get; set; }
+    public List<DropDownViewModel> Warehouses { get; set; }
+    public List<DropDownViewModel> Statuses { get; set; }
+    public List<DropDownViewModel> ProductCategories { get; set; }
   }
 }

@@ -277,13 +277,13 @@ namespace VehicleTracker.Business
         public VehicleBeatMasterDataViewModel GetMasterData()
         {
             var response = new VehicleBeatMasterDataViewModel();
-            response.Vehicles = _db.Vehicles.Where(t => t.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = v.RegistrationNo }).ToList();
-            response.Routes = _db.Routes.Where(t => t.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = string.Format("{0} - ({1} to {2})", v.RouteCode, v.StartFrom, v.EndFrom) }).ToList();
-            response.Drivers = _db.UserRoles.Where(t => t.IsActive == true && t.RoleId == (int)RoleType.Driver).Select(x => new DropDownViewModal() {Id = x.User.Id,Name=string.Format("{0} {1}",x.User.FirstName,x.User.LastName) }).ToList();
-            response.SalesReps = _db.UserRoles.Where(t => t.IsActive == true && t.RoleId == (int)RoleType.SalesRep).Select(x => new DropDownViewModal() { Id = x.User.Id, Name = string.Format("{0} {1}", x.User.FirstName, x.User.LastName) }).ToList();
+            response.Vehicles = _db.Vehicles.Where(t => t.IsActive == true).Select(v => new DropDownViewModel() { Id = v.Id, Name = v.RegistrationNo }).ToList();
+            response.Routes = _db.Routes.Where(t => t.IsActive == true).Select(v => new DropDownViewModel() { Id = v.Id, Name = string.Format("{0} - ({1} to {2})", v.RouteCode, v.StartFrom, v.EndFrom) }).ToList();
+            response.Drivers = _db.UserRoles.Where(t => t.IsActive == true && t.RoleId == (int)RoleType.Driver).Select(x => new DropDownViewModel() {Id = x.User.Id,Name=string.Format("{0} {1}",x.User.FirstName,x.User.LastName) }).ToList();
+            response.SalesReps = _db.UserRoles.Where(t => t.IsActive == true && t.RoleId == (int)RoleType.SalesRep).Select(x => new DropDownViewModel() { Id = x.User.Id, Name = string.Format("{0} {1}", x.User.FirstName, x.User.LastName) }).ToList();
             foreach (DailyBeatStatus suit in (DailyBeatStatus[])Enum.GetValues(typeof(DailyBeatStatus)))
             {
-                response.Status.Add(new DropDownViewModal() { Id = (int)suit, Name = EnumHelper.GetEnumDescription(suit) });
+                response.Status.Add(new DropDownViewModel() { Id = (int)suit, Name = EnumHelper.GetEnumDescription(suit) });
             }
 
             return response;

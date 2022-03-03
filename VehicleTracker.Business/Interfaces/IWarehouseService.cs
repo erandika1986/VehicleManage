@@ -14,6 +14,6 @@ namespace VehicleTracker.Business.Interfaces
     Task<ResponseViewModel> DeleteWarehouse(int id);
     WarehouseViewModel GetWarehouseById(int id);
     List<WarehouseViewModel> GetAllWarehouses();
-    List<DropDownViewModal> GetAllManagers(); //manegr ware house m drop down drop html 
+    List<DropDownViewModel> GetAllManagers(); //manegr ware house m drop down drop html 
   }
 }

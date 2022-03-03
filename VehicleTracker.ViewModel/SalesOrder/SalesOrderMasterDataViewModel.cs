@@ -11,17 +11,17 @@ namespace VehicleTracker.ViewModel.SalesOrder
   {
     public SalesOrderMasterDataViewModel()
     {
-      Statuses = new List<DropDownViewModal>();
-      Routes = new List<DropDownViewModal>();
-      Customers = new List<DropDownViewModal>();
-      SalesPerson = new List<DropDownViewModal>();
-      ProductCategories = new List<DropDownViewModal>();
+      Statuses = new List<DropDownViewModel>();
+      Routes = new List<DropDownViewModel>();
+      Customers = new List<DropDownViewModel>();
+      SalesPerson = new List<DropDownViewModel>();
+      ProductCategories = new List<DropDownViewModel>();
     }
 
-    public List<DropDownViewModal> Statuses { get; set; }
-    public List<DropDownViewModal> Routes { get; set; }
-    public List<DropDownViewModal> Customers { get; set; }
-    public List<DropDownViewModal> SalesPerson { get; set; }
-    public List<DropDownViewModal> ProductCategories { get; set; }
+    public List<DropDownViewModel> Statuses { get; set; }
+    public List<DropDownViewModel> Routes { get; set; }
+    public List<DropDownViewModel> Customers { get; set; }
+    public List<DropDownViewModel> SalesPerson { get; set; }
+    public List<DropDownViewModel> ProductCategories { get; set; }
   }
 }

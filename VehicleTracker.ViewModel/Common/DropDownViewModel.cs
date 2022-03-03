@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VehicleTracker.ViewModel.Common
 {
-    public class DropDownViewModal
+    public class DropDownViewModel
     {
         public long Id { get; set; }
         public string Name { get; set; }

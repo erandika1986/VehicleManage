@@ -133,27 +133,27 @@ namespace VehicleTracker.Business
       return product.ToVm(_config);
     }
 
-    public List<DropDownViewModal> GetProductSubCategories(int categoryId)
+    public List<DropDownViewModel> GetProductSubCategories(int categoryId)
     {
-      var response = new List<DropDownViewModal>();
-      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var response = new List<DropDownViewModel>();
+      response.Add(new DropDownViewModel() { Id = 0, Name = "--All--" });
       var subCategoories = _db.ProductSubCategories
                       .Where(p => p.ProductCategoryId == categoryId && p.IsActive == true)
                       .OrderBy(x => x.Name)
-                      .Select(t => new DropDownViewModal() { Id = t.Id, Name = t.Name }).ToList();
+                      .Select(t => new DropDownViewModel() { Id = t.Id, Name = t.Name }).ToList();
       response.AddRange(subCategoories);
 
       return response;
     }
 
-    public List<DropDownViewModal> GetSuppliers()
+    public List<DropDownViewModel> GetSuppliers()
     {
-      var response = new List<DropDownViewModal>();
-      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var response = new List<DropDownViewModel>();
+      response.Add(new DropDownViewModel() { Id = 0, Name = "--All--" });
       var suppliers = _db.Suppliers
                       .Where(p =>  p.IsActive == true)
                       .OrderBy(x => x.Name)
-                      .Select(t => new DropDownViewModal() { Id = t.Id, Name = t.Name }).ToList();
+                      .Select(t => new DropDownViewModel() { Id = t.Id, Name = t.Name }).ToList();
       response.AddRange(suppliers);
 
       return response;

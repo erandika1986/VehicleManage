@@ -12,9 +12,9 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
 
     public PurchaseOrderItemViewModel()
     {
-      Categories = new List<DropDownViewModal>();
-      SubCategories = new List<DropDownViewModal>();
-      Products = new List<DropDownViewModal>();
+      Categories = new List<DropDownViewModel>();
+      SubCategories = new List<DropDownViewModel>();
+      Products = new List<DropDownViewModel>();
     }
 
     public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace VehicleTracker.ViewModel.PurchaseOrder
     public decimal Total { get; set; }
 
 
-    public List<DropDownViewModal> Categories { get; set; }
-    public List<DropDownViewModal> SubCategories { get; set; }
-    public List<DropDownViewModal> Products { get; set; }
+    public List<DropDownViewModel> Categories { get; set; }
+    public List<DropDownViewModel> SubCategories { get; set; }
+    public List<DropDownViewModel> Products { get; set; }
   }
 }

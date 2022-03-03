@@ -206,12 +206,12 @@ namespace VehicleTracker.Business
 
       foreach(var item in _db.TimeZoneDetails)
       {
-        response.TimeZones.Add(new DropDownViewModal() { Id = item.Id, Name = item.DisplayName });
+        response.TimeZones.Add(new DropDownViewModel() { Id = item.Id, Name = item.DisplayName });
       }
 
       foreach (RoleType role in (RoleType[])Enum.GetValues(typeof(RoleType)))
       {
-        response.Roles.Add(new DropDownViewModal() { Id = (int)role, Name = EnumHelper.GetEnumDescription(role) });
+        response.Roles.Add(new DropDownViewModel() { Id = (int)role, Name = EnumHelper.GetEnumDescription(role) });
       }
 
       return response;
@@ -509,12 +509,12 @@ namespace VehicleTracker.Business
   {
     public UserMasterDataViewModel()
     {
-      Roles = new List<DropDownViewModal>();
-      TimeZones = new List<DropDownViewModal>();
+      Roles = new List<DropDownViewModel>();
+      TimeZones = new List<DropDownViewModel>();
     }
 
-    public List<DropDownViewModal> Roles { get; set; }
-    public List<DropDownViewModal> TimeZones { get; set; }
+    public List<DropDownViewModel> Roles { get; set; }
+    public List<DropDownViewModel> TimeZones { get; set; }
   }
 
   public enum UserPhotoType

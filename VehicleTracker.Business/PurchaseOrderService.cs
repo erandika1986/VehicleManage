@@ -258,13 +258,13 @@ namespace VehicleTracker.Business
       var suppliers = _db.Suppliers.Where(x => x.IsActive == true).ToList();
       foreach (var item in suppliers)
       {
-        response.Suppliers.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+        response.Suppliers.Add(new DropDownViewModel() { Id = item.Id, Name = item.Name });
       }
 
       var warehouses = _db.Wharehouses.Where(x => x.IsActive == true).ToList();
       foreach (var item in warehouses)
       {
-        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+        response.Warehouses.Add(new DropDownViewModel() { Id = item.Id, Name = item.Name });
       }
 
       response.ProductCategories.AddRange(GetProductCategories());
@@ -272,7 +272,7 @@ namespace VehicleTracker.Business
 
       foreach (POStatus value in Enum.GetValues(typeof(POStatus)))
       {
-        response.Statuses.Add(new DropDownViewModal() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
+        response.Statuses.Add(new DropDownViewModel() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
       }
 
       return response;
@@ -287,21 +287,21 @@ namespace VehicleTracker.Business
       return po;
     }
 
-    public List<DropDownViewModal> GetProductSubCategories(int categoryId)
+    public List<DropDownViewModel> GetProductSubCategories(int categoryId)
     {
       var productCategories = _db.ProductSubCategories
         .Where(x => x.IsActive == true && x.ProductCategoryId == categoryId)
-        .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+        .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
 
       return productCategories;
     }
 
-    public List<DropDownViewModal> GetProducts(int subCategoryId,int supplierId)
+    public List<DropDownViewModel> GetProducts(int subCategoryId,int supplierId)
     {
       var productCategories = _db.Products
         .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId && x.SupplierId==supplierId)
-        .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.ProductName }).ToList();
+        .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.ProductName }).ToList();
 
 
       return productCategories;
@@ -363,11 +363,11 @@ namespace VehicleTracker.Business
       return newPO;
     }
 
-    private List<DropDownViewModal> GetProductCategories()
+    private List<DropDownViewModel> GetProductCategories()
     {
       var productCategories = _db.ProductCategories
         .Where(x => x.IsActive == true)
-        .Select(c=>  new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+        .Select(c=>  new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
 
       return productCategories;

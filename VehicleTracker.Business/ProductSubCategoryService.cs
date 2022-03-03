@@ -146,14 +146,14 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public List<DropDownViewModal> GetProductCategories()
+    public List<DropDownViewModel> GetProductCategories()
     {
-      var response = new List<DropDownViewModal>();
-      response.Add(new DropDownViewModal() { Id = 0, Name = "--All--" });
+      var response = new List<DropDownViewModel>();
+      response.Add(new DropDownViewModel() { Id = 0, Name = "--All--" });
       var categories = _db.ProductCategories
                       .Where(c=>c.IsActive==true)
                       .OrderBy(o=>o.Name)
-                      .Select(x => new DropDownViewModal() { Id = x.Id, Name = x.Name }).ToList();
+                      .Select(x => new DropDownViewModel() { Id = x.Id, Name = x.Name }).ToList();
       response.AddRange(categories);
       return response;
     }

@@ -94,7 +94,6 @@ namespace VehicleTracker.Business
                 query = query.Where(x => x.Status == filters.SelectedProductReturnStatus).OrderByDescending(x => x.UpdatedOn);
             }
 
-            var itemList = query.ToList();
 
             var data = new List<BasicProductReturnViewModel>();
 
@@ -131,24 +130,24 @@ namespace VehicleTracker.Business
 
             foreach (ReturnProductStatus value in Enum.GetValues(typeof(ReturnProductStatus)))
             {
-                masterData.ProductReturnStatus.Add(new DropDownViewModal() 
+                masterData.ProductReturnStatus.Add(new DropDownViewModel() 
                 { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
             }
 
             foreach (ReturnReason value in Enum.GetValues(typeof(ReturnReason)))
             {
-                masterData.ProductReturnReasonCodes.Add(new DropDownViewModal() 
+                masterData.ProductReturnReasonCodes.Add(new DropDownViewModel() 
                 { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
             }
 
             return masterData;
         }
 
-        public List<DropDownViewModal> GetSalesOrderListForSelectedClient(int clientId)
+        public List<DropDownViewModel> GetSalesOrderListForSelectedClient(int clientId)
         {
             var salesOrders = _db.SalesOrders.Where(s => s.Status == (int)Model.Enums.SalesOrderStatus.Completed)
                 .OrderByDescending(x=>x.OrderDate)
-                .Select(x => new DropDownViewModal() { Id = x.Id, Name = x.OrderNumber }).ToList();
+                .Select(x => new DropDownViewModel() { Id = x.Id, Name = x.OrderNumber }).ToList();
 
             return salesOrders;
         }
