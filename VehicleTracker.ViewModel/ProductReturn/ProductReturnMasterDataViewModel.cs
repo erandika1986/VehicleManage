@@ -11,13 +11,13 @@ namespace VehicleTracker.ViewModel.ProductReturn
     {
         public ProductReturnMasterDataViewModel()
         {
-            ProductCategories = new List<DropDownViewModal>();
-            ProductReturnStatus = new List<DropDownViewModal>();
-            ProductReturnReasonCodes = new List<DropDownViewModal>();
+            ProductCategories = new List<DropDownViewModel>();
+            ProductReturnStatus = new List<DropDownViewModel>();
+            ProductReturnReasonCodes = new List<DropDownViewModel>();
         }
 
-        public List<DropDownViewModal> ProductCategories { get; set; }
-        public List<DropDownViewModal> ProductReturnStatus { get; set; }
-        public List<DropDownViewModal> ProductReturnReasonCodes { get; set; }
+        public List<DropDownViewModel> ProductCategories { get; set; }
+        public List<DropDownViewModel> ProductReturnStatus { get; set; }
+        public List<DropDownViewModel> ProductReturnReasonCodes { get; set; }
     }
 }

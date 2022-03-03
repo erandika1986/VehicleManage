@@ -16,8 +16,8 @@ namespace VehicleTracker.Business.Interfaces
     Task<ResponseViewModel> DeletePurchaseOrder(int id,string userName);
     PurchaseOrderMasterData GetPurchaseOrderMasterData();
     Task<PONumber> GetPONumber();
-    List<DropDownViewModal> GetProductSubCategories(int categoryId);
-    List<DropDownViewModal> GetProducts(int subCategoryId,int supplierId);
+    List<DropDownViewModel> GetProductSubCategories(int categoryId);
+    List<DropDownViewModel> GetProducts(int subCategoryId,int supplierId);
     DownloadFileViewModel DownloadPurchasingOrderForm(int id);
   }
 }

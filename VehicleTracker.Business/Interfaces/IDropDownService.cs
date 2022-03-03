@@ -9,9 +9,9 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IDropDownService
     {
-        List<DropDownViewModal> GetProductCategories();
-        List<DropDownViewModal> GetProductSubCategories(int categoryId);
-        List<DropDownViewModal> GetProducts(int subCategoryId);
-        List<DropDownViewModal> GetProductsForSupplier(int subCategoryId, int supplierId);
+        List<DropDownViewModel> GetProductCategories();
+        List<DropDownViewModel> GetProductSubCategories(int categoryId);
+        List<DropDownViewModel> GetProducts(int subCategoryId);
+        List<DropDownViewModel> GetProductsForSupplier(int subCategoryId, int supplierId);
     }
 }

@@ -212,20 +212,20 @@ namespace VehicleTracker.Business
       var suppliers = _db.Suppliers.Where(x => x.IsActive == true).ToList();
       foreach (var item in suppliers)
       {
-        response.Suppliers.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+        response.Suppliers.Add(new DropDownViewModel() { Id = item.Id, Name = item.Name });
       }
 
       var warehouses = _db.Wharehouses.Where(x => x.IsActive == true).ToList();
       foreach (var item in warehouses)
       {
-        response.Warehouses.Add(new DropDownViewModal() { Id = item.Id, Name = item.Name });
+        response.Warehouses.Add(new DropDownViewModel() { Id = item.Id, Name = item.Name });
       }
 
-      response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+      response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
       var activePos = _db.PurchaseOrders.Where(x => x.Status == (int)POStatus.Released || x.Status == (int)POStatus.Received).OrderByDescending(p=>p.CreatedOn);
 
-      response.ActivePurchaseOrders.AddRange(activePos.Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Ponumber }).ToList());
+      response.ActivePurchaseOrders.AddRange(activePos.Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Ponumber }).ToList());
 
       return response;
     }

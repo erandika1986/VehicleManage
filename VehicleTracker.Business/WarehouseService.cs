@@ -67,11 +67,11 @@ namespace VehicleTracker.Business
       return response;
     }
 
-    public List<DropDownViewModal> GetAllManagers()
+    public List<DropDownViewModel> GetAllManagers()
     {
             var managers = _db.UserRoles
                 .Where(x => x.RoleId == (int)RoleType.Manager || x.RoleId == (int)RoleType.WarehouseManager)
-                .Select(u => new DropDownViewModal() { Id = u.User.Id, Name = string.Format("{0} {1}", u.User.FirstName, u.User.LastName) }).Distinct().ToList();
+                .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0} {1}", u.User.FirstName, u.User.LastName) }).Distinct().ToList();
 
             return managers;
         }

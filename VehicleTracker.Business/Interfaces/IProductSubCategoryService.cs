@@ -13,7 +13,7 @@ namespace VehicleTracker.Business.Interfaces
     ProductSubCategoryViewModel GetProductSubCategoryById(int id);
     Task<ResponseViewModel> SaveProductSubCategory(ProductSubCategoryViewModel vm, string userName);
     Task<ResponseViewModel> DeleteProductSubCategory(int id, string userName);
-    List<DropDownViewModal> GetProductCategories();
+    List<DropDownViewModel> GetProductCategories();
     Task<ResponseViewModel> UploadSubProductCategoryImage(FileContainerModel container, string userName);
     DownloadFileViewModel DownloadProductSubCategoryImage(int id);
   }

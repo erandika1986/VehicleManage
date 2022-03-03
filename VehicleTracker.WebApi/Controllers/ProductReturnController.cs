@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductReturnController : ControllerBase
@@ -46,7 +48,7 @@ namespace VehicleTracker.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("SaveProductReturn")]
+        [Route("saveProductReturn")]
         public async Task<IActionResult> SaveProductReturn(ProductReturnViewModel vm)
         {
             var loggedInUser = loggedInUserService.GetLoggedInUserByUserName(identityService.GetUserName());

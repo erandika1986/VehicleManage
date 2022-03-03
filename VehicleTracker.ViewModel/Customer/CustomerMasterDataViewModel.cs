@@ -11,11 +11,11 @@ namespace VehicleTracker.ViewModel.Customer
     {
         public CustomerMasterDataViewModel()
         {
-            Priorities = new List<DropDownViewModal>();
-            Routes = new List<DropDownViewModal>();
+            Priorities = new List<DropDownViewModel>();
+            Routes = new List<DropDownViewModel>();
         }
 
-        public List<DropDownViewModal> Priorities { get; set; }
-        public List<DropDownViewModal> Routes { get; set; }
+        public List<DropDownViewModel> Priorities { get; set; }
+        public List<DropDownViewModel> Routes { get; set; }
     }
 }

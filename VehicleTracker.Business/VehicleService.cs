@@ -37,14 +37,14 @@ namespace VehicleTracker.Business
 
       vehicleTypes.ForEach(item =>
       {
-        masterData.VehicleTypes.Add(new DropDownViewModal() { Id = (int)item.Id, Name = item.Name });
+        masterData.VehicleTypes.Add(new DropDownViewModel() { Id = (int)item.Id, Name = item.Name });
       });
 
       int currentYear = DateTime.Now.Year;
 
       for (int i = currentYear; i >= currentYear - 30; i--)
       {
-        masterData.ProductionYears.Add(new DropDownViewModal() { Id = i, Name = i.ToString() });
+        masterData.ProductionYears.Add(new DropDownViewModel() { Id = i, Name = i.ToString() });
       }
 
       return masterData;

@@ -153,13 +153,13 @@ namespace VehicleTracker.Business
 
             foreach (ClientPriority value in Enum.GetValues(typeof(ClientPriority)))
             {
-                response.Priorities.Add(new DropDownViewModal() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
+                response.Priorities.Add(new DropDownViewModel() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
             }
 
 
             var routes = _db.Routes
                 .Where(x => x.IsActive == true)
-                .Select(r => new DropDownViewModal() { Id = r.Id, Name = r.Name }).ToList();
+                .Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
 
             response.Routes.AddRange(routes);
 

@@ -28,7 +28,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     [HttpGet("getAllCodeTypes")]
-    [ProducesResponseType(typeof(List<DropDownViewModal>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<DropDownViewModel>), (int)HttpStatusCode.OK)]
     public IActionResult GetAllCodeTypes()
     {
       var response = masterDataSevice.GetAllCodeTypes();

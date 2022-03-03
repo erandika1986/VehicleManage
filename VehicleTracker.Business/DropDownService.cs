@@ -29,42 +29,42 @@ namespace VehicleTracker.Business
             this._logger = logger;
         }
 
-        public List<DropDownViewModal> GetProductCategories()
+        public List<DropDownViewModel> GetProductCategories()
         {
             var productCategories = _db.ProductCategories
               .Where(x => x.IsActive == true)
-              .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
 
             return productCategories;
         }
 
-        public List<DropDownViewModal> GetProductSubCategories(int categoryId)
+        public List<DropDownViewModel> GetProductSubCategories(int categoryId)
         {
             var productSubCategories = _db.ProductSubCategories
               .Where(x => x.IsActive == true && x.ProductCategoryId == categoryId)
-              .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
 
             return productSubCategories;
         }
 
 
-        public List<DropDownViewModal> GetProducts(int subCategoryId)
+        public List<DropDownViewModel> GetProducts(int subCategoryId)
         {
             var products = _db.Products
               .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId)
-              .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.ProductName }).ToList();
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.ProductName }).ToList();
 
 
             return products;
         }
 
-        public List<DropDownViewModal> GetProductsForSupplier(int subCategoryId, int supplierId)
+        public List<DropDownViewModel> GetProductsForSupplier(int subCategoryId, int supplierId)
         {
             var productCategories = _db.Products
               .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId && x.SupplierId == supplierId)
-              .Select(c => new DropDownViewModal() { Id = c.Id, Name = c.ProductName }).ToList();
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.ProductName }).ToList();
 
 
             return productCategories;

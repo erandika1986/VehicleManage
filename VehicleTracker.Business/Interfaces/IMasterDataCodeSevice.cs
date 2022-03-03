@@ -9,7 +9,7 @@ namespace VehicleTracker.Business.Interfaces
 {
     public interface IMasterDataCodeSevice
     {
-        List<DropDownViewModal> GetAllCodeTypes();
+        List<DropDownViewModel> GetAllCodeTypes();
         List<CodeViewModel> GetAllCodesForSelectedCodeType(Codes type);
         Task<ResponseViewModel> SaveCode(CodeViewModel vm);
         Task<ResponseViewModel> DeleteCode(CodeViewModel vm);

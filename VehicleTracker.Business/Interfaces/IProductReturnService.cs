@@ -15,7 +15,7 @@ namespace VehicleTracker.Business.Interfaces
         PaginatedItemsViewModel<BasicProductReturnViewModel> GetAllVehicleReturnRecord(ProductReturnFilterViewModel filters, User loggedInUser);
         Task<ResponseViewModel> SaveProductReturn(ProductReturnViewModel vm, User loggedInUser);
         Task<ResponseViewModel> DeleteProductReturn(int id, User loggedInUser);
-        List<DropDownViewModal> GetSalesOrderListForSelectedClient(int clientId);
+        List<DropDownViewModel> GetSalesOrderListForSelectedClient(int clientId);
         ProductReturnViewModel GetProductReturn(int id);
     }
 }

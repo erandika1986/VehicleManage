@@ -29,49 +29,49 @@ namespace VehicleTracker.Business
 
             foreach (FuelType type in (FuelType[])Enum.GetValues(typeof(FuelType)))
             {
-                masterData.FuelTypes.Add(new DropDownViewModal() { Id = (int)type, Name = EnumHelper.GetEnumDescription(type) });
+                masterData.FuelTypes.Add(new DropDownViewModel() { Id = (int)type, Name = EnumHelper.GetEnumDescription(type) });
             }
 
             var breakOilCodes = _db.BreakOilCodes.ToList();
-            masterData.BreakOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.BreakOilTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             breakOilCodes.ForEach(item =>
             {
-                masterData.BreakOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.BreakOilTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
             var differentialOilCodes = _db.DifferentialOilCodes.ToList();
-            masterData.DifferentialOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.DifferentialOilTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             differentialOilCodes.ForEach(item =>
             {
-                masterData.DifferentialOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.DifferentialOilTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
             var engineOilCoolants = _db.EgineCoolants.ToList();
-            masterData.CoolantsTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.CoolantsTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             engineOilCoolants.ForEach(item =>
             {
-                masterData.CoolantsTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.CoolantsTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
             var enginOilCodes = _db.EngineOilCodes.ToList();
-            masterData.EngineOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.EngineOilTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             enginOilCodes.ForEach(item =>
             {
-                masterData.EngineOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.EngineOilTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
             var gearBoxOilCodes = _db.GearBoxOilCodes.ToList();
-            masterData.GearBoxOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.GearBoxOilTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             gearBoxOilCodes.ForEach(item =>
             {
-                masterData.GearBoxOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.GearBoxOilTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
             var powerSteeringOilCodes = _db.PowerSteeringOilCodes.ToList();
-            masterData.PowerSteeringOilTypes.Add(new DropDownViewModal() { Id = 0, Name = "None" });
+            masterData.PowerSteeringOilTypes.Add(new DropDownViewModel() { Id = 0, Name = "None" });
             powerSteeringOilCodes.ForEach(item =>
             {
-                masterData.PowerSteeringOilTypes.Add(new DropDownViewModal() { Id = item.Id, Name = item.Code });
+                masterData.PowerSteeringOilTypes.Add(new DropDownViewModel() { Id = item.Id, Name = item.Code });
             });
 
 

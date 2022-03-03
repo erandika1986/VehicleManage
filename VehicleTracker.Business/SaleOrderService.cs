@@ -165,27 +165,27 @@ namespace VehicleTracker.Business
         {
             var response = new SalesOrderMasterDataViewModel();
 
-            response.Statuses = _db.SalesOrderStatuses.Where(x => x.IsActive == true).Select(s => new DropDownViewModal() { Id = s.Id, Name = s.Name }).ToList();
+            response.Statuses = _db.SalesOrderStatuses.Where(x => x.IsActive == true).Select(s => new DropDownViewModel() { Id = s.Id, Name = s.Name }).ToList();
 
             response.SalesPerson = _db.UserRoles.Where(x => x.RoleId == 4)
-              .Select(u => new DropDownViewModal()
+              .Select(u => new DropDownViewModel()
               {
                   Id = u.User.Id,
                   Name = string.Format("{0} {1}", u.User.FirstName, u.User.LastName)
               }).ToList();
 
-            response.Customers = _db.Clients.Where(x => x.IsActive == true).OrderBy(c => c.Name).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+            response.Customers = _db.Clients.Where(x => x.IsActive == true).OrderBy(c => c.Name).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
-            response.Routes = _db.Routes.Where(x => x.IsActive == true).Select(r => new DropDownViewModal() { Id = r.Id, Name = r.Name }).ToList();
+            response.Routes = _db.Routes.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
 
-            response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).OrderBy(o => o.Name).Select(c => new DropDownViewModal() { Id = c.Id, Name = c.Name }).ToList();
+            response.ProductCategories = _db.ProductCategories.Where(x => x.IsActive == true).OrderBy(o => o.Name).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
 
             return response;
         }
 
-        public List<DropDownViewModal> GetCustomersByRouteId(int routeId)
+        public List<DropDownViewModel> GetCustomersByRouteId(int routeId)
         {
-            return _db.Clients.Where(x => x.IsActive == true && x.RouteId == routeId).Select(c => new DropDownViewModal { Id = c.Id, Name = c.Name }).ToList();
+            return _db.Clients.Where(x => x.IsActive == true && x.RouteId == routeId).Select(c => new DropDownViewModel { Id = c.Id, Name = c.Name }).ToList();
         }
 
         public async Task<ResponseViewModel> SaveSalesOrder(SalesOrderViewModel vm, User loggedInUser)

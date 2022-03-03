@@ -9,24 +9,24 @@ namespace VehicleTracker.ViewModel.Vehicle
     {
         public VehicleTypeMasterDataViewModel()
         {
-            FuelTypes = new List<DropDownViewModal>();
-            EngineOilTypes = new List<DropDownViewModal>();
-            GearBoxOilTypes = new List<DropDownViewModal>();
-            DifferentialOilTypes = new List<DropDownViewModal>();
-            BreakOilTypes = new List<DropDownViewModal>();
-            PowerSteeringOilTypes = new List<DropDownViewModal>();
-            CoolantsTypes = new List<DropDownViewModal>();
-            VehicleTypes = new List<DropDownViewModal>();
+            FuelTypes = new List<DropDownViewModel>();
+            EngineOilTypes = new List<DropDownViewModel>();
+            GearBoxOilTypes = new List<DropDownViewModel>();
+            DifferentialOilTypes = new List<DropDownViewModel>();
+            BreakOilTypes = new List<DropDownViewModel>();
+            PowerSteeringOilTypes = new List<DropDownViewModel>();
+            CoolantsTypes = new List<DropDownViewModel>();
+            VehicleTypes = new List<DropDownViewModel>();
         }
 
-        public List<DropDownViewModal> FuelTypes { get; set; }
-        public List<DropDownViewModal> EngineOilTypes { get; set; }
-        public List<DropDownViewModal> GearBoxOilTypes { get; set; }
-        public List<DropDownViewModal> DifferentialOilTypes { get; set; }
-        public List<DropDownViewModal> BreakOilTypes { get; set; }
-        public List<DropDownViewModal> PowerSteeringOilTypes { get; set; }
-        public List<DropDownViewModal> CoolantsTypes { get; set; }
+        public List<DropDownViewModel> FuelTypes { get; set; }
+        public List<DropDownViewModel> EngineOilTypes { get; set; }
+        public List<DropDownViewModel> GearBoxOilTypes { get; set; }
+        public List<DropDownViewModel> DifferentialOilTypes { get; set; }
+        public List<DropDownViewModel> BreakOilTypes { get; set; }
+        public List<DropDownViewModel> PowerSteeringOilTypes { get; set; }
+        public List<DropDownViewModel> CoolantsTypes { get; set; }
 
-        public List<DropDownViewModal> VehicleTypes { get; set; }
+        public List<DropDownViewModel> VehicleTypes { get; set; }
     }
 }
