@@ -163,16 +163,16 @@ namespace VehicleTracker.Business
         {
             var response = new ExpensesMasterDataViewModel();
 
-            response.Vehicles = _db.Vehicles.Where(x => x.IsActive == true).Select(v => new DropDownViewModal() { Id = v.Id, Name = v.RegistrationNo }).ToList();
+            response.Vehicles = _db.Vehicles.Where(x => x.IsActive == true).Select(v => new DropDownViewModel() { Id = v.Id, Name = v.RegistrationNo }).ToList();
 
             foreach (ExpenseCategoryTypes expenses in (ExpenseCategoryTypes[])Enum.GetValues(typeof(ExpenseCategoryTypes)))
             {
-                response.ExpensesCategories.Add(new DropDownViewModal() { Id = (int)expenses, Name = EnumHelper.GetEnumDescription(expenses) });
+                response.ExpensesCategories.Add(new DropDownViewModel() { Id = (int)expenses, Name = EnumHelper.GetEnumDescription(expenses) });
             }
 
             foreach (VehicleExpensesTypes vehicleExpenses in (VehicleExpensesTypes[])Enum.GetValues(typeof(VehicleExpensesTypes)))
             {
-                response.VehicleExpenses.Add(new DropDownViewModal() { Id = (int)vehicleExpenses, Name = EnumHelper.GetEnumDescription(vehicleExpenses) });
+                response.VehicleExpenses.Add(new DropDownViewModel() { Id = (int)vehicleExpenses, Name = EnumHelper.GetEnumDescription(vehicleExpenses) });
             }
 
             return response;

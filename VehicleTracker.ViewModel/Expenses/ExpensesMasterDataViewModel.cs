@@ -11,12 +11,12 @@ namespace VehicleTracker.ViewModel.Expenses
     {
         public ExpensesMasterDataViewModel()
         {
-            Vehicles = new List<DropDownViewModal>();
-            ExpensesCategories = new List<DropDownViewModal>();
-            VehicleExpenses = new List<DropDownViewModal>();
+            Vehicles = new List<DropDownViewModel>();
+            ExpensesCategories = new List<DropDownViewModel>();
+            VehicleExpenses = new List<DropDownViewModel>();
         }
-        public List<DropDownViewModal> Vehicles { get; set; }
-        public List<DropDownViewModal> ExpensesCategories { get; set; }
-        public List<DropDownViewModal> VehicleExpenses { get; set; }
+        public List<DropDownViewModel> Vehicles { get; set; }
+        public List<DropDownViewModel> ExpensesCategories { get; set; }
+        public List<DropDownViewModel> VehicleExpenses { get; set; }
     }
 }
