@@ -91,9 +91,7 @@ export class ProductReturnListComponent implements OnInit {
   }
 
   editProductReturn(item:ProductReturnModel)
-  {
-    
-     
+  {   
   }
 
   viewProducReturnDetails(item:ProductReturnModel)
