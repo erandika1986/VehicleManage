@@ -11,11 +11,12 @@ import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-b
 import { DailyBeatDataSource } from 'app/models/dialy-beat/daily-beat-datasource';
 import { DailyVehicleBeatModel } from 'app/models/dialy-beat/daily-vehicle-beat.model';
 import { VehicleBeatMasterDataModel } from 'app/models/dialy-beat/vehicle-beat-master-data.model';
-import { DailyBeatService } from 'app/services/daily-beats/daily-beat.service';
+
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DailyBeatEditModelComponent } from '../daily-beat-edit-model/daily-beat-edit-model.component';
 import { DailyBeatOrderDetailComponent } from '../daily-beat-order-detail/daily-beat-order-detail.component';
+import { DailyBeatService } from './../../../../services/daily-beats/daily-beat.service';
 
 @Component({
   selector: 'daily-beat-list',
@@ -75,6 +76,8 @@ export class DailyBeatListComponent implements OnInit, OnDestroy {
     });
 
     this._dailyBeatService.onDailyBeatSaved.subscribe(response=>{
+      console.log('Beat');
+      
 
       this.saveDailyBeat(response);
     });

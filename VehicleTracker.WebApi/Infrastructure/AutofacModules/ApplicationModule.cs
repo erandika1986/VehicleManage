@@ -145,6 +145,10 @@ namespace VehicleTracker.WebApi.Infrastructure.AutofacModules
                     .As<IProductReturnService>()
                     .InstancePerLifetimeScope();
 
+            builder.RegisterType<ExpenseService>()
+                     .As<IExpenseService>()
+                     .InstancePerLifetimeScope();
+
         }
     }
 }

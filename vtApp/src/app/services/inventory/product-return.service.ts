@@ -7,14 +7,29 @@ import { ProductReturnFilterModel } from 'app/models/product-return/product.retu
 import { ProductReturnMasterDataModel } from 'app/models/product-return/product.return.master.data.model';
 import { ProductReturnModel } from 'app/models/product-return/product.return.model';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductReturnService {
-
-  constructor(private httpClient: HttpClient) { }
+export class ProductReturnService 
+{
+  onFilterChanged:Subject<ProductReturnFilterModel>;
+  onSearchTextChanged : Subject<string>;
+  onProductReturnMasterDataRecieved:Subject<ProductReturnMasterDataModel>;  
+  onProductReturnDetailsSaved:Subject<any>;
+  onClickViewOnly:BehaviorSubject<boolean>;
+  constructor
+  (
+    private httpClient: HttpClient
+  )
+  {
+    this.onFilterChanged = new Subject();
+    this.onSearchTextChanged =  new Subject();
+    this.onProductReturnMasterDataRecieved = new Subject();
+    this.onProductReturnDetailsSaved = new Subject();
+    this.onClickViewOnly = new BehaviorSubject(true);
+  }
 
   getProductReturnMasterData(): Observable<ProductReturnMasterDataModel> {
     return this.httpClient.

@@ -1,1 +1,121 @@
-<p>product-return-list works!</p>
+<div class="content-card" style="width: 100% !important">
+    <mat-table
+        #table
+        [dataSource]="dataSource"
+        matSort
+        [@animateStagger]="{ value: '50' }"
+    >
+        <!-- Expense Category Column -->
+        <ng-container matColumnDef="selectedProduct">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Expense Category</mat-header-cell
+            >
+            <mat-cell *matCellDef="let productReturn">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.routeName }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="selectedClient">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Amount</mat-header-cell
+            >
+            <mat-cell *matCellDef="let productReturn">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.amount }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="returnDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Created by</mat-header-cell
+            >
+            <mat-cell *matCellDef="let productReturn">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.createdBy }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdByUser">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Expense Category</mat-header-cell
+            >
+            <mat-cell *matCellDef="let productReturn">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.routeName }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedByUser">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Expense Category</mat-header-cell
+            >
+            <mat-cell *matCellDef="let productReturn">
+                <p class="text-truncate font-weight-600">
+                    {{ expense.routeName }}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="buttons">
+            <mat-header-cell *matHeaderCellDef>
+                <div fxFlex="row" fxLayoutAlign="center center"></div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <div fxFlex="row" fxLayoutAlign="center center">
+                    <div class="button-row">
+                        <button
+                            mat-raised-button
+                            class="primary small small-mat-raised-button-small"
+                            (click)="viewProducReturnDetails(item)"
+                            matTooltip="View Expense"
+                        >
+                            <mat-icon class="small-mat-icon"
+                                >remove_red_eye</mat-icon
+                            >
+                        </button>
+                        <button
+                            mat-raised-button
+                            class="orange small small-mat-raised-button-small"
+                            (click)="editProductReturn(item)"
+                            matTooltip="Edit Expense"
+                        >
+                            <mat-icon class="small-mat-icon">edit</mat-icon>
+                        </button>
+                        <button
+                            mat-raised-button
+                            class="red small small-mat-raised-button-small"
+                            (click)="deleteProductReturn(item)"
+                            matTooltip="Delete Product Return"
+                        >
+                            <mat-icon class="small-mat-icon"
+                                >delete_forever</mat-icon
+                            >
+                        </button>
+                    </div>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+            *matRowDef="let beat; columns: displayedColumns"
+            class="contact"
+            [@animate]="{ value: '*', params: { y: '100%' } }"
+        >
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator
+        #paginator
+        [length]="dataSource.totalRecord"
+        [pageIndex]="0"
+        [pageSize]="25"
+        [pageSizeOptions]="pageSizes"
+    >
+    </mat-paginator>
+</div>

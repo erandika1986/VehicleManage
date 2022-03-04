@@ -8,7 +8,7 @@ namespace VehicleTracker.ViewModel.Vehicle
     public class VehicleExpenseViewModel
     {
         public long Id { get; set; }
-        public ExpenseType ExpenseType { get; set; }
+        public ExpenseCategoryTypes ExpenseType { get; set; }
         public long VehicleId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }

@@ -1,1 +1,81 @@
-<p>main works!</p>
+<div class="sidebar-content">
+    <div class="card">
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+            <div class="nav material2">
+                <form
+                    [formGroup]="filterForm"
+                    style="margin-left: 5px !important"
+                >
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Product Category</mat-label>
+                            <mat-select
+                                formControlName="productCategories"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of productCategories"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Product Resturn Status</mat-label>
+                            <mat-select
+                                formControlName="productReturnStatus"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of productReturnStatus"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Product Return Reason Code</mat-label>
+                            <mat-select
+                                formControlName="productReturnReasonCodes"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="
+                                        let item of productReturnReasonCodes
+                                    "
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->
