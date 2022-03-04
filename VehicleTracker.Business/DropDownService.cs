@@ -1,0 +1,73 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Data;
+using VehicleTracker.ViewModel.Common;
+
+namespace VehicleTracker.Business
+{
+    public class DropDownService : IDropDownService
+    {
+
+        #region Member variable
+
+        private readonly VMDBContext _db;
+        private readonly IConfiguration _config;
+        private readonly ILogger<IDropDownService> _logger;
+
+        #endregion
+
+        public DropDownService(VMDBContext db, IConfiguration config, ILogger<IDropDownService> logger)
+        {
+            this._db = db;
+            this._config = config;
+            this._logger = logger;
+        }
+
+        public List<DropDownViewModel> GetProductCategories()
+        {
+            var productCategories = _db.ProductCategories
+              .Where(x => x.IsActive == true)
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
+
+
+            return productCategories;
+        }
+
+        public List<DropDownViewModel> GetProductSubCategories(int categoryId)
+        {
+            var productSubCategories = _db.ProductSubCategories
+              .Where(x => x.IsActive == true && x.ProductCategoryId == categoryId)
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
+
+
+            return productSubCategories;
+        }
+
+
+        public List<DropDownViewModel> GetProducts(int subCategoryId)
+        {
+            var products = _db.Products
+              .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId)
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.ProductName }).ToList();
+
+
+            return products;
+        }
+
+        public List<DropDownViewModel> GetProductsForSupplier(int subCategoryId, int supplierId)
+        {
+            var productCategories = _db.Products
+              .Where(x => x.IsActive == true && x.SubProductCategoryId == subCategoryId && x.SupplierId == supplierId)
+              .Select(c => new DropDownViewModel() { Id = c.Id, Name = c.ProductName }).ToList();
+
+
+            return productCategories;
+        }
+    }
+}

@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { UserDataSource } from 'app/models/user/user.datasource';
+import { UserFilter } from 'app/models/user/user.filter.model';
+import { UserMasterDataModel } from 'app/models/user/user.master.data.model';
 import { User } from 'app/models/user/user.model';
 import { UserService } from 'app/services/user/user.service';
 import { Subject } from 'rxjs';
@@ -23,71 +28,63 @@ export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild('dialogContent')
   dialogContent: TemplateRef<any>;
 
-  users: any;
-  user: any;
-  //dataSource: UserDataSource | null;
+  @ViewChild(MatPaginator, {static: true})
+  paginator: MatPaginator;
+
+  @ViewChild(MatSort, {static: true})
+  sort: MatSort;
+
+  filterValue:string;
   dataSource = new MatTableDataSource([]);
-  displayedColumns = ['image', 'firstName', 'email', 'mobileNo', 'buttons'];
-  selectedUsers: any[];
-  checkboxes: {};
+  displayedColumns = ['image', 'firstName','roleText', 'email', 'mobileNo', 'buttons'];
+
+  masterData:UserMasterDataModel;
+
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
+
+  userFilter:UserFilter;
   
-      // Private
-      private _unsubscribeAll: Subject<any>;
+  // Private
+  private _unsubscribeAll: Subject<any>;
       
-  constructor(        private _userService: UserService,
-    public _matDialog: MatDialog) {
+  constructor
+  (
+    private _fuseProgressBarService: FuseProgressBarService,
+      private _userService: UserService,
+        public _matDialog: MatDialog) {
       this._unsubscribeAll = new Subject();
      }
 
   ngOnInit(): void {
 
-    //this.dataSource = new UserDataSource(this._userService);
-
-    this._userService.getAllUsers(0,true)
-    .subscribe(response=>{
-        this.dataSource = new MatTableDataSource(response);
-        this.dataSource.connect();
+    this._userService.onFilterChanged.subscribe((response:UserFilter)=>{
+        this.userFilter=response;
+        this.loadUsers(response.selectedRoleId,response.selectdStatusId);
     });
 
-    this._userService.onContactsChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(contacts => {
-        this.users = contacts;
-
-/*         this.checkboxes = {};
-        contacts.map(contact => {
-            this.checkboxes[contact.id] = false;
-        }); */
+    this._userService.onUserUpdated.subscribe(()=>{
+        this.loadUsers(this.userFilter.selectedRoleId,this.userFilter.selectdStatusId);
     });
 
-    this._userService.onSelectedContactsChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(selectedContacts => {
-/*         for ( const id in this.checkboxes )
-        {
-            if ( !this.checkboxes.hasOwnProperty(id) )
-            {
-                continue;
-            }
-
-            this.checkboxes[id] = selectedContacts.includes(id);
-        } */
-        this.selectedUsers = selectedContacts;
+    this._userService.onNewUserAdded.subscribe(response=>{
+        this.saveUser(response);
     });
 
-    this._userService.onUserDataChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(user => {
-        this.user = user;
+    this._userService.onSearchTextChanged.subscribe(response=>{
+        this.filterValue = response.trim(); // Remove whitespace
+        this.filterValue = this.filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = this.filterValue;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
     });
 
-this._userService.onFilterChanged
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe(() => {
-        //this._userService.deselectContacts();
-    });
+    this._userService.onMasterDataRecieved.subscribe(response=>{
+        this.masterData = response;
+    })
+
+    this.loadUsers(0,0);
   }
 
   ngOnDestroy(): void
@@ -95,6 +92,19 @@ this._userService.onFilterChanged
       // Unsubscribe from all subscriptions
       this._unsubscribeAll.next();
       this._unsubscribeAll.complete();
+  }
+
+  loadUsers(roleId:number,status:number)
+  {
+    this._userService.getAllUsers(roleId,status)
+    .subscribe(response=>{
+        console.log(response);
+        
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+    });
   }
 
       /**
@@ -105,10 +115,11 @@ this._userService.onFilterChanged
     editUser(user:User): void
     {
         this.dialogRef = this._matDialog.open(UserDetailComponent, {
-            panelClass: 'contact-form-dialog',
+            panelClass: 'user-form-dialog',
             data      : {
               user: user,
-                action : 'edit'
+              masterData:this.masterData,
+              action : 'edit'
             }
         });
 
@@ -127,7 +138,7 @@ this._userService.onFilterChanged
                      */
                     case 'save':
 
-                        this._userService.saveVehicle(formData.getRawValue());
+                        this.saveUser(formData.getRawValue());
 
                         break;
                     /**
@@ -135,7 +146,7 @@ this._userService.onFilterChanged
                      */
                     case 'delete':
 
-                        this.deleteContact(user);
+                        this.deleteUser(user);
 
                         break;
                 }
@@ -145,7 +156,7 @@ this._userService.onFilterChanged
     /**
      * Delete Contact
      */
-    deleteContact(user:User): void
+    deleteUser(user:User): void
     {
         this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
             disableClose: false
@@ -161,6 +172,20 @@ this._userService.onFilterChanged
             this.confirmDialogRef = null;
         });
 
+    }
+
+    saveUser(user:User)
+    {
+        this._fuseProgressBarService.show();
+        console.log(user);
+        
+        this._userService.saveVehicle(user)
+            .subscribe(response=>{
+                this._fuseProgressBarService.hide();
+                this.loadUsers(0,0);
+            },error=>{
+                this._fuseProgressBarService.hide();
+            });
     }
 
 }

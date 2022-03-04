@@ -9,11 +9,18 @@ namespace VehicleTracker.Model
     {
         public Wharehouse()
         {
+            ProductInventories = new HashSet<ProductInventory>();
+            ProductInventoryOrders = new HashSet<ProductInventoryOrder>();
             PurchaseOrders = new HashSet<PurchaseOrder>();
         }
 
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+        public string Country { get; set; }
         public string Phone { get; set; }
         public long ManagerId { get; set; }
         public decimal? FloorSpace { get; set; }
@@ -26,6 +33,8 @@ namespace VehicleTracker.Model
         public virtual User CreatedBy { get; set; }
         public virtual User Manager { get; set; }
         public virtual User UpdatedBy { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventories { get; set; }
+        public virtual ICollection<ProductInventoryOrder> ProductInventoryOrders { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

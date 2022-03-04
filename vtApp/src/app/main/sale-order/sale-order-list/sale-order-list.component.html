@@ -1,0 +1,117 @@
+<div class="content-card" style="width: 100% !important;">
+    <mat-table #table [dataSource]="dataSource" matSort
+    [@animateStagger]="{value:'50'}">
+
+
+<!-- Name Column -->
+<ng-container matColumnDef="orderNumber">
+ <mat-header-cell *matHeaderCellDef  mat-sort-header>Name</mat-header-cell>
+ <mat-cell *matCellDef="let order">
+     <p class="text-truncate font-weight-600">{{order.orderNumber}}</p>
+ </mat-cell>
+</ng-container>
+
+<!-- Roles Column -->
+<ng-container matColumnDef="statusInText">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Status</mat-header-cell>
+    <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+        <p class="email text-truncate">
+            {{order.statusInText}}
+        </p>
+    </mat-cell>
+   </ng-container>
+
+<!-- Email Column -->
+<ng-container matColumnDef="total">
+ <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-sm>Total</mat-header-cell>
+ <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+     <p class="email text-truncate">
+         {{order.total}}
+     </p>
+ </mat-cell>
+</ng-container>
+
+<!-- Phone Column -->
+<ng-container matColumnDef="orderDate">
+ <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Order Date</mat-header-cell>
+ <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+     <p class="phone text-truncate">
+         {{order.orderDate}}
+     </p>
+ </mat-cell>
+</ng-container>
+
+<!-- Phone Column -->
+<ng-container matColumnDef="ownerName">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Customer Name</mat-header-cell>
+    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+        <p class="phone text-truncate">
+            {{order.ownerName}}
+        </p>
+    </mat-cell>
+   </ng-container>
+
+   <ng-container matColumnDef="route">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Route</mat-header-cell>
+    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+        <p class="phone text-truncate">
+            {{order.route}}
+        </p>
+    </mat-cell>
+   </ng-container>
+
+   <ng-container matColumnDef="createdOn">
+    <mat-header-cell *matHeaderCellDef  mat-sort-header fxHide fxShow.gt-md>Created On</mat-header-cell>
+    <mat-cell *matCellDef="let order" fxHide fxShow.gt-md>
+        <p class="phone text-truncate">
+            {{order.createdOn}}
+        </p>
+    </mat-cell>
+   </ng-container>
+
+
+
+<!-- Buttons Column -->
+<ng-container matColumnDef="buttons">
+    <mat-header-cell *matHeaderCellDef>
+        <div fxFlex="row" fxLayoutAlign="center center">
+        </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let order">
+        <div fxFlex="row" fxLayoutAlign="center center">
+
+            <div class="button-row">
+
+                <button mat-raised-button class="primary  small small-mat-raised-button-small"  matTooltip="View sales order" (click)="viewSalesOrder(order)" 
+                >
+                    <mat-icon class="small-mat-icon">remove_red_eye</mat-icon>
+                </button>
+                <button mat-raised-button class="orange  small small-mat-raised-button-small"  matTooltip="Edit sales order" (click)="editSalesOrder(order)" [disabled]="order.status!=1 && order.status!=2"
+                >
+                    <mat-icon class="small-mat-icon">edit</mat-icon>
+                </button>
+                <button mat-raised-button class="red  small small-mat-raised-button-small"  matTooltip="Delete sales order" (click)="deleteSalesOrder(order)" [disabled]="order.status!=1 && order.status!=2"
+                >
+                    <mat-icon class="small-mat-icon" >delete_forever</mat-icon>
+                </button>
+
+              </div>
+        </div>
+
+    </mat-cell>
+</ng-container>
+
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let contact; columns: displayedColumns;"
+      class="contact"
+      [@animate]="{value:'*',params:{y:'100%'}}">
+</mat-row>
+</mat-table>
+
+<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="25"
+[pageSizeOptions]="[25, 50, 75, 100]">
+</mat-paginator>
+</div>
+
+
+

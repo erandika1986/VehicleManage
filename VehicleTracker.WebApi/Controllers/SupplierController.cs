@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class SupplierController : ControllerBase
@@ -25,10 +27,10 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     // GET api/Route/15/2
-    [HttpGet("{pageSize:int}/{currentPage:int}")]
-    public ActionResult Get(int pageSize, int currentPage)
+    [HttpGet]
+    public ActionResult Get()
     {
-      var response = _supplierService.GetAllSuppliers(pageSize, currentPage);
+      var response = _supplierService.GetAllSuppliers();
       return Ok(response);
     }
 
@@ -44,7 +46,8 @@ namespace VehicleTracker.WebApi.Controllers
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SupplierViewModel vm)
     {
-      var response = await _supplierService.SaveSupplier(vm);
+      var username = identityService.GetUserName();
+      var response = await _supplierService.SaveSupplier(vm,username);
       return Ok(response);
     }
 

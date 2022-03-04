@@ -39,13 +39,6 @@ const routes: Routes = [
     path: 'list',
     component: RouteListComponent
 
-  },
-  {
-    path: 'list/:id',
-    component: RouteDetailComponent,
-    /*       resolve: {
-            data: EcommerceProductService
-          } */
   }
 ];
 

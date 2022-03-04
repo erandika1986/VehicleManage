@@ -1,0 +1,266 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <mat-tab-group dynamicHeight="true">
+            <mat-tab label="Details">
+                <form
+                    [formGroup]="expenseForm"
+                    style="margin-top: 20px !important"
+                >
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field
+                            appearance="outline"
+                            fxFlex
+                            floatLabel="always"
+                            fxFlex="48"
+                        >
+                            <mat-label>Expenses Category</mat-label>
+                            <mat-select
+                                formControlName="expenseCategoryId"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="
+                                        let item of expensesMasterData?.expensesCategories
+                                    "
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text"
+                                >outlined_flag</mat-icon
+                            >
+                        </mat-form-field>
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8"
+                            fxFlex="48"
+                        >
+                            <mat-label>Expense Date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="planDatePicker"
+                                name="start"
+                                formControlName="expenseDate"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="planDatePicker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #planDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" class="w-100-p">
+                            <mat-label>Discription</mat-label>
+                            <textarea
+                                matInput
+                                formControlName="description"
+                                mat-maxlength="250"
+                                max-rows="4"
+                            >
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field
+                            appearance="outline"
+                            floatLabel="always"
+                            fxFlex="48"
+                        >
+                            <mat-label>Amount</mat-label>
+                            <input
+                                type="number"
+                                matInput
+                                placeholder="Amount"
+                                name="InitialOdometerReading"
+                                formControlName="amount"
+                            />
+                        </mat-form-field>
+                    </div>
+
+                    <div
+                        fxLayout="row"
+                        fxLayoutAlign="space-between"
+                        *ngIf="expeseCatagoryId === 5"
+                    >
+                        <mat-form-field
+                            appearance="outline"
+                            fxFlex
+                            floatLabel="always"
+                            fxFlex="48"
+                        >
+                            <mat-label>Vehicle</mat-label>
+                            <mat-select formControlName="vehicleId" required>
+                                <mat-option
+                                    *ngFor="
+                                        let item of expensesMasterData?.vehicles
+                                    "
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text"
+                                >outlined_flag</mat-icon
+                            >
+                        </mat-form-field>
+
+                        <mat-form-field
+                            appearance="outline"
+                            fxFlex
+                            floatLabel="always"
+                            fxFlex="48"
+                        >
+                            <mat-label>Vehicle Expenses Type</mat-label>
+                            <mat-select
+                                formControlName="vehicleExpenseTypeId"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="
+                                        let item of expensesMasterData?.vehicleExpenses
+                                    "
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text"
+                                >outlined_flag</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-tab>
+
+            <mat-tab label="Expense Bill" *ngIf="id != 0">
+                <div class="products tab-content p-24" fusePerfectScrollbar>
+                    <button
+                        mat-raised-button
+                        class="blue small small-mat-raised-button-small"
+                        (click)="nicfpfileInput.click()"
+                    >
+                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                        <input
+                            #nicfpfileInput
+                            type="file"
+                            class="form-control"
+                            name="documents"
+                            (change)="onFileChange($event, 2)"
+                            style="display: none"
+                            [disabled]="isViewOnly"
+                        />
+                    </button>
+
+                    <table
+                        class="simple"
+                        *ngIf="expense.expenseImages.length > 0"
+                    >
+                        <thead>
+                            <tr>
+                                <th style="width: 20% !important">Image</th>
+                                <th style="width: 20% !important">Download</th>
+                                <th style="width: 20% !important">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of expense.expenseImages">
+                            <tr class="product-row">
+                                <td>
+                                    <img
+                                        class="product-image"
+                                        [src]="item.attachment"
+                                    />
+                                </td>
+
+                                <td>
+                                    <button
+                                        mat-raised-button
+                                        class="green small small-mat-raised-button-small"
+                                        (click)="
+                                            downloadExpenseReceiptImage(
+                                                item.id,
+                                                item.attachmentName
+                                            )
+                                        "
+                                    >
+                                        <mat-icon class="small-mat-icon"
+                                            >cloud_download</mat-icon
+                                        >
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        mat-raised-button
+                                        class="red small small-mat-raised-button-small"
+                                        (click)="deleteExpeseImage(item.id)"
+                                        [disabled]="isViewOnly"
+                                    >
+                                        <mat-icon class="small-mat-icon"
+                                            >delete_forever</mat-icon
+                                        >
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    <div
+        mat-dialog-actions
+        class="m-0 p-16"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+    >
+        <button
+            *ngIf="action === 'edit'"
+            mat-button
+            class="mr-8"
+            (click)="matDialogRef.close(['delete', expenseForm])"
+            aria-label="Delete"
+            matTooltip="Delete"
+        >
+            DELETE
+        </button>
+
+        <button
+            *ngIf="action !== 'edit'"
+            mat-button
+            class="save-button"
+            (click)="matDialogRef.close(expenseForm)"
+            [disabled]="expenseForm.invalid || isViewOnly"
+            aria-label="SAVE"
+        >
+            ADD
+        </button>
+
+        <button
+            *ngIf="action === 'edit'"
+            mat-button
+            class="save-button"
+            (click)="matDialogRef.close(['save', expenseForm])"
+            [disabled]="expenseForm.invalid"
+            aria-label="SAVE"
+        >
+            SAVE
+        </button>
+    </div>
+</div>

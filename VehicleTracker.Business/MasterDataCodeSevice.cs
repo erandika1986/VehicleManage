@@ -37,13 +37,13 @@ namespace VehicleTracker.Business
             return CodeFactory.GetCodeManager(type, _db).GetAll();
         }
 
-        public List<DropDownViewModal> GetAllCodeTypes()
+        public List<DropDownViewModel> GetAllCodeTypes()
         {
-            var codeTypes = new List<DropDownViewModal>();
+            var codeTypes = new List<DropDownViewModel>();
 
             foreach (Codes code in (Codes[])Enum.GetValues(typeof(Codes)))
             {
-                codeTypes.Add(new DropDownViewModal() { Id = (int)code, Name = EnumHelper.GetEnumDescription(code) });
+                codeTypes.Add(new DropDownViewModel() { Id = (int)code, Name = EnumHelper.GetEnumDescription(code) });
             }
 
             return codeTypes;

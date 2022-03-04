@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
+using VehicleTracker.Common;
 using VehicleTracker.Data;
+using VehicleTracker.Model.Enums;
 using VehicleTracker.ViewModel;
 using VehicleTracker.ViewModel.Common;
+using VehicleTracker.ViewModel.Customer;
 
 namespace VehicleTracker.Business
 {
-    public class CustomerService: ICustomerService
+    public class CustomerService : ICustomerService
     {
         #region Member variable
 
@@ -26,27 +29,52 @@ namespace VehicleTracker.Business
             this._userService = userService;
         }
 
-        public async Task<ResponseViewModel> AddNewCustomer(CustomerViewModel vm,string userName)
+        public async Task<ResponseViewModel> SaveCustomer(CustomerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
             try
             {
                 var user = _userService.GetUserByUsername(userName);
-                var model = vm.ToModel();
-                model.CreatedOn = DateTime.UtcNow;
-                model.CreatedById = user.Id;
-                model.UpdatedOn = DateTime.UtcNow;
-                model.UpdatedById = user.Id;
 
-                _db.Clients.Add(model);
+                var client = _db.Clients.FirstOrDefault(x => x.Id == vm.Id);
+                if (client == null)
+                {
+                    client = vm.ToModel();
+                    client.CreatedOn = DateTime.UtcNow;
+                    client.CreatedById = user.Id;
+                    client.UpdatedOn = DateTime.UtcNow;
+                    client.UpdatedById = user.Id;
+
+                    _db.Clients.Add(client);
+                    response.Message = "New Client has been saved.";
+                }
+                else
+                {
+                    client.Name = vm.Name;
+                    client.Description = vm.Description;
+                    client.ContactNo1 = vm.ContactNo1;
+                    client.ContactNo2 = vm.ContactNo2;
+                    client.Email = vm.Email;
+                    client.Address = vm.Address;
+                    client.Priority = vm.Priority;
+                    client.RouteId = vm.RouteId;
+                    client.Longitude = vm.Longitude;
+                    client.Latitude = vm.Latitude;
+                    client.UpdatedOn = DateTime.UtcNow;
+                    client.UpdatedById = user.Id;
+
+                    _db.Clients.Update(client);
+                    response.Message = "Selected client details has been updated.";
+                }
+
 
                 await _db.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "New Client has been saved.";
+
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = "Error has been occured while adding new customer. Please try again.";
@@ -74,7 +102,7 @@ namespace VehicleTracker.Business
                 response.IsSuccess = true;
                 response.Message = "Selected client has been deleted.";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = "Error has been occured while deleting the selected customer. Please try again.";
@@ -83,32 +111,32 @@ namespace VehicleTracker.Business
             return response;
 
         }
-       
 
-        public PaginatedItemsViewModel<CustomerViewModel> GetAllCustomers(int pageSize, int currentPage)
+
+        public List<CustomerViewModel> GetAllCustomers()
         {
             var query = _db.Clients.Where(t => t.IsActive == true).OrderBy(t => t.Name);
 
-            int totalRecordCount = 0;
-            double totalPages = 0;
-            int totalPageCount = 0;
+            //int totalRecordCount = 0;
+            //double totalPages = 0;
+            //int totalPageCount = 0;
             var data = new List<CustomerViewModel>();
 
-            totalRecordCount = query.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            //totalRecordCount = query.Count();
+            //totalPages = (double)totalRecordCount / pageSize;
+            //totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderBy(t => t.Name).ToList();
-
+            //var pageData = query.Skip((currentPage - 1) * pageSize).Take(pageSize).OrderBy(t => t.Name).ToList();
+            var pageData = query.ToList();
             pageData.ForEach(p =>
             {
                 data.Add(p.ToVm());
             });
 
-            var response = new PaginatedItemsViewModel<CustomerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
+            //var response = new PaginatedItemsViewModel<CustomerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, data);
 
 
-            return response;
+            return data;
         }
 
         public CustomerViewModel GetCustomerById(long id)
@@ -118,41 +146,37 @@ namespace VehicleTracker.Business
             return client.ToVm();
         }
 
-        public async Task<ResponseViewModel> UpdateCustomer(CustomerViewModel vm, string userName)
+        public CustomerMasterDataViewModel GetCustomerMasterData()
         {
-            var response = new ResponseViewModel();
-            try
+            var response = new CustomerMasterDataViewModel();
+
+
+            foreach (ClientPriority value in Enum.GetValues(typeof(ClientPriority)))
             {
-                var user = _userService.GetUserByUsername(userName);
-
-                var client = _db.Clients.FirstOrDefault(t => t.Id == vm.Id);
-                client.Name = vm.Name;
-                client.Description = vm.Description;
-                client.ContactNo1 = vm.ContactNo1;
-                client.ContactNo2 = vm.ContactNo2;
-                client.Email = vm.Email;
-                client.Address = vm.Address;
-                client.Priority = vm.Priority;
-                client.RouteId = vm.RouteId;
-                client.Longitude = vm.Longitude;
-                client.Latitude = vm.Latitude;
-                client.UpdatedOn = DateTime.UtcNow;
-                client.UpdatedById = user.Id;
-
-                _db.Clients.Update(client);
-
-                await _db.SaveChangesAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Selected client details has been updated.";
+                response.Priorities.Add(new DropDownViewModel() { Id = (int)value, Name = EnumHelper.GetEnumDescription(value) });
             }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Error has been occured while updating the selected client details. Please try again.";
-            }
+
+
+            var routes = _db.Routes
+                .Where(x => x.IsActive == true)
+                .Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
+
+            response.Routes.AddRange(routes);
 
             return response;
         }
+
+
+
+        //public List<DropDownViewModal> GetAllRoutes()
+        //{
+        //    var routes = _db.UserRoles
+        //        .Where(x => x.RoleId == (int)RoleType.Route || x.RoleId == (int)RoleType.Route)
+        //        .Select(u => new DropDownViewModal() { Id = u.Route.Id, Name = string.Format("{0} {1}", u.User.FirstName, u.User.LastName) }).Distinct().ToList();
+
+        //    return routes;
+        //}
+
+
     }
 }

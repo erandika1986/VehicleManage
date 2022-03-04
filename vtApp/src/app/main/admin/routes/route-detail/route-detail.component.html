@@ -24,6 +24,13 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Route Name</mat-label>
+                <input matInput name="name" formControlName="name" required>
+                <mat-error>Route Name is required!</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="w-100-p">
                 <mat-label>Start Location</mat-label>
                 <input matInput name="startFrom" formControlName="startFrom" required>
                 <mat-error>Start location required!</mat-error>

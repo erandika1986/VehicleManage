@@ -1,10 +1,13 @@
 import { DataSource } from "@angular/cdk/table";
 import { UserService } from "app/services/user/user.service";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 export class UserDataSource extends DataSource<any>
 {
 
+    private _filterChange = new BehaviorSubject('');
+    private _filteredDataChange = new BehaviorSubject('');
+    
     constructor(
         private _userService: UserService
     )
@@ -18,7 +21,7 @@ export class UserDataSource extends DataSource<any>
      */
     connect(): Observable<any[]>
     {
-        return this._userService.getAllUsers(0,true);
+        return this._userService.getAllUsers(0,0);
     }
 
     /**

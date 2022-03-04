@@ -11,9 +11,10 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize]
+
   public class VehicleGreeceNipleController : ControllerBase
   {
     private readonly IVehicleGreeceNipleService _vehicleGreeceNipleService;

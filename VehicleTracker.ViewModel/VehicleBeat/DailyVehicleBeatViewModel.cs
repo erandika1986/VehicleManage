@@ -12,11 +12,21 @@ namespace VehicleTracker.ViewModel.VehicleBeat
         public string VehicleNumber { get; set; }
 
         public long RouteId { get; set; }
-        public string Route { get; set; }
+        public string RouteName { get; set; }
+        public long? DriverId { get; set; }
+        public string DriverName { get; set; }
+        public long? SalesRepId { get; set; }
+        public string SalesRepName { get; set; }
+
 
         public DateTime Date { get; set; }
-        public decimal StartingMilage { get; set; }
+        public int DateYear { get; set; }
+        public int DateMonth { get; set; }
+        public int DateDay { get; set; }
+
+        public decimal? StartingMilage { get; set; }
         public decimal? EndMilage { get; set; }
+        public string Remarks { get; set; }
         public DailyBeatStatus Status { get; set; }
         public string StatusInText { get; set; }
         public DateTime CreatedOn { get; set; }

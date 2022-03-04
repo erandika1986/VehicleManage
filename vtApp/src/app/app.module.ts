@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TranslateModule } from '@ngx-translate/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import 'hammerjs';
 
 import { FuseModule } from '@fuse/fuse.module';
@@ -27,6 +28,7 @@ import { AuthInterceptorService } from './services/account/auth-interceptor.serv
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MaterialModule } from './MaterialModule';
+
 
 const appRoutes: Routes = [
     {
@@ -50,6 +52,11 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'expenses-tracking',
+        loadChildren: () => import('./main/expenses-tracking/expenses-tracking.module').then(m => m.ExpensesTrackingModule),
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'dashbaord',
         loadChildren: () => import('./main/dashbaord/dashbaord.module').then(m => m.DashbaordModule),
         canActivate: [AuthGuard]
@@ -60,8 +67,8 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'order',
-        loadChildren: () => import('./main/order/order.module').then(m => m.OrderModule),
+        path: 'sale-order',
+        loadChildren: () => import('./main/sale-order/sale-order.module').then(m => m.SaleOrderModule),
         canActivate: [AuthGuard]
     },
     {
@@ -73,7 +80,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+    
     ],
     imports: [
         BrowserModule,
@@ -104,7 +112,8 @@ const appRoutes: Routes = [
         // App modules
         LayoutModule,
         AppStoreModule,
-        MaterialModule
+        MaterialModule,
+        NgxDaterangepickerMd,
     ],
     providers:
         [

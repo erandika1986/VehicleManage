@@ -31,7 +31,7 @@ export class RouteListComponent implements OnInit {
   dialogRef: any;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
-  displayedColumns = ["buttons", "id", "routeCode", "startFrom", "endFrom", "totalDistance"];
+  displayedColumns = ["buttons", "id", "routeCode","name", "startFrom", "endFrom", "totalDistance"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -95,6 +95,7 @@ export class RouteListComponent implements OnInit {
     let route: RouteModel = new RouteModel();
     route.id = 0;
     route.endFrom = "";
+    route.name="";
     route.isActive = true;
     route.routeCode = "";
     route.startFrom = "";

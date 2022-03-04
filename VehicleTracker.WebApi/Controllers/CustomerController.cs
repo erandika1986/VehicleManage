@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VehicleTracker.Business.Interfaces;
 using VehicleTracker.ViewModel;
+using VehicleTracker.ViewModel.Customer;
 using VehicleTracker.WebApi.Helpers;
 using VehicleTracker.WebApi.Infrastructure.Services;
 
@@ -25,10 +26,10 @@ namespace VehicleTracker.WebApi.Controllers
       this.identityService = identityService;
     }
 
-    [HttpGet("{pageSize:int}/{currentPage:int}")]
-    public ActionResult Get(int pageSize, int currentPage)
+    [HttpGet]
+    public ActionResult Get()
     {
-      var response = _customerService.GetAllCustomers(pageSize, currentPage);
+      var response = _customerService.GetAllCustomers();
       return Ok(response);
     }
 
@@ -46,17 +47,7 @@ namespace VehicleTracker.WebApi.Controllers
     {
       var userName = identityService.GetUserName();
 
-      var response = await _customerService.AddNewCustomer(vm, userName);
-      return Ok(response);
-    }
-
-    // PUT api/Route
-    [HttpPut]
-    public async Task<ActionResult> Put([FromBody] CustomerViewModel vm)
-    {
-      var userName = identityService.GetUserName();
-
-      var response = await _customerService.UpdateCustomer(vm, userName);
+      var response = await _customerService.SaveCustomer(vm, userName);
       return Ok(response);
     }
 
@@ -69,5 +60,14 @@ namespace VehicleTracker.WebApi.Controllers
       var response = await _customerService.DeleteCustomer(id, userName);
       return Ok(response);
     }
+
+        [HttpGet]
+        [Route("getCustomerMasterData")]
+        public ActionResult GetCustomerMasterData()
+        {
+            CustomerMasterDataViewModel response = _customerService.GetCustomerMasterData();
+
+            return Ok(response);
+        }
   }
 }

@@ -49,7 +49,23 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'alarm',
                 url: '/vehicle-tracking/daily-beats/list'
-            }
+            },
+        ]
+    },
+    {
+        id: 'expenses',
+        title: 'Expenses',
+        type: 'group',
+        icon: 'pages',
+        children: [
+            {
+                id: 'expenses',
+                title: 'Expenses',
+                type: 'item',
+                icon: 'alarm',
+                url: '/expenses-tracking/expenses/list'
+               
+            },
         ]
     },
     {
@@ -63,7 +79,7 @@ export const navigation: FuseNavigation[] = [
                 title: 'Sales Order',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
+                url: '/sale-order/list'
             }
         ]
     },
@@ -75,18 +91,25 @@ export const navigation: FuseNavigation[] = [
         children: [
 
             {
-                id: 'inventory',
+                id: 'inventory-detail',
                 title: 'Product Inventory',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
+                url: '/inventory/inventory-detail/list'
+            },
+            {
+                id: 'product-return',
+                title: 'Product Return',
+                type: 'item',
+                icon: 'alarm',
+                url: '/inventory/product-return/list'
             },
             {
                 id: 'purchase-order',
                 title: 'Purchase Orders',
                 type: 'item',
                 icon: 'alarm',
-                url: '/vehicle-tracking/daily-beats/list'
+                url: '/inventory/purchase-order/list'
             }
         ]
     },

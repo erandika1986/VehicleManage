@@ -1,0 +1,92 @@
+@import "src/@fuse/scss/fuse";
+
+users-user-list {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+
+
+    .category-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .mat-header-row {
+            min-height: 64px;
+        }
+
+        .mat-column-buttons {
+            flex: 0 1 10%;
+            text-align: center !important;
+            align-items: center !important;
+        }
+
+        .mat-column-orderNumber {
+            flex: 0 1 10%;
+        }
+
+        .mat-column-status {
+            flex: 0 1 10%;
+        }
+
+        .mat-column-total {
+            flex: 0 1 10%;
+        }
+
+        .mat-column-orderDate {
+            flex: 0 1 10%;
+        }
+
+        .mat-column-ownerName {
+            flex: 0 1 20%;
+        }
+
+        .mat-column-route {
+            flex: 0 1 20%;
+        }
+
+        .mat-column-createdOn {
+            flex: 0 1 10%;
+        }
+    }
+}
+
+#add-user-button {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    padding: 0;
+    z-index: 99;
+
+    @include media-breakpoint("xs") {
+        position: sticky;
+        top: calc(100vh - 120px);
+        bottom: auto;
+    }
+}
+
+.button-row {
+    display: table-cell;
+    width: 100% !important;
+}
+
+.button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+}
+
+button.small {
+    margin-right: 1vw;
+    font-size: 9px;
+    min-width: 20px !important;
+}
+
+.small-mat-raised-button-small {
+    padding: 0px 6px !important;
+}
+
+i,
+.small-mat-icon {
+    margin-top: 10px;
+    font-size: 15px !important;
+}

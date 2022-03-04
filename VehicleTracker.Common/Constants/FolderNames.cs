@@ -15,5 +15,7 @@ namespace VehicleTracker.Common
     public const string PRODUCT_SUB_CATEGORY = "PRODUCT-SUB-CATEGORIES";
     public const string PRODUCT = "PRODUCTS";
     public const string USERS = "USERS";
-  }
+    public const string EXPENSES = "EXPENSES";
+
+    }
 }

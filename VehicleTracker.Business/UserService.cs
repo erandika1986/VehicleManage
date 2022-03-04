@@ -78,21 +78,23 @@ namespace VehicleTracker.Business
         if(user==null)
         {
           user = vm.ToNewModel();
+          user.Password = CustomPasswordHasher.GenerateHash(vm.Password);
 
           user.UserRoles = new HashSet<UserRole>();
 
-          foreach (var role in vm.Roles)
+          foreach (var roleId in vm.Roles)
           {
             var userRole = new UserRole()
             {
               IsActive = true,
-              RoleId = role.Id,
+              RoleId = roleId,
               StartedDate = DateTime.UtcNow
             };
 
             user.UserRoles.Add(userRole);
-            _db.Users.Add(user);
           }
+
+          _db.Users.Add(user);
 
           response.Message = "New user has been created.";
         }
@@ -107,16 +109,16 @@ namespace VehicleTracker.Business
           user.DrivingLicenceNo = vm.DrivingLicenceNo;
 
           var existingId = user.UserRoles.Select(x => x.RoleId).ToList();
-          var newRoles = (from nr in vm.Roles where !existingId.Any(x => x == nr.Id) select nr);
-          var deletedRoles = (from dr in existingId where !vm.Roles.Any(x => x.Id == dr) select dr);
+          var newRoles = (from nr in vm.Roles where !existingId.Any(x => x == nr) select nr);
+          var deletedRoles = (from dr in existingId where !vm.Roles.Any(x => x == dr) select dr);
 
           //Assigned New roles
-          foreach(var role in newRoles)
+          foreach(var roleId in newRoles)
           {
             var userRole = new UserRole()
             {
               IsActive = true,
-              RoleId = role.Id,
+              RoleId = roleId,
               StartedDate = DateTime.UtcNow
             };
 
@@ -204,26 +206,32 @@ namespace VehicleTracker.Business
 
       foreach(var item in _db.TimeZoneDetails)
       {
-        response.TimeZones.Add(new DropDownViewModal() { Id = item.Id, Name = item.DisplayName });
+        response.TimeZones.Add(new DropDownViewModel() { Id = item.Id, Name = item.DisplayName });
       }
 
       foreach (RoleType role in (RoleType[])Enum.GetValues(typeof(RoleType)))
       {
-        response.Roles.Add(new DropDownViewModal() { Id = (int)role, Name = EnumHelper.GetEnumDescription(role) });
+        response.Roles.Add(new DropDownViewModel() { Id = (int)role, Name = EnumHelper.GetEnumDescription(role) });
       }
 
       return response;
     }
 
-    public List<UserViewModel> GetAllUsers(int roleId, bool status)
+    public List<UserViewModel> GetAllUsers(int roleId, int status)
     {
       var response = new List<UserViewModel>();
 
-      var query = _db.Users.Where(x=>x.IsActive==status);
+      var query = _db.Users.OrderBy(x=>x.FirstName);
+
+      if(status>0)
+      {
+        var isActive = status == 1 ? true : false;
+        query = query.Where(x => x.IsActive == isActive).OrderBy(x => x.FirstName);
+      }
 
       if(roleId>0)
       {
-        query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId));
+        query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x=>x.FirstName);
       }
 
       var users = query.ToList();
@@ -236,6 +244,13 @@ namespace VehicleTracker.Business
       return response;
     }
 
+    public UserViewModel GetUserById(long id)
+    {
+      var user = _db.Users.FirstOrDefault(x => x.Id == id);
+
+      return user.ToVm(_config);
+    }
+
     public async Task<ResponseViewModel> UploadUserImage(FileContainerModel container, string userName)
     {
       var response = new ResponseViewModel();
@@ -245,6 +260,7 @@ namespace VehicleTracker.Business
       {
         var user = _db.Users.FirstOrDefault(t => t.Username == userName);
         var userRecord = _db.Users.FirstOrDefault(x => x.Id == container.Id);
+        var folderPath = userRecord.GetUserImageFolderPath(_config);
         //var folderPath = string.Empty;
         //var fileName = string.Empty;
         //var filePath = string.Empty;
@@ -255,10 +271,10 @@ namespace VehicleTracker.Business
         {
           case (int)UserPhotoType.UserImage:
             {
-              var folderPath = userRecord.GetUserImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.Image))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.Image);
+
                 if (File.Exists(existingImagePath))
                 {
                   File.Delete(existingImagePath);
@@ -279,11 +295,6 @@ namespace VehicleTracker.Business
                   await firstFile.CopyToAsync(stream);
 
                   userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
                   response.Message = "User image has been uploaded succesfully.";
                 }
               }
@@ -291,7 +302,7 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.NicBack:
             {
-              var folderPath = userRecord.GetUserNICBackImagePath(_config);
+
               if (!string.IsNullOrEmpty(userRecord.NicbackImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.NicbackImage);
@@ -314,12 +325,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.NicbackImage = fileName;
                   response.Message = "User NIC back image has been uploaded succesfully.";
                 }
               }
@@ -327,7 +333,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.NicFront:
             {
-              var folderPath = userRecord.GetUserNICFrontImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.NicfrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.NicfrontImage);
@@ -350,12 +355,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.NicfrontImage = fileName;
                   response.Message = "User NIC front image has been uploaded succesfully.";
                 }
               }
@@ -363,7 +363,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.DrivingLicenceFront:
             {
-              var folderPath = userRecord.GetUserDrivingLicenceFrontImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.DrivingLicenceFrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.DrivingLicenceFrontImage);
@@ -386,12 +385,7 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.DrivingLicenceFrontImage = fileName;
                   response.Message = "User driving licence front image has been uploaded succesfully.";
                 }
               }
@@ -399,7 +393,6 @@ namespace VehicleTracker.Business
             break;
           case (int)UserPhotoType.DrivingLicenceBack:
             {
-              var folderPath = userRecord.GetUserDrivingLicenceBackImagePath(_config);
               if (!string.IsNullOrEmpty(userRecord.DrivingLicenceFrontImage))
               {
                 var existingImagePath = string.Format(@"{0}\{1}", folderPath, userRecord.DrivingLicenceBackImage);
@@ -422,18 +415,16 @@ namespace VehicleTracker.Business
                 {
                   await firstFile.CopyToAsync(stream);
 
-                  userRecord.Image = fileName;
-
-                  _db.Users.Update(userRecord);
-
-                  await _db.SaveChangesAsync();
-
+                  userRecord.DrivingLicenceBackImage = fileName;
                   response.Message = "User driving licence back image has been uploaded succesfully.";
                 }
               }
             }
             break;
         }
+
+        _db.Users.Update(userRecord);
+        await _db.SaveChangesAsync();
 
         response.IsSuccess = true;
 
@@ -443,6 +434,7 @@ namespace VehicleTracker.Business
         _logger.LogError(ex.ToString());
         response.IsSuccess = false;
         response.Message = "Error has been occured while uploading the file. Please try again.";
+
       }
 
       return response;
@@ -517,12 +509,12 @@ namespace VehicleTracker.Business
   {
     public UserMasterDataViewModel()
     {
-      Roles = new List<DropDownViewModal>();
-      TimeZones = new List<DropDownViewModal>();
+      Roles = new List<DropDownViewModel>();
+      TimeZones = new List<DropDownViewModel>();
     }
 
-    public List<DropDownViewModal> Roles { get; set; }
-    public List<DropDownViewModal> TimeZones { get; set; }
+    public List<DropDownViewModel> Roles { get; set; }
+    public List<DropDownViewModel> TimeZones { get; set; }
   }
 
   public enum UserPhotoType

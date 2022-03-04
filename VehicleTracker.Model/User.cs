@@ -14,15 +14,25 @@ namespace VehicleTracker.Model
             CustomerProductPriceCreatedBies = new HashSet<CustomerProductPrice>();
             CustomerProductPriceUpdatedBies = new HashSet<CustomerProductPrice>();
             DailyVehicleBeatCreatedByNavigations = new HashSet<DailyVehicleBeat>();
+            DailyVehicleBeatDrivers = new HashSet<DailyVehicleBeat>();
+            DailyVehicleBeatOrders = new HashSet<DailyVehicleBeatOrder>();
+            DailyVehicleBeatSalesReps = new HashSet<DailyVehicleBeat>();
             DailyVehicleBeatUpdatedByNavigations = new HashSet<DailyVehicleBeat>();
-            OrderCreatedBies = new HashSet<Order>();
-            OrderUpdatedBies = new HashSet<Order>();
+            ExpenseCreatedBies = new HashSet<Expense>();
+            ExpenseUpdatedBies = new HashSet<Expense>();
             ProductCreatedBies = new HashSet<Product>();
             ProductInventoryCreatedBies = new HashSet<ProductInventory>();
+            ProductInventoryOrderCreatedBies = new HashSet<ProductInventoryOrder>();
+            ProductInventoryOrderUpdatedBies = new HashSet<ProductInventoryOrder>();
             ProductInventoryUdatedBies = new HashSet<ProductInventory>();
+            ProductReturnCreatedBies = new HashSet<ProductReturn>();
+            ProductReturnUpdatedBies = new HashSet<ProductReturn>();
             ProductUpdatedBies = new HashSet<Product>();
             PurchaseOrderCreatedBies = new HashSet<PurchaseOrder>();
+            PurchaseOrderSendingHistories = new HashSet<PurchaseOrderSendingHistory>();
             PurchaseOrderUpdatedBies = new HashSet<PurchaseOrder>();
+            SalesOrderCreatedBies = new HashSet<SalesOrder>();
+            SalesOrderUpdatedBies = new HashSet<SalesOrder>();
             SupplierCreatedBies = new HashSet<Supplier>();
             SupplierUpdatedBies = new HashSet<Supplier>();
             UserRoles = new HashSet<UserRole>();
@@ -34,8 +44,6 @@ namespace VehicleTracker.Model
             VehicleEmissiontTestUpdatedByNavigations = new HashSet<VehicleEmissiontTest>();
             VehicleEngineOilMilageCreatedByNavigations = new HashSet<VehicleEngineOilMilage>();
             VehicleEngineOilMilageUpdatedByNavigations = new HashSet<VehicleEngineOilMilage>();
-            VehicleExpenseCreatedByNavigations = new HashSet<VehicleExpense>();
-            VehicleExpenseUpdatedByNavigations = new HashSet<VehicleExpense>();
             VehicleFitnessReportCreatedByNavigations = new HashSet<VehicleFitnessReport>();
             VehicleFitnessReportUpdatedByNavigations = new HashSet<VehicleFitnessReport>();
             VehicleFuelFilterMilageCreatedByNavigations = new HashSet<VehicleFuelFilterMilage>();
@@ -77,15 +85,25 @@ namespace VehicleTracker.Model
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceCreatedBies { get; set; }
         public virtual ICollection<CustomerProductPrice> CustomerProductPriceUpdatedBies { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatCreatedByNavigations { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatDrivers { get; set; }
+        public virtual ICollection<DailyVehicleBeatOrder> DailyVehicleBeatOrders { get; set; }
+        public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatSalesReps { get; set; }
         public virtual ICollection<DailyVehicleBeat> DailyVehicleBeatUpdatedByNavigations { get; set; }
-        public virtual ICollection<Order> OrderCreatedBies { get; set; }
-        public virtual ICollection<Order> OrderUpdatedBies { get; set; }
+        public virtual ICollection<Expense> ExpenseCreatedBies { get; set; }
+        public virtual ICollection<Expense> ExpenseUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductCreatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryCreatedBies { get; set; }
+        public virtual ICollection<ProductInventoryOrder> ProductInventoryOrderCreatedBies { get; set; }
+        public virtual ICollection<ProductInventoryOrder> ProductInventoryOrderUpdatedBies { get; set; }
         public virtual ICollection<ProductInventory> ProductInventoryUdatedBies { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturnCreatedBies { get; set; }
+        public virtual ICollection<ProductReturn> ProductReturnUpdatedBies { get; set; }
         public virtual ICollection<Product> ProductUpdatedBies { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderCreatedBies { get; set; }
+        public virtual ICollection<PurchaseOrderSendingHistory> PurchaseOrderSendingHistories { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderUpdatedBies { get; set; }
+        public virtual ICollection<SalesOrder> SalesOrderCreatedBies { get; set; }
+        public virtual ICollection<SalesOrder> SalesOrderUpdatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierCreatedBies { get; set; }
         public virtual ICollection<Supplier> SupplierUpdatedBies { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
@@ -97,8 +115,6 @@ namespace VehicleTracker.Model
         public virtual ICollection<VehicleEmissiontTest> VehicleEmissiontTestUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleEngineOilMilage> VehicleEngineOilMilageUpdatedByNavigations { get; set; }
-        public virtual ICollection<VehicleExpense> VehicleExpenseCreatedByNavigations { get; set; }
-        public virtual ICollection<VehicleExpense> VehicleExpenseUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportCreatedByNavigations { get; set; }
         public virtual ICollection<VehicleFitnessReport> VehicleFitnessReportUpdatedByNavigations { get; set; }
         public virtual ICollection<VehicleFuelFilterMilage> VehicleFuelFilterMilageCreatedByNavigations { get; set; }

@@ -1,0 +1,134 @@
+<div class="sidebar-content">
+    <div class="card">
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+            <div class="nav material2">
+                <form
+                    [formGroup]="filterForm"
+                    style="margin-left: 5px !important"
+                >
+                    <div class="nav-item" aria-label="inbox">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Status</mat-label>
+                            <mat-select
+                                formControlName="selectedStatus"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of status"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Routes</mat-label>
+                            <mat-select
+                                formControlName="selectedRouteId"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of routes"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Vehicle</mat-label>
+                            <mat-select
+                                formControlName="selectedVehicleId"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of vehicles"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Driver</mat-label>
+                            <mat-select
+                                formControlName="selectedDriverId"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of drivers"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Sales Rep</mat-label>
+                            <mat-select
+                                formControlName="selectedSalesRepId"
+                                (selectionChange)="dropdownFilterChanged()"
+                            >
+                                <mat-option
+                                    *ngFor="let item of salesReps"
+                                    [value]="item.id"
+                                >
+                                    {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nav-item" aria-label="frequently contacted">
+                        <mat-form-field
+                            appearance="outline"
+                            class="pr-sm-8 pr-4 custome-wrapper"
+                            fxFlex="1 0 20"
+                        >
+                            <mat-label>Plan Date</mat-label>
+                            <input matInput [matDatepicker]="planDatePicker" name="start" formControlName="date" (dateChange)="addEvent('change', $event)">
+                            <mat-datepicker-toggle matSuffix [for]="planDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #planDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->

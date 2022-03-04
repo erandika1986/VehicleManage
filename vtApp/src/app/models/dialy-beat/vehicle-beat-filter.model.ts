@@ -1,11 +1,13 @@
 export class VehicleBeatFilterModel {
-    //SelectedRouteId: number;
-    //SelectedVehicleId: number;
-    //FromDate: Date;
-    //ToDate: Date;
-    //routeId: number;
-    date: string;
-
-    //pageSize: number;
-    //currentPage: number;
+    selectedRouteId: number;
+    selectedVehicleId: number;
+    selectedDriverId: number;
+    selectedSalesRepId: number;
+    selectedStatus: number;
+    date: Date;
+    dateYear:number;
+    dateMonth:number;
+    dateDay:number;
+    pageSize: number;
+    currentPage: number;
 }

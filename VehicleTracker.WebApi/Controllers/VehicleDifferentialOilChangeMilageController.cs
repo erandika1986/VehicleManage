@@ -11,9 +11,9 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize]
   public class VehicleDifferentialOilChangeMilageController : ControllerBase
   {
     private readonly IVehicleDifferentialOilChangeMilageService _vehicleDifferentialOilChangeMilageService;

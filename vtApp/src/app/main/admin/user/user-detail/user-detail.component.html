@@ -1,1 +1,278 @@
-<p>user-detail works!</p>
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <img [src]="'assets/images/avatars/profile.jpg'" class="avatar contact-avatar huge m-0"
+                  *ngIf="!user?.image"/>
+            <img [src]="user?.image" class="avatar contact-avatar huge m-0"
+                  *ngIf="user?.image"/>
+            <div class="contact-name mt-8">{{user.firstName}} {{user.lastName}}</div>
+            <div class="contact-name mt-8">
+                <span style="font-size: 13px;cursor: pointer;" (click)="profileImageInput.click()">Upload Profile Image</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span style="font-size: 13px;cursor: pointer;" (click)="downloadFile(1,user?.imageName)">Download Profile Image</span>
+                <input #profileImageInput type="file" class="form-control" name="documents" (change)="onFileChange($event,1)" style="display:none;"/>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Details">
+                <form [formGroup]="userForm" style="margin-top: 20px !important;">
+
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                            <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                                <mat-label>First Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="firstName" formControlName="firstName" matInput placeholder="First Name" required> 
+                            </mat-form-field>
+         
+                            <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                                <mat-label>Last Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="lastName" formControlName="lastName" matInput placeholder="Last Name" required>
+                            </mat-form-field>
+        
+                    </div>
+        
+        
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Email</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="email" formControlName="email" matInput placeholder="Email">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Mobile No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="mobileNo" formControlName="mobileNo" matInput>
+                        </mat-form-field>
+        
+        
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Driving Licence No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="drivingLicenceNo" formControlName="drivingLicenceNo" matInput>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>NIC No</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="nicno" formControlName="nicno" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Username</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="username" formControlName="username" matInput required placeholder="Username">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48" *ngIf="id==0">
+                            <mat-label>Password</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="password" formControlName="password" matInput required>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-form-field appearance="outline" fxFlex floatLabel="always" fxFlex="48">
+                            <mat-label>Roles</mat-label>
+                            <mat-select formControlName="roles" multiple required>
+                                <mat-select-trigger>
+                                    {{rolesName}}
+                                  </mat-select-trigger>
+                                <mat-option *ngFor="let item of masterData?.roles" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" fxFlex  floatLabel="always" fxFlex="48">
+                            <mat-label>Time Zone</mat-label>
+                            <mat-select formControlName="timeZoneId" required>
+                                <mat-option *ngFor="let item of masterData?.timeZones" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Personal Address</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="personalAddress" formControlName="personalAddress" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                </form>
+            </mat-tab>
+
+            <mat-tab label="Image Upload" *ngIf="id!=0">
+                <div class="products tab-content p-24" fusePerfectScrollbar>
+                    <table class="simple">
+                        <thead>
+                            <tr>
+
+                                <th style="width: 20% !important;">Image</th>
+                                <th style="width: 40% !important;">Name</th>
+                                <th style="width: 20% !important;">Upload</th>
+                                <th style="width: 20% !important;">Download</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/id-card.png'" *ngIf="!user?.nicFrontImage">
+                                    <img class="product-image" [src]="user.nicFrontImage" *ngIf="user?.nicFrontImage">
+                                </td>
+                                <td>
+                                    NIC Front Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="nicfpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #nicfpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,2)" style="display:none;"/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.nicFrontImage" (click)="downloadFile(2,user?.nicFrontImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/id-card.png'" *ngIf="!user?.nicBackImage">
+                                    <img class="product-image" [src]="user.nicBackImage" *ngIf="user?.nicBackImage">
+                                </td>
+                                <td>
+                                    NIC Back Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="nicbpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #nicbpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,3)" style="display:none;"/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small"  *ngIf="user?.nicBackImage" (click)="downloadFile(3,user?.nicBackImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/driving-license.png'" *ngIf="!user?.drivingLicenceFrontImage">
+                                    <img class="product-image" [src]="user.drivingLicenceFrontImage" *ngIf="user?.drivingLicenceFrontImage">
+                                </td>
+                                <td>
+                                    Driving Licence Front Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="dlfpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #dlfpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,4)" style="display:none;"/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceFrontImage" (click)="downloadFile(4,user?.drivingLicenceFrontImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr class="product-row">
+
+                                <td>
+                                    <img class="product-image" [src]="'assets/images/logos/driving-license.png'" *ngIf="!user?.drivingLicenceBackImage">
+                                    <img class="product-image" [src]="user.drivingLicenceBackImage" *ngIf="user?.drivingLicenceBackImage">
+                                </td>
+                                <td>
+                                    Driving Licence Back Image
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="blue  small small-mat-raised-button-small" (click)="dlbpfileInput.click()">
+                                        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+                                        <input #dlbpfileInput type="file" class="form-control" name="documents" (change)="onFileChange($event,5)" style="display:none;"/>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="green  small small-mat-raised-button-small" *ngIf="user?.drivingLicenceBackImage"  (click)="downloadFile(5,user?.drivingLicenceBackImageName)">
+                                        <mat-icon class="small-mat-icon" >cloud_download</mat-icon>
+
+                                    </button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+
+
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="mr-8"
+                (click)="matDialogRef.close(['delete',userForm])"
+                aria-label="Delete"
+                matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(userForm)"
+                [disabled]="userForm.invalid"
+                aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(['save',userForm])"
+                [disabled]="userForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

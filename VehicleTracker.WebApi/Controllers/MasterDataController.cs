@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class MasterDataController : ControllerBase
@@ -26,7 +28,7 @@ namespace VehicleTracker.WebApi.Controllers
 
 
     [HttpGet("getAllCodeTypes")]
-    [ProducesResponseType(typeof(List<DropDownViewModal>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<DropDownViewModel>), (int)HttpStatusCode.OK)]
     public IActionResult GetAllCodeTypes()
     {
       var response = masterDataSevice.GetAllCodeTypes();

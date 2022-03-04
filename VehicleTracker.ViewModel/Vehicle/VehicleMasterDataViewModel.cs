@@ -9,11 +9,11 @@ namespace VehicleTracker.ViewModel.Vehicle
     {
         public VehicleMasterDataViewModel()
         {
-            VehicleTypes = new List<DropDownViewModal>();
-            ProductionYears = new List<DropDownViewModal>();
+            VehicleTypes = new List<DropDownViewModel>();
+            ProductionYears = new List<DropDownViewModel>();
         }
 
-        public List<DropDownViewModal> VehicleTypes { get; set; }
-        public List<DropDownViewModal> ProductionYears { get; set; }
+        public List<DropDownViewModel> VehicleTypes { get; set; }
+        public List<DropDownViewModel> ProductionYears { get; set; }
     }
 }

@@ -55,6 +55,7 @@ export class RouteDetailComponent implements OnInit {
     return new FormGroup({
       id: new FormControl({ value: this.route.id, disabled: true }),
       routeCode: new FormControl(this.route.routeCode, Validators.required),
+      name:new FormControl(this.route.name, Validators.required),
       startFrom: new FormControl(this.route.startFrom, Validators.required),
       endFrom: new FormControl(this.route.endFrom, Validators.required),
       totalDistance: new FormControl(this.route.totalDistance, Validators.required),

@@ -1,10 +1,11 @@
+import { DropDownModel } from '../common/drop-down.modal';
 import { Role } from './role.mode';
 
 export class User {
     id: number;
     firstName: string;
     lastName: string;
-    userName: string;
+    username: string;
     email: string;
     mobileNo: string;
     personalAddress:string;
@@ -18,5 +19,12 @@ export class User {
     drivingLicenceNo:string;
     drivingLicenceFrontImage:string;
     drivingLicenceBackImage:string;
-    role: Role[];
+    roles: number[];
+    roleText:string;
+
+    imageName :string;
+    nicFrontImageName :string;
+    nicBackImageName :string;
+    drivingLicenceFrontImageName :string;
+    drivingLicenceBackImageName :string;
 }

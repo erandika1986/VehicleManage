@@ -1,0 +1,23 @@
+2022-02-03 22:18:21.719 +05:30 [INF] Configuring web host (VehicleTracker.WebApi)...
+2022-02-03 22:18:24.159 +05:30 [INF] Starting web host (VehicleTracker.WebApi)...
+2022-02-03 22:18:24.166 +05:30 [DBG] Hosting starting
+2022-02-03 22:18:24.453 +05:30 [INF] User profile is available. Using 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-02-03 22:18:24.455 +05:30 [DBG] Reading data from file 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys\key-19401d3e-6a5a-499a-8c4e-175ef487623b.xml'.
+2022-02-03 22:18:24.487 +05:30 [DBG] Reading data from file 'C:\Users\erand\AppData\Local\ASP.NET\DataProtection-Keys\key-cf48779b-10c1-4fc3-9a35-77488cf33f61.xml'.
+2022-02-03 22:18:24.495 +05:30 [DBG] Found key {19401d3e-6a5a-499a-8c4e-175ef487623b}.
+2022-02-03 22:18:24.501 +05:30 [DBG] Found key {cf48779b-10c1-4fc3-9a35-77488cf33f61}.
+2022-02-03 22:18:24.506 +05:30 [DBG] Considering key {cf48779b-10c1-4fc3-9a35-77488cf33f61} with expiration date 2022-04-27 21:22:35Z as default key.
+2022-02-03 22:18:24.514 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-03 22:18:24.516 +05:30 [DBG] Decrypting secret element using Windows DPAPI.
+2022-02-03 22:18:24.518 +05:30 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-02-03 22:18:24.521 +05:30 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2022-02-03 22:18:24.525 +05:30 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2022-02-03 22:18:24.528 +05:30 [DBG] Using key {cf48779b-10c1-4fc3-9a35-77488cf33f61} as the default key.
+2022-02-03 22:18:24.528 +05:30 [DBG] Key ring with default key {cf48779b-10c1-4fc3-9a35-77488cf33f61} was loaded during application startup.
+2022-02-03 22:18:24.533 +05:30 [DBG] Hosting started
+2022-02-03 22:18:24.533 +05:30 [DBG] Loaded hosting startup assembly VehicleTracker.WebApi
+2022-02-03 22:18:24.582 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/index.html - -
+2022-02-03 22:18:24.585 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2022-02-03 22:18:24.688 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/index.html - - - 200 - text/html;charset=utf-8 107.6438ms
+2022-02-03 22:18:25.015 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - -
+2022-02-03 22:18:25.139 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5005/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 123.7958ms

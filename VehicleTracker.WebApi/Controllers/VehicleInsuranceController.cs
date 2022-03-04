@@ -14,9 +14,10 @@ using VehicleTracker.WebApi.Infrastructure.Services;
 
 namespace VehicleTracker.WebApi.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize]
+
   public class VehicleInsuranceController : ControllerBase
   {
     private readonly IVehicleInsuranceService _vehicleInsuranceService;
