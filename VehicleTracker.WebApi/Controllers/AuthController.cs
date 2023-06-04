@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,20 +58,20 @@ namespace VehicleTracker.WebApi.Controllers
 
             if (user == null)
             {
-                return Unauthorized(new { ErrorMessage="Login failed.Invalid username has entered."});
+                return Unauthorized(new { ErrorMessage = "Login failed.Invalid username has entered." });
             }
             else
             {
                 var passwordHash = CustomPasswordHasher.GenerateHash(model.Password);
 
-                if (user.Password == passwordHash)
+                if (BCrypt.Net.BCrypt.Verify(user.Password, model.Password))
                 {
                     var test = _config["Tokens:Key"];
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                     //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(comapny.SecretKey.ToString()));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                     string userRole = string.Empty;
-                    string roles = string.Join(",",user.UserRoles.Select(t=>t.Role.Name).ToList());
+                    string roles = string.Join(",", user.UserRoles.Select(t => t.Role.Name).ToList());
 
                     var now = DateTime.UtcNow;
                     DateTime nowDate = DateTime.UtcNow;
@@ -94,12 +95,12 @@ namespace VehicleTracker.WebApi.Controllers
                     );
 
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                    return Ok(new 
-                    { 
+                    return Ok(new
+                    {
                         Token = tokenString,
                         FirstName = user.FirstName,
                         Email = user.Email,
-                        ProfilePic="",
+                        ProfilePic = "",
                         Role = user.UserRoles.FirstOrDefault().Role.Name
                     });
                 }

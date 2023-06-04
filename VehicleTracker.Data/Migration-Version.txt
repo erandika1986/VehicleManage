@@ -1,0 +1,9 @@
+﻿﻿Enable-Migrations -Project VehicleTracker.Data -StartUp VehicleTracker.WebApi -Verbose
+
+Add-Migration VT00001 -Project VehicleTracker.Data -StartUp VehicleTracker.WebApi -Verbose
+Add-Migration VT00002 -Project VehicleTracker.Data -StartUp VehicleTracker.WebApi -Verbose
+
+
+Update-Database -Project VehicleTracker.Data -StartUp VehicleTracker.WebApi -Verbose
+
+Script-Migration -From FOF00008 -Project VehicleTracker.Data -StartUp VehicleTracker.WebApi -Verbose
