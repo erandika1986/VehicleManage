@@ -64,7 +64,7 @@ namespace VehicleTracker.WebApi.Controllers
             {
                 var passwordHash = CustomPasswordHasher.GenerateHash(model.Password);
 
-                if (BCrypt.Net.BCrypt.Verify(user.Password, model.Password))
+                if (user.Password == passwordHash)
                 {
                     var test = _config["Tokens:Key"];
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));

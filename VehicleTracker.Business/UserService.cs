@@ -50,7 +50,7 @@ namespace VehicleTracker.Business
                 IsActive = true,
                 LastName = "Sandaruwan",
                 MobileNo = "0702605650",
-                Password = BCrypt.Net.BCrypt.HashPassword("system"),
+                Password = CustomPasswordHasher.GenerateHash("system"),
                 Username = "erandika1986@gmail.com",
             };
 
